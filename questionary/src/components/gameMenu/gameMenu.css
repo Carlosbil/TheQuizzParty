@@ -1,0 +1,23 @@
+/* En un archivo CSS separado o dentro de tu componente */
+.fun-buttons-container {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px;
+  }
+  
+  .fun-button {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  
+    /* Estilos adicionales para hacerlos divertidos */
+    &:hover {
+      background-color: #e74c3c;
+    }
+  }
+  

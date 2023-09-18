@@ -1,0 +1,94 @@
+{
+    "history": [
+        {
+            "question": "¿Quién fue el primer presidente de Estados Unidos?",
+            "answer": "George Washington",
+            "options": ["George Washington", "Thomas Jefferson", "John Adams"]
+        },
+        {
+            "question": "¿En qué año comenzó la Primera Guerra Mundial?",
+            "answer": "1914",
+            "options": ["1914", "1918", "1939"]
+        },
+        {
+            "question": "¿Cuál fue el nombre del barco en el que Cristóbal Colón llegó a América?",
+            "answer": "La Santa María",
+            "options": ["La Pinta", "La Santa María", "La Niña"]
+        },
+        {
+            "question": "¿Qué famoso discurso pronunció Martin Luther King Jr. en 1963?",
+            "answer": "Tengo un sueño",
+            "options": ["Discurso de la libertad", "Tengo un sueño", "Mensaje de igualdad"]
+        },
+        {
+            "question": "¿Quién fue el líder de la Revolución Rusa de 1917?",
+            "answer": "Vladimir Lenin",
+            "options": ["Josef Stalin", "Vladimir Putin", "Vladimir Lenin"]
+        },
+        {
+            "question": "¿Cuál es la fecha de la Declaración de Independencia de los Estados Unidos?",
+            "answer": "4 de julio de 1776",
+            "options": ["2 de julio de 1776", "4 de julio de 1776", "6 de julio de 1776"]
+        },
+        {
+            "question": "¿Quién escribió 'El Diario de Ana Frank'?",
+            "answer": "Ana Frank",
+            "options": ["Ana Frank", "Helen Keller", "Margaret Atwood"]
+        },
+        {
+            "question": "¿En qué año cayó el Muro de Berlín?",
+            "answer": "1989",
+            "options": ["1989", "1991", "1987"]
+        },
+        {
+            "question": "¿Cuál fue el resultado de la Guerra de Secesión de Estados Unidos?",
+            "answer": "La Unión ganó",
+            "options": ["La Unión ganó", "Los Confederados ganaron", "Hubo empate"]
+        },
+        {
+            "question": "¿Quién fue el fundador del Imperio Mongol?",
+            "answer": "Genghis Khan",
+            "options": ["Kublai Khan", "Genghis Khan", "Attila el Huno"]
+        },
+        {
+            "question": "¿Cuál fue el nombre del primer hombre en la Luna?",
+            "answer": "Neil Armstrong",
+            "options": ["Buzz Aldrin", "John Glenn", "Neil Armstrong"]
+        },
+        {
+            "question": "¿En qué año se firmó el Tratado de Versalles que puso fin a la Primera Guerra Mundial?",
+            "answer": "1919",
+            "options": ["1917", "1918", "1919"]
+        },
+        {
+            "question": "¿Cuál fue el nombre del último zar de Rusia?",
+            "answer": "Nicolás II",
+            "options": ["Alejandro III", "Nicolás I", "Nicolás II"]
+        },
+        {
+            "question": "¿Quién fue el líder de Sudáfrica que luchó contra el apartheid?",
+            "answer": "Nelson Mandela",
+            "options": ["Desmond Tutu", "Nelson Mandela", "F.W. de Klerk"]
+        },
+        {
+            "question": "¿Qué país fue el escenario de la Revolución Francesa?",
+            "answer": "Francia",
+            "options": ["Inglaterra", "Francia", "España"]
+        },
+        {
+            "question": "¿Cuál fue el nombre del primer emperador romano?",
+            "answer": "Augusto",
+            "options": ["Julio César", "Nerón", "Augusto"]
+        },
+        {
+            "question": "¿En qué año se independizó India del dominio británico?",
+            "answer": "1947",
+            "options": ["1942", "1945", "1947"]
+        },
+        {
+            "question": "¿Quién fue la primera mujer en volar sola en el Atlántico?",
+            "answer": "Amelia Earhart",
+            "options": ["Bessie Coleman", "Amelia Earhart", "Obama"]
+        }
+    ]
+}

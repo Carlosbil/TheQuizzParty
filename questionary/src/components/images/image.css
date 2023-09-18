@@ -1,0 +1,30 @@
+.App {
+    text-align: center;
+    background-color: #f0f0f0; /* Color de fondo */
+    padding: 20px;
+    min-height: 100vh; /* Asegura que el contenido ocupe al menos la altura de la pantalla */
+  }
+  
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .card {
+    border: 1px solid #ccc;
+    padding: 20px;
+    text-align: center;
+    background-color: white; /* Color de fondo de la tarjeta */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    border-radius: 8px; /* Bordes redondeados */
+    max-width: 300px; /* Ancho máximo de la tarjeta */
+    margin: 10px; /* Margen entre tarjetas */
+  }
+  
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  

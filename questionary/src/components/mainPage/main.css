@@ -1,0 +1,9 @@
+.fun{
+    padding: 10vi;
+    text-align: center;
+    background-color: white; /* Color de fondo de la tarjeta */
+    border-radius: 20px; /* Bordes redondeados */
+    width: 50vi;    
+    margin: 15vi;
+    font-size: 5vi;
+}

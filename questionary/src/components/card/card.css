@@ -1,0 +1,57 @@
+/* Card.css */
+
+.card {
+    border: 1px solid #ccc;
+    text-align: center;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    display: grid;
+    grid-template-rows: 1fr 60px; /* Divide la tarjeta en dos filas */
+    width: 300px; /* Puedes ajustar este valor según tus preferencias */
+    height: 500px;
+    margin: 10px;
+  }
+  
+  .card-content {
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  .card-image {
+    max-width: 100%;
+    width: 250px; /* Puedes ajustar este valor según tus preferencias */
+    height: 300px;
+    border-radius: 5px;
+  }
+  
+  .card h2 {
+    margin-top: 10px;
+  }
+  
+  .card-buttons {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+  }
+  
+  .reveal-button,
+  .next-button {
+    width: 130px; /* Puedes ajustar este valor según tus preferencias */
+    height: 40px; /* Ajusta la altura para que coincida si es necesario */
+    background-color: #cacaca;
+    color: #1b1b1b;
+    border: none;
+    padding: 10px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .reveal-button:hover,
+  .next-button:hover {
+    background-color: #202020;
+    color: #e7e3e3;
+    transform: scale(1.05);
+  }
+  
