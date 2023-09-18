@@ -16,6 +16,10 @@ cd /questionary
 ```
 npm install
 ```
+3. (Optional) for run both servers at the same time
+```
+npm install concurrently
+```
 ## for test the app
 in `/questionary`:
 
