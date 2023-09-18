@@ -12,7 +12,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "concurrently \"cd ../python_server && python server.py\" \"cd /questionary && npm start\"",
+    "start_both":"concurrently \"cd ../python_server && python server.py\" \"npm start\"",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
