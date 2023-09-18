@@ -11,6 +11,7 @@
     width: 300px; /* Puedes ajustar este valor según tus preferencias */
     height: 500px;
     margin: 10px;
+    padding: 80vh;
   }
   
   .card-content {

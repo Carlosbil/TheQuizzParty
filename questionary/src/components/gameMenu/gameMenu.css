@@ -1,20 +1,25 @@
 /* En un archivo CSS separado o dentro de tu componente */
 .fun-buttons-container {
-    display: flex;
-    justify-content: space-around;
-    margin: 20px;
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    min-height: 100vh;
+    min-width: max-content;
+    background-color: rgb(120, 128, 138);
+    margin:0;
+    padding: 0;
   }
   
   .fun-button {
-    background-color: #3498db;
-    color: #fff;
-    padding: 10px 20px;
+    color: #000000;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s ease;
-  
+    padding:1vmin;
+    margin: 0.6vmin;
+    background-image: linear-gradient(rgb(174, 229, 250), rgb(142, 177, 238));
     /* Estilos adicionales para hacerlos divertidos */
     &:hover {
       background-color: #e74c3c;

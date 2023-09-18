@@ -1,9 +1,17 @@
+.page{
+    background-color: rgb(120, 128, 138);
+    min-width: 100vb;
+    min-height: 100vh;
+}
 .fun{
-    padding: 10vi;
+    padding: 10vmin;
     text-align: center;
-    background-color: white; /* Color de fondo de la tarjeta */
+    background-color:rgb(151, 177, 168) ; /* Color de fondo de la tarjeta */
+    border: none;
     border-radius: 20px; /* Bordes redondeados */
-    width: 50vi;    
-    margin: 15vi;
-    font-size: 5vi;
+    width: 50vmin;    
+    margin: 15vmin;
+    font-size: 5vmin;
+    border-color: white;
+    cursor: pointer
 }

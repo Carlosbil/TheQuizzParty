@@ -13,7 +13,7 @@ function MainPage() {
   
 
   return (
-    <div>
+    <div className='page'>
       {showButton && <button className='fun' onClick={handleButtonClick_menu}>The quizz</button>}
       {showSecondComponent && <FunButtons />}
     </div>

@@ -20,6 +20,10 @@ npm install
 ```
 npm install concurrently
 ```
+4. move to `/python_server`:
+```
+pip install flask
+```
 ## for test the app
 in `/questionary`:
 
