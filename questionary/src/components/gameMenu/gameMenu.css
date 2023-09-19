@@ -1,9 +1,16 @@
-/* En un archivo CSS separado o dentro de tu componente */
+.container{
+  justify-content: center; 
+  align-items: center;
+  min-height: 6 0vh;
+  min-width: max-content;
+  background-color: rgb(120, 128, 138);
+  margin:0;
+  padding: 40vh;
+}
 .fun-buttons-container {
     display: flex; 
     justify-content: center; 
     align-items: center;
-    min-height: 100vh;
     min-width: max-content;
     background-color: rgb(120, 128, 138);
     margin:0;
