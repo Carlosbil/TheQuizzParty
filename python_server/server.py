@@ -3,7 +3,6 @@ import json, random
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)
 
 CORS(app, resources={r"/questions": {"origins": "http://localhost:3000"}})
 
@@ -25,7 +24,5 @@ def obtener_datos():
 
     except Exception as e:
         return jsonify({'message': 'Error en el servidor', 'error': str(e)})
-
-
 if __name__ == '__main__':
     app.run(debug=True)
