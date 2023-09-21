@@ -3,7 +3,6 @@ import json
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)
 
 CORS(app, resources={r"/questions": {"origins": "http://localhost:3000"}})
 
@@ -14,7 +13,7 @@ themes = ['history', 'geography']
 # Ruta GET que devuelve un diccionario en formato JSON
 @app.route('/questions', methods=['GET'])
 def obtener_datos():
-    return jsonify(questions['history'])
+    return questions['history'][0]
 
 
 if __name__ == '__main__':

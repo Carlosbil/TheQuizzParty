@@ -2,17 +2,16 @@ import { React, useState } from 'react';
 import './gameMenu.css'
 import axios from "axios";
 function FunButtons() {
-  const [message, setMessage] = useState("");
-  const [questions, setQuestions] = useState([]);
-
-  const handleButtonClick_menu = (tipo) => {
-    console.log(tipo) // Oculta el botón al hacer clic
-    setMessage(tipo)
-    //get call to http://localhost:5000/questions and receive a json?
-    axios.get("http://localhost:5000/questions")
+  const [question, setQuestion] = useState("");
+  const [options, setOptions] = useState([])
+  const [answer, setAnswer] = useState("")
+  const handleButtonClick_menu = (category) => {
+    console.log(category) 
+    axios.get("http://localhost:5000/questions", createBean(category))
     .then((response) => {
-      setQuestions(response.data);
-      setMessage(response.data);
+      setQuestion(decodeURIComponent(escape(response.data.question)))
+      setAnswer(decodeURIComponent(escape(response.data.answer)))
+      setOptions(decodeURIComponent(escape(response.data.options)))
     })
     .catch((error) => {
       console.error("Error al realizar la solicitud:", error);
@@ -20,6 +19,11 @@ function FunButtons() {
   
   };
 
+
+  const createBean = (category) => {
+    const data = {"category" : category}
+    return JSON.stringify(data)
+  }
 
   return (
     <div className='container'>
@@ -31,7 +35,10 @@ function FunButtons() {
         <button className="fun-button"
           onClick={() => handleButtonClick_menu('random')} >Preguntas Aleatorias</button>
       </div>
-      <div>{message}</div>
+      <div>{question}</div>
+      <div>{answer}</div>
+      <div>{options}</div>
+
     </div>
   );
 };
