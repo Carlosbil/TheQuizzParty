@@ -9,10 +9,15 @@ function FunButtons() {
     console.log(tipo) // Oculta el botón al hacer clic
     setMessage(tipo)
     //get call to http://localhost:5000/questions and receive a json?
-    axios.get("http://localhost:5000/questions").then((response) => {
+    axios.get("http://localhost:5000/questions")
+    .then((response) => {
       setQuestions(response.data);
-      setMessage(questions)
+      setMessage(response.data);
+    })
+    .catch((error) => {
+      console.error("Error al realizar la solicitud:", error);
     });
+  
   };
 
 
