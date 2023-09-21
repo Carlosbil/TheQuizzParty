@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 import json
 from flask_cors import CORS
 
@@ -14,6 +14,8 @@ themes = ['history', 'geography']
 # Ruta GET que devuelve un diccionario en formato JSON
 @app.route('/questions', methods=['GET'])
 def obtener_datos():
+    json_data = request.args.get('data')
+    print(json_data)
     return jsonify(questions['history'])
 
 
