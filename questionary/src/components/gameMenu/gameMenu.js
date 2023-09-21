@@ -7,7 +7,8 @@ function FunButtons() {
   const [answer, setAnswer] = useState("")
   const handleButtonClick_menu = (category) => {
     console.log(category) 
-    axios.get("http://localhost:5000/questions", createBean(category))
+
+    axios.get("http://localhost:5000/questions", { params: { data: category } })
     .then((response) => {
       setQuestion(decodeURIComponent(escape(response.data.question)))
       setAnswer(decodeURIComponent(escape(response.data.answer)))
@@ -18,12 +19,6 @@ function FunButtons() {
     });
   
   };
-
-
-  const createBean = (category) => {
-    const data = {"category" : category}
-    return JSON.stringify(data)
-  }
 
   return (
     <div className='container'>
