@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './main.css'
-import ImageApp from '../images/image.js';
 import FunButtons from '../gameMenu/gameMenu';
+
 function MainPage() {
   const [showSecondComponent, setShowSecondComponent] = useState(false);
   const [showButton, setShowButton] = useState(true);
