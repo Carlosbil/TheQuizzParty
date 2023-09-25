@@ -11,11 +11,11 @@ function FunButtons() {
 
   const handleButtonClick_menu = (category) => {
     axios
-      .get('http://localhost:5000/questions', { params: { data: category } })
+      .get('/api/questions', { params: { data: category } })
       .then((response) => {
-        setQuestion(decodeURIComponent(escape(response.data.question)));
-        setAnswer(decodeURIComponent(escape(response.data.answer)));
-        setOptions(decodeURIComponent(escape(response.data.options)));
+        setQuestion(decodeURIComponent(response.data.question));
+        setAnswer(decodeURIComponent(response.data.answer));
+        setOptions(decodeURIComponent(response.data.options));        
       })
       .catch((error) => {
         console.error('Error al realizar la solicitud:', error);
