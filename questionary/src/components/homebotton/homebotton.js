@@ -10,7 +10,9 @@ function Logo({ onClick }) {
           style={{ 
             cursor: 'pointer',
             width: '10%',
-            height: 'auto'
+            height: 'auto',
+            minWidth: '10vmin',
+            minHeight:'10vmin'
           }} 
         />
       </div>
