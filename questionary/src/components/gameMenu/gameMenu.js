@@ -19,7 +19,11 @@ function FunButtons() {
       })
       .catch((error) => {
         console.error('Error al realizar la solicitud:', error);
-        toast.error('Error al realizar la solicitud:'+ error.response.data.error);
+        if (error.response === undefined){
+          toast.error('Error al realizar la solicitud:'+ error.message);
+        }else{
+          toast.error('Error al realizar la solicitud:'+ error.response.data.error);
+        }
       });
   };
 
