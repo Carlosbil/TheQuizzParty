@@ -16,7 +16,7 @@ file_path = os.path.join('.', 'data', 'questions.json')
 with open(file_path, 'r', encoding='utf-8') as f:
     questions = json.load(f)
 
-themes = ['history', 'geography', 'sports', 'entertainment', ]
+themes = ['history', 'geography', 'sports', 'entertainment', 'literature', 'science', 'pop_culture']
 
 # Define a route to handle GET requests and return questions in JSON format
 @app.route('/api/questions', methods=['GET'])

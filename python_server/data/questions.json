@@ -3,213 +3,383 @@
         {
             "question": "¿Quién fue el primer presidente de Estados Unidos?",
             "answer": "George Washington",
-            "options": ["George Washington", "Thomas Jefferson", "John Adams"]
+            "options": [
+                "George Washington",
+                "Thomas Jefferson",
+                "John Adams"
+            ],
+            "difficulty": 2
         },
         {
             "question": "¿En qué año comenzó la Primera Guerra Mundial?",
             "answer": "1914",
-            "options": ["1914", "1918", "1939"]
+            "options": [
+                "1914",
+                "1918",
+                "1939"
+            ],
+            "difficulty": 3
         },
         {
             "question": "¿Cuál fue el nombre del barco en el que Cristóbal Colón llegó a América?",
             "answer": "La Santa María",
-            "options": ["La Pinta", "La Santa María", "La Niña"]
+            "options": [
+                "La Pinta",
+                "La Santa María",
+                "La Niña"
+            ],
+            "difficulty": 3
         },
         {
             "question": "¿Qué famoso discurso pronunció Martin Luther King Jr. en 1963?",
             "answer": "Tengo un sueño",
-            "options": ["Discurso de la libertad", "Tengo un sueño", "Mensaje de igualdad"]
+            "options": [
+                "Discurso de la libertad",
+                "Tengo un sueño",
+                "Mensaje de igualdad"
+            ],
+            "difficulty": 2
         },
         {
             "question": "¿Quién fue el líder de la Revolución Rusa de 1917?",
             "answer": "Vladimir Lenin",
-            "options": ["Josef Stalin", "Vladimir Putin", "Vladimir Lenin"]
+            "options": [
+                "Josef Stalin",
+                "Vladimir Putin",
+                "Vladimir Lenin"
+            ],
+            "difficulty": 4
         },
         {
             "question": "¿Cuál es la fecha de la Declaración de Independencia de los Estados Unidos?",
             "answer": "4 de julio de 1776",
-            "options": ["2 de julio de 1776", "4 de julio de 1776", "6 de julio de 1776"]
+            "options": [
+                "2 de julio de 1776",
+                "4 de julio de 1776",
+                "6 de julio de 1776"
+            ],
+            "difficulty": 2
         },
         {
             "question": "¿Quién escribió 'El Diario de Ana Frank'?",
             "answer": "Ana Frank",
-            "options": ["Ana Frank", "Helen Keller", "Margaret Atwood"]
+            "options": [
+                "Ana Frank",
+                "Helen Keller",
+                "Margaret Atwood"
+            ],
+            "difficulty": 1
         },
         {
             "question": "¿En qué año cayó el Muro de Berlín?",
             "answer": "1989",
-            "options": ["1989", "1991", "1987"]
+            "options": [
+                "1989",
+                "1991",
+                "1987"
+            ],
+            "difficulty": 2
         },
         {
             "question": "¿Cuál fue el resultado de la Guerra de Secesión de Estados Unidos?",
             "answer": "La Unión ganó",
-            "options": ["La Unión ganó", "Los Confederados ganaron", "Hubo empate"]
+            "options": [
+                "La Unión ganó",
+                "Los Confederados ganaron",
+                "Hubo empate"
+            ],
+            "difficulty": 3
         },
         {
             "question": "¿Quién fue el fundador del Imperio Mongol?",
             "answer": "Genghis Khan",
-            "options": ["Kublai Khan", "Genghis Khan", "Attila el Huno"]
+            "options": [
+                "Kublai Khan",
+                "Genghis Khan",
+                "Attila el Huno"
+            ],
+            "difficulty": 4
         },
         {
             "question": "¿Cuál fue el nombre del primer hombre en la Luna?",
             "answer": "Neil Armstrong",
-            "options": ["Buzz Aldrin", "John Glenn", "Neil Armstrong"]
+            "options": [
+                "Buzz Aldrin",
+                "John Glenn",
+                "Neil Armstrong"
+            ],
+            "difficulty": 1
         },
         {
             "question": "¿En qué año se firmó el Tratado de Versalles que puso fin a la Primera Guerra Mundial?",
             "answer": "1919",
-            "options": ["1917", "1918", "1919"]
+            "options": [
+                "1917",
+                "1918",
+                "1919"
+            ],
+            "difficulty": 3
         },
         {
             "question": "¿Cuál fue el nombre del último zar de Rusia?",
             "answer": "Nicolás II",
-            "options": ["Alejandro III", "Nicolás I", "Nicolás II"]
+            "options": [
+                "Alejandro III",
+                "Nicolás I",
+                "Nicolás II"
+            ],
+            "difficulty": 3
         },
         {
             "question": "¿Quién fue el líder de Sudáfrica que luchó contra el apartheid?",
             "answer": "Nelson Mandela",
-            "options": ["Desmond Tutu", "Nelson Mandela", "F.W. de Klerk"]
+            "options": [
+                "Desmond Tutu",
+                "Nelson Mandela",
+                "F.W. de Klerk"
+            ],
+            "difficulty": 2
         },
         {
             "question": "¿Qué país fue el escenario de la Revolución Francesa?",
             "answer": "Francia",
-            "options": ["Inglaterra", "Francia", "España"]
+            "options": [
+                "Inglaterra",
+                "Francia",
+                "España"
+            ],
+            "difficulty": 1
         },
         {
             "question": "¿Cuál fue el nombre del primer emperador romano?",
             "answer": "Augusto",
-            "options": ["Julio César", "Nerón", "Augusto"]
+            "options": [
+                "Julio César",
+                "Nerón",
+                "Augusto"
+            ],
+            "difficulty": 3
         },
         {
             "question": "¿En qué año se independizó India del dominio británico?",
             "answer": "1947",
-            "options": ["1942", "1945", "1947"]
+            "options": [
+                "1942",
+                "1945",
+                "1947"
+            ],
+            "difficulty": 3
         },
         {
             "question": "¿Quién fue la primera mujer en volar sola en el Atlántico?",
             "answer": "Amelia Earhart",
-            "options": ["Bessie Coleman", "Amelia Earhart", "Obama"]
+            "options": [
+                "Bessie Coleman",
+                "Amelia Earhart",
+                "Obama"
+            ],
+            "difficulty": 2
         }
     ],
     "geography": [
         {
             "question": "¿Cuál es la capital de Francia?",
             "answer": "París",
-            "options": ["París", "Lyon", "Marsella"],
+            "options": [
+                "París",
+                "Lyon",
+                "Marsella"
+            ],
             "difficulty": 1
         },
         {
             "question": "¿En qué continente se encuentra el desierto de Atacama?",
             "answer": "América del Sur",
-            "options": ["América del Norte", "América del Sur", "África"],
+            "options": [
+                "América del Norte",
+                "América del Sur",
+                "África"
+            ],
             "difficulty": 2
         },
         {
             "question": "¿Cuál es el río más largo del mundo?",
             "answer": "Amazonas",
-            "options": ["Nilo", "Amazonas", "Yangtsé"],
+            "options": [
+                "Nilo",
+                "Amazonas",
+                "Yangtsé"
+            ],
             "difficulty": 3
         },
         {
             "question": "¿Qué país tiene la mayor cantidad de islas?",
             "answer": "Suecia",
-            "options": ["Finlandia", "Indonesia", "Suecia"],
+            "options": [
+                "Finlandia",
+                "Indonesia",
+                "Suecia"
+            ],
             "difficulty": 4
         },
         {
             "question": "¿En qué país se encuentra el monte Everest?",
             "answer": "Nepal",
-            "options": ["India", "Nepal", "Bután"],
+            "options": [
+                "India",
+                "Nepal",
+                "Bután"
+            ],
             "difficulty": 3
         },
         {
             "question": "¿Cuál es el lago más profundo del mundo?",
             "answer": "Baal",
-            "options": ["Tanganica", "Baal", "Victoria"],
+            "options": [
+                "Tanganica",
+                "Baal",
+                "Victoria"
+            ],
             "difficulty": 4
         },
         {
             "question": "¿Cuál es el país más poblado del mundo?",
             "answer": "China",
-            "options": ["India", "China", "Estados Unidos"],
+            "options": [
+                "India",
+                "China",
+                "Estados Unidos"
+            ],
             "difficulty": 2
         },
         {
             "question": "¿Cuál es el desierto más grande del mundo?",
             "answer": "Antártida",
-            "options": ["Sáhara", "Antártida", "Arabia"],
+            "options": [
+                "Sáhara",
+                "Antártida",
+                "Arabia"
+            ],
             "difficulty": 5
         },
         {
             "question": "¿Cuál es la montaña más alta de América del Sur?",
             "answer": "Aconcagua",
-            "options": ["Aconcagua", "Ojos del Salado", "Monte Fitz Roy"],
+            "options": [
+                "Aconcagua",
+                "Ojos del Salado",
+                "Monte Fitz Roy"
+            ],
             "difficulty": 3
         },
         {
             "question": "¿Cuál es el océano más grande del mundo?",
             "answer": "Pacífico",
-            "options": ["Atlántico", "Índico", "Pacífico"],
+            "options": [
+                "Atlántico",
+                "Índico",
+                "Pacífico"
+            ],
             "difficulty": 1
         },
         {
             "question": "¿En qué país se encuentra el volcán Cotopaxi?",
             "answer": "Ecuador",
-            "options": ["Perú", "Ecuador", "Colombia"],
+            "options": [
+                "Perú",
+                "Ecuador",
+                "Colombia"
+            ],
             "difficulty": 4
         },
         {
             "question": "¿Cuál es la ciudad más poblada de Australia?",
             "answer": "Sídney",
-            "options": ["Melbourne", "Sídney", "Brisbane"],
+            "options": [
+                "Melbourne",
+                "Sídney",
+                "Brisbane"
+            ],
             "difficulty": 2
         },
         {
             "question": "¿Cuál es la isla más grande del mundo?",
             "answer": "Groenlandia",
-            "options": ["Groenlandia", "Nueva Guinea", "Borneo"],
+            "options": [
+                "Groenlandia",
+                "Nueva Guinea",
+                "Borneo"
+            ],
             "difficulty": 3
         },
         {
             "question": "¿En qué país se encuentra el desierto del Gobi?",
             "answer": "Mongolia",
-            "options": ["China", "Mongolia", "Kazajistán"],
+            "options": [
+                "China",
+                "Mongolia",
+                "Kazajistán"
+            ],
             "difficulty": 4
         },
         {
             "question": "¿Cuál es el río más caudaloso del mundo?",
             "answer": "Amazonas",
-            "options": ["Amazonas", "Misisipi", "Congo"],
+            "options": [
+                "Amazonas",
+                "Misisipi",
+                "Congo"
+            ],
             "difficulty": 3
         },
         {
             "question": "¿Cuál es el país más pequeño del mundo?",
             "answer": "Ciudad del Vaticano",
-            "options": ["San Marino", "Mónaco", "Ciudad del Vaticano"],
+            "options": [
+                "San Marino",
+                "Mónaco",
+                "Ciudad del Vaticano"
+            ],
             "difficulty": 2
         },
         {
             "question": "¿Cuál es la segunda montaña más alta del mundo?",
             "answer": "K2",
-            "options": ["K2", "Kangchenjunga", "Lhotse"],
+            "options": [
+                "K2",
+                "Kangchenjunga",
+                "Lhotse"
+            ],
             "difficulty": 5
         },
         {
             "question": "¿En qué país se encuentra el lago Titicaca?",
             "answer": "Perú y Bolivia",
-            "options": ["Perú y Bolivia", "Chile y Argentina", "Colombia y Venezuela"],
+            "options": [
+                "Perú y Bolivia",
+                "Chile y Argentina",
+                "Colombia y Venezuela"
+            ],
             "difficulty": 3
         },
         {
             "question": "¿Cuál es el país con más volcanes activos?",
             "answer": "Indonesia",
-            "options": ["Japón", "Indonesia", "Chile"],
+            "options": [
+                "Japón",
+                "Indonesia",
+                "Chile"
+            ],
             "difficulty": 4
         },
         {
             "question": "¿Cuál es la ciudad más antigua continuamente habitada del mundo?",
             "answer": "Damasco",
-            "options": ["Jerusalén", "Damasco", "Atenas"],
+            "options": [
+                "Jerusalén",
+                "Damasco",
+                "Atenas"
+            ],
             "difficulty": 5
         }
     ],
@@ -217,121 +387,201 @@
         {
             "question": "¿En qué deporte se otorga la Copa Davis?",
             "answer": "Tenis",
-            "options": ["Tenis", "Golf", "Cricket"],
+            "options": [
+                "Tenis",
+                "Golf",
+                "Cricket"
+            ],
             "difficulty": 2
         },
         {
             "question": "¿Cuántos jugadores hay en un equipo de fútbol?",
             "answer": "11",
-            "options": ["10", "11", "12"],
+            "options": [
+                "10",
+                "11",
+                "12"
+            ],
             "difficulty": 1
         },
         {
             "question": "¿En qué año se celebraron los primeros Juegos Olímpicos modernos?",
             "answer": "1896",
-            "options": ["1896", "1900", "1904"],
+            "options": [
+                "1896",
+                "1900",
+                "1904"
+            ],
             "difficulty": 3
         },
         {
             "question": "¿Cuál es el país con más Copas del Mundo de fútbol?",
             "answer": "Brasil",
-            "options": ["Alemania", "Brasil", "Italia"],
+            "options": [
+                "Alemania",
+                "Brasil",
+                "Italia"
+            ],
             "difficulty": 2
         },
         {
             "question": "¿En qué ciudad se encuentra el estadio de Wembley?",
             "answer": "Londres",
-            "options": ["Manchester", "Londres", "Liverpool"],
+            "options": [
+                "Manchester",
+                "Londres",
+                "Liverpool"
+            ],
             "difficulty": 2
         },
         {
             "question": "¿Cuántos periodos tiene un partido de hockey sobre hielo?",
             "answer": "3",
-            "options": ["2", "3", "4"],
+            "options": [
+                "2",
+                "3",
+                "4"
+            ],
             "difficulty": 3
         },
         {
             "question": "¿En qué deporte se utiliza la palabra 'albatros'?",
             "answer": "Golf",
-            "options": ["Golf", "Vela", "Tiro con arco"],
+            "options": [
+                "Golf",
+                "Vela",
+                "Tiro con arco"
+            ],
             "difficulty": 4
         },
         {
             "question": "¿Cuántos puntos vale un tiro libre en baloncesto?",
             "answer": "1",
-            "options": ["1", "2", "3"],
+            "options": [
+                "1",
+                "2",
+                "3"
+            ],
             "difficulty": 1
         },
         {
             "question": "¿En qué país se originó el taekwondo?",
             "answer": "Corea del Sur",
-            "options": ["China", "Japón", "Corea del Sur"],
+            "options": [
+                "China",
+                "Japón",
+                "Corea del Sur"
+            ],
             "difficulty": 3
         },
         {
             "question": "¿Cuántos jugadores hay en un equipo de rugby?",
             "answer": "15",
-            "options": ["13", "15", "17"],
+            "options": [
+                "13",
+                "15",
+                "17"
+            ],
             "difficulty": 2
         },
         {
             "question": "¿Qué país ha ganado más medallas olímpicas en total?",
             "answer": "Estados Unidos",
-            "options": ["Estados Unidos", "Rusia", "China"],
+            "options": [
+                "Estados Unidos",
+                "Rusia",
+                "China"
+            ],
             "difficulty": 3
         },
         {
             "question": "¿En qué deporte se utiliza el término 'ace'?",
             "answer": "Tenis",
-            "options": ["Tenis", "Golf", "Béisbol"],
+            "options": [
+                "Tenis",
+                "Golf",
+                "Béisbol"
+            ],
             "difficulty": 2
         },
         {
             "question": "¿Cuál es la distancia de una maratón en kilómetros?",
             "answer": "42.195",
-            "options": ["42.195", "40", "45"],
+            "options": [
+                "42.195",
+                "40",
+                "45"
+            ],
             "difficulty": 3
         },
         {
             "question": "¿Cuál es el país de origen del judo?",
             "answer": "Japón",
-            "options": ["China", "Corea del Sur", "Japón"],
+            "options": [
+                "China",
+                "Corea del Sur",
+                "Japón"
+            ],
             "difficulty": 2
         },
         {
             "question": "¿En qué ciudad se celebraron los Juegos Olímpicos de 2016?",
             "answer": "Río de Janeiro",
-            "options": ["Londres", "Pekín", "Río de Janeiro"],
+            "options": [
+                "Londres",
+                "Pekín",
+                "Río de Janeiro"
+            ],
             "difficulty": 2
         },
         {
             "question": "¿En qué deporte se otorga el Trofeo Heisman?",
             "answer": "Fútbol Americano",
-            "options": ["Fútbol Americano", "Béisbol", "Baloncesto"],
+            "options": [
+                "Fútbol Americano",
+                "Béisbol",
+                "Baloncesto"
+            ],
             "difficulty": 4
         },
         {
             "question": "¿En qué año se disputó la primera Copa del Mundo de fútbol?",
             "answer": "1930",
-            "options": ["1930", "1934", "1938"],
+            "options": [
+                "1930",
+                "1934",
+                "1938"
+            ],
             "difficulty": 3
         },
         {
             "question": "¿Cuál es el estilo de natación más rápido?",
             "answer": "Crol",
-            "options": ["Crol", "Espalda", "Mariposa"],
+            "options": [
+                "Crol",
+                "Espalda",
+                "Mariposa"
+            ],
             "difficulty": 2
         },
         {
             "question": "¿Cuál es el nombre del estadio del FC Barcelona?",
             "answer": "Camp Nou",
-            "options": ["Camp Nou", "Santiago Bernabéu", "San Siro"],
+            "options": [
+                "Camp Nou",
+                "Santiago Bernabéu",
+                "San Siro"
+            ],
             "difficulty": 1
         },
         {
             "question": "¿En qué país se inventó el voleibol?",
             "answer": "Estados Unidos",
-            "options": ["Estados Unidos", "Brasil", "Italia"],
+            "options": [
+                "Estados Unidos",
+                "Brasil",
+                "Italia"
+            ],
             "difficulty": 2
         }
     ],
@@ -339,121 +589,201 @@
         {
             "question": "¿Quién es el director de la película 'Pulp Fiction'?",
             "answer": "Quentin Tarantino",
-            "options": ["Quentin Tarantino", "Martin Scorsese", "Stanley Kubrick"],
+            "options": [
+                "Quentin Tarantino",
+                "Martin Scorsese",
+                "Stanley Kubrick"
+            ],
             "difficulty": 2
         },
         {
             "question": "¿En qué serie de televisión se encuentra el personaje Walter White?",
             "answer": "Breaking Bad",
-            "options": ["Breaking Bad", "The Sopranos", "The Wire"],
+            "options": [
+                "Breaking Bad",
+                "The Sopranos",
+                "The Wire"
+            ],
             "difficulty": 1
         },
         {
             "question": "¿Cuál es el nombre del protagonista de la saga de videojuegos 'The Legend of Zelda'?",
             "answer": "Link",
-            "options": ["Zelda", "Link", "Ganon"],
+            "options": [
+                "Zelda",
+                "Link",
+                "Ganon"
+            ],
             "difficulty": 1
         },
         {
             "question": "¿En qué año se estrenó la película 'El Padrino'?",
             "answer": "1972",
-            "options": ["1972", "1974", "1976"],
+            "options": [
+                "1972",
+                "1974",
+                "1976"
+            ],
             "difficulty": 3
         },
         {
             "question": "¿Qué película ganó el Óscar a la Mejor Película en 1994?",
             "answer": "Forrest Gump",
-            "options": ["Forrest Gump", "Pulp Fiction", "El rey león"],
+            "options": [
+                "Forrest Gump",
+                "Pulp Fiction",
+                "El rey león"
+            ],
             "difficulty": 3
         },
         {
             "question": "¿En qué serie de televisión se encuentra el personaje Jon Snow?",
             "answer": "Game of Thrones",
-            "options": ["Game of Thrones", "Vikings", "The Witcher"],
+            "options": [
+                "Game of Thrones",
+                "Vikings",
+                "The Witcher"
+            ],
             "difficulty": 1
         },
         {
             "question": "¿Cuál es el nombre del protagonista de la saga de videojuegos 'Grand Theft Auto: San Andreas'?",
             "answer": "Carl Johnson",
-            "options": ["Tommy Vercetti", "Carl Johnson", "Michael De Santa"],
+            "options": [
+                "Tommy Vercetti",
+                "Carl Johnson",
+                "Michael De Santa"
+            ],
             "difficulty": 3
         },
         {
             "question": "¿Quién escribió el libro en el que se basa la película 'Jurassic Park'?",
             "answer": "Michael Crichton",
-            "options": ["Stephen King", "Michael Crichton", "John Grisham"],
+            "options": [
+                "Stephen King",
+                "Michael Crichton",
+                "John Grisham"
+            ],
             "difficulty": 4
         },
         {
             "question": "¿En qué año se lanzó el videojuego 'Minecraft'?",
             "answer": "2011",
-            "options": ["2009", "2011", "2013"],
+            "options": [
+                "2009",
+                "2011",
+                "2013"
+            ],
             "difficulty": 2
         },
         {
             "question": "¿Cuál es el nombre del actor que interpreta a Iron Man en el Universo Cinematográfico de Marvel?",
             "answer": "Robert Downey Jr.",
-            "options": ["Robert Downey Jr.", "Chris Evans", "Chris Hemsworth"],
+            "options": [
+                "Robert Downey Jr.",
+                "Chris Evans",
+                "Chris Hemsworth"
+            ],
             "difficulty": 1
         },
         {
             "question": "¿En qué ciudad se ambienta la serie 'Friends'?",
             "answer": "Nueva York",
-            "options": ["Los Ángeles", "Nueva York", "Chicago"],
+            "options": [
+                "Los Ángeles",
+                "Nueva York",
+                "Chicago"
+            ],
             "difficulty": 1
         },
         {
             "question": "¿Cuál es el nombre del protagonista de la saga de videojuegos 'Super Mario'?",
             "answer": "Mario",
-            "options": ["Mario", "Luigi", "Peach"],
+            "options": [
+                "Mario",
+                "Luigi",
+                "Peach"
+            ],
             "difficulty": 1
         },
         {
             "question": "¿Quién es el director de la película 'El Laberinto del Fauno'?",
             "answer": "Guillermo del Toro",
-            "options": ["Pedro Almodóvar", "Guillermo del Toro", "Alejandro González Iñárritu"],
+            "options": [
+                "Pedro Almodóvar",
+                "Guillermo del Toro",
+                "Alejandro González Iñárritu"
+            ],
             "difficulty": 2
         },
         {
             "question": "¿Cuál es el nombre de la actriz que interpreta a Hermione Granger en 'Harry Potter'?",
             "answer": "Emma Watson",
-            "options": ["Emma Watson", "Emma Stone", "Emma Roberts"],
+            "options": [
+                "Emma Watson",
+                "Emma Stone",
+                "Emma Roberts"
+            ],
             "difficulty": 1
         },
         {
             "question": "¿En qué año se estrenó la película 'Titanic'?",
             "answer": "1997",
-            "options": ["1995", "1997", "1999"],
+            "options": [
+                "1995",
+                "1997",
+                "1999"
+            ],
             "difficulty": 2
         },
         {
             "question": "¿Cuál es el nombre del personaje principal en la serie 'Stranger Things'?",
             "answer": "Eleven",
-            "options": ["Eleven", "Mike", "Will"],
+            "options": [
+                "Eleven",
+                "Mike",
+                "Will"
+            ],
             "difficulty": 1
         },
         {
             "question": "¿Qué película de Studio Ghibli fue la primera en ganar un Óscar?",
             "answer": "El viaje de Chihiro",
-            "options": ["Mi vecino Totoro", "El viaje de Chihiro", "La princesa Mononoke"],
+            "options": [
+                "Mi vecino Totoro",
+                "El viaje de Chihiro",
+                "La princesa Mononoke"
+            ],
             "difficulty": 3
         },
         {
             "question": "¿En qué ciudad se ambienta la película 'Blade Runner'?",
             "answer": "Los Ángeles",
-            "options": ["Nueva York", "Tokio", "Los Ángeles"],
+            "options": [
+                "Nueva York",
+                "Tokio",
+                "Los Ángeles"
+            ],
             "difficulty": 4
         },
         {
             "question": "¿Cuál es el nombre del creador del videojuego 'Metal Gear'?",
             "answer": "Hideo Kojima",
-            "options": ["Hideo Kojima", "Shigeru Miyamoto", "Hideki Kamiya"],
+            "options": [
+                "Hideo Kojima",
+                "Shigeru Miyamoto",
+                "Hideki Kamiya"
+            ],
             "difficulty": 3
         },
         {
             "question": "¿En qué país se ambienta la película 'Mad Max: Furia en la carretera'?",
             "answer": "Australia",
-            "options": ["Estados Unidos", "Australia", "Sudáfrica"],
+            "options": [
+                "Estados Unidos",
+                "Australia",
+                "Sudáfrica"
+            ],
             "difficulty": 3
         }
     ],
@@ -461,121 +791,201 @@
         {
             "question": "¿Quién escribió 'Don Quijote de la Mancha'?",
             "answer": "Miguel de Cervantes Saavedra",
-            "options": ["Miguel de Cervantes Saavedra", "Lope de Vega", "Federico García Lorca"],
+            "options": [
+                "Miguel de Cervantes Saavedra",
+                "Lope de Vega",
+                "Federico García Lorca"
+            ],
             "difficulty": 1
         },
         {
             "question": "¿Cuál es la obra más conocida de Federico García Lorca?",
             "answer": "Bodas de sangre",
-            "options": ["Bodas de sangre", "Poeta en Nueva York", "Yerma"],
+            "options": [
+                "Bodas de sangre",
+                "Poeta en Nueva York",
+                "Yerma"
+            ],
             "difficulty": 2
         },
         {
             "question": "¿En qué siglo vivió el poeta Gustavo Adolfo Bécquer?",
             "answer": "Siglo XIX",
-            "options": ["Siglo XVIII", "Siglo XIX", "Siglo XX"],
+            "options": [
+                "Siglo XVIII",
+                "Siglo XIX",
+                "Siglo XX"
+            ],
             "difficulty": 3
         },
         {
             "question": "¿Qué autor español recibió el Premio Nobel de Literatura en 1989?",
             "answer": "Camilo José Cela",
-            "options": ["Camilo José Cela", "Miguel Delibes", "Antonio Machado"],
+            "options": [
+                "Camilo José Cela",
+                "Miguel Delibes",
+                "Antonio Machado"
+            ],
             "difficulty": 4
         },
         {
             "question": "¿Qué escritora contemporánea es conocida por su serie de novelas 'Los hijos de la tierra'?",
             "answer": "Jean M. Auel",
-            "options": ["Isabel Allende", "Jean M. Auel", "Laura Esquivel"],
+            "options": [
+                "Isabel Allende",
+                "Jean M. Auel",
+                "Laura Esquivel"
+            ],
             "difficulty": 3
         },
         {
             "question": "¿Cuál de los siguientes autores perteneció a la Generación del 98?",
             "answer": "Antonio Machado",
-            "options": ["Antonio Machado", "Federico García Lorca", "Juan Ramón Jiménez"],
+            "options": [
+                "Antonio Machado",
+                "Federico García Lorca",
+                "Juan Ramón Jiménez"
+            ],
             "difficulty": 3
         },
         {
             "question": "¿Quién es el autor de 'La sombra del viento'?",
             "answer": "Carlos Ruiz Zafón",
-            "options": ["Carlos Ruiz Zafón", "Arturo Pérez-Reverte", "Javier Marías"],
+            "options": [
+                "Carlos Ruiz Zafón",
+                "Arturo Pérez-Reverte",
+                "Javier Marías"
+            ],
             "difficulty": 2
         },
         {
             "question": "¿De qué autor es la frase 'Lo peor del amor es cuando pasa, cuando al punto final de los finales no le siguen dos puntos suspensivos'?",
             "answer": "Miguel Hernández",
-            "options": ["Antonio Machado", "Miguel Hernández", "Gustavo Adolfo Bécquer"],
+            "options": [
+                "Antonio Machado",
+                "Miguel Hernández",
+                "Gustavo Adolfo Bécquer"
+            ],
             "difficulty": 4
         },
         {
             "question": "¿Qué autor español es conocido por su serie de novelas policíacas protagonizadas por el detective Pepe Carvalho?",
             "answer": "Manuel Vázquez Montalbán",
-            "options": ["Manuel Vázquez Montalbán", "Eduardo Mendoza", "Lorenzo Silva"],
+            "options": [
+                "Manuel Vázquez Montalbán",
+                "Eduardo Mendoza",
+                "Lorenzo Silva"
+            ],
             "difficulty": 4
         },
         {
             "question": "¿Quién escribió 'La familia de Pascual Duarte'?",
             "answer": "Camilo José Cela",
-            "options": ["Camilo José Cela", "Miguel Delibes", "Carmen Laforet"],
+            "options": [
+                "Camilo José Cela",
+                "Miguel Delibes",
+                "Carmen Laforet"
+            ],
             "difficulty": 2
         },
         {
             "question": "¿Cuál es el título de la famosa novela póstuma de Benito Pérez Galdós?",
             "answer": "Misericordia",
-            "options": ["Misericordia", "Fortunata y Jacinta", "Doña Perfecta"],
+            "options": [
+                "Misericordia",
+                "Fortunata y Jacinta",
+                "Doña Perfecta"
+            ],
             "difficulty": 3
         },
         {
             "question": "¿Quién es el autor de la novela 'La verdad sobre el caso Savolta'?",
             "answer": "Eduardo Mendoza",
-            "options": ["Eduardo Mendoza", "Javier Cercas", "Juan Marsé"],
+            "options": [
+                "Eduardo Mendoza",
+                "Javier Cercas",
+                "Juan Marsé"
+            ],
             "difficulty": 4
         },
         {
             "question": "¿Qué poeta es conocido por sus 'Rimas y Leyendas'?",
             "answer": "Gustavo Adolfo Bécquer",
-            "options": ["Gustavo Adolfo Bécquer", "Rosalía de Castro", "Rubén Darío"],
+            "options": [
+                "Gustavo Adolfo Bécquer",
+                "Rosalía de Castro",
+                "Rubén Darío"
+            ],
             "difficulty": 2
         },
         {
             "question": "¿Qué escritor español fue también un reconocido filósofo, autor de 'La rebelión de las masas'?",
             "answer": "José Ortega y Gasset",
-            "options": ["José Ortega y Gasset", "Miguel de Unamuno", "María Zambrano"],
+            "options": [
+                "José Ortega y Gasset",
+                "Miguel de Unamuno",
+                "María Zambrano"
+            ],
             "difficulty": 4
         },
         {
             "question": "¿Qué autor de la Generación del 27 escribió 'La voz a ti debida'?",
             "answer": "Pedro Salinas",
-            "options": ["Pedro Salinas", "Vicente Aleixandre", "Luis Cernuda"],
+            "options": [
+                "Pedro Salinas",
+                "Vicente Aleixandre",
+                "Luis Cernuda"
+            ],
             "difficulty": 4
         },
         {
             "question": "¿Cuál es la nacionalidad del autor Gabriel García Márquez?",
             "answer": "Colombiana",
-            "options": ["Colombiana", "Española", "Mexicana"],
+            "options": [
+                "Colombiana",
+                "Española",
+                "Mexicana"
+            ],
             "difficulty": 1
         },
         {
             "question": "¿Quién escribió la novela 'Cien años de soledad'?",
             "answer": "Gabriel García Márquez",
-            "options": ["Gabriel García Márquez", "Mario Vargas Llosa", "Julio Cortázar"],
+            "options": [
+                "Gabriel García Márquez",
+                "Mario Vargas Llosa",
+                "Julio Cortázar"
+            ],
             "difficulty": 1
         },
         {
             "question": "¿Qué autor contemporáneo escribió 'La sombra del ciprés es alargada'?",
             "answer": "Miguel Delibes",
-            "options": ["Miguel Delibes", "Carmen Martín Gaite", "Rafael Sánchez Ferlosio"],
+            "options": [
+                "Miguel Delibes",
+                "Carmen Martín Gaite",
+                "Rafael Sánchez Ferlosio"
+            ],
             "difficulty": 3
         },
         {
             "question": "¿Qué poeta escribió 'Cantares Gallegos' y 'Follas Novas'?",
             "answer": "Rosalía de Castro",
-            "options": ["Rosalía de Castro", "Gustavo Adolfo Bécquer", "Juan Ramón Jiménez"],
+            "options": [
+                "Rosalía de Castro",
+                "Gustavo Adolfo Bécquer",
+                "Juan Ramón Jiménez"
+            ],
             "difficulty": 3
         },
         {
             "question": "¿Quién es el autor de 'Crónica del pájaro que da cuerda al mundo'?",
             "answer": "Haruki Murakami",
-            "options": ["Haruki Murakami", "Kazuo Ishiguro", "Yukio Mishima"],
+            "options": [
+                "Haruki Murakami",
+                "Kazuo Ishiguro",
+                "Yukio Mishima"
+            ],
             "difficulty": 3
         }
     ],
@@ -583,121 +993,201 @@
         {
             "question": "¿Cuál es el elemento químico con el símbolo H?",
             "answer": "Hidrógeno",
-            "options": ["Hidrógeno", "Helio", "Hafnio"],
+            "options": [
+                "Hidrógeno",
+                "Helio",
+                "Hafnio"
+            ],
             "difficulty": 1
         },
         {
             "question": "¿Cuál es el órgano más grande del cuerpo humano?",
             "answer": "La piel",
-            "options": ["El hígado", "La piel", "El cerebro"],
+            "options": [
+                "El hígado",
+                "La piel",
+                "El cerebro"
+            ],
             "difficulty": 2
         },
         {
             "question": "¿Cuál es el planeta más grande del sistema solar?",
             "answer": "Júpiter",
-            "options": ["Saturno", "Júpiter", "Urano"],
+            "options": [
+                "Saturno",
+                "Júpiter",
+                "Urano"
+            ],
             "difficulty": 1
         },
         {
             "question": "¿Cuál es el valor aproximado de la constante de gravitación universal?",
             "answer": "6.674 × 10^-11 N·m^2/kg^2",
-            "options": ["3.142", "9.81 m/s^2", "6.674 × 10^-11 N·m^2/kg^2"],
+            "options": [
+                "3.142",
+                "9.81 m/s^2",
+                "6.674 × 10^-11 N·m^2/kg^2"
+            ],
             "difficulty": 4
         },
         {
             "question": "¿Cuál es el grupo sanguíneo más común en humanos?",
             "answer": "O",
-            "options": ["A", "B", "O"],
+            "options": [
+                "A",
+                "B",
+                "O"
+            ],
             "difficulty": 2
         },
         {
             "question": "¿Cuántos pares de cromosomas tiene un ser humano?",
             "answer": "23",
-            "options": ["23", "46", "22"],
+            "options": [
+                "23",
+                "46",
+                "22"
+            ],
             "difficulty": 2
         },
         {
             "question": "¿Cuál es el símbolo químico del oro?",
             "answer": "Au",
-            "options": ["Ag", "Au", "O"],
+            "options": [
+                "Ag",
+                "Au",
+                "O"
+            ],
             "difficulty": 2
         },
         {
             "question": "¿Cuál es la fórmula química del agua?",
             "answer": "H2O",
-            "options": ["CO2", "O2", "H2O"],
+            "options": [
+                "CO2",
+                "O2",
+                "H2O"
+            ],
             "difficulty": 1
         },
         {
             "question": "¿Cuál es la velocidad de la luz en el vacío?",
             "answer": "299,792,458 metros por segundo",
-            "options": ["150,000,000 kilómetros", "1,080,000,000 kilómetros por hora", "299,792,458 metros por segundo"],
+            "options": [
+                "150,000,000 kilómetros",
+                "1,080,000,000 kilómetros por hora",
+                "299,792,458 metros por segundo"
+            ],
             "difficulty": 3
         },
         {
             "question": "¿Qué científico es conocido por desarrollar la teoría de la relatividad?",
             "answer": "Albert Einstein",
-            "options": ["Isaac Newton", "Albert Einstein", "Galileo Galilei"],
+            "options": [
+                "Isaac Newton",
+                "Albert Einstein",
+                "Galileo Galilei"
+            ],
             "difficulty": 1
         },
         {
             "question": "¿Qué órgano es responsable de la producción de insulina?",
             "answer": "Páncreas",
-            "options": ["Hígado", "Páncreas", "Riñón"],
+            "options": [
+                "Hígado",
+                "Páncreas",
+                "Riñón"
+            ],
             "difficulty": 2
         },
         {
             "question": "¿Cuál es el elemento químico más abundante en la atmósfera terrestre?",
             "answer": "Nitrógeno",
-            "options": ["Oxígeno", "Nitrógeno", "Dióxido de carbono"],
+            "options": [
+                "Oxígeno",
+                "Nitrógeno",
+                "Dióxido de carbono"
+            ],
             "difficulty": 2
         },
         {
             "question": "¿Cuál es el satélite natural de la Tierra?",
             "answer": "La Luna",
-            "options": ["La Luna", "Fobos", "Io"],
+            "options": [
+                "La Luna",
+                "Fobos",
+                "Io"
+            ],
             "difficulty": 1
         },
         {
             "question": "¿Cuál es el grupo de animales que tiene escamas, pone huevos y es ectotérmico?",
             "answer": "Reptiles",
-            "options": ["Aves", "Reptiles", "Mamíferos"],
+            "options": [
+                "Aves",
+                "Reptiles",
+                "Mamíferos"
+            ],
             "difficulty": 3
         },
         {
             "question": "¿Cuántos electrones tiene un átomo de carbono en su capa más externa?",
             "answer": "4",
-            "options": ["2", "4", "6"],
+            "options": [
+                "2",
+                "4",
+                "6"
+            ],
             "difficulty": 3
         },
         {
             "question": "¿Qué ley de Newton establece que a toda acción le corresponde una reacción igual y opuesta?",
             "answer": "Tercera ley de Newton",
-            "options": ["Primera ley de Newton", "Segunda ley de Newton", "Tercera ley de Newton"],
+            "options": [
+                "Primera ley de Newton",
+                "Segunda ley de Newton",
+                "Tercera ley de Newton"
+            ],
             "difficulty": 2
         },
         {
             "question": "¿Qué vitamina es producida por el cuerpo humano cuando la piel es expuesta a la luz solar?",
             "answer": "Vitamina D",
-            "options": ["Vitamina A", "Vitamina C", "Vitamina D"],
+            "options": [
+                "Vitamina A",
+                "Vitamina C",
+                "Vitamina D"
+            ],
             "difficulty": 2
         },
         {
             "question": "¿Cuál es el órgano más grande del sistema digestivo humano?",
             "answer": "Intestino delgado",
-            "options": ["Estómago", "Intestino delgado", "Hígado"],
+            "options": [
+                "Estómago",
+                "Intestino delgado",
+                "Hígado"
+            ],
             "difficulty": 3
         },
         {
             "question": "¿Cuál es el número atómico del helio?",
             "answer": "2",
-            "options": ["1", "2", "3"],
+            "options": [
+                "1",
+                "2",
+                "3"
+            ],
             "difficulty": 2
         },
         {
             "question": "¿Qué tipo de enlace químico se forma cuando los átomos comparten electrones?",
             "answer": "Enlace covalente",
-            "options": ["Enlace iónico", "Enlace covalente", "Enlace metálico"],
+            "options": [
+                "Enlace iónico",
+                "Enlace covalente",
+                "Enlace metálico"
+            ],
             "difficulty": 3
         }
     ],
@@ -705,121 +1195,201 @@
         {
             "question": "¿Qué aplicación es conocida por sus videos cortos y bailes?",
             "answer": "TikTok",
-            "options": ["Instagram", "Snapchat", "TikTok"],
+            "options": [
+                "Instagram",
+                "Snapchat",
+                "TikTok"
+            ],
             "difficulty": 1
         },
         {
             "question": "¿Cuál es el nombre real del artista conocido como Bad Bunny?",
             "answer": "Benito Antonio Martínez Ocasio",
-            "options": ["Benito Antonio Martínez Ocasio", "Juan Carlos Ozuna Rosado", "José Álvaro Osorio Balvin"],
+            "options": [
+                "Benito Antonio Martínez Ocasio",
+                "Juan Carlos Ozuna Rosado",
+                "José Álvaro Osorio Balvin"
+            ],
             "difficulty": 2
         },
         {
             "question": "¿Qué serie de Netflix cuenta la historia de un grupo de atracadores y su asalto a la Casa de la Moneda?",
             "answer": "La Casa de Papel",
-            "options": ["La Casa de Papel", "Narcos", "Élite"],
+            "options": [
+                "La Casa de Papel",
+                "Narcos",
+                "Élite"
+            ],
             "difficulty": 1
         },
         {
             "question": "¿Qué meme se hizo viral con la frase 'Ain’t nobody got time for that'?",
             "answer": "Sweet Brown",
-            "options": ["Sweet Brown", "Distracted Boyfriend", "Mocking SpongeBob"],
+            "options": [
+                "Sweet Brown",
+                "Distracted Boyfriend",
+                "Mocking SpongeBob"
+            ],
             "difficulty": 3
         },
         {
             "question": "¿Qué personaje de Marvel dice la frase 'I am Iron Man'?",
             "answer": "Tony Stark",
-            "options": ["Steve Rogers", "Tony Stark", "Thor"],
+            "options": [
+                "Steve Rogers",
+                "Tony Stark",
+                "Thor"
+            ],
             "difficulty": 1
         },
         {
             "question": "¿Qué red social es conocida por su logo de pájaro?",
             "answer": "Twitter",
-            "options": ["Twitter", "Instagram", "Snapchat"],
+            "options": [
+                "Twitter",
+                "Instagram",
+                "Snapchat"
+            ],
             "difficulty": 1
         },
         {
             "question": "¿Cuál es el nombre de la famosa influencer conocida como 'La Rosalía'?",
             "answer": "Rosalía Vila Tobella",
-            "options": ["Rosalía Vila Tobella", "Rosalía Martinez García", "Rosalía Ruiz Sánchez"],
+            "options": [
+                "Rosalía Vila Tobella",
+                "Rosalía Martinez García",
+                "Rosalía Ruiz Sánchez"
+            ],
             "difficulty": 2
         },
         {
             "question": "¿Qué videojuego es conocido por su baile 'floss'?",
             "answer": "Fortnite",
-            "options": ["Fortnite", "Minecraft", "Roblox"],
+            "options": [
+                "Fortnite",
+                "Minecraft",
+                "Roblox"
+            ],
             "difficulty": 2
         },
         {
             "question": "¿Qué película de animación es conocida por la canción 'Let It Go'?",
             "answer": "Frozen",
-            "options": ["Frozen", "Moana", "Tangled"],
+            "options": [
+                "Frozen",
+                "Moana",
+                "Tangled"
+            ],
             "difficulty": 1
         },
         {
             "question": "¿Qué plataforma de streaming es famosa por series como 'Stranger Things' y 'The Witcher'?",
             "answer": "Netflix",
-            "options": ["Netflix", "Hulu", "Amazon Prime Video"],
+            "options": [
+                "Netflix",
+                "Hulu",
+                "Amazon Prime Video"
+            ],
             "difficulty": 1
         },
         {
             "question": "¿Qué cantante es conocida por sus hits 'Bad Romance' y 'Poker Face'?",
             "answer": "Lady Gaga",
-            "options": ["Lady Gaga", "Katy Perry", "Rihanna"],
+            "options": [
+                "Lady Gaga",
+                "Katy Perry",
+                "Rihanna"
+            ],
             "difficulty": 1
         },
         {
             "question": "¿Qué youtuber español es conocido por sus gameplays y su libro 'Virtual Hero'?",
             "answer": "El Rubius",
-            "options": ["El Rubius", "Vegetta777", "Willyrex"],
+            "options": [
+                "El Rubius",
+                "Vegetta777",
+                "Willyrex"
+            ],
             "difficulty": 2
         },
         {
             "question": "¿En qué año se lanzó la aplicación de Instagram?",
             "answer": "2010",
-            "options": ["2008", "2010", "2012"],
+            "options": [
+                "2008",
+                "2010",
+                "2012"
+            ],
             "difficulty": 3
         },
         {
             "question": "¿Qué personaje de 'Game of Thrones' dijo la frase 'A Lannister always pays his debts'?",
             "answer": "Tyrion Lannister",
-            "options": ["Tyrion Lannister", "Jaime Lannister", "Cersei Lannister"],
+            "options": [
+                "Tyrion Lannister",
+                "Jaime Lannister",
+                "Cersei Lannister"
+            ],
             "difficulty": 2
         },
         {
             "question": "¿Qué grupo de K-pop es conocido por canciones como 'Dynamite' y 'Butter'?",
             "answer": "BTS",
-            "options": ["BTS", "EXO", "Blackpink"],
+            "options": [
+                "BTS",
+                "EXO",
+                "Blackpink"
+            ],
             "difficulty": 1
         },
         {
             "question": "¿Qué cantante colombiano es conocido por hits como 'Vivir mi vida' y 'Valió la pena'?",
             "answer": "Marc Anthony",
-            "options": ["Marc Anthony", "Carlos Vives", "Juanes"],
+            "options": [
+                "Marc Anthony",
+                "Carlos Vives",
+                "Juanes"
+            ],
             "difficulty": 2
         },
         {
             "question": "¿Qué película de Pixar cuenta la historia de un niño que sueña con ser músico en contra de los deseos de su familia?",
             "answer": "Coco",
-            "options": ["Coco", "Up", "Ratatouille"],
+            "options": [
+                "Coco",
+                "Up",
+                "Ratatouille"
+            ],
             "difficulty": 1
         },
         {
             "question": "¿Qué famosa influencer y empresaria es conocida por su línea de maquillaje 'Kylie Cosmetics'?",
             "answer": "Kylie Jenner",
-            "options": ["Kylie Jenner", "Kim Kardashian", "Rihanna"],
+            "options": [
+                "Kylie Jenner",
+                "Kim Kardashian",
+                "Rihanna"
+            ],
             "difficulty": 2
         },
         {
             "question": "¿Qué aplicación de mensajería es conocida por su logo de un avión de papel?",
             "answer": "Telegram",
-            "options": ["WhatsApp", "Telegram", "Signal"],
+            "options": [
+                "WhatsApp",
+                "Telegram",
+                "Signal"
+            ],
             "difficulty": 2
         },
         {
             "question": "¿Qué famoso rapero estadounidense es conocido por su álbum 'The Marshall Mathers LP'?",
             "answer": "Eminem",
-            "options": ["Eminem", "Dr. Dre", "Jay-Z"],
+            "options": [
+                "Eminem",
+                "Dr. Dre",
+                "Jay-Z"
+            ],
             "difficulty": 2
         }
     ]
