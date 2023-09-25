@@ -4,22 +4,24 @@
     min-height: 100%;
 }
 .fun{
-    padding: 10vmin;
     text-align: center;
     background-color:rgb(151, 177, 168) ; /* Color de fondo de la tarjeta */
     border: none;
     border-radius: 20px; /* Bordes redondeados */
-    width: 50vmin;    
-    margin: 15vmin;
+    width: 80%;
+    margin-top: 20%;    
     font-size: 5vmin;
     border-color: white;
-    cursor: pointer
+    cursor: pointer;
+    min-width: 40%;
+    min-height: 100%;
 }
 .logo-container {
     position: fixed;
     top: 0;
     left: 2%;
-    padding: 1%;
+    margin: 1%;
+    margin-right: 98%;
 }
 
   
