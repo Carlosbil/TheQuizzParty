@@ -11,7 +11,7 @@ with open('./data/questions.json', 'r') as f:
 themes = ['history', 'geography']
 
 # Ruta GET que devuelve un diccionario en formato JSON
-@app.route('/questions', methods=['GET'])
+@app.route('/api/questions', methods=['GET'])
 def obtener_datos():
     try:
         
@@ -24,5 +24,7 @@ def obtener_datos():
 
     except Exception as e:
         return jsonify({'message': 'Error en el servidor', 'error': str(e)})
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=3001, debug=True)
+
+
