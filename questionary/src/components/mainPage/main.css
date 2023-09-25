@@ -1,7 +1,7 @@
 .page{
     background-color: rgb(120, 128, 138);
-    min-width: 100vb;
-    min-height: 100vh;
+    min-width: 100%;
+    min-height: 100%;
 }
 .fun{
     padding: 10vmin;
@@ -15,3 +15,11 @@
     border-color: white;
     cursor: pointer
 }
+.logo-container {
+    position: fixed;
+    top: 0;
+    left: 2%;
+    padding: 1%;
+}
+
+  
