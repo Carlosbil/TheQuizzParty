@@ -1,34 +1,47 @@
-.container{
-  justify-content: center; 
-  align-items: center;
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; /* Alinea los elementos hijos en el centro */
+  width: 50%; /* Ajustado para no exceder el 100% */
   min-width: 50%;
-  min-height: 50%;
-  background-color: rgb(120, 128, 138);
-  margin:20%;
+  margin: auto; /* Centra horizontalmente */
+  padding: 20px;
+  gap: 10px;
+  background-color: #f2f0f0;
+  border-radius: 5px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  position: absolute; /* Para centrar verticalmente */
+  top: 50%; /* Para centrar verticalmente */
+  left: 50%; /* Para centrar horizontalmente */
+  transform: translate(-50%, -50%); /* Ajusta la posición para centrar exactamente */
 }
+
+
 .fun-buttons-container {
-    display: flex; 
-    justify-content: center; 
-    align-items: center;
-    min-width: max-content;
-    background-color: rgb(120, 128, 138);
-    margin:0;
-    padding: 0;
-  }
-  
-  .fun-button {
-    color: #000000;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-    padding:1%;
-    margin: 1%;
-    background-image: linear-gradient(rgb(174, 229, 250), rgb(142, 177, 238));
-    /* Estilos adicionales para hacerlos divertidos */
-    &:hover {
-      background-color: #e74c3c;
-    }
-  }
-  
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  min-width: 50%
+}
+
+.fun-button {
+  background-color: #519ff2; /* Color azul claro */
+  color: #ffffff; /* Texto blanco para mejor contraste */
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  width: 100%;
+  min-width: 50%;
+  cursor: pointer;
+  text-align: center;
+  transition: transform 0.3s ease-in-out, background-color 0.3s ease, box-shadow 0.3s ease-in-out;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra inicial */
+}
+
+.fun-button:hover {
+  transform: translateY(-5px) scale(1.05); /* Elevación y ligero aumento de tamaño */
+  background-color: #28A745; /* Color verde al pasar el ratón */
+  box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada al pasar el ratón */
+}

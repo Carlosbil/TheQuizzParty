@@ -1,18 +1,17 @@
 import React from 'react';
 import './questionDisplayer.css';
 
-function QuestionDisplayer({ question, answer, options }) {
+function QuestionDisplayer({ question, options }) {
   return (
     <div className="question-container">
       <div className="question">{question}</div>
       <div className="options">
-        {options.map((option, index) => (
+        {Array.isArray(options) ? options.map((option, index) => (
           <div key={index} className="option">
             {option}
           </div>
-        ))}
+        )) : null}
       </div>
-      <div className="answer">{answer}</div>
     </div>
   );
 }
