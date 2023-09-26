@@ -24,17 +24,19 @@ def obtener_datos():
     try:
         # Retrieve the requested theme from query parameters
         quest = request.args.get("data")
-        
         # Check if the requested theme exists in the loaded questions
         if quest and quest in questions:
             # Select a random question from the specified theme and return it as JSON
             number = random.randint(0, len(questions[quest]))
             return jsonify(questions[quest][number])
-        elif quest:
+        elif quest == "random":
+            theme = random.randint(0, len(themes)) 
+            number = random.randint(0, len(questions[themes[theme]]))
+            return jsonify(questions[themes[theme]][number])
+        elif quest:   
             # Return an error response if the specified theme does not exist
             return jsonify({"error": f"the category {quest} didn't exist in the server"}), 404
     except Exception as e:
-        # Handle any server errors and return an error response
         return jsonify({'message': 'Error en el servidor', 'error': str(e)}), 500
 
 # Run the Flask app with the specified configuration
