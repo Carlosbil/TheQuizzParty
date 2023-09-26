@@ -35,7 +35,7 @@ def obtener_datos():
             return jsonify({"error": f"the category {quest} didn't exist in the server"}), 404
     except Exception as e:
         # Handle any server errors and return an error response
-        return jsonify({'message': 'Error en el servidor', 'error': str(e)})
+        return jsonify({'message': 'Error en el servidor', 'error': str(e)}), 500
 
 # Run the Flask app with the specified configuration
 # The configuration (host, port, debug) can be adjusted as needed or made configurable
