@@ -27,11 +27,11 @@ def obtener_datos():
         # Check if the requested theme exists in the loaded questions
         if quest and quest in questions:
             # Select a random question from the specified theme and return it as JSON
-            number = random.randint(0, len(questions[quest]))
+            number = random.randint(0, len(questions[quest])-1)
             return jsonify(questions[quest][number])
         elif quest == "random":
-            theme = random.randint(0, len(themes)) 
-            number = random.randint(0, len(questions[themes[theme]]))
+            theme = random.randint(0, len(themes)-1) 
+            number = random.randint(0, len(questions[themes[theme]])-1)
             return jsonify(questions[themes[theme]][number])
         elif quest:   
             # Return an error response if the specified theme does not exist

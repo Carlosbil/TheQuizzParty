@@ -1,17 +1,61 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './questionDisplayer.css';
+import axios from 'axios';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-function QuestionDisplayer({ question, options }) {
+function QuestionDisplayer({ question_prop, options_prop, answer_prop }) {
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [question, setQuestion] = useState(question_prop);
+  const [options, setOptions] = useState(options_prop);
+  const [answer, setAnswer] = useState(answer_prop);
+  const [next, setNext] = useState(false)
+
+  const handleButtonClick = (option) => {
+    console.log(option);
+    setSelectedOption(option);
+    setNext(true)
+  };
+
+  useEffect(() => {
+    nextQuestion();
+  }, []);
+
+  const nextQuestion = () => {
+    setNext(false)
+    axios
+      .get('/api/questions', { params: { data: localStorage.getItem("category") } })
+      .then((response) => {
+        setQuestion(decodeURIComponent(response.data.question));
+        setAnswer(decodeURIComponent(response.data.answer));
+        setOptions(decodeURIComponent(response.data.options).split(","));
+      })
+      .catch((error) => {
+        console.error('Error al realizar la solicitud:', error);
+        if (error.response === undefined || error.response.data.error === undefined) {
+          toast.error('Error al realizar la solicitud:' + error.message);
+        } else {
+          toast.error('Error al realizar la solicitud:' + error.response.data.error);
+        }
+      });
+  }
   return (
     <div className="question-container">
       <div className="question">{question}</div>
       <div className="options">
         {Array.isArray(options) ? options.map((option, index) => (
-          <div key={index} className="option">
+          <button
+            key={index}
+            className={`option ${selectedOption === option ? (option === answer ? 'button-correct' : 'button-incorrect') : ''}`}
+            onClick={() => handleButtonClick(option)}
+          >
             {option}
-          </div>
+          </button>
         )) : null}
+        {next && <button className='nextQuestion' onClick={() => nextQuestion()}> Siguiente pregunta</button>}
+
       </div>
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
     </div>
   );
 }
