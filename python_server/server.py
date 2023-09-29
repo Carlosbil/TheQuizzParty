@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request
 import json, random
 from flask_cors import CORS
 import os
+from dataBase import session
 
 app = Flask(__name__)
 
@@ -17,6 +18,8 @@ with open(file_path, 'r', encoding='utf-8') as f:
     questions = json.load(f)
 
 themes = ['history', 'geography', 'sports', 'entertainment', 'literature', 'science', 'pop_culture']
+
+
 
 # Define a route to handle GET requests and return questions in JSON format
 @app.route('/api/questions', methods=['GET'])
@@ -39,6 +42,16 @@ def obtener_datos():
     except Exception as e:
         return jsonify({'message': 'Error en el servidor', 'error': str(e)}), 500
 
+
+@app.route('/api/createUser', methods=['POST'])
+def obtener_datos():
+    try:
+        # Retrieve the requested theme from query parameters
+        return jsonify({'message': 'User Created properly'}), 200 
+    except Exception as e:
+        return jsonify({'message': 'Error en el servidor', 'error': str(e)}), 500
+    
+    
 # Run the Flask app with the specified configuration
 # The configuration (host, port, debug) can be adjusted as needed or made configurable
 if __name__ == "__main__":
