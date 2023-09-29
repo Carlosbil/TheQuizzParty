@@ -1,6 +1,8 @@
 from sqlalchemy import create_engine, Column, Integer, String, Sequence
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from dotenv import load_dotenv
+import os
 
 Base = declarative_base()
 
@@ -13,7 +15,9 @@ class User(Base):
     nombre = Column(String(100))
     num_preguntas_acertadas = Column(Integer)
 
-DATABASE_URL = "postgresql://bdp:quizzProyect23*@localhost/proyectbdp"
+load_dotenv()
+
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 def init_db():
     engine = create_engine(DATABASE_URL)
