@@ -88,3 +88,6 @@ GRANT ALL PRIVILEGES ON DATABASE proyectBDP TO bdp;
 
 # Salir de psql
 \q
+
+# Ver los usuarios 
+SELECT * FROM {databaseName}
