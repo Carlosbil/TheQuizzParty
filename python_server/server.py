@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request
 import json, random
 from flask_cors import CORS
 import os
-
+from dataBase import session, User
 app = Flask(__name__)
 
 # Enable Cross-Origin Resource Sharing (CORS) for the specified origins
@@ -17,6 +17,8 @@ with open(file_path, 'r', encoding='utf-8') as f:
     questions = json.load(f)
 
 themes = ['history', 'geography', 'sports', 'entertainment', 'literature', 'science', 'pop_culture']
+
+
 
 # Define a route to handle GET requests and return questions in JSON format
 @app.route('/api/questions', methods=['GET'])
@@ -39,6 +41,34 @@ def obtener_datos():
     except Exception as e:
         return jsonify({'message': 'Error en el servidor', 'error': str(e)}), 500
 
+
+@app.route('/api/createUser', methods=['POST'])
+def create_user():
+    try:
+    # Añadir el nuevo usuario a la sesión y comprometer
+        user_data = {
+            "username": "bdp",
+            "email": "carlosbilbao2@gmail.com",
+            "password": "1234",
+            "nombre": "Carlos Bilbao",
+            "num_preguntas_acertadas":1
+        }
+        user = User(**user_data)
+        session.add(user)
+        session.commit()
+        print("Usuario creado exitosamente!")
+        return jsonify({'message': 'User Created properly'}), 200 
+    
+    except Exception as e:
+        # Si ocurre un error, hacer rollback de la sesión
+        session.rollback()
+        print(f"Error al crear el usuario: {e}")
+        return jsonify({'message': 'Error en el servidor', 'error': str(e)}), 500
+
+    finally:
+        # Cerrar la sesión
+        session.close()
+    
 # Run the Flask app with the specified configuration
 # The configuration (host, port, debug) can be adjusted as needed or made configurable
 if __name__ == "__main__":

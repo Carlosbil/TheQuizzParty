@@ -71,3 +71,23 @@ If you wish to contribute to the project, please fork the repository, make your 
 ## License
 This project is licensed under the MIT License. See the LICENSE file for more details.
 
+
+## Points of postgreSQL
+
+# Acceder al usuario postgres
+sudo -u postgres psql
+
+# Crear una base de datos
+CREATE DATABASE ******;
+
+# Crear un usuario
+CREATE USER * WITH PASSWORD '**';
+
+# Otorgar permisos al usuario sobre la base de datos
+GRANT ALL PRIVILEGES ON DATABASE proyectBDP TO bdp;
+
+# Salir de psql
+\q
+
+# Ver los usuarios 
+SELECT * FROM {databaseName}
