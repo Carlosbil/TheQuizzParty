@@ -46,14 +46,17 @@ def obtener_datos():
 def create_user():
     try:
     # Añadir el nuevo usuario a la sesión y comprometer
-        user_data = {
+        data = request.get_json()
+        """{
             "username": "bdp",
             "email": "carlosbilbao2@gmail.com",
             "password": "1234",
             "nombre": "Carlos Bilbao",
             "num_preguntas_acertadas":1
-        }
-        user = User(**user_data)
+        }"""
+        data["token"] = "1232131123231223"
+        print(data)
+        user = User(**data)
         session.add(user)
         session.commit()
         print("Usuario creado exitosamente!")

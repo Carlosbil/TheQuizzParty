@@ -12,9 +12,10 @@ class User(Base):
     username = Column(String(50))
     email = Column(String(100))
     password = Column(String(50))
-    nombre = Column(String(100))
+    name = Column(String(100))
     num_preguntas_acertadas = Column(Integer)
-
+    token = Column(String(100))
+    
 load_dotenv()
 
 DATABASE_URL = os.getenv("DATABASE_URL")
