@@ -70,10 +70,10 @@ def login_user():
     try:
         data = request.get_json()
         
-        # Busca al usuario por su nombre de usuario
+        # Search user
         user = session.query(User).filter_by(username=data["username"]).first()
-
-        # Si el usuario no existe o la contraseña no coincide, devuelve un error
+        
+        # if dont return eror 
         if not user or user.password != data["password"]:
             return jsonify({'message': 'Invalid username or password'}), 401
         
