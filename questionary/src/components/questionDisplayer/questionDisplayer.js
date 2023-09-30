@@ -40,20 +40,22 @@ function QuestionDisplayer({ question_prop, options_prop, answer_prop }) {
       });
   }
   return (
-    <div className="question-container">
-      <div className="question">{question}</div>
-      <div className="options">
-        {Array.isArray(options) ? options.map((option, index) => (
-          <button
-            key={index}
-            className={`option ${selectedOption === option ? (option === answer ? 'button-correct' : 'button-incorrect') : ''}`}
-            onClick={() => handleButtonClick(option)}
-          >
-            {option}
-          </button>
-        )) : null}
-        {next && <button className='nextQuestion' onClick={() => nextQuestion()}> Siguiente pregunta</button>}
+    <div>
+      <div className="question-container">
+        <div className="question">{question}</div>
+        <div className="options">
+          {Array.isArray(options) ? options.map((option, index) => (
+            <button
+              key={index}
+              className={`option ${selectedOption === option ? (option === answer ? 'button-correct' : 'button-incorrect') : ''}`}
+              onClick={() => handleButtonClick(option)}
+            >
+              {option}
+            </button>
+          )) : null}
+          {next && <button className='nextQuestion' onClick={() => nextQuestion()}> Siguiente pregunta</button>}
 
+        </div>
       </div>
       <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
     </div>

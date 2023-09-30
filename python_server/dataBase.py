@@ -1,6 +1,8 @@
 from sqlalchemy import create_engine, Column, Integer, String, Sequence
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from dotenv import load_dotenv
+import os
 
 Base = declarative_base()
 
@@ -10,10 +12,13 @@ class User(Base):
     username = Column(String(50))
     email = Column(String(100))
     password = Column(String(50))
-    nombre = Column(String(100))
+    name = Column(String(100))
     num_preguntas_acertadas = Column(Integer)
+    token = Column(String(100))
+    
+load_dotenv()
 
-DATABASE_URL = "postgresql://bdp:quizzProyect23*@localhost/proyectbdp"
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 def init_db():
     engine = create_engine(DATABASE_URL)
