@@ -9,12 +9,12 @@ Base = declarative_base()
 class User(Base):
     __tablename__ = 'usuarios'
     id = Column(Integer, Sequence('usuario_id_seq'), primary_key=True)
-    username = Column(String(50))
+    username = Column(String(50), unique=True)
     email = Column(String(100))
     password = Column(String(50))
     name = Column(String(100))
     num_preguntas_acertadas = Column(Integer)
-    token = Column(String(100))
+    token = Column(String)
     
 load_dotenv()
 
