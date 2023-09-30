@@ -45,15 +45,8 @@ def obtener_datos():
 @app.route('/api/createUser', methods=['POST'])
 def create_user():
     try:
-    # Añadir el nuevo usuario a la sesión y comprometer
+    # Add new user
         data = request.get_json()
-        """{
-            "username": "bdp",
-            "email": "carlosbilbao2@gmail.com",
-            "password": "1234",
-            "nombre": "Carlos Bilbao",
-            "num_preguntas_acertadas":1
-        }"""
         data["token"] = "1232131123231223"
         print(data)
         user = User(**data)
@@ -63,7 +56,7 @@ def create_user():
         return jsonify({'message': 'User Created properly'}), 200 
     
     except Exception as e:
-        # Si ocurre un error, hacer rollback de la sesión
+        # roll back if error
         session.rollback()
         print(f"Error al crear el usuario: {e}")
         return jsonify({'message': 'Error en el servidor', 'error': str(e)}), 500
@@ -72,6 +65,30 @@ def create_user():
         # Cerrar la sesión
         session.close()
     
+@app.route('/api/logIn', methods=['POST'])
+def login_user():
+    try:
+        data = request.get_json()
+        
+        # Search user
+        user = session.query(User).filter_by(username=data["username"]).first()
+        
+        # if dont return eror 
+        if not user or user.password != data["password"]:
+            return jsonify({'message': 'Invalid username or password'}), 401
+        
+        return jsonify({'message': 'User logged in properly'}), 200 
+
+    except Exception as e:
+        # roll back if error
+        session.rollback()
+        print(f"Error during login: {e}")
+        return jsonify({'message': 'Server error', 'error': str(e)}), 500
+
+    finally:
+        # Cerrar la sesión de la base de datos
+        session.close()
+
 # Run the Flask app with the specified configuration
 # The configuration (host, port, debug) can be adjusted as needed or made configurable
 if __name__ == "__main__":
