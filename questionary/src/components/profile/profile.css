@@ -7,7 +7,7 @@ body {
 }
 
 .page {
-    background: linear-gradient(45deg, #03003e, #161669, #00d4ff);
+    background: linear-gradient(45deg, #05006a, #16167c, #00d4ff);
     min-width: 100%;
     min-height: 100vh;
     display: flex;
