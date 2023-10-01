@@ -72,7 +72,7 @@ def login_user():
         
         # Search user
         user = session.query(User).filter_by(username=data["username"]).first()
-        
+
         # if dont return eror 
         if not user or user.password != data["password"]:
             return jsonify({'message': 'Invalid username or password'}), 401
@@ -89,6 +89,33 @@ def login_user():
         # Cerrar la sesión de la base de datos
         session.close()
 
+@app.route('/api/profile', methods=['GET'])
+def get_user():
+    try:
+        print()
+        data = request.args.get("data")
+        print(data)
+        # Search user
+        user = session.query(User).filter_by(username=data).first()
+        if user:
+            user_data = {
+                "name": user.name,
+                "username": user.username,
+                "email": user.email,
+                "password": user.password
+            }
+            return jsonify(user_data), 200 
+
+    except Exception as e:
+        # roll back if error
+        session.rollback()
+        print(f"Error during login: {e}")
+        return jsonify({'message': 'Server error', 'error': str(e)}), 500
+
+    finally:
+        # Cerrar la sesión de la base de datos
+        session.close()
+        
 # Run the Flask app with the specified configuration
 # The configuration (host, port, debug) can be adjusted as needed or made configurable
 if __name__ == "__main__":
