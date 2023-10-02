@@ -19,7 +19,7 @@ with open(file_path, 'r', encoding='utf-8') as f:
 
 themes = ['history', 'geography', 'sports', 'entertainment', 'literature', 'science', 'pop_culture']
 
-
+weekly_questions = []
 
 # Define a route to handle GET requests and return questions in JSON format
 @app.route('/api/questions', methods=['GET'])
@@ -111,22 +111,18 @@ def get_user():
         # Cerrar la sesión de la base de datos
         session.close()
 
+#in future, automatice to restart the questions everyweek
 @app.route('/api/tinker', methods=['GET'])
 def get_weekly_questions():
     try:
-    # Add new user
-        if questions == []:
-            return
-        
+    # get the 20 questions if there is none 
+        if weekly_questions == []:
+            weekly_questions = generate_questions(20, random)
+            
+        return jsonify({"questions": weekly_questions}), 200
     except Exception as e:
-        # roll back if error
-        session.rollback()
-        print(f"Error al crear el usuario: {e}")
+        print(f"Error al obtener las preguntas: {e}")
         return jsonify({'message': 'Error en el servidor', 'error': str(e)}), 500
-
-    finally:
-        # Cerrar la sesión
-        session.close()
         
              
 # Run the Flask app with the specified configuration
