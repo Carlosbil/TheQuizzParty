@@ -3,10 +3,11 @@ import json, random
 from flask_cors import CORS
 import os
 from dataBase import session, User
+from tinkers import generate_questions
 app = Flask(__name__)
 
 # Enable Cross-Origin Resource Sharing (CORS) for the specified origins
-CORS(app, resources={r"/api/questions": {"origins": "http://localhost:3000"}})
+CORS(app, resources={r"*": {"origins": "http://localhost:3000"}})
 
 # Construct the file path in a platform-independent manner
 file_path = os.path.join('.', 'data', 'questions.json')
@@ -27,17 +28,11 @@ def obtener_datos():
         # Retrieve the requested theme from query parameters
         quest = request.args.get("data")
         # Check if the requested theme exists in the loaded questions
-        if quest and quest in questions:
-            # Select a random question from the specified theme and return it as JSON
-            number = random.randint(0, len(questions[quest])-1)
-            return jsonify(questions[quest][number])
-        elif quest == "random":
-            theme = random.randint(0, len(themes)-1) 
-            number = random.randint(0, len(questions[themes[theme]])-1)
-            return jsonify(questions[themes[theme]][number])
-        elif quest:   
+        if quest not in themes and quest != "random":   
             # Return an error response if the specified theme does not exist
             return jsonify({"error": f"the category {quest} didn't exist in the server"}), 404
+        question = generate_questions(1,quest)[0]
+        return jsonify(question), 200
     except Exception as e:
         return jsonify({'message': 'Error en el servidor', 'error': str(e)}), 500
 
@@ -115,7 +110,25 @@ def get_user():
     finally:
         # Cerrar la sesión de la base de datos
         session.close()
+
+@app.route('/api/tinker', methods=['GET'])
+def get_weekly_questions():
+    try:
+    # Add new user
+        if questions == []:
+            return
         
+    except Exception as e:
+        # roll back if error
+        session.rollback()
+        print(f"Error al crear el usuario: {e}")
+        return jsonify({'message': 'Error en el servidor', 'error': str(e)}), 500
+
+    finally:
+        # Cerrar la sesión
+        session.close()
+        
+             
 # Run the Flask app with the specified configuration
 # The configuration (host, port, debug) can be adjusted as needed or made configurable
 if __name__ == "__main__":

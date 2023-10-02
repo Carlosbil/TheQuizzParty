@@ -4,6 +4,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { SIGNUP_URL } from '../../enpoints';
 
 function SignUp() {
     const [formData, setFormData] = useState({
@@ -26,7 +27,7 @@ function SignUp() {
     const handleSubmit = (e) => {
         e.preventDefault();
         axios
-            .post('/api/createUser', formData)
+            .post(SIGNUP_URL, formData)
             .then((_) => {
                 navigate("/")
             })

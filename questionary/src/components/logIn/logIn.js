@@ -4,6 +4,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { LOGIN_URL } from '../../enpoints';
 
 function LogIn() {
     const [formData, setFormData] = useState({
@@ -25,7 +26,7 @@ function LogIn() {
     const handleSubmit = (e) => {
         e.preventDefault();
         axios
-            .post('/api/logIn', formData)
+            .post(LOGIN_URL, formData)
             .then((_) => {
                 navigate("/")
             })
