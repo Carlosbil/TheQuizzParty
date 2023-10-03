@@ -38,7 +38,6 @@ function LogIn() {
                     toast.error('Error al realizar la solicitud:' + error.response.data.error);
                 }
             });
-        console.log('Form Data:', formData);
     };
 
     return (

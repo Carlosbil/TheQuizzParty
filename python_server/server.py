@@ -115,11 +115,14 @@ def get_user():
 @app.route('/api/tinker', methods=['GET'])
 def get_weekly_questions():
     try:
-    # get the 20 questions if there is none 
-        if weekly_questions == []:
-            weekly_questions = generate_questions(20, random)
-            
-        return jsonify({"questions": weekly_questions}), 200
+    # get the 20 questions if there is none
+        quest = weekly_questions
+        if quest == []:
+            quest = generate_questions(20, "random")
+        print()
+        print()
+        print(quest)
+        return jsonify({"questions": quest}), 200
     except Exception as e:
         print(f"Error al obtener las preguntas: {e}")
         return jsonify({'message': 'Error en el servidor', 'error': str(e)}), 500

@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
 import './gameMenu.css';
 import QuestionDisplayer from '../questionDisplayer/questionDisplayer';
-
+import Tinkers from '../tinkers/tinkers';
 function FunButtons() {
   const [showQuestionDisplayer, setShowQuestionDisplayer] = useState(false);
-
+  const [showTinkers, setShowTinkers] = useState(false)
   const handleButtonClick_menu = (category) => {
         setShowQuestionDisplayer(true);
         localStorage.setItem('category', category);
   };
-
+  const handleButtonClick_tinkers = () => {
+    setShowTinkers(true);
+};
   return (
-    <div>
-      {!showQuestionDisplayer && (
+    <div className='Page'>
+      {!showQuestionDisplayer && !showTinkers && (
         <div className="container">
             <button className="fun-button" onClick={() => handleButtonClick_menu('history')}>
               Preguntas de historia
@@ -23,9 +25,14 @@ function FunButtons() {
             <button className="fun-button" onClick={() => handleButtonClick_menu('random')}>
               Preguntas Aleatorias
             </button>
+            <button className="fun-button" onClick={() => handleButtonClick_tinkers()}>
+              {/*cambiar el nombre de tinkers*/}
+              tinkers!!
+            </button>
         </div>
       )}
       {showQuestionDisplayer && <QuestionDisplayer />}
+      {showTinkers && <Tinkers></Tinkers>}
     </div>
   );
 }
