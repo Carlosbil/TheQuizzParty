@@ -16,10 +16,6 @@ function TinkersDisplayer({ questions_prop}) {
   };
 
   useEffect(() => {
-    get_question()
-  }, []);
-
-  const get_question= () => {
     console.log(position)
     console.log(questions_prop)
     if(position < 20){
@@ -27,9 +23,8 @@ function TinkersDisplayer({ questions_prop}) {
         setOptions(questions_prop[position].options)
         setAnswer(questions_prop[position].answer)
         setNext(false)
-        setPosition(position+1)
     }
-  };
+  }, [position, questions_prop]);
 
   return (
     <div>
@@ -45,8 +40,7 @@ function TinkersDisplayer({ questions_prop}) {
               {option}
             </button>
           )) : null}
-          {next && <button className='nextQuestion' onClick={() => get_question()}> Siguiente pregunta</button>}
-
+          {next && <button className='nextQuestion' onClick={() => setPosition(prevPosition => prevPosition + 1)}> Siguiente pregunta</button>}
         </div>
       </div>
       <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
