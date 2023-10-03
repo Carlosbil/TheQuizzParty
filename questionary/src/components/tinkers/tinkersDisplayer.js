@@ -1,23 +1,36 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-function TinkersDisplayer({ question_prop, options_prop, answer_prop }) {
+function TinkersDisplayer({ questions_prop}) {
   const [selectedOption, setSelectedOption] = useState(null);
-  const [question, setQuestion] = useState(question_prop);
-  const [options, setOptions] = useState(options_prop);
-  const [answer, setAnswer] = useState(answer_prop);
+  const [question, setQuestion] = useState("");
+  const [options, setOptions] = useState([]);
+  const [answer, setAnswer] = useState("");
   const [next, setNext] = useState(false)
+  const [position, setPosition] = useState(0)
 
   const handleButtonClick = (option) => {
-    console.log(option);
     setSelectedOption(option);
     setNext(true)
   };
 
-  const nextQuestion = () => {
-    setNext(false)
-  }
+  useEffect(() => {
+    get_question()
+  }, []);
+
+  const get_question= () => {
+    console.log(position)
+    console.log(questions_prop)
+    if(position < 20){
+        setQuestion(questions_prop[position].question)
+        setOptions(questions_prop[position].options)
+        setAnswer(questions_prop[position].answer)
+        setNext(false)
+        setPosition(position+1)
+    }
+  };
+
   return (
     <div>
       <div className="question-container">
@@ -32,7 +45,7 @@ function TinkersDisplayer({ question_prop, options_prop, answer_prop }) {
               {option}
             </button>
           )) : null}
-          {next && <button className='nextQuestion' onClick={() => nextQuestion()}> Siguiente pregunta</button>}
+          {next && <button className='nextQuestion' onClick={() => get_question()}> Siguiente pregunta</button>}
 
         </div>
       </div>

@@ -12,7 +12,6 @@ function QuestionDisplayer({ question_prop, options_prop, answer_prop }) {
   const [next, setNext] = useState(false)
 
   const handleButtonClick = (option) => {
-    console.log(option);
     setSelectedOption(option);
     setNext(true)
   };
