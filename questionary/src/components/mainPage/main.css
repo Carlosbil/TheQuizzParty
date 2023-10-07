@@ -1,6 +1,6 @@
 .page {
     background-color: #f0f0f0; /* Color de fondo claro */
-    min-width: 100%;
+    min-width: 80%;
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -19,6 +19,7 @@
     font-size: 2rem;
     color: #212529; /* Color de texto inicial */
     cursor: pointer;
+    margin-left: 15vmin;
     transition: transform 0.2s ease-in-out, color 0.3s ease-in-out; /* Añadido color a la transición */
 }
 
@@ -29,10 +30,14 @@
 
 
 
-.logo-container {
+.logo-container img {
     position: fixed;
     top: 0;
     left: 2%;
     margin: 1%;
     margin-right: 98%;
+    border-radius: 10%;
+    max-width: 0.5vmin;
+    min-width: 0.5vmin;
+
 }

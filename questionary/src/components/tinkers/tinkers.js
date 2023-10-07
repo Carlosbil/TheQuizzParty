@@ -7,11 +7,11 @@ import { TINKERS_URL } from '../../enpoints'
 import TinkersDisplayer from './tinkersDisplayer';
 
 function Tinkers() {
-  const [questions, setQuestions] = useState([])
-  const [start, setStart] = useState(false)
+  const [questions, setQuestions] = useState([]);
+  const [start, setStart] = useState(false);
 
   const handleButtonClick = () => {
-    setStart(true)
+    setStart(true);
   };
 
   useEffect(() => {
@@ -23,7 +23,7 @@ function Tinkers() {
       .get(TINKERS_URL)
       .then((response) => {
         setQuestions(response.data.questions);
-        console.log(response.data.questions)
+        console.log(response.data.questions);
       })
       .catch((error) => {
         console.error('Error al iniciar el juego', error);
@@ -34,13 +34,13 @@ function Tinkers() {
         }
       });
   }
+
   return (
     <div>
-    {!start &&
-      <button className='fun_tinker' onClick={handleButtonClick} >The fastest thinker alive</button>
-    }
-    {start && <TinkersDisplayer questions_prop={questions}/>
-    }
+      {!start &&
+        <button className='fun_tinker' onClick={handleButtonClick} >The fastest thinker alive</button>
+      }
+      {start && <TinkersDisplayer questions_prop={questions} />}
       <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
     </div>
   );

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import ClockTimer from '../timer/timer';
 function TinkersDisplayer({ questions_prop}) {
   const [selectedOption, setSelectedOption] = useState(null);
   const [question, setQuestion] = useState("");
@@ -31,6 +31,8 @@ function TinkersDisplayer({ questions_prop}) {
       <div className="question-container">
         <div className="question">{question}</div>
         <div className="options">
+        <ClockTimer initialTime={600} onTimeEnd={() => {console.log("Time's up!")}} />
+
           {Array.isArray(options) ? options.map((option, index) => (
             <button
               key={index}

@@ -11,9 +11,25 @@
     cursor: pointer;
     transition: transform 0.2s ease-in-out, color 0.3s ease-in-out; /* Añadido color a la transición */
 }
-
 .fun_tinker:hover {
-    transform: scale(1.1); /* Aumenta el tamaño */
+    transform: scale(1.1); /* Aumenta el tamaÃ±o */
     color: #f9fffa;
     background-color: repeating-radial-gradient(45deg, #e902ed, #16167c, #00d4ff);
+}
+
+.clock-face {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: #f3f3f3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 5px solid #333;
+    margin: 20px 0;
+}
+
+.clock-time {
+    font-size: 24px;
+    font-weight: bold;
 }
