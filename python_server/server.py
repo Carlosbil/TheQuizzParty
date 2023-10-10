@@ -100,7 +100,9 @@ def get_user():
                 "password": user.password
             }
             return jsonify(user_data), 200 
-
+        else:
+            return jsonify({'message': " user not found", 'error': str(e)}), 404
+        
     except Exception as e:
         # roll back if error
         session.rollback()
