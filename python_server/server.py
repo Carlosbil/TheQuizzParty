@@ -136,7 +136,6 @@ def save_score():
     try:
         data = request.get_json()
         
-        # Search user
         score = Score(**data)
         session.add(score)
         session.commit()

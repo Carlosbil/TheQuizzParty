@@ -46,7 +46,7 @@
     border-radius: 10px; /* Bordes redondeados */
     width: 80%;
     padding: 20px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra de la tarjeta */
+    box-shadow: 3px 3px 4px silver; /* Sombra de la tarjeta */
     font-size: 2rem;
     color: #212529; /* Color de texto inicial */
     cursor: pointer;
