@@ -21,7 +21,7 @@ function LogIn() {
             [name]: value,
         });
     };
-    
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -41,31 +41,35 @@ function LogIn() {
     };
 
     return (
-        <div className="container">
-            <h2>Por favor introduce tus datos</h2>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    name="username"
-                    placeholder="Username"
-                    value={formData.username}
-                    onChange={handleChange}
-                    className="input"
-                />
-                <input
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    className="input"
-                />
-                <button type="submit" className="button" link="/">
-                    Iniciar Sesión
-                </button>
-            </form>
-            <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
-        </div>
+        <a className='back'>
+            <b className='page'>
+                <div className="container">
+                    <h2>Por favor introduce tus datos</h2>
+                    <form onSubmit={handleSubmit}>
+                        <input
+                            type="text"
+                            name="username"
+                            placeholder="Username"
+                            value={formData.username}
+                            onChange={handleChange}
+                            className="input"
+                        />
+                        <input
+                            type="password"
+                            name="password"
+                            placeholder="Password"
+                            value={formData.password}
+                            onChange={handleChange}
+                            className="input"
+                        />
+                        <button type="submit" className="button" link="/">
+                            Iniciar Sesión
+                        </button>
+                    </form>
+                    <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
+                </div>
+            </b>
+        </a>
     );
 }
 

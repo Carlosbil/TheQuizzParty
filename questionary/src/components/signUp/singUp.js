@@ -42,48 +42,52 @@ function SignUp() {
     };
 
     return (
-        <div className="container">
-            <h2>Por favor introduce tus datos</h2>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    name="name"
-                    placeholder="Name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    className="input"
-                />
-                <input
+        <a className='back'>
+            <b className='page'>
+                <div className="container">
+                    <h2>Por favor introduce tus datos</h2>
+                    <form onSubmit={handleSubmit}>
+                        <input
+                            type="text"
+                            name="name"
+                            placeholder="Name"
+                            value={formData.name}
+                            onChange={handleChange}
+                            className="input"
+                        />
+                        <input
 
-                    type="text"
-                    name="username"
-                    placeholder="Username"
-                    value={formData.username}
-                    onChange={handleChange}
-                    className="input"
-                />
-                <input
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="input"
-                />
-                <input
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    className="input"
-                />
-                <button type="submit" className="button" link="/">
-                    Register
-                </button>
-            </form>
-            <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
-        </div>
+                            type="text"
+                            name="username"
+                            placeholder="Username"
+                            value={formData.username}
+                            onChange={handleChange}
+                            className="input"
+                        />
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="Email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            className="input"
+                        />
+                        <input
+                            type="password"
+                            name="password"
+                            placeholder="Password"
+                            value={formData.password}
+                            onChange={handleChange}
+                            className="input"
+                        />
+                        <button type="submit" className="button" link="/">
+                            Register
+                        </button>
+                    </form>
+                    <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
+                </div>
+            </b>
+        </a>
     );
 }
 

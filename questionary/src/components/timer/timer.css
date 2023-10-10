@@ -1,7 +1,7 @@
 .clock-timer {
     position: fixed;
-    top: 10px;
-    right: 10px;
+    top: -1.8%;
+    right: 10%;
     z-index: 1100;  /* Ensure the timer is on top */
 }
 

@@ -1,3 +1,7 @@
+# Warning
+
+since this is only a develop phase, it usually has the localhost config in the url from React to python, modify and include the host ip for let to other users to play
+
 # QuizzGame
 
 QuizzGame is a quiz game application featuring a user interface built with React and game logic implemented in a Python server using Flask.

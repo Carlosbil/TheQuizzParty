@@ -3,10 +3,9 @@ import './timer.css';
 
 function ClockTimer(props) {
   const [timeRemaining, setTimeRemaining] = useState(props.initialTime || 600);
-
   useEffect(() => {
     let timer;
-    if (timeRemaining > 0) {
+    if (!props.shouldStop && timeRemaining > 0) {
       timer = setTimeout(() => {
         setTimeRemaining(timeRemaining - 1);
       }, 1000);
@@ -15,7 +14,7 @@ function ClockTimer(props) {
       if (props.onTimeEnd) props.onTimeEnd();
     }
     return () => clearTimeout(timer);  // Cleanup on unmount
-  }, [timeRemaining]);
+  }, [timeRemaining, props.shouldStop]);
 
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);

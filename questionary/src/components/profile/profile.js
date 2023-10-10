@@ -52,7 +52,7 @@ function Profile() {
     }
 
     return (
-        <div>
+        <div className='back'>
             <div className="page">
                 <Logo onClick={handleLogoClick} /> {/* Agregar el componente Logo aquí */}
                 <div className="display_div">
@@ -75,7 +75,6 @@ function Profile() {
                         {showProfile && <div>{maskPassword(password)}</div>}
                     </div>
                 </div>
-                <button className='nextQuestion' onClick={() => getUser()}> Cargar perfil</button>
             </div>
             <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
         </div>

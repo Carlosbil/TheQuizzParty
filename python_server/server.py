@@ -2,12 +2,13 @@ from flask import Flask, jsonify, request
 import json, random
 from flask_cors import CORS
 import os
-from dataBase import session, User
+from dataBase import session, User, Score
 from tinkers import generate_questions
 app = Flask(__name__)
 
 # Enable Cross-Origin Resource Sharing (CORS) for the specified origins
-CORS(app, resources={r"*": {"origins": "http://localhost:3000"}})
+# CORS(app, resources={r"*": {"origins": "http://localhost:3000"}})
+CORS(app)
 
 # Construct the file path in a platform-independent manner
 file_path = os.path.join('.', 'data', 'questions.json')
@@ -43,21 +44,19 @@ def create_user():
     # Add new user
         data = request.get_json()
         data["token"] = "1232131123231223"
-        print(data)
         user = User(**data)
         session.add(user)
         session.commit()
-        print("Usuario creado exitosamente!")
         return jsonify({'message': 'User Created properly'}), 200 
     
     except Exception as e:
         # roll back if error
         session.rollback()
-        print(f"Error al crear el usuario: {e}")
-        return jsonify({'message': 'Error en el servidor', 'error': str(e)}), 500
-
+        message = "Error while creating the user"
+        print(f"{message}: {e}")
+        return jsonify({'message': message, 'error': str(e)}), 500
     finally:
-        # Cerrar la sesión
+        # Close session
         session.close()
     
 @app.route('/api/logIn', methods=['POST'])
@@ -77,11 +76,12 @@ def login_user():
     except Exception as e:
         # roll back if error
         session.rollback()
-        print(f"Error during login: {e}")
-        return jsonify({'message': 'Server error', 'error': str(e)}), 500
+        message = "Error while logging in"
+        print(f"{message}: {e}")
+        return jsonify({'message': message, 'error': str(e)}), 500
 
     finally:
-        # Cerrar la sesión de la base de datos
+        # Close Session
         session.close()
 
 @app.route('/api/profile', methods=['GET'])
@@ -104,12 +104,14 @@ def get_user():
     except Exception as e:
         # roll back if error
         session.rollback()
-        print(f"Error during login: {e}")
-        return jsonify({'message': 'Server error', 'error': str(e)}), 500
+        message = "Error while getting the user information"
+        print(f"{message}: {e}")
+        return jsonify({'message': message, 'error': str(e)}), 500
 
     finally:
-        # Cerrar la sesión de la base de datos
+        # Close session
         session.close()
+
 
 #in future, automatice to restart the questions everyweek
 @app.route('/api/tinker', methods=['GET'])
@@ -118,16 +120,45 @@ def get_weekly_questions():
     # get the 20 questions if there is none
         quest = weekly_questions
         if quest == []:
-            quest = generate_questions(20, "random")
+            quest = generate_questions(10, "random")
         print()
         print()
         print(quest)
         return jsonify({"questions": quest}), 200
     except Exception as e:
-        print(f"Error al obtener las preguntas: {e}")
-        return jsonify({'message': 'Error en el servidor', 'error': str(e)}), 500
+        message = "Error while getting questions"
+        print(f"{message}: {e}")
+        return jsonify({'message': message, 'error': str(e)}), 500
+       
         
-             
+@app.route('/api/tinkerScore', methods=['POST'])       
+def save_score():
+    try:
+        data = request.get_json()
+        
+        # Search user
+        score = Score(**data)
+        session.add(score)
+        session.commit()
+        # if dont return eror 
+        if not score:
+            session.rollback()
+            return jsonify({'message': 'Invalid username or password'}), 401
+        
+        return jsonify({'message': 'User logged in properly'}), 200 
+
+    except Exception as e:
+        # roll back if error
+        session.rollback()
+        message = "Error while saving score"
+        print(f"{message}: {e}")
+        return jsonify({'message': message, 'error': str(e)}), 500
+
+    finally:
+        # Close session
+        session.close()         
+        
+        
 # Run the Flask app with the specified configuration
 # The configuration (host, port, debug) can be adjusted as needed or made configurable
 if __name__ == "__main__":

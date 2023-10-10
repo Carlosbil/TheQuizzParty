@@ -10,7 +10,7 @@
     margin: auto;
     border-radius: 5px; /* Bordes redondeados */
     box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.1); 
-    background: #dfdcdc
+    background-color: rgba(240, 240, 240, 0.5);
   }
   
   .input {

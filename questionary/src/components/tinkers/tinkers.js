@@ -23,7 +23,6 @@ function Tinkers() {
       .get(TINKERS_URL)
       .then((response) => {
         setQuestions(response.data.questions);
-        console.log(response.data.questions);
       })
       .catch((error) => {
         console.error('Error al iniciar el juego', error);
