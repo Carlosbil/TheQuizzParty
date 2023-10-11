@@ -5,13 +5,14 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #f0f0f0; /* Color de fondo claro */
+  background-color: rgba(10, 10, 10, 0.1);
+/*backdrop-filter: blur(10px);*/
 }
 
 .question {
-  font-size: 2rem;
+  font-size: 4vmin;
   margin-bottom: 1rem;
-  color: #333; /* Color de texto oscuro */
+  color: #fdf9f9; /* Color de texto oscuro */
   text-align: center;
 }
 

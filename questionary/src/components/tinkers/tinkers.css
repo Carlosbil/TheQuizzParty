@@ -1,0 +1,46 @@
+.fun_tinker {
+    text-align: center;
+    background-color: repeating-radial-gradient(45deg, #e902ed, #16167c, #00d4ff); /* Color de fondo de la tarjeta */
+    border: none;
+    border-radius: 5px; /* Bordes redondeados */
+    width: 100%;
+    padding: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra de la tarjeta */
+    font-size: 2rem;
+    color: #212529; /* Color de texto inicial */
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, color 0.3s ease-in-out; /* Añadido color a la transición */
+}
+.fun_tinker:hover {
+    transform: scale(1.1); /* Aumenta el tamaÃ±o */
+    color: #010802;
+    background-color: repeating-radial-gradient(45deg, #e902ed, #16167c, #00d4ff);
+}
+
+.clock-face {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: #f3f3f3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 5px solid #333;
+    margin: 20px 0;
+}
+
+.clock-time {
+    font-size: 12vmin;
+    font-weight: bold;
+}
+
+.scoreboard {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif  ; 
+    color: rgb(0, 0, 0);  
+    display: inline-block;
+    margin-top: -0.5vmin;
+    position: fixed;
+    top: 15%;
+    right: 11%;
+    z-index: 100; 
+}

@@ -3,7 +3,7 @@ import './questionDisplayer.css';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { QUESTIONS_URL } from '../../enpoints'
 function QuestionDisplayer({ question_prop, options_prop, answer_prop }) {
   const [selectedOption, setSelectedOption] = useState(null);
   const [question, setQuestion] = useState(question_prop);
@@ -12,7 +12,6 @@ function QuestionDisplayer({ question_prop, options_prop, answer_prop }) {
   const [next, setNext] = useState(false)
 
   const handleButtonClick = (option) => {
-    console.log(option);
     setSelectedOption(option);
     setNext(true)
   };
@@ -24,7 +23,7 @@ function QuestionDisplayer({ question_prop, options_prop, answer_prop }) {
   const nextQuestion = () => {
     setNext(false)
     axios
-      .get('/api/questions', { params: { data: localStorage.getItem("category") } })
+      .get(QUESTIONS_URL, { params: { data: localStorage.getItem("category") } })
       .then((response) => {
         setQuestion(decodeURIComponent(response.data.question));
         setAnswer(decodeURIComponent(response.data.answer));

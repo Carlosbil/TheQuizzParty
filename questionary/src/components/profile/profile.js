@@ -5,6 +5,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Logo from '../homebotton/homebotton';
 import { useNavigate } from 'react-router-dom';
+import { PROFILE_URL } from '../../enpoints';
 
 function Profile() {
     const [username, setUsername] = useState("");
@@ -28,7 +29,7 @@ function Profile() {
         axios
             // cambiar el username bdp por el del ususario, habrá que investigar como mantenerlo en la sesion
             // en un futuro usar el JWT... 
-            .get('/api/profile', { params: { data: "bdp" } })
+            .get(PROFILE_URL, { params: { data: "bdp" } })
             .then((response) => {
                 setUsername(decodeURIComponent(response.data.username));
                 setEmail(decodeURIComponent(response.data.email));
@@ -51,7 +52,7 @@ function Profile() {
     }
 
     return (
-        <div>
+        <div className='back'>
             <div className="page">
                 <Logo onClick={handleLogoClick} /> {/* Agregar el componente Logo aquí */}
                 <div className="display_div">
@@ -74,7 +75,6 @@ function Profile() {
                         {showProfile && <div>{maskPassword(password)}</div>}
                     </div>
                 </div>
-                <button className='nextQuestion' onClick={() => getUser()}> Cargar perfil</button>
             </div>
             <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
         </div>

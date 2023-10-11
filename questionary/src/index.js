@@ -5,6 +5,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+// en algun momento estudiar quitar lo de StrictMode 
+// ya que hace que useEffects se ejecute 2 veces
 root.render(
   <React.StrictMode>
     <App />

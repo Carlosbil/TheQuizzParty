@@ -16,7 +16,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start_both": "concurrently \"cd ../python_server && python server.py\" \"npm start\"",
+    "both": "concurrently \"cd ../python_server && python server.py\" \"npm start\"",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -45,6 +45,7 @@
     "@babel/plugin-transform-nullish-coalescing-operator": "^7.22.11",
     "@babel/plugin-transform-numeric-separator": "^7.22.11",
     "@babel/plugin-transform-optional-chaining": "^7.22.15",
-    "@babel/plugin-transform-private-methods": "^7.22.5"
+    "@babel/plugin-transform-private-methods": "^7.22.5",
+    "http-proxy-middleware": "^2.0.6"
   }
 }

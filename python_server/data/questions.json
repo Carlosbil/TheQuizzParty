@@ -1074,9 +1074,9 @@
             "question": "¿Cuál es la velocidad de la luz en el vacío?",
             "answer": "299,792,458 metros por segundo",
             "options": [
-                "150,000,000 kilómetros",
-                "1,080,000,000 kilómetros por hora",
-                "299,792,458 metros por segundo"
+                "150.000.000 kilómetros",
+                "1.080,000.000 kilómetros por hora",
+                "299.792.458 metros por segundo"
             ],
             "difficulty": 3
         },

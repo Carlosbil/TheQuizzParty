@@ -6,15 +6,6 @@ body {
     padding: 0;
 }
 
-.page {
-    background: linear-gradient(45deg, #05006a, #16167c, #00d4ff);
-    min-width: 100%;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .display_div {
     margin-top: 20px;
     border-top: 1px solid #e0e0e0;
@@ -44,7 +35,6 @@ body {
     color: #a3a3a3;
 }
 
-/* Estilos para el botón */
 .nextQuestion {
     display: block;
     background-color: #007BFF;
@@ -55,13 +45,13 @@ body {
     margin: 20px 0;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    
 }
 
 .nextQuestion:hover {
     background-color: #0056b3;
 }
 
-/* Estilos para el componente ToastContainer (asumiendo que es una notificación) */
 .ToastContainer {
     font-size: 14px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);

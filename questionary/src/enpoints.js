@@ -1,0 +1,7 @@
+const BASE_URL = 'http://192.168.1.62:3001';
+
+export const QUESTIONS_URL = `${BASE_URL}/api/questions`;
+export const TINKERS_URL = `${BASE_URL}/api/tinker`;
+export const PROFILE_URL = `${BASE_URL}/api/profile`;
+export const LOGIN_URL = `${BASE_URL}/api/logIn`;
+export const SIGNUP_URL = `${BASE_URL}/api/createUser`;

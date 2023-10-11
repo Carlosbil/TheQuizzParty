@@ -1,5 +1,13 @@
+.back {
+    background: linear-gradient(45deg, #05006a 35%, #16167c 40%, #00d4ff 90%);
+    min-width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .page {
-    background-color: #f0f0f0; /* Color de fondo claro */
+    background-color: rgba(0, 0, 0, 0.4); /* Capa de blanco con 60% de opacidad */
     min-width: 100%;
     min-height: 100vh;
     display: flex;
@@ -7,15 +15,38 @@
     align-items: center;
 }
 
+.showProfile {
+    display: block;
+    background-color: #007BFF;
+    color: #fff;
+    padding: 2vmin 4vmin;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;  
+    position: fixed;
+    top: 0;
+    left: 12%;
+    margin: 1%;
+    margin-right: 98%;
+    border-radius: 10%;
+    min-width: 4vmin;
+}
+
+.showProfile:hover {
+    background-color: #73b6fd;
+    transform: scale(1.1);
+}
+
 
 .fun {
     text-align: center;
     background-color: #fff; /* Color de fondo de la tarjeta */
     border: none;
-    border-radius: 5px; /* Bordes redondeados */
+    border-radius: 10px; /* Bordes redondeados */
     width: 80%;
     padding: 20px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra de la tarjeta */
+    box-shadow: 3px 3px 4px silver; /* Sombra de la tarjeta */
     font-size: 2rem;
     color: #212529; /* Color de texto inicial */
     cursor: pointer;
@@ -29,10 +60,25 @@
 
 
 
-.logo-container {
+.logo-container img {
     position: fixed;
     top: 0;
-    left: 2%;
+    left: 2vmin;
     margin: 1%;
-    margin-right: 98%;
+    margin-left: 1%;
+    border-radius: 10%;
+    max-width: 0.5vmin;
+    min-width: 0.5vmin;
+
+}
+
+.profile_container img {
+    position: fixed;
+    top: 0;
+    left: 12vmin;
+    margin: 1%;
+    margin-left:3%;
+    border-radius: 10%;
+    max-width: 0.5vmin;
+    min-width: 0.5vmin;
 }

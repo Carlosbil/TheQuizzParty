@@ -4,6 +4,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { LOGIN_URL } from '../../enpoints';
 
 function LogIn() {
     const [formData, setFormData] = useState({
@@ -20,12 +21,12 @@ function LogIn() {
             [name]: value,
         });
     };
-    
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
         axios
-            .post('/api/logIn', formData)
+            .post(LOGIN_URL, formData)
             .then((_) => {
                 navigate("/")
             })
@@ -37,35 +38,38 @@ function LogIn() {
                     toast.error('Error al realizar la solicitud:' + error.response.data.error);
                 }
             });
-        console.log('Form Data:', formData);
     };
 
     return (
-        <div className="container">
-            <h2>Por favor introduce tus datos</h2>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    name="username"
-                    placeholder="Username"
-                    value={formData.username}
-                    onChange={handleChange}
-                    className="input"
-                />
-                <input
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    className="input"
-                />
-                <button type="submit" className="button" link="/">
-                    Iniciar Sesión
-                </button>
-            </form>
-            <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
-        </div>
+        <a className='back'>
+            <b className='page'>
+                <div className="container">
+                    <h2>Por favor introduce tus datos</h2>
+                    <form onSubmit={handleSubmit}>
+                        <input
+                            type="text"
+                            name="username"
+                            placeholder="Username"
+                            value={formData.username}
+                            onChange={handleChange}
+                            className="input"
+                        />
+                        <input
+                            type="password"
+                            name="password"
+                            placeholder="Password"
+                            value={formData.password}
+                            onChange={handleChange}
+                            className="input"
+                        />
+                        <button type="submit" className="button" link="/">
+                            Iniciar Sesión
+                        </button>
+                    </form>
+                    <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
+                </div>
+            </b>
+        </a>
     );
 }
 
