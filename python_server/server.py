@@ -62,7 +62,7 @@ def create_user():
     try:
     # Add new user
         data = request.get_json()
-        data["token"] = modified_generate_token()
+        data["token"] = generate_token()
         user = User(**data)
         session.add(user)
         session.commit()
@@ -88,8 +88,15 @@ def login_user():
         # if dont return eror 
         if not user or user.password != data["password"]:
             return jsonify({'message': 'Invalid username or password'}), 401
-        
-        token = generate_token()
+        if not is_token_valid(user.token):
+            token = generate_token()
+            user.token = token
+            session.commit()
+        else:
+            token = user.token
+        print()
+        print()
+        print(token)
         return jsonify({'message': 'User logged in properly', "token": token}), 200 
 
     except Exception as e:
