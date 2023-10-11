@@ -1,7 +1,9 @@
+import datetime
 from flask import Flask, jsonify, request
 import json, random
 from flask_cors import CORS
 import os
+import base64
 from dataBase import session, User, Score
 from tinkers import generate_questions
 app = Flask(__name__)
@@ -21,6 +23,23 @@ with open(file_path, 'r', encoding='utf-8') as f:
 themes = ['history', 'geography', 'sports', 'entertainment', 'literature', 'science', 'pop_culture']
 
 weekly_questions = []
+
+
+def is_token_valid(token_with_timestamp):
+    try:
+        # Split the token and timestamp
+        token, timestamp_str = token_with_timestamp.split("|")
+        timestamp = datetime.datetime.strptime(timestamp_str, '%Y-%m-%d %H:%M:%S')
+
+        # Check if the token has expired (more than 24 hours old)
+        if (datetime.datetime.now() - timestamp).total_seconds() > 86400:  # 86400 seconds = 24 hours
+            return False
+        return True
+    except:
+        return False
+
+def generate_token():
+    return base64.urlsafe_b64encode(os.urandom(24)).decode('utf-8')
 
 # Define a route to handle GET requests and return questions in JSON format
 @app.route('/api/questions', methods=['GET'])
@@ -43,7 +62,7 @@ def create_user():
     try:
     # Add new user
         data = request.get_json()
-        data["token"] = "1232131123231223"
+        data["token"] = modified_generate_token()
         user = User(**data)
         session.add(user)
         session.commit()
@@ -66,12 +85,12 @@ def login_user():
         
         # Search user
         user = session.query(User).filter_by(username=data["username"]).first()
-
         # if dont return eror 
         if not user or user.password != data["password"]:
             return jsonify({'message': 'Invalid username or password'}), 401
         
-        return jsonify({'message': 'User logged in properly'}), 200 
+        token = generate_token()
+        return jsonify({'message': 'User logged in properly', "token": token}), 200 
 
     except Exception as e:
         # roll back if error
