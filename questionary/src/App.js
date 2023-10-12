@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import './App.css';
 import LogIn from './components/logIn/logIn';
@@ -7,14 +7,12 @@ import Profile from './components/profile/profile';
 import SignUp from './components/signUp/singUp';
 import { Provider } from 'react-redux';
 import store from './store';
-import { useSelector } from 'react-redux';
-import { Outlet } from 'react-router-dom';
+import { getCookieValue } from './authSlide';
 
 function ProtectedRoute({ children }) {
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const allCookies = document.cookie;
 
-  console.log("Is authenticated:", isAuthenticated);
-
+  const isAuthenticated = allCookies.includes("isAuthenticated=true");
   if (!isAuthenticated) {
     return <Navigate to="/logIn" replace />;
   }

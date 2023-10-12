@@ -6,7 +6,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { LOGIN_URL } from '../../enpoints';
 import { useDispatch, useSelector } from 'react-redux';
-import { login } from '../../authSlide';
+import { getCookieValue, login } from '../../authSlide';
 
 function LogIn() {
     const [formData, setFormData] = useState({
@@ -33,8 +33,11 @@ function LogIn() {
             .then((response) => {
                 // get the info
                 const token = response.data.token;
+                console.log(token)
                 // save the token
-                dispatch(login(token, true));
+                document.cookie = "isAuthenticated=true; path=/; max-age=3600; samesite=Lax"; // Expira en 1 hora
+                document.cookie = `auth_token=${token}; path=/; max-age=3600; samesite=Lax`;
+                console.log(getCookieValue("auth_token"))
                 // go to mainmenu
                 navigate("/");
             })

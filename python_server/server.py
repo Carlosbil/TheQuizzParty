@@ -38,8 +38,24 @@ def is_token_valid(token_with_timestamp):
     except:
         return False
 
+
+# take a look to the DB for search if the token already exists in another user
+def token_exists(token):
+    user_with_token = session.query(User).filter_by(token=token).first()
+    session.close()
+    
+    if user_with_token:
+        return True
+    return False
+
+
+# generate a new token that not exists already in the DB
 def generate_token():
-    return base64.urlsafe_b64encode(os.urandom(24)).decode('utf-8')
+    token = base64.urlsafe_b64encode(os.urandom(24)).decode('utf-8')
+    while token_exists(token):
+        token = base64.urlsafe_b64encode(os.urandom(24)).decode('utf-8')
+    return token
+
 
 # Define a route to handle GET requests and return questions in JSON format
 @app.route('/api/questions', methods=['GET'])
@@ -117,7 +133,7 @@ def get_user():
         data = request.args.get("data")
         print(data)
         # Search user
-        user = session.query(User).filter_by(username=data).first()
+        user = session.query(User).filter_by(token=data).first()
         if user:
             user_data = {
                 "name": user.name,
