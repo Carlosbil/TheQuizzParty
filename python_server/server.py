@@ -32,7 +32,7 @@ def is_token_valid(token_with_timestamp):
         timestamp = datetime.datetime.strptime(timestamp_str, '%Y-%m-%d %H:%M:%S')
 
         # Check if the token has expired (more than 24 hours old)
-        if (datetime.datetime.now() - timestamp).total_seconds() > 86400:  # 86400 seconds = 24 hours
+        if (datetime.datetime.now() - timestamp).total_seconds() > 3600 :  # 86400 seconds = 24 hours
             return False
         return True
     except:
@@ -42,19 +42,21 @@ def is_token_valid(token_with_timestamp):
 # take a look to the DB for search if the token already exists in another user
 def token_exists(token):
     user_with_token = session.query(User).filter_by(token=token).first()
-    session.close()
     
     if user_with_token:
         return True
     return False
 
 
-# generate a new token that not exists already in the DB
 def generate_token():
     token = base64.urlsafe_b64encode(os.urandom(24)).decode('utf-8')
-    while token_exists(token):
+    timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    token_with_timestamp = f"{token}|{timestamp}"
+    while token_exists(token_with_timestamp):
         token = base64.urlsafe_b64encode(os.urandom(24)).decode('utf-8')
-    return token
+        token_with_timestamp = f"{token}|{timestamp}"
+    return token_with_timestamp
+
 
 
 # Define a route to handle GET requests and return questions in JSON format
@@ -101,18 +103,22 @@ def login_user():
         
         # Search user
         user = session.query(User).filter_by(username=data["username"]).first()
+        print()
+        print(user)
+        print()
         # if dont return eror 
         if not user or user.password != data["password"]:
             return jsonify({'message': 'Invalid username or password'}), 401
         if not is_token_valid(user.token):
+            print("generating token")
             token = generate_token()
             user.token = token
+            print(user.token)
             session.commit()
         else:
+            print("using the old token")
             token = user.token
-        print()
-        print()
-        print(token)
+            print(token)
         return jsonify({'message': 'User logged in properly', "token": token}), 200 
 
     except Exception as e:
@@ -129,9 +135,8 @@ def login_user():
 @app.route('/api/profile', methods=['GET'])
 def get_user():
     try:
-        print()
         data = request.args.get("data")
-        print(data)
+
         # Search user
         user = session.query(User).filter_by(token=data).first()
         if user:
@@ -143,14 +148,14 @@ def get_user():
             }
             return jsonify(user_data), 200 
         else:
-            return jsonify({'message': " user not found", 'error': str(e)}), 404
+            return jsonify({'error': " user not found"}), 404
         
     except Exception as e:
         # roll back if error
         session.rollback()
         message = "Error while getting the user information"
         print(f"{message}: {e}")
-        return jsonify({'message': message, 'error': str(e)}), 500
+        return jsonify({'message': str(e), 'error': message}), 500
 
     finally:
         # Close session
@@ -172,30 +177,38 @@ def get_weekly_questions():
     except Exception as e:
         message = "Error while getting questions"
         print(f"{message}: {e}")
-        return jsonify({'message': message, 'error': str(e)}), 500
+        return jsonify({'message': str(e), 'error': message}), 500
        
         
 @app.route('/api/tinkerScore', methods=['POST'])       
 def save_score():
     try:
         data = request.get_json()
-        
-        score = Score(**data)
-        session.add(score)
-        session.commit()
+        user = session.query(User).filter_by(token=data["token"]).first()
+        if user:
+            score_data = {}
+            score_data = {
+                "username": user.id,
+                "score": data["score"],
+                "time_taken": data["time_taken"],
+                "correct_questions": data["correct_questions"]
+            }
+            score = Score(**score_data)
+            session.add(score)
+            session.commit()
         # if dont return eror 
         if not score:
             session.rollback()
-            return jsonify({'message': 'Invalid username or password'}), 401
+            return jsonify({'error': 'Invalid username or password'}), 401
         
-        return jsonify({'message': 'User logged in properly'}), 200 
+        return jsonify({'error': 'User logged in properly'}), 200 
 
     except Exception as e:
         # roll back if error
         session.rollback()
         message = "Error while saving score"
         print(f"{message}: {e}")
-        return jsonify({'message': message, 'error': str(e)}), 500
+        return jsonify({'message': str(e), 'error': message}), 500
 
     finally:
         # Close session
