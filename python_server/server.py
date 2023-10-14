@@ -250,6 +250,18 @@ def update_profile():
         user = session.query(User).filter_by(token=data["token"]).first()
         print(data)
         if user:
+            # Check if the new username is already in use by another user
+            existing_user_with_new_username = session.query(User).filter_by(username=data["username"]).first()
+            if existing_user_with_new_username and existing_user_with_new_username.id != user.id:
+                return jsonify({'message': 'Username already in use', 'error': 'Duplicate username'}), 400
+
+            # If the username is being changed, update related records in the scores table
+            if user.username != data["username"]:
+                scores_with_old_username = session.query(Score).filter_by(username=user.username).all()
+                for score in scores_with_old_username:
+                    score.username = data["username"]
+
+            # Update user details
             user.username = data["username"]
             user.name = data["name"]
             user.email = data["email"]
@@ -257,18 +269,19 @@ def update_profile():
             session.commit()
             return jsonify(data), 200
         else:
-            return jsonify({'message': "not existing profile", 'error': "the user could not be found"}), 500
+            return jsonify({'message': "Profile not found", 'error': "User could not be found"}), 500
         
     except Exception as e:
-        # roll back if error
+        # Roll back changes in case of an error
         session.rollback()
         message = "Error while saving the information"
         print(f"{message}: {e}")
         return jsonify({'message': str(e), 'error': message}), 500
     
     finally:
-        # Close session
-        session.close() 
+        # Close the session
+        session.close()
+
 # Run the Flask app with the specified configuration
 # The configuration (host, port, debug) can be adjusted as needed or made configurable
 if __name__ == "__main__":

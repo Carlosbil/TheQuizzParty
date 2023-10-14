@@ -23,7 +23,7 @@ class Score(Base):
     __tablename__ = 'scores'
     
     score_id = Column(Integer, Sequence('score_id_seq'), primary_key=True)
-    username = Column(String(50), ForeignKey('usuarios.username'))
+    username = Column(String, ForeignKey('usuarios.username', onupdate="CASCADE"), nullable=False)    
     score = Column(Float)
     time_taken = Column(Integer)
     correct_questions = Column(Integer)

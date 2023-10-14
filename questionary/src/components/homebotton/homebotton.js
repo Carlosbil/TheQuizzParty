@@ -1,6 +1,5 @@
 import React from 'react';
 import logo from './logo_provisional.png';
-import temporalProfile from '../../assets/images/temporal_profile.png'
 import avatar from '../../assets/images/avatars/simple_avatar.png'
 import { Link } from 'react-router-dom';
 
