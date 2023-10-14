@@ -84,7 +84,7 @@ def create_user():
         user = User(**data)
         session.add(user)
         session.commit()
-        return jsonify({'message': 'User Created properly'}), 200 
+        return jsonify({'message': 'User logged in properly', "token": data["token"]}), 200 
     
     except Exception as e:
         # roll back if error
@@ -170,9 +170,6 @@ def get_weekly_questions():
         quest = weekly_questions
         if quest == []:
             quest = generate_questions(10, "random")
-        print()
-        print()
-        print(quest)
         return jsonify({"questions": quest}), 200
     except Exception as e:
         message = "Error while getting questions"
@@ -186,22 +183,30 @@ def save_score():
         data = request.get_json()
         user = session.query(User).filter_by(token=data["token"]).first()
         if user:
-            score_data = {}
-            score_data = {
-                "username": user.id,
-                "score": data["score"],
-                "time_taken": data["time_taken"],
-                "correct_questions": data["correct_questions"]
-            }
-            score = Score(**score_data)
-            session.add(score)
-            session.commit()
+            existing_score = session.query(Score).filter_by(username=user.username).first()
+            # if the user has an score, update it, else save it
+            if existing_score:
+                existing_score.score = data["score"]
+                existing_score.time_taken = data["time_taken"]
+                existing_score.correct_questions = data["correct_questions"]
+            else:
+                score_data = {
+                    "username": user.username,
+                    "score": data["score"],
+                    "time_taken": data["time_taken"],
+                    "correct_questions": data["correct_questions"]
+                }
+                new_score = Score(**score_data)
+                session.add(new_score)
+            
+            session.commit()      
+            
         # if dont return eror 
-        if not score:
+        if not user:
             session.rollback()
-            return jsonify({'error': 'Invalid username or password'}), 401
-        
-        return jsonify({'error': 'User logged in properly'}), 200 
+            return jsonify({'error': 'Invalid token or score'}), 401
+    
+        return jsonify({'message': 'Score saved successfully'}), 200
 
     except Exception as e:
         # roll back if error
@@ -215,6 +220,32 @@ def save_score():
         session.close()         
         
         
+@app.route('/api/getAllScores', methods=['GET'])
+def get_all_scores():
+    try:
+        print("aaaaaaaasasasasassasasassas")
+        scores = session.query(Score).order_by(
+                    Score.score.desc(),
+                    Score.correct_questions.desc(),
+                    Score.time_taken.asc()
+                ).all()
+
+        score_list = [{"name": score.username, "score": score.score, "time_taken": score.time_taken, "correct_questions": score.correct_questions} for score in scores]
+        return jsonify(score_list), 200
+    
+    except Exception as e:
+        # roll back if error
+        session.rollback()
+        message = "Error while saving score"
+        print(f"{message}: {e}")
+        return jsonify({'message': str(e), 'error': message}), 500
+    
+    finally:
+        # Close session
+        session.close()         
+        
+
+
 # Run the Flask app with the specified configuration
 # The configuration (host, port, debug) can be adjusted as needed or made configurable
 if __name__ == "__main__":

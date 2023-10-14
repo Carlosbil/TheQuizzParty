@@ -8,6 +8,7 @@ function ClockTimer(props) {
     if (!props.shouldStop && timeRemaining > 0) {
       timer = setTimeout(() => {
         setTimeRemaining(timeRemaining - 1);
+        props.onTimeChange(timeRemaining - 1);
       }, 1000);
     } else {
       clearTimeout(timer);
