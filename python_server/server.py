@@ -223,7 +223,6 @@ def save_score():
 @app.route('/api/getAllScores', methods=['GET'])
 def get_all_scores():
     try:
-        print("aaaaaaaasasasasassasasassas")
         scores = session.query(Score).order_by(
                     Score.score.desc(),
                     Score.correct_questions.desc(),
@@ -244,8 +243,32 @@ def get_all_scores():
         # Close session
         session.close()         
         
-
-
+@app.route('/api/updateProfile', methods=['PUT'])
+def update_profile():
+    try:
+        data = request.get_json()
+        user = session.query(User).filter_by(token=data["token"]).first()
+        print(data)
+        if user:
+            user.username = data["username"]
+            user.name = data["name"]
+            user.email = data["email"]
+            user.password = data["password"]
+            session.commit()
+            return jsonify(data), 200
+        else:
+            return jsonify({'message': "not existing profile", 'error': "the user could not be found"}), 500
+        
+    except Exception as e:
+        # roll back if error
+        session.rollback()
+        message = "Error while saving the information"
+        print(f"{message}: {e}")
+        return jsonify({'message': str(e), 'error': message}), 500
+    
+    finally:
+        # Close session
+        session.close() 
 # Run the Flask app with the specified configuration
 # The configuration (host, port, debug) can be adjusted as needed or made configurable
 if __name__ == "__main__":

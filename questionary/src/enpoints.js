@@ -7,3 +7,4 @@ export const LOGIN_URL = `${BASE_URL}/api/logIn`;
 export const SIGNUP_URL = `${BASE_URL}/api/createUser`;
 export const TINKERS_SCORE_URL = `${BASE_URL}/api/tinkerScore`;
 export const GET_TINKERS_SCORE_URL = `${BASE_URL}/api/getAllScores`;
+export const UPDATE_PROFILE_URL = `${BASE_URL}/api/updateProfile`;
