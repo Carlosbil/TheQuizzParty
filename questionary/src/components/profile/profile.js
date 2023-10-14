@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Logo from '../homebotton/homebotton';
 import { useNavigate } from 'react-router-dom';
 import { PROFILE_URL } from '../../enpoints';
-
+import { getCookieValue } from '../../authSlide';
 function Profile() {
     const [username, setUsername] = useState("");
     const [name, setName] = useState("");
@@ -29,7 +29,7 @@ function Profile() {
         axios
             // cambiar el username bdp por el del ususario, habrá que investigar como mantenerlo en la sesion
             // en un futuro usar el JWT... 
-            .get(PROFILE_URL, { params: { data: "bdp" } })
+            .get(PROFILE_URL, { params: { data: getCookieValue("auth_token") } })
             .then((response) => {
                 setUsername(decodeURIComponent(response.data.username));
                 setEmail(decodeURIComponent(response.data.email));

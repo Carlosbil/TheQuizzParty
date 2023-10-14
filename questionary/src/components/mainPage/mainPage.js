@@ -21,13 +21,13 @@ function MainPage() {
     navigate("/profile")
   }
   return (
-    <a className='back'>
+    <div className='back'>
       <div className='page'>
         <Logo onClick={handleLogoClick} /> {/* Agregar el componente Logo aquí */}
         {showButton && <button className='fun' onClick={handleButtonClick_menu}>The quizz</button>}
         {showSecondComponent && <FunButtons />}
       </div>
-    </a>
+    </div>
   );
 }
 

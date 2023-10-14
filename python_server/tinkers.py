@@ -24,8 +24,6 @@ def generate_questions(number, theme):
             number = random.randint(0, len(questions[theme])-1)
             quests.append(questions[theme][number])
         elif theme == "random":
-            print("RAAANDOM")
-            print(theme)
             number = random.randint(0, len(themes)-1) 
             question = random.randint(0, len(questions[themes[number]])-1)
             quests.append(questions[themes[number]][question])

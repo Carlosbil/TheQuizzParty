@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { SIGNUP_URL } from '../../enpoints';
-
+import { getCookieValue } from '../../authSlide';
 function SignUp() {
     const [formData, setFormData] = useState({
         name: '',
@@ -28,8 +28,15 @@ function SignUp() {
         e.preventDefault();
         axios
             .post(SIGNUP_URL, formData)
-            .then((_) => {
-                navigate("/")
+            .then((response) => {
+                const token = response.data.token;
+                console.log(token)
+                // save the token
+                document.cookie = "isAuthenticated=true; path=/; max-age=3600; samesite=Lax"; // Expira en 1 hora
+                document.cookie = `auth_token=${token}; path=/; max-age=3600; samesite=Lax`;
+                console.log(getCookieValue("auth_token"))
+                // go to mainmenu
+                navigate("/");
             })
             .catch((error) => {
                 console.error('Error al realizar la solicitud:', error);
