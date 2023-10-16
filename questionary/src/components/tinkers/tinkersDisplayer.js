@@ -75,7 +75,7 @@ function TinkersDisplayer({ questions_prop }) {
             toast.error('Error al finalizar el juego:' + error.response.data.error);
           }
         });
-        setEnd(true)
+      setEnd(true)
     }
   }
 
@@ -132,6 +132,8 @@ function TinkersDisplayer({ questions_prop }) {
           </div>
         </div>}
       {end && <Leaderboard players={leaderboard} />}
+      {end && <button className='button' onClick={() => window.location.href = "/"}>Volver al inicio</button>}
+
       <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
     </div>
   );
