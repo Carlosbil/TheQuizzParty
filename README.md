@@ -1,6 +1,8 @@
 # Warning
 
-since this is only a develop phase, it usually has the localhost config in the url from React to python, modify and include the host ip for let to other users to play
+Since this is only a develop phase, it usually has the localhost config in the url from React to python, modify and include the host ip for let to other users to play
+
+Also this code could contain bugs through the app or wrong answers such it need to be reviewed
 
 # QuizzGame
 
@@ -8,7 +10,7 @@ QuizzGame is a quiz game application featuring a user interface built with React
 
 ## Project Structure
 
-- `python_server`: Holds the game logic implemented using Python with Flask.
+- `python_server`: Holds the game logic implemented using Python with Flask and Data Base 
 - `questionary`: Holds the user interface of the game, implemented in React.
 
 ## Installation
@@ -36,7 +38,7 @@ Navigate to the `python_server` directory and install Flask:
 
 ```sh
     cd python_server
-    pip install flask
+    pip install -r requirements.txt
 ```
 
 ## Installing DataBase
@@ -64,34 +66,15 @@ sudo service postgresql start
 ## Usage
 
 To test the application, navigate to the questionary directory and use one of the following commands:
+From `/questionary`
 
 * `npm start`: Runs only the React server.
-* `npm run start_both`: Runs both servers, React and Python.
+* `npm run both`: Runs both servers, React and Python.(need to have installed `npm install concurrently` )
 
 ## Contributing
 
 If you wish to contribute to the project, please fork the repository, make your changes in your fork, and then submit a pull request.
 
 ## License
-This project is licensed under the MIT License. See the LICENSE file for more details.
 
-
-## Points of postgreSQL(to be deleted)
-
-# acced to postgres
-sudo -u postgres psql
-
-# Crear una base de datos
-CREATE DATABASE ******;
-
-# create user
-CREATE USER * WITH PASSWORD '**';
-
-# give permissions
-GRANT ALL PRIVILEGES ON DATABASE proyectBDP TO bdp;
-
-# get out psql
-\q
-
-# Ver los usuarios 
-SELECT * FROM {databaseName}
+This project is licensed under the [Creative Commons Attribution-NonCommercial 4.0 International Public License](./LICENSE).
