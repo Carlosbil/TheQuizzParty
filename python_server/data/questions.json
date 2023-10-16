@@ -179,6 +179,376 @@
                 "Obama"
             ],
             "difficulty": 2
+        },
+        {
+            "question": "¿Quién fue conocido como el \"Padre de la Historia\"?",
+            "answer": "Heródoto",
+            "options": [
+                "Heródoto",
+                "Tucídides",
+                "Sócrates"
+            ],
+            "difficulty": 4
+        },
+        {
+            "question": "¿En qué año tuvo lugar la Revolución Francesa?",
+            "answer": "1789",
+            "options": [
+                "1769",
+                "1789",
+                "1799"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué imperio construyó el famoso Coliseo en Roma?",
+            "answer": "Imperio Romano",
+            "options": [
+                "Imperio Bizantino",
+                "Imperio Otomano",
+                "Imperio Romano"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿Cuál fue el motivo principal de la Primera Guerra Mundial?",
+            "answer": "Asesinato del archiduque Francisco Fernando",
+            "options": [
+                "Caída del Imperio Romano",
+                "Asesinato del archiduque Francisco Fernando",
+                "Revolución Industrial"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿Quién fue el primer emperador del Imperio Romano?",
+            "answer": "Augusto",
+            "options": [
+                "Julio César",
+                "Nerón",
+                "Augusto"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué civilización construyó las pirámides de Egipto?",
+            "answer": "Antiguos egipcios",
+            "options": [
+                "Antiguos sumerios",
+                "Antiguos egipcios",
+                "Babilonios"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿Quién escribió la obra 'El Príncipe'?",
+            "answer": "Maquiavelo",
+            "options": [
+                "Dante Alighieri",
+                "Maquiavelo",
+                "Miguel de Cervantes"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿En qué batalla fue derrotado Napoleón Bonaparte en 1815?",
+            "answer": "Batalla de Waterloo",
+            "options": [
+                "Batalla de Austerlitz",
+                "Batalla de Trafalgar",
+                "Batalla de Waterloo"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿Qué emperador japonés anunció la rendición de Japón en 1945?",
+            "answer": "Hirohito",
+            "options": [
+                "Meiji",
+                "Hirohito",
+                "Akihito"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿Cuál es la obra más famosa de William Shakespeare?",
+            "answer": "Hamlet",
+            "options": [
+                "Hamlet",
+                "Don Quijote",
+                "La Odisea"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿En qué año comenzó la Segunda Guerra Mundial?",
+            "answer": "1939",
+            "options": [
+                "1929",
+                "1939",
+                "1949"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿Qué líder soviético implementó las políticas de glásnost y perestroika?",
+            "answer": "Mijaíl Gorbachov",
+            "options": [
+                "Vladímir Putin",
+                "Leonid Brézhnev",
+                "Mijaíl Gorbachov"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿Qué reina británica tuvo el reinado más largo en la historia del Reino Unido?",
+            "answer": "Isabel II",
+            "options": [
+                "Victoria",
+                "Isabel I",
+                "Isabel II"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿En qué año cayó el Imperio Romano de Occidente?",
+            "answer": "476 d.C.",
+            "options": [
+                "376 d.C.",
+                "476 d.C.",
+                "576 d.C."
+            ],
+            "difficulty": 4
+        },
+        {
+            "question": "¿Qué navegante llegó a América en 1492?",
+            "answer": "Cristóbal Colón",
+            "options": [
+                "Vasco da Gama",
+                "Cristóbal Colón",
+                "Fernando de Magallanes"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿En qué año se proclamó la independencia de los Estados Unidos?",
+            "answer": "1776",
+            "options": [
+                "1766",
+                "1776",
+                "1786"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué faraón egipcio es conocido por su tumba en el Valle de los Reyes?",
+            "answer": "Tutankamón",
+            "options": [
+                "Ramsés II",
+                "Cleopatra",
+                "Tutankamón"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿Cuál es el libro sagrado del Islam?",
+            "answer": "Corán",
+            "options": [
+                "Biblia",
+                "Torá",
+                "Corán"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿En qué año se produjo la caída del Muro de Berlín?",
+            "answer": "1989",
+            "options": [
+                "1979",
+                "1989",
+                "1999"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué civilización habitó principalmente en la península del Yucatán?",
+            "answer": "Maya",
+            "options": [
+                "Inca",
+                "Azteca",
+                "Maya"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿En qué batalla fue asesinado Julio César?",
+            "answer": "No murió en batalla, fue asesinado por senadores",
+            "options": [
+                "Batalla de Actium",
+                "Batalla de Farsalia",
+                "No murió en batalla, fue asesinado por senadores"
+            ],
+            "difficulty": 4
+        },
+        {
+            "question": "¿Cuál fue la última dinastía imperial de China?",
+            "answer": "Qing",
+            "options": [
+                "Ming",
+                "Qing",
+                "Han"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿Quién es conocido por su teoría de la evolución por selección natural?",
+            "answer": "Charles Darwin",
+            "options": [
+                "Isaac Newton",
+                "Albert Einstein",
+                "Charles Darwin"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué líder indio es conocido por su resistencia no violenta contra el dominio británico?",
+            "answer": "Mahatma Gandhi",
+            "options": [
+                "Nehru",
+                "Mahatma Gandhi",
+                "Indira Gandhi"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿Qué emperador romano es conocido por dividir el imperio en dos partes?",
+            "answer": "Diocleciano",
+            "options": [
+                "Constantino",
+                "Diocleciano",
+                "Trajano"
+            ],
+            "difficulty": 4
+        },
+        {
+            "question": "¿Qué civilización antigua construyó la ciudad de Machu Picchu?",
+            "answer": "Inca",
+            "options": [
+                "Azteca",
+                "Maya",
+                "Inca"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué rey inglés es famoso por haber tenido seis esposas?",
+            "answer": "Enrique VIII",
+            "options": [
+                "Enrique V",
+                "Enrique VII",
+                "Enrique VIII"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué tratado puso fin a la Primera Guerra Mundial?",
+            "answer": "Tratado de Versalles",
+            "options": [
+                "Tratado de Tordesillas",
+                "Tratado de Utrecht",
+                "Tratado de Versalles"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿Cuál fue la principal ruta terrestre de comercio entre China y el Mediterráneo durante la antigüedad?",
+            "answer": "Ruta de la Seda",
+            "options": [
+                "Camino de Santiago",
+                "Ruta de la Seda",
+                "Camino Real"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿Qué revolución comenzó en 1917 y llevó al establecimiento de la Unión Soviética?",
+            "answer": "Revolución Rusa",
+            "options": [
+                "Revolución Francesa",
+                "Revolución Industrial",
+                "Revolución Rusa"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Cuál es el nombre del barco en el que Cristóbal Colón llegó a América en 1492?",
+            "answer": "Santa María",
+            "options": [
+                "Santa María",
+                "Niña",
+                "Pinta"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué emperatriz rusa es conocida por su período de ilustración y expansión?",
+            "answer": "Catalina la Grande",
+            "options": [
+                "Ana de Rusia",
+                "Catalina la Grande",
+                "Isabel de Rusia"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿Quién fue el primer presidente de los Estados Unidos?",
+            "answer": "George Washington",
+            "options": [
+                "Thomas Jefferson",
+                "Benjamin Franklin",
+                "George Washington"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿Durante qué años tuvo lugar la Primera Guerra Mundial?",
+            "answer": "1914-1918",
+            "options": [
+                "1914-1918",
+                "1939-1945",
+                "1900-1905"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué emperador romano es conocido por haber iniciado la persecución masiva de los cristianos?",
+            "answer": "Nerón",
+            "options": [
+                "Augusto",
+                "Nerón",
+                "Julio César"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué reina de Inglaterra es conocida por su largo reinado durante la era victoriana?",
+            "answer": "Reina Victoria",
+            "options": [
+                "Reina Isabel I",
+                "Reina Victoria",
+                "Reina Ana"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué revolución ocurrió en Rusia en 1917?",
+            "answer": "Revolución Rusa",
+            "options": [
+                "Revolución Francesa",
+                "Revolución Industrial",
+                "Revolución Rusa"
+            ],
+            "difficulty": 2
         }
     ],
     "geography": [
@@ -201,6 +571,266 @@
                 "África"
             ],
             "difficulty": 2
+        },
+        {
+            "question": "¿Cuál es la capital de Australia?",
+            "answer": "Canberra",
+            "options": [
+                "Sydney",
+                "Melbourne",
+                "Canberra"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué país es conocido como la tierra del sol naciente?",
+            "answer": "Japón",
+            "options": [
+                "China",
+                "Corea del Sur",
+                "Japón"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué ciudad es conocida como la Ciudad Eterna?",
+            "answer": "Roma",
+            "options": [
+                "Roma",
+                "París",
+                "Atenas"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿En qué país se encuentra la ciudad de Dubái?",
+            "answer": "Emiratos Árabes Unidos",
+            "options": [
+                "Arabia Saudita",
+                "Qatar",
+                "Emiratos Árabes Unidos"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Cuál es el lago más grande de África?",
+            "answer": "Lago Victoria",
+            "options": [
+                "Lago Tanganica",
+                "Lago Malawi",
+                "Lago Victoria"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿Cuál es la montaña más alta de América del Sur?",
+            "answer": "Aconcagua",
+            "options": [
+                "Aconcagua",
+                "Monte Pissis",
+                "Ojos del Salado"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿En qué país se encuentra el Taj Mahal?",
+            "answer": "India",
+            "options": [
+                "Pakistán",
+                "India",
+                "Nepal"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿Qué país es el más grande en términos de superficie terrestre?",
+            "answer": "Rusia",
+            "options": [
+                "Rusia",
+                "Canadá",
+                "China"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿Qué mar separa Italia de Croacia?",
+            "answer": "Mar Adriático",
+            "options": [
+                "Mar Mediterráneo",
+                "Mar Egeo",
+                "Mar Adriático"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿En qué país se encuentra la ciudad de Casablanca?",
+            "answer": "Marruecos",
+            "options": [
+                "Egipto",
+                "Túnez",
+                "Marruecos"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué país es el principal productor de café en el mundo?",
+            "answer": "Brasil",
+            "options": [
+                "Colombia",
+                "Brasil",
+                "Vietnam"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿Qué país se encuentra completamente rodeado por Italia?",
+            "answer": "San Marino",
+            "options": [
+                "Mónaco",
+                "San Marino",
+                "Liechtenstein"
+            ],
+            "difficulty": 4
+        },
+        {
+            "question": "¿En qué país se encuentra la ciudad de Praga?",
+            "answer": "República Checa",
+            "options": [
+                "Polonia",
+                "Austria",
+                "República Checa"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué país africano tiene 54 países reconocidos?",
+            "answer": "África",
+            "options": [
+                "Asia",
+                "Europa",
+                "África"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Cuál es el segundo río más largo del mundo?",
+            "answer": "Nilo",
+            "options": [
+                "Amazonas",
+                "Nilo",
+                "Misisipi"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿En qué país se encuentra la Gran Muralla?",
+            "answer": "China",
+            "options": [
+                "China",
+                "Mongolia",
+                "Corea del Norte"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿Qué país tiene la forma de una bota en el mapa?",
+            "answer": "Italia",
+            "options": [
+                "España",
+                "Italia",
+                "Portugal"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿En qué ciudad se encuentra la famosa Torre Inclinada?",
+            "answer": "Pisa",
+            "options": [
+                "Venecia",
+                "Roma",
+                "Pisa"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué océano rodea la Antártida?",
+            "answer": "Océano Antártico",
+            "options": [
+                "Océano Atlántico",
+                "Océano Pacífico",
+                "Océano Antártico"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿Qué ciudad es conocida como la Venecia del Norte?",
+            "answer": "Ámsterdam",
+            "options": [
+                "Bruselas",
+                "Ámsterdam",
+                "Hamburgo"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿Qué país es el más poblado del mundo?",
+            "answer": "China",
+            "options": [
+                "India",
+                "Estados Unidos",
+                "China"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Cuál es el desierto más frío del mundo?",
+            "answer": "Desierto de Atacama",
+            "options": [
+                "Sahara",
+                "Gobi",
+                "Desierto de Atacama"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿Cuál es el país más pequeño de África?",
+            "answer": "Seychelles",
+            "options": [
+                "Mauricio",
+                "Seychelles",
+                "Comoras"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿Cuál es la capital de Brasil?",
+            "answer": "Brasilia",
+            "options": [
+                "Sao Paulo",
+                "Río de Janeiro",
+                "Brasilia"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿En qué país se encuentra el monte Kilimanjaro?",
+            "answer": "Tanzania",
+            "options": [
+                "Kenia",
+                "Tanzania",
+                "Uganda"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿Qué país es conocido como la tierra de los mil lagos?",
+            "answer": "Finlandia",
+            "options": [
+                "Noruega",
+                "Suecia",
+                "Finlandia"
+            ],
+            "difficulty": 3
         },
         {
             "question": "¿Cuál es el río más largo del mundo?",
@@ -261,16 +891,6 @@
                 "Arabia"
             ],
             "difficulty": 5
-        },
-        {
-            "question": "¿Cuál es la montaña más alta de América del Sur?",
-            "answer": "Aconcagua",
-            "options": [
-                "Aconcagua",
-                "Ojos del Salado",
-                "Monte Fitz Roy"
-            ],
-            "difficulty": 3
         },
         {
             "question": "¿Cuál es el océano más grande del mundo?",
@@ -381,9 +1001,469 @@
                 "Atenas"
             ],
             "difficulty": 5
+        },
+        {
+            "question": "¿Cuál es la capital de Canadá?",
+            "answer": "Ottawa",
+            "options": [
+                "Toronto",
+                "Vancouver",
+                "Ottawa"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Cuál es el río más largo del mundo?",
+            "answer": "Nilo",
+            "options": [
+                "Amazonas",
+                "Nilo",
+                "Misisipi"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿En qué continente se encuentra el desierto del Sahara?",
+            "answer": "África",
+            "options": [
+                "Asia",
+                "África",
+                "Australia"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿Qué país es conocido como la Tierra del Sol Naciente?",
+            "answer": "Japón",
+            "options": [
+                "Japón",
+                "China",
+                "Corea del Sur"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué canal conecta el Atlántico y el Pacífico?",
+            "answer": "Canal de Panamá",
+            "options": [
+                "Canal de Suez",
+                "Canal de la Mancha",
+                "Canal de Panamá"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Cuál es la montaña más alta del mundo?",
+            "answer": "Monte Everest",
+            "options": [
+                "K2",
+                "Annapurna",
+                "Monte Everest"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿En qué país se encuentra la ciudad de Dubái?",
+            "answer": "Emiratos Árabes Unidos",
+            "options": [
+                "Arabia Saudita",
+                "Qatar",
+                "Emiratos Árabes Unidos"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Cuál es la capital de Australia?",
+            "answer": "Canberra",
+            "options": [
+                "Sydney",
+                "Melbourne",
+                "Canberra"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿Qué mar separa Italia de la península de los Balcanes?",
+            "answer": "Mar Adriático",
+            "options": [
+                "Mar Tirreno",
+                "Mar Jónico",
+                "Mar Adriático"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿En qué país se encuentra el Machu Picchu?",
+            "answer": "Perú",
+            "options": [
+                "Ecuador",
+                "Bolivia",
+                "Perú"
+            ],
+            "difficulty": 2
         }
     ],
     "sports": [
+        {
+            "question": "¿En qué deporte se utiliza una pelota ovalada?",
+            "answer": "Rugby",
+            "options": [
+                "Fútbol",
+                "Béisbol",
+                "Rugby"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿En qué país se celebraron los Juegos Olímpicos de 2016?",
+            "answer": "Brasil",
+            "options": [
+                "Argentina",
+                "Brasil",
+                "Chile"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué país ha ganado más Copas del Mundo de fútbol masculino?",
+            "answer": "Brasil",
+            "options": [
+                "Alemania",
+                "Argentina",
+                "Brasil"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿Cuál es el torneo de tenis que se juega sobre hierba?",
+            "answer": "Wimbledon",
+            "options": [
+                "Roland Garros",
+                "US Open",
+                "Wimbledon"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿En qué deporte se usa el término 'birdie'?",
+            "answer": "Golf",
+            "options": [
+                "Bádminton",
+                "Golf",
+                "Tiro con arco"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué equipo de la NBA tiene un toro como logo?",
+            "answer": "Chicago Bulls",
+            "options": [
+                "San Antonio Spurs",
+                "Chicago Bulls",
+                "Denver Nuggets"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿En qué ciudad se encuentra el estadio Camp Nou?",
+            "answer": "Barcelona",
+            "options": [
+                "Madrid",
+                "Valencia",
+                "Barcelona"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿En qué deporte se compite por la Copa Stanley?",
+            "answer": "Hockey sobre hielo",
+            "options": [
+                "Béisbol",
+                "Hockey sobre hielo",
+                "Baloncesto"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿Qué deporte practicaba Michael Phelps?",
+            "answer": "Natación",
+            "options": [
+                "Atletismo",
+                "Natación",
+                "Ciclismo"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿En qué país nació el famoso futbolista Lionel Messi?",
+            "answer": "Argentina",
+            "options": [
+                "Brasil",
+                "Uruguay",
+                "Argentina"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿En qué ciudad se celebraron los Juegos Olímpicos de 2020?",
+            "answer": "Tokio",
+            "options": [
+                "Beijing",
+                "París",
+                "Tokio"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿En qué deporte se compite en una pista llamada 'diamante'?",
+            "answer": "Béisbol",
+            "options": [
+                "Fútbol",
+                "Béisbol",
+                "Atletismo"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿Cuál es el torneo de golf más antiguo del mundo?",
+            "answer": "The Open Championship",
+            "options": [
+                "Masters de Augusta",
+                "US Open",
+                "The Open Championship"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿Qué país ha ganado más medallas olímpicas en judo?",
+            "answer": "Japón",
+            "options": [
+                "Brasil",
+                "Francia",
+                "Japón"
+            ],
+            "difficulty": 4
+        },
+        {
+            "question": "¿En qué deporte se compite por la Jarra Claret?",
+            "answer": "Golf",
+            "options": [
+                "Tenis",
+                "Golf",
+                "Críquet"
+            ],
+            "difficulty": 4
+        },
+        {
+            "question": "¿Qué país es el hogar del críquet?",
+            "answer": "Inglaterra",
+            "options": [
+                "Australia",
+                "India",
+                "Inglaterra"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿Qué equipo de la NBA juega en el Staples Center?",
+            "answer": "Los Angeles Lakers",
+            "options": [
+                "Golden State Warriors",
+                "Los Angeles Lakers",
+                "New York Knicks"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿Cuál es el deporte nacional de Canadá?",
+            "answer": "Hockey sobre hielo",
+            "options": [
+                "Béisbol",
+                "Fútbol",
+                "Hockey sobre hielo"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿En qué ciudad se encuentra el famoso estadio Maracaná?",
+            "answer": "Río de Janeiro",
+            "options": [
+                "Buenos Aires",
+                "Sao Paulo",
+                "Río de Janeiro"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿Cuántos jugadores hay en un equipo estándar de voleibol?",
+            "answer": "6",
+            "options": [
+                "5",
+                "6",
+                "7"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿En qué país se originó el karate?",
+            "answer": "Japón",
+            "options": [
+                "China",
+                "Corea",
+                "Japón"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿En qué deporte se utiliza una raqueta y un volante?",
+            "answer": "Bádminton",
+            "options": [
+                "Squash",
+                "Bádminton",
+                "Ping Pong"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué país ha ganado más Copas del Mundo de fútbol femenino?",
+            "answer": "Estados Unidos",
+            "options": [
+                "Alemania",
+                "Estados Unidos",
+                "Noruega"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿Cuál es el deporte nacional de Nueva Zelanda?",
+            "answer": "Rugby",
+            "options": [
+                "Críquet",
+                "Fútbol",
+                "Rugby"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿Qué equipo de la NBA tiene un shamrock en su logo?",
+            "answer": "Boston Celtics",
+            "options": [
+                "Los Angeles Lakers",
+                "New York Knicks",
+                "Boston Celtics"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿Qué deporte es conocido como el 'deporte rey'?",
+            "answer": "Fútbol",
+            "options": [
+                "Fútbol",
+                "Béisbol",
+                "Baloncesto"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿Cuál es el máximo torneo de clubes de fútbol en Europa?",
+            "answer": "Liga de Campeones de la UEFA",
+            "options": [
+                "Liga de Campeones de la UEFA",
+                "Liga Europa de la UEFA",
+                "Supercopa de la UEFA"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué país ha ganado más medallas olímpicas en baloncesto masculino?",
+            "answer": "Estados Unidos",
+            "options": [
+                "España",
+                "Argentina",
+                "Estados Unidos"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿En qué país se originó el cricket?",
+            "answer": "Inglaterra",
+            "options": [
+                "India",
+                "Australia",
+                "Inglaterra"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿Qué país ganó el primer Mundial de Fútbol en 1930?",
+            "answer": "Uruguay",
+            "options": [
+                "Brasil",
+                "Alemania",
+                "Uruguay"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿Qué equipo de fútbol es conocido como 'La Roja'?",
+            "answer": "España",
+            "options": [
+                "Chile",
+                "España",
+                "Bélgica"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿En qué deporte se compite por el Trofeo Webb Ellis?",
+            "answer": "Rugby",
+            "options": [
+                "Golf",
+                "Fútbol",
+                "Rugby"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿Qué país albergó el Mundial de Fútbol 2010?",
+            "answer": "Sudáfrica",
+            "options": [
+                "Brasil",
+                "Alemania",
+                "Sudáfrica"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿En qué deporte se utiliza un bate y un guante?",
+            "answer": "Béisbol",
+            "options": [
+                "Cricket",
+                "Béisbol",
+                "Golf"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué país es conocido por su éxito en el balonmano?",
+            "answer": "Francia",
+            "options": [
+                "Alemania",
+                "España",
+                "Francia"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿En qué país se originó el taekwondo?",
+            "answer": "Corea del Sur",
+            "options": [
+                "China",
+                "Japón",
+                "Corea del Sur"
+            ],
+            "difficulty": 3
+        },
         {
             "question": "¿En qué deporte se otorga la Copa Davis?",
             "answer": "Tenis",
@@ -463,16 +1543,6 @@
                 "3"
             ],
             "difficulty": 1
-        },
-        {
-            "question": "¿En qué país se originó el taekwondo?",
-            "answer": "Corea del Sur",
-            "options": [
-                "China",
-                "Japón",
-                "Corea del Sur"
-            ],
-            "difficulty": 3
         },
         {
             "question": "¿Cuántos jugadores hay en un equipo de rugby?",
@@ -605,6 +1675,86 @@
                 "The Wire"
             ],
             "difficulty": 1
+        },
+        {
+            "question": "¿Qué personaje principal de 'Game of Thrones' es conocido como 'El enano'?",
+            "answer": "Tyrion Lannister",
+            "options": [
+                "Tyrion Lannister",
+                "Jon Snow",
+                "Jaime Lannister"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿Cuál es el nombre del protagonista de 'The Legend of Zelda'?",
+            "answer": "Link",
+            "options": [
+                "Zelda",
+                "Mario",
+                "Link"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿Qué película ganó el Oscar a la mejor película en 1994?",
+            "answer": "Forrest Gump",
+            "options": [
+                "The Shawshank Redemption",
+                "Pulp Fiction",
+                "Forrest Gump"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿En qué ciudad se desarrolla la serie 'Friends'?",
+            "answer": "Nueva York",
+            "options": [
+                "Los Ángeles",
+                "Nueva York",
+                "Chicago"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿Cuál es el nombre del villano principal en 'The Avengers'?",
+            "answer": "Loki",
+            "options": [
+                "Thanos",
+                "Ultron",
+                "Loki"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿Cuál es el nombre real de Batman?",
+            "answer": "Bruce Wayne",
+            "options": [
+                "Clark Kent",
+                "Bruce Wayne",
+                "Peter Parker"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿En qué videojuego puedes construir y romper bloques en un mundo abierto?",
+            "answer": "Minecraft",
+            "options": [
+                "Minecraft",
+                "The Sims",
+                "World of Warcraft"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿Cuál es el nombre del dragón en 'The Hobbit'?",
+            "answer": "Smaug",
+            "options": [
+                "Drogon",
+                "Alduin",
+                "Smaug"
+            ],
+            "difficulty": 2
         },
         {
             "question": "¿Cuál es el nombre del protagonista de la saga de videojuegos 'The Legend of Zelda'?",
@@ -785,6 +1935,276 @@
                 "Sudáfrica"
             ],
             "difficulty": 3
+        },
+        {
+            "question": "¿Qué serie de televisión cuenta la historia de Walter White, un profesor de química convertido en fabricante de metanfetamina?",
+            "answer": "Breaking Bad",
+            "options": [
+                "Breaking Bad",
+                "Narcos",
+                "Better Call Saul"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿Qué actriz interpretó a Bella Swan en la saga 'Crepúsculo'?",
+            "answer": "Kristen Stewart",
+            "options": [
+                "Emma Watson",
+                "Kristen Stewart",
+                "Jennifer Lawrence"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿Qué cantante es conocida por hits como 'Single Ladies' y 'Halo'?",
+            "answer": "Beyoncé",
+            "options": [
+                "Beyoncé",
+                "Rihanna",
+                "Adele"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿Qué actor es conocido por interpretar a James Bond en 'Casino Royale' y 'Skyfall'?",
+            "answer": "Daniel Craig",
+            "options": [
+                "Sean Connery",
+                "Daniel Craig",
+                "Pierce Brosnan"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué película de 1994 cuenta la historia de un hombre con un coeficiente intelectual bajo que experimenta eventos históricos en Estados Unidos?",
+            "answer": "Forrest Gump",
+            "options": [
+                "The Shawshank Redemption",
+                "Forrest Gump",
+                "Pulp Fiction"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué serie de televisión de los 90 se centra en seis amigos que viven en Nueva York?",
+            "answer": "Friends",
+            "options": [
+                "Friends",
+                "Seinfeld",
+                "The Fresh Prince of Bel-Air"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿Qué cantante lanzó un álbum en 2016 llamado '25'?",
+            "answer": "Adele",
+            "options": [
+                "Adele",
+                "Taylor Swift",
+                "Beyoncé"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué película animada de Disney cuenta la historia de un robot llamado WALL-E?",
+            "answer": "WALL-E",
+            "options": [
+                "Cars",
+                "WALL-E",
+                "Toy Story"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿Qué actor interpretó a Hannibal Lecter en 'El silencio de los corderos'?",
+            "answer": "Anthony Hopkins",
+            "options": [
+                "Morgan Freeman",
+                "Robert De Niro",
+                "Anthony Hopkins"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué película de 1999 cuenta la historia de un niño que dice 'Veo gente muerta'?",
+            "answer": "El sexto sentido",
+            "options": [
+                "El sexto sentido",
+                "Los otros",
+                "El orfanato"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿Qué banda británica es conocida por canciones como 'Imagine' y 'Come Together'?",
+            "answer": "The Beatles",
+            "options": [
+                "The Beatles",
+                "The Rolling Stones",
+                "Pink Floyd"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿Qué actor interpretó a Deadpool en el Universo Cinematográfico de Marvel?",
+            "answer": "Ryan Reynolds",
+            "options": [
+                "Chris Evans",
+                "Hugh Jackman",
+                "Ryan Reynolds"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿Qué cantante es conocido como el 'Rey del Pop'?",
+            "answer": "Michael Jackson",
+            "options": [
+                "Prince",
+                "Elton John",
+                "Michael Jackson"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿Qué serie de televisión sigue las aventuras de un grupo de supervivientes de un accidente aéreo en una isla misteriosa?",
+            "answer": "Lost",
+            "options": [
+                "Lost",
+                "Survivor",
+                "The Island"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué película de animación presenta un ogro verde llamado Shrek?",
+            "answer": "Shrek",
+            "options": [
+                "Monsters Inc.",
+                "Fiona's Tale",
+                "Shrek"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿Qué banda británica es conocida por canciones como 'Bohemian Rhapsody' y 'We Will Rock You'?",
+            "answer": "Queen",
+            "options": [
+                "Beatles",
+                "Rolling Stones",
+                "Queen"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué película de Pixar presenta personajes llamados Woody y Buzz Lightyear?",
+            "answer": "Toy Story",
+            "options": [
+                "Cars",
+                "Toy Story",
+                "Monsters Inc."
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿Qué famoso mago es conocido por su escape del tanque de agua?",
+            "answer": "Harry Houdini",
+            "options": [
+                "David Copperfield",
+                "Harry Houdini",
+                "David Blaine"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué película de terror presenta un personaje llamado Freddy Krueger?",
+            "answer": "A Nightmare on Elm Street",
+            "options": [
+                "Halloween",
+                "A Nightmare on Elm Street",
+                "Friday the 13th"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué grupo musical es conocido por el álbum 'Rumours'?",
+            "answer": "Fleetwood Mac",
+            "options": [
+                "Eagles",
+                "Fleetwood Mac",
+                "ABBA"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué famosa actriz es conocida por su papel en 'Pretty Woman'?",
+            "answer": "Julia Roberts",
+            "options": [
+                "Julia Roberts",
+                "Sandra Bullock",
+                "Meg Ryan"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿Qué cantante es conocida por hits como 'Like a Virgin' y 'Material Girl'?",
+            "answer": "Madonna",
+            "options": [
+                "Cyndi Lauper",
+                "Madonna",
+                "Cher"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué serie de televisión presenta a una bruja llamada Sabrina?",
+            "answer": "Sabrina, the Teenage Witch",
+            "options": [
+                "Charmed",
+                "Bewitched",
+                "Sabrina, the Teenage Witch"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué banda es conocida por la canción 'Stairway to Heaven'?",
+            "answer": "Led Zeppelin",
+            "options": [
+                "Pink Floyd",
+                "The Who",
+                "Led Zeppelin"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué famoso actor es conocido por su papel en 'Pirates of the Caribbean'?",
+            "answer": "Johnny Depp",
+            "options": [
+                "Orlando Bloom",
+                "Johnny Depp",
+                "Hugh Jackman"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿Qué famoso juego de videojuegos presenta un personaje llamado Mario?",
+            "answer": "Super Mario",
+            "options": [
+                "Sonic the Hedgehog",
+                "Super Mario",
+                "Pac-Man"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿Qué película de animación de Disney presenta a una princesa llamada Moana?",
+            "answer": "Moana",
+            "options": [
+                "Moana",
+                "Tangled",
+                "Frozen"
+            ],
+            "difficulty": 1
         }
     ],
     "literature": [
@@ -867,6 +2287,356 @@
                 "Gustavo Adolfo Bécquer"
             ],
             "difficulty": 4
+        },
+        {
+            "question": "¿Cuál es la nacionalidad del autor de 'Cien años de soledad'?",
+            "answer": "Colombiana",
+            "options": [
+                "Mexicana",
+                "Española",
+                "Colombiana"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿A qué movimiento literario pertenece 'La casa de Bernarda Alba'?",
+            "answer": "Generación del 27",
+            "options": [
+                "Generación del 27",
+                "Generación del 98",
+                "Romanticismo"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿Qué autor escribió 'La Regenta'?",
+            "answer": "Leopoldo Alas 'Clarín'",
+            "options": [
+                "Benito Pérez Galdós",
+                "Leopoldo Alas 'Clarín'",
+                "José Martí"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿En qué siglo se escribió 'El Cantar del Mio Cid'?",
+            "answer": "Siglo XII",
+            "options": [
+                "Siglo X",
+                "Siglo XI",
+                "Siglo XII"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué obra escribió Gustavo Adolfo Bécquer?",
+            "answer": "Rimas y Leyendas",
+            "options": [
+                "Rimas y Leyendas",
+                "La Celestina",
+                "Tirant lo Blanc"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿Cuál de las siguientes obras fue escrita por Juan Ramón Jiménez?",
+            "answer": "Platero y yo",
+            "options": [
+                "Luces de bohemia",
+                "Platero y yo",
+                "Fortunata y Jacinta"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿De qué trata principalmente 'La Celestina'?",
+            "answer": "De la relación entre Calisto y Melibea",
+            "options": [
+                "De la relación entre Calisto y Melibea",
+                "De un caballero que lucha contra molinos de viento",
+                "De un hidalgo que se enamora de una dama"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Quién escribió 'Tirano Banderas'?",
+            "answer": "Ramón del Valle-Inclán",
+            "options": [
+                "Ramón del Valle-Inclán",
+                "Camilo José Cela",
+                "Rafael Alberti"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿A qué generación literaria pertenece Antonio Machado?",
+            "answer": "Generación del 98",
+            "options": [
+                "Generación del 98",
+                "Generación del 27",
+                "Renacimiento"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿Quién es el autor de 'El árbol de la ciencia'?",
+            "answer": "Pío Baroja",
+            "options": [
+                "Pío Baroja",
+                "Rafael Alberti",
+                "Vicente Aleixandre"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué escritora contemporánea escribió 'La hija del Caníbal'?",
+            "answer": "Rosa Montero",
+            "options": [
+                "Rosa Montero",
+                "Dulce Chacón",
+                "Carmen Laforet"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Cuál es la nacionalidad de Jorge Luis Borges?",
+            "answer": "Argentino",
+            "options": [
+                "Español",
+                "Argentino",
+                "Mexicano"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿A qué movimiento literario pertenece Antonio Machado?",
+            "answer": "Generación del 98",
+            "options": [
+                "Generación del 27",
+                "Generación del 98",
+                "Modernismo"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué autor escribió 'San Manuel Bueno, mártir'?",
+            "answer": "Miguel de Unamuno",
+            "options": [
+                "Miguel de Unamuno",
+                "José Martínez Ruiz",
+                "Camilo José Cela"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Quién escribió 'Nada'?",
+            "answer": "Carmen Laforet",
+            "options": [
+                "Carmen Laforet",
+                "Mercedes Salisachs",
+                "Ana María Matute"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿De qué autor es la obra 'Campo cerrado'?",
+            "answer": "Max Aub",
+            "options": [
+                "Max Aub",
+                "Luis Cernuda",
+                "Ramón Sender"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿Qué autor del Siglo de Oro escribió 'Fuenteovejuna'?",
+            "answer": "Lope de Vega",
+            "options": [
+                "Pedro Calderón de la Barca",
+                "Tirso de Molina",
+                "Lope de Vega"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿A qué poeta se le conoce por su obra 'Cantares Gallegos'?",
+            "answer": "Rosalia de Castro",
+            "options": [
+                "Clara Janés",
+                "Rosalia de Castro",
+                "Juana Castro"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Quién escribió 'Historia de una escalera'?",
+            "answer": "Antonio Buero Vallejo",
+            "options": [
+                "Antonio Gala",
+                "Fernando Arrabal",
+                "Antonio Buero Vallejo"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿Qué autor escribió 'Cinco horas con Mario'?",
+            "answer": "Miguel Delibes",
+            "options": [
+                "Miguel Delibes",
+                "Camilo José Cela",
+                "Gonzalo Torrente Ballester"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Quién es el autor de 'La familia de Pascual Duarte'?",
+            "answer": "Camilo José Cela",
+            "options": [
+                "Camilo José Cela",
+                "Miguel Delibes",
+                "Juan Marsé"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué escritor español es conocido por su serie de novelas protagonizadas por el capitán Alatriste?",
+            "answer": "Arturo Pérez-Reverte",
+            "options": [
+                "Arturo Pérez-Reverte",
+                "Javier Marías",
+                "Javier Cercas"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué autor escribió 'La verdad sobre el caso Savolta'?",
+            "answer": "Eduardo Mendoza",
+            "options": [
+                "Eduardo Mendoza",
+                "Juan Marsé",
+                "Carmen Laforet"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué escritora es conocida por su novela 'Nada'?",
+            "answer": "Carmen Laforet",
+            "options": [
+                "Carmen Laforet",
+                "Carmen Martín Gaite",
+                "Mercedes Salisachs"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué autor escribió 'La sonrisa etrusca'?",
+            "answer": "José Luis Sampedro",
+            "options": [
+                "José Luis Sampedro",
+                "José Saramago",
+                "Luis Landero"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿A qué generación literaria pertenece Rafael Alberti?",
+            "answer": "Generación del 27",
+            "options": [
+                "Generación del 98",
+                "Generación del 27",
+                "Renacimiento"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué autor escribió 'El camino'?",
+            "answer": "Miguel Delibes",
+            "options": [
+                "Miguel Delibes",
+                "Camilo José Cela",
+                "Juan Goytisolo"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Quién es el autor de 'Historia de una escalera'?",
+            "answer": "Antonio Buero Vallejo",
+            "options": [
+                "Antonio Buero Vallejo",
+                "Jacinto Benavente",
+                "Fernando Fernán Gómez"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué autor escribió 'Campo cerrado'?",
+            "answer": "Max Aub",
+            "options": [
+                "Max Aub",
+                "Ramón J. Sénder",
+                "Julio Llamazares"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿Qué escritora es conocida por su serie de novelas 'Episodios nacionales'?",
+            "answer": "Benito Pérez Galdós",
+            "options": [
+                "Benito Pérez Galdós",
+                "Emilia Pardo Bazán",
+                "Pío Baroja"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿Qué autor escribió 'La forja de un rebelde'?",
+            "answer": "Arturo Barea",
+            "options": [
+                "Arturo Barea",
+                "Ramón J. Sénder",
+                "Luis Martín-Santos"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿Quién es el autor de 'Últimas tardes con Teresa'?",
+            "answer": "Juan Marsé",
+            "options": [
+                "Juan Marsé",
+                "Eduardo Mendoza",
+                "Manuel Vázquez Montalbán"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué autor escribió 'La plaza del diamante'?",
+            "answer": "Mercè Rodoreda",
+            "options": [
+                "Mercè Rodoreda",
+                "Ana María Matute",
+                "Carmen Laforet"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿A qué generación literaria pertenece Jorge Guillén?",
+            "answer": "Generación del 27",
+            "options": [
+                "Generación del 98",
+                "Generación del 27",
+                "Renacimiento"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿Qué autor escribió 'Los santos inocentes'?",
+            "answer": "Miguel Delibes",
+            "options": [
+                "Miguel Delibes",
+                "Camilo José Cela",
+                "Antonio Gala"
+            ],
+            "difficulty": 2
         },
         {
             "question": "¿Qué autor español es conocido por su serie de novelas policíacas protagonizadas por el detective Pepe Carvalho?",
@@ -1041,6 +2811,366 @@
             "difficulty": 2
         },
         {
+            "question": "¿Cuál es la distancia promedio entre la Tierra y la Luna?",
+            "answer": "384,400 km",
+            "options": [
+                "149,600,000 km",
+                "384,400 km",
+                "42,195 km"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿Cuál es el principal gas responsable del efecto invernadero?",
+            "answer": "Dióxido de carbono",
+            "options": [
+                "Oxígeno",
+                "Dióxido de carbono",
+                "Nitrógeno"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Cuál es la velocidad de la luz en el vacío?",
+            "answer": "299,792,458 m/s",
+            "options": [
+                "150,000,000 km/s",
+                "299,792,458 m/s",
+                "100,000 m/s"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿En qué año se propuso la teoría de la relatividad por Albert Einstein?",
+            "answer": "1905",
+            "options": [
+                "1905",
+                "1920",
+                "1935"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Cuál es el proceso de producción de energía en el sol?",
+            "answer": "Fusión nuclear",
+            "options": [
+                "Fisión nuclear",
+                "Combustión",
+                "Fusión nuclear"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Cuál es el hueso más largo del cuerpo humano?",
+            "answer": "Fémur",
+            "options": [
+                "Tibia",
+                "Húmero",
+                "Fémur"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Cuál es el gas más abundante en la atmósfera terrestre?",
+            "answer": "Nitrógeno",
+            "options": [
+                "Oxígeno",
+                "Dióxido de carbono",
+                "Nitrógeno"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿Qué molécula tiene la fórmula química H2O?",
+            "answer": "Agua",
+            "options": [
+                "Metano",
+                "Oxígeno",
+                "Agua"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿Cuál es el órgano encargado de producir insulina en el cuerpo humano?",
+            "answer": "Páncreas",
+            "options": [
+                "Hígado",
+                "Páncreas",
+                "Riñones"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué elemento químico tiene el símbolo 'Hg'?",
+            "answer": "Mercurio",
+            "options": [
+                "Mercurio",
+                "Hidrógeno",
+                "Magnesio"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Cuál es el continente más pequeño del mundo?",
+            "answer": "Oceanía",
+            "options": [
+                "Asia",
+                "Antártida",
+                "Oceanía"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué planetas son conocidos como planetas rocosos?",
+            "answer": "Mercurio, Venus, Tierra, Marte",
+            "options": [
+                "Júpiter, Saturno, Urano, Neptuno",
+                "Mercurio, Venus, Tierra, Marte",
+                "Venus, Marte, Júpiter, Saturno"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿Qué células del cuerpo humano contienen la información genética?",
+            "answer": "Núcleo de las células",
+            "options": [
+                "Mitocóndrias",
+                "Lisosomas",
+                "Núcleo de las células"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Cuál es el período de rotación de la Tierra?",
+            "answer": "Aproximadamente 24 horas",
+            "options": [
+                "365.25 días",
+                "Aproximadamente 12 horas",
+                "Aproximadamente 24 horas"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿Qué vitamina se produce en la piel al exponerla al sol?",
+            "answer": "Vitamina D",
+            "options": [
+                "Vitamina A",
+                "Vitamina C",
+                "Vitamina D"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué órgano es responsable de filtrar la sangre y producir orina?",
+            "answer": "Riñones",
+            "options": [
+                "Hígado",
+                "Riñones",
+                "Páncreas"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué elemento químico tiene el símbolo 'Na'?",
+            "answer": "Sodio",
+            "options": [
+                "Neón",
+                "Nitrógeno",
+                "Sodio"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Cuál es el órgano que permite el sentido del olfato?",
+            "answer": "Nariz",
+            "options": [
+                "Oído",
+                "Nariz",
+                "Lengua"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿En qué parte de la célula se encuentra el ADN?",
+            "answer": "Núcleo",
+            "options": [
+                "Mitocondria",
+                "Citoplasma",
+                "Núcleo"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué planeta es conocido como el 'Planeta Rojo'?",
+            "answer": "Marte",
+            "options": [
+                "Venus",
+                "Marte",
+                "Saturno"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿Cuál es el estado de la materia que no tiene forma fija pero tiene un volumen definido?",
+            "answer": "Líquido",
+            "options": [
+                "Sólido",
+                "Gas",
+                "Líquido"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué elemento químico es esencial para la vida y forma la base de las moléculas orgánicas?",
+            "answer": "Carbono",
+            "options": [
+                "Oxígeno",
+                "Hidrógeno",
+                "Carbono"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿Qué ley establece que 'a cada acción corresponde una reacción de igual magnitud y dirección opuesta'?",
+            "answer": "Tercera ley de Newton",
+            "options": [
+                "Primera ley de Newton",
+                "Ley de Boyle-Mariotte",
+                "Tercera ley de Newton"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué tipo de lente se usa para corregir la miopía?",
+            "answer": "Concava",
+            "options": [
+                "Convexa",
+                "Concava",
+                "Plana"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿Cuál es la montaña más alta del mundo?",
+            "answer": "Monte Everest",
+            "options": [
+                "Monte Kilimanjaro",
+                "Monte Aconcagua",
+                "Monte Everest"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué animal es el más grande del mundo?",
+            "answer": "Ballena azul",
+            "options": [
+                "Elefante africano",
+                "Jirafa",
+                "Ballena azul"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Cuál es el órgano que bombea sangre al cuerpo?",
+            "answer": "Corazón",
+            "options": [
+                "Hígado",
+                "Riñones",
+                "Corazón"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿Cuál es el principal gas presente en la atmósfera de Venus?",
+            "answer": "Dióxido de carbono",
+            "options": [
+                "Oxígeno",
+                "Nitrógeno",
+                "Dióxido de carbono"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿Cuál es el proceso de dividir un núcleo atómico en dos o más núcleos más pequeños?",
+            "answer": "Fisión nuclear",
+            "options": [
+                "Fusión nuclear",
+                "Fisión nuclear",
+                "Decaimiento radiactivo"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿Qué galaxia es la más cercana a la Vía Láctea?",
+            "answer": "Andrómeda",
+            "options": [
+                "Triángulo",
+                "Andrómeda",
+                "Messier 87"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿Qué enfermedad es causada por la deficiencia de vitamina C?",
+            "answer": "Escorbuto",
+            "options": [
+                "Raquitismo",
+                "Escorbuto",
+                "Anemia"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿Cuál es el órgano responsable de la digestión y absorción de nutrientes?",
+            "answer": "Intestino delgado",
+            "options": [
+                "Estómago",
+                "Intestino grueso",
+                "Intestino delgado"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿Qué planeta tiene el sistema de anillos más prominente?",
+            "answer": "Saturno",
+            "options": [
+                "Júpiter",
+                "Urano",
+                "Saturno"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué parte del ojo es responsable de enfocar la imagen?",
+            "answer": "Cristalino",
+            "options": [
+                "Retina",
+                "Cristalino",
+                "Córnea"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿Cuál es el metal más conductor de electricidad?",
+            "answer": "Plata",
+            "options": [
+                "Oro",
+                "Cobre",
+                "Plata"
+            ],
+            "difficulty": 3
+        },
+        {
+            "question": "¿Cuál es el elemento químico con el símbolo 'Au'?",
+            "answer": "Oro",
+            "options": [
+                "Oro",
+                "Argón",
+                "Aluminio"
+            ],
+            "difficulty": 2
+        },
+        {
             "question": "¿Cuántos pares de cromosomas tiene un ser humano?",
             "answer": "23",
             "options": [
@@ -1069,16 +3199,6 @@
                 "H2O"
             ],
             "difficulty": 1
-        },
-        {
-            "question": "¿Cuál es la velocidad de la luz en el vacío?",
-            "answer": "299,792,458 metros por segundo",
-            "options": [
-                "150.000.000 kilómetros",
-                "1.080,000.000 kilómetros por hora",
-                "299.792.458 metros por segundo"
-            ],
-            "difficulty": 3
         },
         {
             "question": "¿Qué científico es conocido por desarrollar la teoría de la relatividad?",
@@ -1221,6 +3341,176 @@
                 "Élite"
             ],
             "difficulty": 1
+        },
+        {
+            "question": "¿Cuál es el superhéroe que también es conocido como el 'Caballero de la Noche'?",
+            "answer": "Batman",
+            "options": [
+                "Superman",
+                "Spider-Man",
+                "Batman"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿Qué película ganó el Oscar a la Mejor Película en 2020?",
+            "answer": "Parásitos",
+            "options": [
+                "1917",
+                "Joker",
+                "Parásitos"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Cuál es el nombre real de la artista conocida como Lady Gaga?",
+            "answer": "Stefani Joanne Angelina Germanotta",
+            "options": [
+                "Stefani Joanne Angelina Germanotta",
+                "Katheryn Elizabeth Hudson",
+                "Onika Tanya Maraj"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿En qué ciudad se encuentra el famoso Hollywood Sign?",
+            "answer": "Los Ángeles",
+            "options": [
+                "Nueva York",
+                "Los Ángeles",
+                "San Francisco"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿Qué franquicia de películas cuenta con personajes como Han Solo y Darth Vader?",
+            "answer": "Star Wars",
+            "options": [
+                "Star Wars",
+                "Star Trek",
+                "Harry Potter"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿Qué banda británica es conocida por canciones como 'Bohemian Rhapsody' y 'We Will Rock You'?",
+            "answer": "Queen",
+            "options": [
+                "The Beatles",
+                "Queen",
+                "The Rolling Stones"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿Qué videojuego es conocido por sus construcciones y bloques?",
+            "answer": "Minecraft",
+            "options": [
+                "Fortnite",
+                "Minecraft",
+                "Call of Duty"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿Qué cantante es conocida como la 'Reina del Pop'?",
+            "answer": "Madonna",
+            "options": [
+                "Madonna",
+                "Britney Spears",
+                "Lady Gaga"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿En qué país se originó el anime?",
+            "answer": "Japón",
+            "options": [
+                "China",
+                "Corea del Sur",
+                "Japón"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿Qué personaje dice 'Hasta la vista, baby' en una famosa película de acción?",
+            "answer": "Terminator",
+            "options": [
+                "Rambo",
+                "Terminator",
+                "John Wick"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué banda es conocida por el álbum 'Dark Side of the Moon'?",
+            "answer": "Pink Floyd",
+            "options": [
+                "The Beatles",
+                "Led Zeppelin",
+                "Pink Floyd"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Cuál es el nombre real de Iron Man en las películas de Marvel?",
+            "answer": "Tony Stark",
+            "options": [
+                "Steve Rogers",
+                "Tony Stark",
+                "Bruce Banner"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿Qué famoso director es conocido por películas como 'E.T.', 'Tiburón' y 'Jurassic Park'?",
+            "answer": "Steven Spielberg",
+            "options": [
+                "Quentin Tarantino",
+                "Martin Scorsese",
+                "Steven Spielberg"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué cantante es conocida por el hit 'Single Ladies'?",
+            "answer": "Beyoncé",
+            "options": [
+                "Rihanna",
+                "Beyoncé",
+                "Taylor Swift"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿Qué instrumento musical tiene teclas blancas y negras y se toca sentado?",
+            "answer": "Piano",
+            "options": [
+                "Guitarra",
+                "Violín",
+                "Piano"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿Qué personaje es conocido como el 'Rey de los Monstruos'?",
+            "answer": "Godzilla",
+            "options": [
+                "King Kong",
+                "Godzilla",
+                "Mothra"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué famoso pintor español es conocido por obras como 'Guernica'?",
+            "answer": "Pablo Picasso",
+            "options": [
+                "Salvador Dalí",
+                "Francisco de Goya",
+                "Pablo Picasso"
+            ],
+            "difficulty": 2
         },
         {
             "question": "¿Qué meme se hizo viral con la frase 'Ain’t nobody got time for that'?",
@@ -1389,6 +3679,186 @@
                 "Eminem",
                 "Dr. Dre",
                 "Jay-Z"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué cantante es conocida como la 'Reina del Pop'?",
+            "answer": "Madonna",
+            "options": [
+                "Britney Spears",
+                "Lady Gaga",
+                "Madonna"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿Qué película de 2009 dirigida por James Cameron se convirtió en la más taquillera de todos los tiempos?",
+            "answer": "Avatar",
+            "options": [
+                "Titanic",
+                "Avatar",
+                "Endgame"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué personaje de cómic es conocido como el 'Caballero Oscuro'?",
+            "answer": "Batman",
+            "options": [
+                "Spider-Man",
+                "Superman",
+                "Batman"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿Qué serie de TV tiene personajes llamados Jon Snow, Daenerys Targaryen y Tyrion Lannister?",
+            "answer": "Game of Thrones",
+            "options": [
+                "Breaking Bad",
+                "The Witcher",
+                "Game of Thrones"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué cantante pop lanzó un álbum en 1989 llamado '1989'?",
+            "answer": "Taylor Swift",
+            "options": [
+                "Katy Perry",
+                "Taylor Swift",
+                "Ariana Grande"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué grupo musical es conocido por canciones como 'Yellow' y 'Viva la Vida'?",
+            "answer": "Coldplay",
+            "options": [
+                "Coldplay",
+                "Maroon 5",
+                "One Direction"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué actor interpretó a Iron Man en el Universo Cinematográfico de Marvel?",
+            "answer": "Robert Downey Jr.",
+            "options": [
+                "Chris Evans",
+                "Robert Downey Jr.",
+                "Chris Hemsworth"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿En qué país se originó el género musical del reggaetón?",
+            "answer": "Puerto Rico",
+            "options": [
+                "Colombia",
+                "México",
+                "Puerto Rico"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué artista pop es conocida por hits como 'Bad Romance' y 'Poker Face'?",
+            "answer": "Lady Gaga",
+            "options": [
+                "Beyoncé",
+                "Lady Gaga",
+                "Rihanna"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué serie de televisión sigue las aventuras de los hermanos Sam y Dean Winchester?",
+            "answer": "Supernatural",
+            "options": [
+                "Supernatural",
+                "Stranger Things",
+                "The Vampire Diaries"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué famoso rapero es conocido por el álbum 'The Marshall Mathers LP'?",
+            "answer": "Eminem",
+            "options": [
+                "Drake",
+                "Kanye West",
+                "Eminem"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué personaje es el principal antagonista en la serie 'Breaking Bad'?",
+            "answer": "Walter White",
+            "options": [
+                "Jesse Pinkman",
+                "Saul Goodman",
+                "Walter White"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué banda británica es conocida por álbumes como 'The Dark Side of the Moon' y 'Wish You Were Here'?",
+            "answer": "Pink Floyd",
+            "options": [
+                "The Beatles",
+                "Pink Floyd",
+                "Queen"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿En qué año se lanzó el primer iPhone?",
+            "answer": "2007",
+            "options": [
+                "2005",
+                "2007",
+                "2009"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué película animada presenta un personaje llamado 'Simba'?",
+            "answer": "El Rey León",
+            "options": [
+                "El Rey León",
+                "Tarzán",
+                "El Libro de la Selva"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿Qué cantante es conocida por su álbum 'Lemonade'?",
+            "answer": "Beyoncé",
+            "options": [
+                "Alicia Keys",
+                "Beyoncé",
+                "Adele"
+            ],
+            "difficulty": 2
+        },
+        {
+            "question": "¿Qué serie de televisión se centra en un grupo de amigos en Nueva York y tiene un café llamado 'Central Perk'?",
+            "answer": "Friends",
+            "options": [
+                "Friends",
+                "How I Met Your Mother",
+                "The Big Bang Theory"
+            ],
+            "difficulty": 1
+        },
+        {
+            "question": "¿Qué cantante pop lanzó un álbum en 2015 llamado 'Purpose'?",
+            "answer": "Justin Bieber",
+            "options": [
+                "Justin Bieber",
+                "Shawn Mendes",
+                "Ed Sheeran"
             ],
             "difficulty": 2
         }
