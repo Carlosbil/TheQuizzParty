@@ -8,9 +8,11 @@ import { GET_TINKERS_SCORE_URL, TINKERS_SCORE_URL } from '../../enpoints';
 import { getCookieValue } from '../../authSlide';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import axios, { all } from 'axios';
+import axios from 'axios';
+import { playSoundByName } from '../../sounds';
 
 function TinkersDisplayer({ questions_prop }) {
+
 
   let time = 60
   const [selectedOption, setSelectedOption] = useState(null);
@@ -26,7 +28,6 @@ function TinkersDisplayer({ questions_prop }) {
     { name: "Juan", score: 100 },
     { name: "Ana", score: 90 },
     { name: "Marta", score: 85 },
-    // ...otros jugadores
   ];
   const [leaderboard, setLeaderboard] = useState(players)
 
@@ -34,7 +35,10 @@ function TinkersDisplayer({ questions_prop }) {
     if (selectedOption === null) {
       setSelectedOption(option);
       if (option === answer) {
+        playSoundByName("good_sound");
         handleUserAnswer(true)
+      }else{
+        playSoundByName("bad_sound");
       }
       setNext(true)
     }
@@ -80,6 +84,9 @@ function TinkersDisplayer({ questions_prop }) {
   }
 
   const handleTimeChange = (time) => {
+    if (time === 8){
+      playSoundByName("clock_ending");
+    }
     setRemainingTime(time);
   };
 
