@@ -2,7 +2,7 @@
 
 Since this is only a develop phase, it usually has the localhost config in the url from React to python, modify and include the host ip for let to other users to play
 
-Also this code could contain bugs through the app or wrong answers such it need to be reviewed
+This code might contain bugs in the app or produce incorrect answers, and therefore needs to be reviewed. If you have any suggestions for improving the application or if you find any errors, please contact me via email at carlosbilbao2@gmail.com or make a pull request and assign it to me.
 
 # QuizzGame
 
