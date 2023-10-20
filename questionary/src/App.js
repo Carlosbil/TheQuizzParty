@@ -7,7 +7,6 @@ import Profile from './components/profile/profile';
 import SignUp from './components/signUp/singUp';
 import { Provider } from 'react-redux';
 import store from './store';
-import { getCookieValue } from './authSlide';
 
 function ProtectedRoute({ children }) {
   const allCookies = document.cookie;

@@ -1,0 +1,29 @@
+.menu img{
+    position: fixed;
+    top: 0;
+    left: 2vmin;
+    margin: 1vmin;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.logo-container img {
+    margin-left: 12vmin;
+    border-radius: 10%;
+    max-width: 0.5vmin;
+    min-width: 0.5vmin;
+}
+
+.profile_container img {
+    margin-left: 23vmin;
+    border-radius: 10%;
+    max-width: 0.5vmin;
+    min-width: 0.5vmin;
+}
+
+.settings_menu img {
+    border-radius: 10%;
+    max-width: 0.5vmin;
+    min-width: 0.5vmin;
+}

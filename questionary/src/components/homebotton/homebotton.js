@@ -1,48 +1,65 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from './logo_provisional.png';
 import avatar from '../../assets/images/avatars/simple_avatar.png';
+import settings from '../../assets/images/ajustes_1.png';
 import { Link } from 'react-router-dom';
-import DropdownMenu from '../dropDown/dropDown';
+import './homebotton.css';
 
-const profile = () =>
-  <Link to='profile'>
-    <div className='profile_container'>
-      <img
-        src={avatar}
-        alt="Profile"
-        style={{
-          cursor: 'pointer',
-          width: '100%',
-          height: 'auto',
-          minWidth: '10vmin',
-          minHeight: '10vmin',
-        }}
-      />
-    </div>
-  </Link>;
+function DropdownMenu({onClick}) {
+  const [isOpen, setIsOpen] = useState(false);
 
-export const homebotton = (onClick) =>
-  <div className="logo-container" onClick={onClick}>
-    <img
-      src={logo}
-      alt="Logo"
-      style={{
-        cursor: 'pointer',
-        width: '10%',
-        height: 'auto',
-        minWidth: '10vmin',
-        minHeight: '10vmin'
-      }}
-    />
-  </div>;
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
 
-function Logo({ onClick }) {
   return (
-    <DropdownMenu 
-      trigger={homebotton(onClick)}
-      components={[profile]}
-    />
+    <div className='menu'>
+      <div className="settings_menu" onClick={toggleMenu}>
+        <img
+          src={settings}
+          alt="Logo"
+          style={{
+            cursor: 'pointer',
+            width: '10%',
+            height: 'auto',
+            minWidth: '10vmin',
+            minHeight: '10vmin'
+          }} />
+      </div>
+      {isOpen && (
+        <div className="menu">
+          <div className="logo-container" onClick={onClick}>
+            <img
+              src={logo}
+              alt="Logo"
+              style={{
+                cursor: 'pointer',
+                width: '10%',
+                height: 'auto',
+                minWidth: '10vmin',
+                minHeight: '10vmin'
+              }}
+            />
+          </div>
+          <Link to='profile'>
+            <div className='profile_container'>
+              <img
+                src={avatar}
+                alt="Profile"
+                style={{
+                  cursor: 'pointer',
+                  width: '100%',
+                  height: 'auto',
+                  minWidth: '10vmin',
+                  minHeight: '10vmin',
+                }}
+              />
+            </div>
+          </Link>
+        </div>
+      )}
+    </div>
   );
 }
 
-export default Logo;
+export default DropdownMenu;
