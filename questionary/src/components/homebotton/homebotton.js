@@ -5,7 +5,7 @@ import settings from '../../assets/images/ajustes_1.png';
 import { Link } from 'react-router-dom';
 import './homebotton.css';
 
-function DropdownMenu({onClick}) {
+function DropdownMenu({ onClick }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -13,53 +13,34 @@ function DropdownMenu({onClick}) {
   };
 
   return (
-    <div className='menu'>
-      <div className="settings_menu" onClick={toggleMenu}>
-        <img
-          src={settings}
-          alt="Logo"
-          style={{
-            cursor: 'pointer',
-            width: '10%',
-            height: 'auto',
-            minWidth: '10vmin',
-            minHeight: '10vmin'
-          }} />
-      </div>
+    <div className='menu-fixed'>
+      <button
+        className="settings_menu"
+        onClick={toggleMenu}
+        style={{ backgroundImage: `url(${settings})` }}>
+      </button>
+
       {isOpen && (
         <div className="menu">
-          <div className="logo-container" onClick={onClick}>
-            <img
-              src={logo}
-              alt="Logo"
-              style={{
-                cursor: 'pointer',
-                width: '10%',
-                height: 'auto',
-                minWidth: '10vmin',
-                minHeight: '10vmin'
-              }}
-            />
-          </div>
-          <Link to='profile'>
-            <div className='profile_container'>
-              <img
-                src={avatar}
-                alt="Profile"
-                style={{
-                  cursor: 'pointer',
-                  width: '100%',
-                  height: 'auto',
-                  minWidth: '10vmin',
-                  minHeight: '10vmin',
-                }}
-              />
-            </div>
-          </Link>
+          <button
+            className="logo-container"
+            onClick={onClick}
+            style={{ backgroundImage: `url(${logo})` }}>
+          </button>
         </div>
       )}
-    </div>
+      {isOpen && (
+        <div>
+          <Link to='profile'>
+            <button
+              className='profile_container'
+              style={{ backgroundImage: `url(${avatar})` }}>
+            </button>
+          </Link>
+        </div>)}
+    </div >
   );
 }
+
 
 export default DropdownMenu;

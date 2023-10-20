@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:3001';
+const BASE_URL = 'http://192.168.1.62:3001';
 
 export const QUESTIONS_URL = `${BASE_URL}/api/questions`;
 export const TINKERS_URL = `${BASE_URL}/api/tinker`;
