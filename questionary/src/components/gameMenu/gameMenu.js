@@ -2,14 +2,20 @@ import React, { useState } from 'react';
 import './gameMenu.css';
 import QuestionDisplayer from '../questionDisplayer/questionDisplayer';
 import Tinkers from '../tinkers/tinkers';
+import { stopSoundByName } from '../../sounds';
+
 function FunButtons() {
   const [showQuestionDisplayer, setShowQuestionDisplayer] = useState(false);
   const [showTinkers, setShowTinkers] = useState(false)
+
   const handleButtonClick_menu = (category) => {
+        stopSoundByName("background")
         setShowQuestionDisplayer(true);
         localStorage.setItem('category', category);
   };
+
   const handleButtonClick_tinkers = () => {
+    stopSoundByName("background")
     setShowTinkers(true);
 };
   return (

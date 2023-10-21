@@ -31,10 +31,10 @@ function SignUp() {
             .then((response) => {
                 const token = response.data.token;
                 console.log(token)
-                // save the token
+                // save tokens
                 document.cookie = "isAuthenticated=true; path=/; max-age=3600; samesite=Lax"; // Expira en 1 hora
                 document.cookie = `auth_token=${token}; path=/; max-age=3600; samesite=Lax`;
-                console.log(getCookieValue("auth_token"))
+                document.cookie = "sound=true; path=/; max-age=3600; samesite=Lax"; 
                 // go to mainmenu
                 navigate("/");
             })

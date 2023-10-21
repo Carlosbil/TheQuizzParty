@@ -5,16 +5,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { LOGIN_URL } from '../../enpoints';
-import { useDispatch, useSelector } from 'react-redux';
-import { getCookieValue, login } from '../../authSlide';
+
 
 function LogIn() {
     const [formData, setFormData] = useState({
         username: '',
         password: '',
     });
-    const dispatch = useDispatch();
-    const dis_token = useSelector((state) => state.auth.token); 
+
     const navigate = useNavigate()
 
     const handleChange = (e) => {
@@ -35,9 +33,9 @@ function LogIn() {
                 const token = response.data.token;
                 console.log(token)
                 // save the token
-                document.cookie = "isAuthenticated=true; path=/; max-age=3600; samesite=Lax"; // Expira en 1 hora
+                document.cookie = "isAuthenticated=true; path=/; max-age=3600; samesite=Lax";
                 document.cookie = `auth_token=${token}; path=/; max-age=3600; samesite=Lax`;
-                console.log(getCookieValue("auth_token"))
+                document.cookie = "sound=true; path=/; max-age=3600; samesite=Lax"; 
                 // go to mainmenu
                 navigate("/");
             })
