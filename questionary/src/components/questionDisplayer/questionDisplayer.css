@@ -6,35 +6,54 @@
   justify-content: center;
   align-items: center;
   background-color: rgba(10, 10, 10, 0.1);
-/*backdrop-filter: blur(10px);*/
+  /*backdrop-filter: blur(10px);*/
 }
 
 .question {
   font-size: 4vmin;
   margin-bottom: 1rem;
-  color: #fdf9f9; /* Color de texto oscuro */
+  color: #fdf9f9;
+  /* Color de texto oscuro */
   text-align: center;
+}
+
+@keyframes scale-down-right {
+  0% {
+    transform: scale(.2);
+    transform-origin: right center;
+  }
+
+  100% {
+    transform: scale(1);
+    transform-origin: right center
+  }
 }
 
 .options {
   width: 80%;
   display: flex;
   flex-direction: column;
-  gap: 10px; /* Espaciado entre opciones */
+  gap: 10px;
+  animation: scale-down-right 0.4s;
+  /* Espaciado entre opciones */
 }
 
 .option {
-  background-color: #fff; /* Color de fondo de la tarjeta */
+  background-color: #fff;
+  /* Color de fondo de la tarjeta */
   padding: 10px;
-  border-radius: 5px; /* Bordes redondeados */
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra de la tarjeta */
+  border-radius: 5px;
+  /* Bordes redondeados */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  /* Sombra de la tarjeta */
   cursor: pointer;
   transition: transform 0.2s ease-in-out;
   border: none;
 }
 
 .option:hover {
-  transform: translateY(-5px); /* Efecto de elevación al pasar el ratón */
+  transform: translateY(-5px);
+  /* Efecto de elevación al pasar el ratón */
 }
 
 .button-correct {
@@ -46,7 +65,7 @@
 .button-incorrect {
   background-color: rgb(229, 11, 11);
   /* Añade una animación para hacer que el botón incorrecto vibre */
-  animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+  animation: shake 0.5s cubic-bezier(.36, .07, .19, .97) both;
 }
 
 /* Define la animación blink */
@@ -54,6 +73,7 @@
   from {
     opacity: 1;
   }
+
   to {
     opacity: 0.5;
   }
@@ -61,25 +81,37 @@
 
 /* Define la animación shake */
 @keyframes shake {
-  10%, 90% {
+
+  10%,
+  90% {
     transform: translate3d(-1px, 0, 0);
   }
-  20%, 80% {
+
+  20%,
+  80% {
     transform: translate3d(2px, 0, 0);
   }
-  30%, 50%, 70% {
+
+  30%,
+  50%,
+  70% {
     transform: translate3d(-4px, 0, 0);
   }
-  40%, 60% {
+
+  40%,
+  60% {
     transform: translate3d(4px, 0, 0);
   }
 }
 
 .nextQuestion {
-  background-color: #f7aa26; /* Color de fondo de la tarjeta */
+  background-color: #f7aa26;
+  /* Color de fondo de la tarjeta */
   padding: 10px;
-  border-radius: 5px; /* Bordes redondeados */
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra de la tarjeta */
+  border-radius: 5px;
+  /* Bordes redondeados */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  /* Sombra de la tarjeta */
   cursor: pointer;
   transition: transform 0.2s ease-in-out;
   border: none;
@@ -87,5 +119,6 @@
 }
 
 .nextQuestion:hover {
-  transform: translateY(-5px); /* Efecto de elevación al pasar el ratón */
+  transform: translateY(-5px);
+  /* Efecto de elevación al pasar el ratón */
 }

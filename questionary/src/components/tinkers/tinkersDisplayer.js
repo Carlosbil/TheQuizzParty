@@ -37,7 +37,7 @@ function TinkersDisplayer({ questions_prop }) {
       if (option === answer) {
         playSoundByName("good_sound");
         handleUserAnswer(true)
-      }else{
+      } else {
         playSoundByName("bad_sound");
       }
       setNext(true)
@@ -84,7 +84,7 @@ function TinkersDisplayer({ questions_prop }) {
   }
 
   const handleTimeChange = (time) => {
-    if (time === 8){
+    if (time === 8) {
       playSoundByName("clock_ending");
     }
     setRemainingTime(time);
@@ -113,15 +113,17 @@ function TinkersDisplayer({ questions_prop }) {
     <div>
       {!end &&
         <div className="question-container">
+          <ClockTimer
+            initialTime={time}
+            onTimeEnd={() => handleEndGame(score, remainingTime)}
+            onTimeChange={(remainingTime) => handleTimeChange(remainingTime)}
+            shouldStop={end}
+          />
+          <div className="scoreboard">
+            Score: {score}
+          </div>
           <div className="question">{question}</div>
           <div className="options">
-            <ClockTimer
-              initialTime={time}
-              onTimeEnd={() => handleEndGame(score, remainingTime)}
-              onTimeChange={(remainingTime) => handleTimeChange(remainingTime)}
-              shouldStop={end}
-            />
-
             {Array.isArray(options) ? options.map((option, index) => (
               <button
                 key={index}
@@ -132,10 +134,6 @@ function TinkersDisplayer({ questions_prop }) {
               </button>
             )) : null}
             {next && <button className='nextQuestion' onClick={() => setPosition(prevPosition => prevPosition + 1)}> Siguiente pregunta</button>}
-            <div className="scoreboard">
-              Score: {score}
-            </div>
-
           </div>
         </div>}
       {end && <Leaderboard players={leaderboard} />}
