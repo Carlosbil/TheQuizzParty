@@ -3,10 +3,11 @@ import correct_sound from './assets/sounds/correct_answer.wav'
 import wrong_sound from './assets/sounds/bad_answer.wav'
 import clock_end from './assets/sounds/clock_ending.wav'
 import background_main from './assets/sounds/background_sound.wav'
+import { getCookieValue } from './authSlide';
 
 const good_sound = new Howl({
     src: [correct_sound] // NOTA: Es solo para demostración. Asegúrate de reemplazarlo con tu propio sonido o uno con licencia adecuada.
-  });
+});
 
 const bad_sound = new Howl({
     src: [wrong_sound] // NOTA: Es solo para demostración. Asegúrate de reemplazarlo con tu propio sonido o uno con licencia adecuada.
@@ -29,27 +30,37 @@ const soundsMap = {
 };
 
 export function playSoundByName(soundName) {
-    if (soundsMap[soundName]) {
-        soundsMap[soundName].play();
-    } else {
-        console.error(`Sound "${soundName}" not found.`);
+    if (getCookieValue("sound") === "true") {
+        if (soundsMap[soundName]) {
+            soundsMap[soundName].play();
+        } else {
+            console.error(`Sound "${soundName}" not found.`);
+        }
     }
 }
 
 export function playSoundInLoopByName(soundName) {
-    if (soundsMap[soundName]) {
-        soundsMap[soundName].loop(true);
-        soundsMap[soundName].play();
-    } else {
-        console.error(`Sound "${soundName}" not found.`);
+    if (getCookieValue("sound") === "true") {
+        if (soundsMap[soundName]) {
+            soundsMap[soundName].loop(true);
+            soundsMap[soundName].play();
+        } else {
+            console.error(`Sound "${soundName}" not found.`);
+        }
     }
 }
 
 export function stopSoundByName(soundName) {
-    if (soundsMap[soundName]) {
+        if (soundsMap[soundName]) {
+            soundsMap[soundName].stop();
+        } else {
+            console.error(`Sound "${soundName}" not found.`);
+        }
+}
+
+export function stopAllSounds() {
+    for (let soundName in soundsMap) {
         soundsMap[soundName].stop();
-    } else {
-        console.error(`Sound "${soundName}" not found.`);
     }
 }
 
