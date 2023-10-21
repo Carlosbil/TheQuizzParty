@@ -9,13 +9,13 @@ function FunButtons() {
   const [showTinkers, setShowTinkers] = useState(false)
 
   const handleButtonClick_menu = (category) => {
-        stopSoundByName("backgrounds")
+        stopSoundByName("background")
         setShowQuestionDisplayer(true);
         localStorage.setItem('category', category);
   };
 
   const handleButtonClick_tinkers = () => {
-    stopSoundByName("backgrounds")
+    stopSoundByName("background")
     setShowTinkers(true);
 };
   return (
