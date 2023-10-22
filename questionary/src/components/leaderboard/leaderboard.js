@@ -13,7 +13,7 @@ const Leaderboard = ({ players }) => {
             {index === 0 ? <span className="trophy gold">🏆</span> :
              index === 1 ? <span className="trophy silver">🥈</span> :
              index === 2 ? <span className="trophy bronze">🥉</span> :
-             <span className="rank">{index + 1}</span>}
+            <span className="rank">{index + 1}</span>}
             <span className="name">{player.name}</span>
             <span className="score">{player.score}</span>
           </li>
