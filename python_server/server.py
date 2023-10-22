@@ -7,6 +7,7 @@ import base64
 from dataBase import session, User, Score
 from tinkers import generate_questions
 app = Flask(__name__)
+from bcrypt import hashpw, gensalt, checkpw
 
 # Enable Cross-Origin Resource Sharing (CORS) for the specified origins
 # CORS(app, resources={r"*": {"origins": "http://localhost:3000"}})
@@ -81,6 +82,8 @@ def create_user():
     # Add new user
         data = request.get_json()
         data["token"] = generate_token()
+        hashed_password = hashpw(data["password"].encode('utf-8'), gensalt())
+        data["password"] = hashed_password.decode('utf-8')
         user = User(**data)
         session.add(user)
         session.commit()
@@ -107,7 +110,7 @@ def login_user():
         print(user)
         print()
         # if dont return eror 
-        if not user or user.password != data["password"]:
+        if not user or not checkpw(data["password"].encode('utf-8'), user.password.encode('utf-8')):
             return jsonify({'message': 'Invalid username or password'}), 401
         if not is_token_valid(user.token):
             print("generating token")

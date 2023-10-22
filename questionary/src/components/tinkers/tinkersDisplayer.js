@@ -49,7 +49,7 @@ function TinkersDisplayer({ questions_prop }) {
       console.log("Time's up!")
       console.log(score_end + " " + remainingTime)
       let token = getCookieValue("auth_token")
-      let score = score_end * 115 * (remainingTime + 1)
+      let score = score_end * 115 + (remainingTime * 5)
       setScore(score)
       let formData = {
         "token": token,
