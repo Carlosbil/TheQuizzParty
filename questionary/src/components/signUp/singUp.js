@@ -91,6 +91,7 @@ function SignUp() {
                             Register
                         </button>
                     </form>
+                    <button className="linked" onClick={() => navigate('/logIn')}>¿Tiene una cuenta? Inicie Sesión!</button>
                     <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
                 </div>
             </b>
