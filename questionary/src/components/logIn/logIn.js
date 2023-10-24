@@ -76,6 +76,7 @@ function LogIn() {
                             Iniciar Sesión
                         </button>
                     </form>
+                    <button className="linked" onClick={() => navigate('/signUp')}>¿No tiene una cuenta? Registrese aquí!</button>
                     <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
                 </div>
             </b>

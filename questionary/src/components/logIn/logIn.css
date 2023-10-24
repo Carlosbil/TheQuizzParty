@@ -30,4 +30,31 @@
     color: #fff;
     cursor: pointer;
   }
+
+.linked {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  text-decoration: underline;
+  outline: none;
+  position: relative;
+  transition: text-shadow 0.4s ease-in-out;
+  color: #ffffff;
+}
+
+.linked:hover {
+  text-shadow: 0px 0px 5px rgba(255, 255, 255, 0.8);
+  animation: glowEffect 0.4s forwards;
+}
+
+@keyframes glowEffect {
+  0% {
+      text-shadow: 0px 0px 5px rgba(255, 255, 255, 0);
+  }
+  100% {
+      text-shadow: 0px 0px 5px rgba(255, 255, 255, 0.8);
+  }
+}
+
   
