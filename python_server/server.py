@@ -251,6 +251,8 @@ def update_profile():
     try:
         data = request.get_json()
         user = session.query(User).filter_by(token=data["token"]).first()
+        hashed_password = hashpw(data["password"].encode('utf-8'), gensalt())
+        data["password"] = hashed_password.decode('utf-8')
         print(data)
         if user:
             user.username = data["username"]

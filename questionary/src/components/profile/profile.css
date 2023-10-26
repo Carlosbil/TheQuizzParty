@@ -7,11 +7,15 @@ body {
 }
 
 .display_div {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
     margin-top: 20px;
-    border-top: 1px solid #e0e0e0;
     padding-top: 20px;
     color:#e0e0e0;
-    width: 50%;
+    width: 70%;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
 }
 
 .log {
@@ -19,6 +23,7 @@ body {
     margin-bottom: 20px;
     font-weight: bold;
     color: #e3e1e1;
+    margin-left: 4vmin;
 }
 
 .profile-group {
@@ -27,29 +32,13 @@ body {
     justify-content: space-between;
     border-bottom: 1px solid #e0e0e0;
     padding: 10px 0;
-    width: 100%
+    width: 90%;
+    margin-left: 4vmin;
 }
 
 .tittle_profile {
     font-weight: bold;
     color: #a3a3a3;
-}
-
-.nextQuestion {
-    display: block;
-    background-color: #007BFF;
-    color: #fff;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    margin: 20px 0;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    
-}
-
-.nextQuestion:hover {
-    background-color: #0056b3;
 }
 
 .ToastContainer {
@@ -58,12 +47,12 @@ body {
 }
 
 .button_profile {
-    width: 101.5%;
+    width: 100%;
     padding: 2vmin;
     border-radius: 5px;
     border: none;
     background-color: #28a745;
     color: #fff;
     cursor: pointer;
-    margin-top: 2vmin;
+    margin-top: 5vmin;
   }

@@ -36,6 +36,8 @@ function LogIn() {
                 document.cookie = "isAuthenticated=true; path=/; max-age=3600; samesite=Lax";
                 document.cookie = `auth_token=${token}; path=/; max-age=3600; samesite=Lax`;
                 document.cookie = "sound=true; path=/; max-age=3600; samesite=Lax"; 
+                document.cookie = "avatar=avatar1; path=/; max-age=3600; samesite=Lax"; 
+
                 // go to mainmenu
                 navigate("/");
             })

@@ -7,6 +7,8 @@ import Logo from '../homebotton/homebotton';
 import { useNavigate } from 'react-router-dom';
 import { PROFILE_URL, UPDATE_PROFILE_URL } from '../../enpoints';
 import { getCookieValue } from '../../authSlide';
+import getAvatar, { getAllAvatars } from '../../avatars';
+import AvatarList from './avatar/avatar';
 
 function Profile() {
     const [username, setUsername] = useState("");
@@ -15,6 +17,7 @@ function Profile() {
     const [password, setPassword] = useState("");
     const [showProfile, setShowProfile] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
+    const avatar = getCookieValue("avatar")
     const [formData, setFormData] = useState({
         token: '',
         name: '',
@@ -22,7 +25,7 @@ function Profile() {
         email: '',
         password: '',
     });
-    
+
     //handle the changes produced in the form
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -31,17 +34,17 @@ function Profile() {
             [name]: value,
         });
     };
-    
+
     //save user information
     const handleSubmit = (e) => {
         e.preventDefault();
 
         let data = {
             "token": getCookieValue("auth_token"),
-            "name": formData.name !== ''? formData.name : name,
-            "email": formData.email !== ''? formData.email : email,
-            "username": formData.username !== ''? formData.username : username,
-            "password": formData.password !== ''? formData.password : password
+            "name": formData.name !== '' ? formData.name : name,
+            "email": formData.email !== '' ? formData.email : email,
+            "username": formData.username !== '' ? formData.username : username,
+            "password": formData.password !== '' ? formData.password : password
         }
         axios
             .put(UPDATE_PROFILE_URL, data)
@@ -66,7 +69,7 @@ function Profile() {
     const handleEditClick = () => {
         setIsEditing(!isEditing);
     };
-    
+
     // obtain the user information when the user open this component
     useEffect(() => {
         getUser();
@@ -105,7 +108,8 @@ function Profile() {
     return (
         <div className='back'>
             <div className="page">
-                <Logo onClick={handleLogoClick} />
+                <Logo onClick={handleLogoClick} prop_avatar={getAvatar(avatar)} />
+                <AvatarList avatarMap={getAllAvatars()} prop_avatar={getAvatar(avatar)} />
                 <div className="display_div">
                     {!isEditing
                         && <div className="log">Su perfil</div>}
@@ -182,7 +186,7 @@ function Profile() {
                         </div>
                     )}
                     {!isEditing &&
-                    <button className="button_profile" onClick={handleEditClick}> Editar</button>}
+                        <button className="button_profile" onClick={handleEditClick}> Editar</button>}
                 </div>
             </div>
             <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
