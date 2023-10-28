@@ -5,13 +5,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { SIGNUP_URL } from '../../enpoints';
-import { getCookieValue } from '../../authSlide';
+
 function SignUp() {
     const [formData, setFormData] = useState({
         name: '',
         username: '',
         email: '',
         password: '',
+        image_path: ''
     });
 
     const navigate = useNavigate()
@@ -30,12 +31,14 @@ function SignUp() {
             .post(SIGNUP_URL, formData)
             .then((response) => {
                 const token = response.data.token;
+                const avatar = response.data.image_path
                 console.log(token)
                 // save tokens
                 document.cookie = "isAuthenticated=true; path=/; max-age=3600; samesite=Lax"; // Expira en 1 hora
                 document.cookie = `auth_token=${token}; path=/; max-age=3600; samesite=Lax`;
                 document.cookie = "sound=true; path=/; max-age=3600; samesite=Lax"; 
                 // go to mainmenu
+                document.cookie = `avatar=${avatar}; path=/; max-age=3600; samesite=Lax`;
                 navigate("/");
             })
             .catch((error) => {

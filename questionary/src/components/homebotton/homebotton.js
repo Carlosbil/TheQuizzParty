@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import logo from './logo_provisional.png';
-import avatar from '../../assets/images/avatars/simple_avatar.png';
 import settings from '../../assets/images/ajustes_1.png';
 import { Link } from 'react-router-dom';
 import './homebotton.css';
@@ -9,16 +8,16 @@ import sound_on from '../../assets/images/audio_on.png';
 import sound_off from '../../assets/images/audio_mute.png';
 import { stopAllSounds } from '../../sounds';
 
-function DropdownMenu({ onClick }) {
+function DropdownMenu({ onClick, prop_avatar }) {
   const [isOpen, setIsOpen] = useState(false);
   const initialSoundValue = getCookieValue("sound") === "true";
   const [sound, setSound] = useState(initialSoundValue);
-
+  let userAvatar = prop_avatar
   // set if show or not the menu options
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
-
+  
   // set if play or not sounds 
   const toggleSound = () => {
     const newSoundValue = !sound;
@@ -49,7 +48,7 @@ function DropdownMenu({ onClick }) {
           <Link to='profile'>
             <button
               className='profile_container'
-              style={{ backgroundImage: `url(${avatar})` }}>
+              style={{ backgroundImage: `url(${userAvatar})` }}>
             </button>
           </Link>
         </div>)}
