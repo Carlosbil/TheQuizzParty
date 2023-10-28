@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import logo from './logo_provisional.png';
-import settings from '../../assets/images/ajustes_1.png';
+import menu from '../../assets/images/menu.png';
+import home from '../../assets/images/home.png';
+
 import { Link } from 'react-router-dom';
 import './homebotton.css';
 import { getCookieValue } from '../../authSlide';
@@ -31,7 +33,7 @@ function DropdownMenu({ onClick, prop_avatar }) {
       <button
         className="settings_menu"
         onClick={toggleMenu}
-        style={{ backgroundImage: `url(${settings})` }}>
+        style={{ backgroundImage: `url(${menu})` }}>
       </button>
 
       {isOpen && (
@@ -39,7 +41,7 @@ function DropdownMenu({ onClick, prop_avatar }) {
           <button
             className="logo-container"
             onClick={onClick}
-            style={{ backgroundImage: `url(${logo})` }}>
+            style={{ backgroundImage: `url(${home})` }}>
           </button>
         </div>
       )}
