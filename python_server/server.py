@@ -87,7 +87,12 @@ def create_user():
         user = User(**data)
         session.add(user)
         session.commit()
-        return jsonify({'message': 'User logged in properly', "token": data["token"]}), 200 
+        info = {
+            'message': 'User signed up properly', 
+            "token": data["token"], 
+            "image_path": "avatar1"
+            }
+        return jsonify(info), 200 
     
     except Exception as e:
         # roll back if error
@@ -122,7 +127,13 @@ def login_user():
             print("using the old token")
             token = user.token
             print(token)
-        return jsonify({'message': 'User logged in properly', "token": token}), 200 
+        
+        info = {
+            'message': 'User logged in properly', 
+            "token": token, 
+            "image_path": user.image_path
+            }
+        return jsonify(info), 200 
 
     except Exception as e:
         # roll back if error
@@ -147,7 +158,8 @@ def get_user():
                 "name": user.name,
                 "username": user.username,
                 "email": user.email,
-                "password": user.password
+                "password": user.password,
+                "image_path": user.image_path
             }
             return jsonify(user_data), 200 
         else:
@@ -269,7 +281,32 @@ def update_profile():
         session.rollback()
         message = "Error while saving the information"
         print(f"{message}: {e}")
-        return jsonify({'message': str(e), 'error': message}), 500
+        return jsonify({'message': message, 'error': message}), 500
+    
+    finally:
+        # Close session
+        session.close() 
+        
+        
+@app.route('/api/updateAvatar', methods=['PUT'])
+def update_avatar():
+    try:
+        data = request.get_json()
+        user = session.query(User).filter_by(token=data["token"]).first()
+        print(data)
+        if user:
+            user.image_path = data["image_path"]
+            session.commit()
+            return jsonify(data), 200
+        else:
+            return jsonify({'message': "not existing profile", 'error': "the user could not be found"}), 500
+        
+    except Exception as e:
+        # roll back if error
+        session.rollback()
+        message = "Error while saving the information"
+        print(f"{message}: {e}")
+        return jsonify({'message': message, 'error': message}), 500
     
     finally:
         # Close session

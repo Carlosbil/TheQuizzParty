@@ -34,14 +34,15 @@
     background-position: center;
 }
 .avatar-button {
-    width: 12vmin;
-    height: 12vmin;
+    min-width: 14vmin;
+    min-height: 14vmin;
     object-fit: cover;
     border-radius: 50%;
     border: 4px solid #8b8b8b;
     transition: transform 0.3s ease;
     background-size: cover;
     background-position: center;
+    margin-left: 40%;
 }
 .avatar-button:hover {
     transform: scale(1.1);
@@ -58,4 +59,23 @@
 .avatar-image:nth-child(even):hover {
     transform: scale(1.1);
 }
+
+.linked_avatar {
+    margin-top: 10%;
+    margin-left: -5%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    text-decoration: underline;
+    outline: none;
+    position: relative;
+    transition: text-shadow 0.4s ease-in-out;
+    color: #ffffff;
+  }
+  
+.linked_avatar:hover {
+    text-shadow: 0px 0px 5px rgba(255, 255, 255, 0.8);
+    animation: glowEffect 0.4s forwards;
+  }
 

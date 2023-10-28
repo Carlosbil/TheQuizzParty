@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './profile.css';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
@@ -18,6 +18,7 @@ function Profile() {
     const [showProfile, setShowProfile] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const avatar = getCookieValue("avatar")
+    const [showPassword, setShowPassword] = useState(false);
     const [formData, setFormData] = useState({
         token: '',
         name: '',
@@ -69,12 +70,6 @@ function Profile() {
     const handleEditClick = () => {
         setIsEditing(!isEditing);
     };
-
-    // obtain the user information when the user open this component
-    useEffect(() => {
-        getUser();
-    }, []);
-
     const navigate = useNavigate();
 
     const handleLogoClick = () => {
@@ -90,6 +85,7 @@ function Profile() {
                 setName(decodeURIComponent(response.data.name));
                 setPassword(decodeURIComponent(response.data.password));
                 setShowProfile(true);
+                toast.success("Se ha obtenido su informacion")
             })
             .catch((error) => {
                 console.error('Error al realizar la solicitud:', error);
@@ -105,55 +101,47 @@ function Profile() {
         return "*********";
     }
 
+
+    // IIFE 
+    const [dataLoaded, setDataLoaded] = useState(false);
+
+    if (!dataLoaded) {
+        getUser();
+        setDataLoaded(true);
+    }
+
+    const handleFormSubmit = (e) => {
+        e.preventDefault();
+        handleSubmit(e); // Pasamos el evento a handleSubmit
+    };
+
+    const toggleEdit = () => {
+        handleEditClick();
+    };
+
     return (
         <div className='back'>
             <div className="page">
                 <Logo onClick={handleLogoClick} prop_avatar={getAvatar(avatar)} />
                 <AvatarList avatarMap={getAllAvatars()} prop_avatar={getAvatar(avatar)} />
                 <div className="display_div">
-                    {!isEditing
-                        && <div className="log">Su perfil</div>}
-
-                    {!isEditing
-                        && <div className="profile-group">
-                            <div className="tittle_profile">Nombre:</div>
-                            {showProfile && <div>{name}</div>}
-                        </div>}
-                    {!isEditing
-                        && <div className="profile-group">
-                            <div className="tittle_profile">Username:</div>
-                            {showProfile && <div>{username}</div>}
-                        </div>}
-                    {!isEditing
-                        && <div className="profile-group">
-                            <div className="tittle_profile">Email:</div>
-                            {showProfile && <div>{email}</div>}
-                        </div>}
-                    {!isEditing
-                        && <div className="profile-group">
-                            <div className="tittle_profile">Contraseña:</div>
-                            {showProfile && <div>{maskPassword()}</div>}
-                        </div>}
-                    {isEditing && (
+                    {isEditing ? (
                         <div className="container">
                             <h2>Por favor introduzca sus datos</h2>
-                            <form onSubmit={handleSubmit}>
+                            <form onSubmit={handleFormSubmit}>
                                 <input
                                     type="text"
                                     name="name"
                                     placeholder={name}
                                     value={formData.name}
                                     onChange={handleChange}
-                                    defaultValue={name}
                                     className="input"
                                 />
                                 <input
-
                                     type="text"
                                     name="username"
                                     placeholder={username}
                                     value={formData.username}
-                                    defaultValue={username}
                                     onChange={handleChange}
                                     className="input"
                                 />
@@ -162,31 +150,41 @@ function Profile() {
                                     name="email"
                                     placeholder={email}
                                     value={formData.email}
-                                    defaultValue={email}
                                     onChange={handleChange}
                                     className="input"
                                 />
                                 <input
-                                    type="password"
+                                    type={showPassword ? "text" : "password"}
                                     name="password"
                                     placeholder={password}
                                     value={formData.password}
                                     onChange={handleChange}
-                                    defaultValue={password}
                                     className="input"
                                 />
-                                <button type="submit" className="button">
+
+                                <button type="button" className="nextQuestion" onClick={() => setShowPassword(!showPassword)}>
+                                    {showPassword ? "Ocultar" : "Mostrar"}
+                                </button>
+
+                                <button type="submit" className="button_profile">
                                     Guardar
                                 </button>
-                                <button className="button_profile" onClick={handleEditClick}>
+                                <button className="button_profile" onClick={toggleEdit}>
                                     Cancelar
                                 </button>
                             </form>
                             <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
                         </div>
+                    ) : (
+                        <>
+                            <div className="log">Su perfil</div>
+                            <div className="profile-group"><div className="tittle_profile">Nombre:</div>{showProfile && <div>{name}</div>}</div>
+                            <div className="profile-group"><div className="tittle_profile">Username:</div>{showProfile && <div>{username}</div>}</div>
+                            <div className="profile-group"><div className="tittle_profile">Email:</div>{showProfile && <div>{email}</div>}</div>
+                            <div className="profile-group"><div className="tittle_profile">Contraseña:</div>{showProfile && <div>{maskPassword()}</div>}</div>
+                            <button className="button_profile" onClick={toggleEdit}>Editar</button>
+                        </>
                     )}
-                    {!isEditing &&
-                        <button className="button_profile" onClick={handleEditClick}> Editar</button>}
                 </div>
             </div>
             <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
