@@ -6,6 +6,7 @@ import Mainpage from './components/mainPage/mainPage';
 import Profile from './components/profile/profile';
 import SignUp from './components/signUp/singUp';
 import { Provider } from 'react-redux';
+import Questionary from './components/questionary/questionary';
 import store from './store';
 
 function ProtectedRoute({ children }) {
@@ -28,6 +29,7 @@ function App() {
           <Route path="/signUp" element={<SignUp />} />
           <Route path="/logIn" element={<LogIn />} />
           <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+          <Route path="/questionary" element={<ProtectedRoute><Questionary /></ProtectedRoute>} />
           <Route path="*" element={<Navigate to="/logIn" />} />
         </Routes>
       </Router>
