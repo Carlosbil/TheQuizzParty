@@ -4,7 +4,7 @@ import json, random
 from flask_cors import CORS
 import os
 import base64
-from dataBase import session, User, Score
+from dataBase import session, User, Score, Questionary
 from tinkers import generate_questions
 app = Flask(__name__)
 from bcrypt import hashpw, gensalt, checkpw
@@ -298,6 +298,42 @@ def update_avatar():
             user.image_path = data["image_path"]
             session.commit()
             return jsonify(data), 200
+        else:
+            return jsonify({'message': "not existing profile", 'error': "the user could not be found"}), 500
+        
+    except Exception as e:
+        # roll back if error
+        session.rollback()
+        message = "Error while saving the information"
+        print(f"{message}: {e}")
+        return jsonify({'message': message, 'error': message}), 500
+    
+    finally:
+        # Close session
+        session.close() 
+        
+@app.route('/api/addQuestionary', methods=['POST'])
+def add_questionary():
+    try:
+        data = request.get_json()
+        user = session.query(User).filter_by(token=data["token"]).first()
+        print(data)
+        if user:
+            questionary_data = {
+                "interface": int(data["interface"]),
+                "ez2use": int(data["ez2use"]),
+                "questions": int(data["questions"]),
+                "functionality": data["functionality"],
+                "delete": data["delete"]
+            }
+            new_questionary = Questionary(**questionary_data)
+            session.add(new_questionary)
+            
+            session.commit() 
+            info = {
+                'message': 'Questionary saved, Thanks!', 
+            }
+            return jsonify(info), 200 
         else:
             return jsonify({'message': "not existing profile", 'error': "the user could not be found"}), 500
         

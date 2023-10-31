@@ -1,4 +1,9 @@
 import React, { useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
+import { ADD_QUESTIONARY_URL } from '../../enpoints';
+import { getCookieValue } from '../../authSlide';
 
 const Questionary = () => {
     const [respuestas, setRespuestas] = useState({});
@@ -6,7 +11,9 @@ const Questionary = () => {
     const preguntas = [
         { id: 1, texto: '¿Qué te parece la interfaz de la aplicación?', tipo: 'opciones' },
         { id: 2, texto: '¿La aplicación es fácil de usar?', tipo: 'opciones' },
-        { id: 3, texto: '¿Qué funcionalidades añadirías?', tipo: 'texto' }
+        { id: 3, texto: '¿Las preguntas le parecieron interesantes?', tipo: 'opciones' },
+        { id: 4, texto: '¿Qué funcionalidades añadirías?', tipo: 'texto' },
+        { id: 5, texto: '¿Que quitarís o cambiarías?', tipo: 'texto' }
     ];
 
 
@@ -28,9 +35,28 @@ const Questionary = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('Respuestas del cuestionario:', respuestas);
-        // Aquí puedes enviar las respuestas a tu backend o hacer lo que necesites con ellas
-    };
+        let data = {
+            "interface": respuestas[1],
+            "ez2use": respuestas[2],
+            "questions": respuestas[3],
+            "functionality": respuestas[4],
+            "delete": respuestas[5],
+            "token": getCookieValue("auth_token"),
+        }
+        console.log('Respuestas del cuestionario:', data);
+        axios
+        .post(ADD_QUESTIONARY_URL, data)
+        .then((_) => {
+            toast.success("Las respuestas se han guardado, gracias!")
+        })
+        .catch((error) => {
+            console.error('Error al realizar la solicitud:', error);
+            if (error.response === undefined || error.response.data.error === undefined) {
+                toast.error('Error al realizar la solicitud:' + error.message);
+            } else {
+                toast.error('Error al realizar la solicitud:' + error.response.data.error);
+            }
+        });    };
 
     return (
         <a className='back'>
@@ -63,8 +89,10 @@ const Questionary = () => {
                             </div>
                         ))}
                         <button className='button' type="submit">Enviar respuestas</button>
+                        <button className='linked' type="button" onClick={() => window.location.href = "/"}>Volver al inicio</button>
                     </form>
                 </div>
+                <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
             </b>
         </a>
     );
