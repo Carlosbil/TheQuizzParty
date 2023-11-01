@@ -349,5 +349,5 @@ def add_questionary():
         session.close() 
 # Run the Flask app with the specified configuration
 # The configuration (host, port, debug) can be adjusted as needed or made configurable
-if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=3001, debug=True)
+# if __name__ == "__main__":
+#     app.run(host='0.0.0.0', port=3001, debug=True)
