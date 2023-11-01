@@ -21,7 +21,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "both": "concurrently \"cd ../python_server && python server.py\" \"npm start\"",
+    "both": "concurrently \"cd ../python_server && gunicorn server:app -b 0.0.0.0:3001 \" \"npm start\"",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
