@@ -7,6 +7,12 @@ import os
 
 Base = declarative_base()
 
+
+"""
+-----------------
+USER TABLE
+_________________
+"""
 class User(Base):
     __tablename__ = 'usuarios'
     id = Column(Integer, Sequence('usuario_id_seq'), primary_key=True)
@@ -20,7 +26,11 @@ class User(Base):
 
     
 load_dotenv()
-
+"""
+-----------------
+TINKER SCORE TABLE
+_________________
+"""
 class Score(Base):
     __tablename__ = 'scores'
     
@@ -32,6 +42,23 @@ class Score(Base):
 
     # Relación con la tabla usuarios
     user = relationship("User", back_populates="scores")
+
+"""
+-----------------
+QUESTIONARY TABLE
+_________________
+"""
+class Questionary(Base):
+    __tablename__ = 'questionary_1'
+    
+    quest_id = Column(Integer, Sequence('questionary_1_id_seq'), primary_key=True)
+    interface = Column(Integer)
+    ez2use= Column(Integer)
+    questions = Column(Integer)
+    functionality = Column(String)
+    delete = Column(String)
+
+    
     
 DATABASE_URL = os.getenv("DATABASE_URL")
 
@@ -43,6 +70,7 @@ def init_db():
     Session = sessionmaker(bind=engine)
     session = Session()
     return session
+
 
 # Inicializa la base de datos al cargar el módulo
 session = init_db()

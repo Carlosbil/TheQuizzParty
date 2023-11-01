@@ -138,6 +138,8 @@ function TinkersDisplayer({ questions_prop }) {
         </div>}
       {end && <Leaderboard players={leaderboard} />}
       {end && <button className='button' onClick={() => window.location.href = "/"}>Volver al inicio</button>}
+      {end && <button className='linked' onClick={() => window.location.href = "/questionary"}>Me ayudarías respondiendo a unas preguntas? Le llevará 1 minuto</button>}
+
 
       <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
     </div>
