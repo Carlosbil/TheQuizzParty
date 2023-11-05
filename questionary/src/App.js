@@ -8,6 +8,7 @@ import SignUp from './components/signUp/singUp';
 import { Provider } from 'react-redux';
 import Questionary from './components/questionary/questionary';
 import store from './store';
+import MenuBattleRoyale from './components/battelRoyale/menuBattleRoyale';
 
 function ProtectedRoute({ children }) {
   const allCookies = document.cookie;
@@ -30,6 +31,7 @@ function App() {
           <Route path="/logIn" element={<LogIn />} />
           <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
           <Route path="/questionary" element={<ProtectedRoute><Questionary /></ProtectedRoute>} />
+          <Route path="/battleRoyale" element={<ProtectedRoute><MenuBattleRoyale /></ProtectedRoute>} />
           <Route path="*" element={<Navigate to="/logIn" />} />
         </Routes>
       </Router>

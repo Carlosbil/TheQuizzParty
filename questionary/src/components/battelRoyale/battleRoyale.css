@@ -1,0 +1,56 @@
+.fun_royale {
+    text-align: center;
+    background-color: #1a1e24; /* Fondo más oscuro */
+    color: #c5c6c7; /* Color de texto claro para mayor contraste */
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    padding: 20px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2); /* Sombra más profunda */
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    margin-bottom: 2vmin;
+    background-image: linear-gradient(160deg, #0a0b0d 0%, #161b22 100%);
+    overflow: hidden; /* Asegura que el contenido no salga de los bordes redondeados */
+}
+
+.fun_royale::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(160deg, rgba(234, 2, 237, 0.6), rgba(22, 22, 124, 0.6), rgba(0, 212, 255, 0.6));
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    border-radius: 5px; /* Asegurar que los bordes redondeados se mantienen */
+}
+
+.fun_royale:hover::before {
+    opacity: 1; /* Mostrar el efecto de brillo al pasar el ratón */
+}
+
+.fun_royale:hover {
+    transform: scale(1.05); /* Efecto de crecimiento más sutil */
+    color: #ffffff;
+    box-shadow: 0px 8px 30px rgba(0, 255, 255, 0.5); /* Sombra con color para el efecto neón */
+}
+
+/* Animación de 'pulso' */
+@keyframes pulse {
+    0% {
+        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+    }
+    50% {
+        box-shadow: 0px 8px 20px rgba(0, 255, 255, 0.6);
+    }
+    100% {
+        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+    }
+}
+
+.fun_royale {
+    animation: pulse 2s infinite;
+}

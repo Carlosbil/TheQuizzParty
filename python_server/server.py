@@ -1,18 +1,23 @@
 import datetime
 from flask import Flask, jsonify, request
+from flask_socketio import SocketIO, join_room, leave_room, send
 import json, random
 from flask_cors import CORS
 import os
 import base64
 from dataBase import session, User, Score, Questionary
 from tinkers import generate_questions
-app = Flask(__name__)
 from bcrypt import hashpw, gensalt, checkpw
+from battle_royale import  Game
+
+app = Flask(__name__)
+socketio = SocketIO(app)
 
 # Enable Cross-Origin Resource Sharing (CORS) for the specified origins
 # CORS(app, resources={r"*": {"origins": "http://localhost:3000"}})
 CORS(app)
 
+game = Game()
 # Construct the file path in a platform-independent manner
 file_path = os.path.join('.', 'data', 'questions.json')
 
@@ -347,6 +352,35 @@ def add_questionary():
     finally:
         # Close session
         session.close() 
+        
+        
+@app.route('/api/addRoyale', methods=['POST'])
+def join_game():
+    try:
+        data = request.get_json()
+        user = session.query(User).filter_by(token=data["token"]).first()
+        print(data)
+        if user:
+            room_id = game.add_player_to_room(user.username, user.image_path)
+            if room_id:
+                players = game.get_room_players(room_id)
+                return jsonify({'message': "User added to the room", 'room_id': room_id, 'players': players}), 200
+            else:
+                return jsonify({'message': "Failed to add user to the room"}), 400
+        else:
+            return jsonify({'message': "not existing profile", 'error': "the user could not be found"}), 500
+        
+    except Exception as e:
+        # roll back if error
+        session.rollback()
+        message = "Error while adding to the room"
+        print(f"{message}: {e}")
+        return jsonify({'message': message, 'error': message}), 500
+    
+    finally:
+        # Close session
+        session.close() 
+        
 # Run the Flask app with the specified configuration
 # The configuration (host, port, debug) can be adjusted as needed or made configurable
 if __name__ == "__main__":
