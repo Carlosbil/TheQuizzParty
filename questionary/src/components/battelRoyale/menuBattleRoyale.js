@@ -37,7 +37,7 @@ function MenuBattleRoyale() {
     }
 
     return (
-        <a className='back'>
+        <div className='back'>
             <DropdownMenu onClick={handleLogoClick} prop_avatar={getAvatar(avatar)} /> {/* Agregar el componente Logo aquí */}
             <b className='page'>
                 <div className="container">
@@ -49,7 +49,7 @@ function MenuBattleRoyale() {
                 </div>
             </b>
             <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
-        </a>
+        </div>
     );
 }
 
