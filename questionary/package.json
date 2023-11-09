@@ -18,10 +18,11 @@
     "react-scripts": "^5.0.1",
     "react-toastify": "^9.1.3",
     "redux": "^4.2.1",
+    "socket.io-client": "^4.7.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "both": "concurrently \"cd ../python_server && gunicorn server:app -b 0.0.0.0:3001 \" \"npm start\"",
+    "both": "concurrently \"cd ../python_server && gunicorn --worker-class eventlet -w 1 server:app -b 0.0.0.0:3001 \" \"npm start\"",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

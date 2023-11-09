@@ -1,6 +1,6 @@
 from datetime import datetime
 from dotenv import load_dotenv
-from sqlalchemy import create_engine, Column, Integer, String, Sequence, ForeignKey, Float, DateTime
+from sqlalchemy import create_engine, Column, Integer, String, Sequence, ForeignKey, Float, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
 import os
@@ -58,7 +58,18 @@ class Questionary(Base):
     functionality = Column(String)
     delete = Column(String)
 
-    
+"""
+-----------------
+ROOMS TABLE
+_________________
+"""
+class Room(Base):
+    __tablename__ = 'rooms'
+    id = Column(Integer, Sequence('room_id_seq'), primary_key=True)
+    name = Column(String(50), unique=True)
+    is_occupied = Column(Boolean, default=False)
+    number_players = Column(Integer)
+ 
     
 DATABASE_URL = os.getenv("DATABASE_URL")
 

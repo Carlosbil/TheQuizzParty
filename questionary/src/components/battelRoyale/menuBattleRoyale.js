@@ -6,8 +6,7 @@ import DropdownMenu from '../homebotton/homebotton';
 import getAvatar from '../../avatars';
 import { getCookieValue } from '../../authSlide';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { JOIN_ROOM_URL } from '../../enpoints';
+import { socket } from '../../enpoints';
 function MenuBattleRoyale() {
     const avatar = getCookieValue("avatar")
     const navigate = useNavigate();
@@ -15,26 +14,30 @@ function MenuBattleRoyale() {
     const handleLogoClick = () => {
         navigate("/")
     };
-
+    
     const startGame = () => {
-        toast.info("Buscando partida")
+        toast.info("Buscando partida");
         let data = {
             "token": getCookieValue("auth_token")
-        }
-        axios
-        .post(JOIN_ROOM_URL, data)
-        .then((response) => {
-            console.log(response.data)
-        })
-        .catch((error) => {
-            console.error('Error al realizar la solicitud:', error);
-            if (error.response === undefined || error.response.data.error === undefined) {
-                toast.error('Error al realizar la solicitud:' + error.message);
-            } else {
-                toast.error('Error al realizar la solicitud:' + error.response.data.error);
-            }
+        };
+
+        // Emitir evento al servidor para unirse a la sala
+        socket.emit('join_game', data);
+
+        // Emitir un evento de prueba
+        socket.emit('test_event', {data: 'Test data'});
+
+        // Escuchar eventos de respuesta del servidor
+        socket.on('join', (response) => {
+            console.log(response);
         });
-    }
+
+        socket.on('error', (error) => {
+            console.error('Error al unirse a la partida:', error);
+            toast.error('Error al unirse a la partida: ' + error);
+        });
+    };
+    
 
     return (
         <div className='back'>

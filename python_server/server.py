@@ -5,22 +5,27 @@ import json, random
 from flask_cors import CORS
 import os
 import base64
-from dataBase import session, User, Score, Questionary
+from dataBase import session, User, Score, Questionary, Room
 from tinkers import generate_questions
 from bcrypt import hashpw, gensalt, checkpw
-from battle_royale import  Game
 
 app = Flask(__name__)
-socketio = SocketIO(app)
+socketio = SocketIO(app, cors_allowed_origins='*')
 
 # Enable Cross-Origin Resource Sharing (CORS) for the specified origins
 # CORS(app, resources={r"*": {"origins": "http://localhost:3000"}})
 CORS(app)
 
-game = Game()
 # Construct the file path in a platform-independent manner
 file_path = os.path.join('.', 'data', 'questions.json')
 
+"""
+room1 = Room(name='Room 1')
+room2 = Room(name='Room 2')
+session.add(room1)
+session.add(room2)
+session.commit()
+"""
 # Open the JSON file with explicit encoding and load the questions
 # Explicitly specifying the encoding ensures compatibility across different platforms
 with open(file_path, 'r', encoding='utf-8') as f:
@@ -199,6 +204,14 @@ def get_weekly_questions():
         
 @app.route('/api/tinkerScore', methods=['POST'])       
 def save_score():
+    """
+    Save the score of a user in the database.
+
+    Returns:
+    - If the score is saved successfully, returns a JSON object with a 'message' key and a 200 status code.
+    - If the token or score is invalid, returns a JSON object with an 'error' key and a 401 status code.
+    - If there is an error while saving the score, returns a JSON object with a 'message' and an 'error' key and a 500 status code.
+    """
     try:
         data = request.get_json()
         user = session.query(User).filter_by(token=data["token"]).first()
@@ -237,7 +250,7 @@ def save_score():
 
     finally:
         # Close session
-        session.close()         
+        session.close()
         
         
 @app.route('/api/getAllScores', methods=['GET'])
@@ -353,33 +366,6 @@ def add_questionary():
         # Close session
         session.close() 
         
-        
-@app.route('/api/addRoyale', methods=['POST'])
-def join_game():
-    try:
-        data = request.get_json()
-        user = session.query(User).filter_by(token=data["token"]).first()
-        print(data)
-        if user:
-            room_id = game.add_player_to_room(user.username, user.image_path)
-            if room_id:
-                players = game.get_room_players(room_id)
-                return jsonify({'message': "User added to the room", 'room_id': room_id, 'players': players}), 200
-            else:
-                return jsonify({'message': "Failed to add user to the room"}), 400
-        else:
-            return jsonify({'message': "not existing profile", 'error': "the user could not be found"}), 500
-        
-    except Exception as e:
-        # roll back if error
-        session.rollback()
-        message = "Error while adding to the room"
-        print(f"{message}: {e}")
-        return jsonify({'message': message, 'error': message}), 500
-    
-    finally:
-        # Close session
-        session.close() 
         
 # Run the Flask app with the specified configuration
 # The configuration (host, port, debug) can be adjusted as needed or made configurable

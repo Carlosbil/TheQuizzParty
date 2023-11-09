@@ -1,4 +1,10 @@
+
+import io from 'socket.io-client';
+
 const BASE_URL = 'http://192.168.1.62:3001';
+
+
+export const socket = io(`${BASE_URL}`);
 
 export const QUESTIONS_URL = `${BASE_URL}/api/questions`;
 export const TINKERS_URL = `${BASE_URL}/api/tinker`;
