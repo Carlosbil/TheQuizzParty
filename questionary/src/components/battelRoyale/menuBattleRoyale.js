@@ -28,11 +28,8 @@ function MenuBattleRoyale() {
         // Emitir evento al servidor para unirse a la sala
         socket.emit('join_game', data);
 
-        // Emitir un evento de prueba
-        socket.emit('test_event', {data: 'Test data'});
-
         // Escuchar eventos de respuesta del servidor
-        socket.on('join', (response) => {
+        socket.on('join_game_response', (response) => {
             console.log(response);
         });
 

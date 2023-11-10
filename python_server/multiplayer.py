@@ -4,6 +4,7 @@ from flask import jsonify, request
 from flask_cors import CORS
 from dataBase import session, User, Room
 from server import socketio, session
+import secrets
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -14,7 +15,7 @@ def on_join(data):
     join_room(room)
     emit('status', {'msg': f'{username} has entered the room.'}, room=room)
     logging.debug(f'{username} has entered the room {room}')
-
+    
 @socketio.on('leave')
 def on_leave(data):
     username = data['username']
@@ -22,7 +23,7 @@ def on_leave(data):
     leave_room(room)
     emit('status', {'msg': f'{username} has left the room.'}, room=room)
     logging.debug(f'{username} has left the room {room}')
-
+    
 @socketio.on('message')
 def handle_message(data):
     emit('message', data, room=data['room'])
@@ -39,7 +40,10 @@ def join_game(data):
     If the room is full, it sets the room as occupied.
     Finally, it emits a 'join' event to the room with the username and room name.
     """
+    #quiero ver algo en la consola del servidor
+    
     logging.debug("Join game event received")
+    print("SALUDOOOOOOOOOOOOOS")
     token = data["token"]
     room_name = data.get("room")
 
@@ -53,7 +57,13 @@ def join_game(data):
     if not room_name:
         room = session.query(Room).filter_by(is_occupied=False).first()
         if not room:
-            room = Room(name="SomeUniqueName", is_occupied=False, number_players=0)
+
+            while True:
+                room_name = secrets.token_hex(4)
+                if not session.query(Room).filter_by(name=room_name).first():
+                    break
+
+            room = Room(name=room_name, is_occupied=False, number_players=0)
             session.add(room)
             session.commit()
 
@@ -63,7 +73,7 @@ def join_game(data):
     session.commit()
 
     join_room(room.name)
-    emit('join', {'username': user.username, 'room': room.name}, room=room.name)
+    emit('join_game_response', {'username': user.username, 'room': room.name}, room=room.name)
     logging.debug(f"User {user.username} joined room {room.name}")
 
 @socketio.on('leave_game')

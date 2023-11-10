@@ -1,6 +1,6 @@
 import datetime
 from flask import Flask, jsonify, request
-from flask_socketio import SocketIO, join_room, leave_room, send
+from flask_socketio import SocketIO, join_room, leave_room
 import json, random
 from flask_cors import CORS
 import os
@@ -19,13 +19,38 @@ CORS(app)
 # Construct the file path in a platform-independent manner
 file_path = os.path.join('.', 'data', 'questions.json')
 
-"""
-room1 = Room(name='Room 1')
-room2 = Room(name='Room 2')
+from dataBase import session, User
+
+# Especificar el token que quieres buscar/añadir
+token_to_add = "test_token|2023-01-01 12:00:00"
+
+# Buscar si ya existe un usuario con ese token
+existing_user = session.query(User).filter_by(token=token_to_add).first()
+
+# Si no existe, crear y añadir un nuevo usuario
+if not existing_user:
+    new_user = User(
+        username="nuevo_usuario",
+        email="usuario@example.com",
+        password="password_seguro",
+        name="Nombre Usuario",
+        num_preguntas_acertadas=0,
+        token=token_to_add,
+        image_path="/path/to/image"
+    )
+
+    # Añadir la nueva instancia de User a la sesión
+    session.add(new_user)
+
+    # Hacer commit de la sesión para guardar el nuevo usuario
+    session.commit()
+
+"""room1 = Room(name='Room 1', number_players=0)
+room2 = Room(name='Room 2', number_players=0)
 session.add(room1)
 session.add(room2)
-session.commit()
-"""
+session.commit()"""
+
 # Open the JSON file with explicit encoding and load the questions
 # Explicitly specifying the encoding ensures compatibility across different platforms
 with open(file_path, 'r', encoding='utf-8') as f:
@@ -366,7 +391,9 @@ def add_questionary():
         # Close session
         session.close() 
         
-        
+if __name__ == '__main__':
+    socketio.run(app, host='0.0.0.0', port=3001, debug=True)
+           
 # Run the Flask app with the specified configuration
 # The configuration (host, port, debug) can be adjusted as needed or made configurable
 # if __name__ == "__main__":

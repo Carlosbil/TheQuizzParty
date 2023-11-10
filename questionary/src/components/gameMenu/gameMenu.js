@@ -22,13 +22,13 @@ function FunButtons() {
   };
   const handleButtonClick_battleRoyale = () => {
     stopSoundByName("background")
-    setShowTinkers(true);
+    navigate('/battleRoyale')
   };
   return (
     <div className='Page'>
       {!showQuestionDisplayer && !showTinkers && (
         <div className="container">
-            <button className="fun_royale" onClick={() => navigate('/battleRoyale')}>
+            <button className="fun_royale" onClick={() => handleButtonClick_battleRoyale()}>
               👑 Battle Royale 👑
             </button>
             <button className="fun_royale" onClick={() => handleButtonClick_tinkers()}>
