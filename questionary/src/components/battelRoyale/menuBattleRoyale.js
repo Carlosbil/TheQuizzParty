@@ -7,6 +7,10 @@ import getAvatar from '../../avatars';
 import { getCookieValue } from '../../authSlide';
 import { useNavigate } from 'react-router-dom';
 import { socket } from '../../enpoints';
+/**
+ * Component that displays the Battle Royale menu.
+ * @returns {JSX.Element} JSX element containing the Battle Royale menu.
+ */
 function MenuBattleRoyale() {
     const avatar = getCookieValue("avatar")
     const navigate = useNavigate();
