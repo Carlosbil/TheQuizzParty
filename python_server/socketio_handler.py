@@ -1,33 +1,24 @@
-import logging
-from flask_socketio import join_room, leave_room, emit
-from flask import jsonify, request
+#imports
+from flask_socketio import emit, join_room, leave_room
 from flask_cors import CORS
 from dataBase import session, User, Room
-from server import socketio, session
+from app import socketio
 import secrets
+import logging
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(filename='./my_app.log', filemode='w', format='%(name)s - %(levelname)s - %(message)s', level=logging.DEBUG)
+logging.debug('Mensaje de debug')
+logging.info('Mensaje de información')
+logging.warning('Mensaje de advertencia')
+logging.error('Mensaje de error')
+logging.critical('Mensaje crítico')
 
-@socketio.on('join')
-def on_join(data):
-    username = data['username']
-    room = data['room']
-    join_room(room)
-    emit('status', {'msg': f'{username} has entered the room.'}, room=room)
-    logging.debug(f'{username} has entered the room {room}')
-    
-@socketio.on('leave')
-def on_leave(data):
-    username = data['username']
-    room = data['room']
-    leave_room(room)
-    emit('status', {'msg': f'{username} has left the room.'}, room=room)
-    logging.debug(f'{username} has left the room {room}')
-    
-@socketio.on('message')
-def handle_message(data):
-    emit('message', data, room=data['room'])
-    logging.debug(f"Message received: {data}")
+"""
+______________SOCKET IO____________________
+
+
+"""
+
 
 @socketio.on('join_game')
 def join_game(data):
@@ -43,7 +34,8 @@ def join_game(data):
     #quiero ver algo en la consola del servidor
     
     logging.debug("Join game event received")
-    print("SALUDOOOOOOOOOOOOOS")
+    print("join game event received")
+    print(data)
     token = data["token"]
     room_name = data.get("room")
 
@@ -76,6 +68,31 @@ def join_game(data):
     emit('join_game_response', {'username': user.username, 'room': room.name}, room=room.name)
     logging.debug(f"User {user.username} joined room {room.name}")
 
+
+@socketio.on('join')
+def on_join(data):
+    username = data['username']
+    room = data['room']
+    join_room(room)
+    emit('status', {'msg': f'{username} has entered the room.'}, room=room)
+    logging.debug(f'{username} has entered the room {room}')
+    
+@socketio.on('leave')
+def on_leave(data):
+    username = data['username']
+    room = data['room']
+    leave_room(room)
+    emit('status', {'msg': f'{username} has left the room.'}, room=room)
+    logging.debug(f'{username} has left the room {room}')
+    
+@socketio.on('message')
+def handle_message(data):
+    emit('message', data, room=data['room'])
+    logging.debug(f"Message received: {data}")
+
+#i want to move this fuction to another file and import it here
+
+# This function handles the event of a user joining a game room.
 @socketio.on('leave_game')
 def leave_game(data):
     """

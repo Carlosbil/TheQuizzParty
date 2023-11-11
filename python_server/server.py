@@ -1,6 +1,6 @@
 import datetime
 from flask import Flask, jsonify, request
-from flask_socketio import SocketIO, join_room, leave_room
+from flask_socketio import SocketIO, join_room, leave_room, emit
 import json, random
 from flask_cors import CORS
 import os
@@ -8,9 +8,12 @@ import base64
 from dataBase import session, User, Score, Questionary, Room
 from tinkers import generate_questions
 from bcrypt import hashpw, gensalt, checkpw
+from socketio_handler import join_game, leave_game, handle_message, on_join
+from app import socketio
 
 app = Flask(__name__)
-socketio = SocketIO(app, cors_allowed_origins='*')
+socketio.init_app(app)
+CORS(app)
 
 # Enable Cross-Origin Resource Sharing (CORS) for the specified origins
 # CORS(app, resources={r"*": {"origins": "http://localhost:3000"}})
@@ -45,11 +48,15 @@ if not existing_user:
     # Hacer commit de la sesión para guardar el nuevo usuario
     session.commit()
 
-"""room1 = Room(name='Room 1', number_players=0)
+#quiero que se borren y se creen 2 salas cada vez que se inicie el servidor
+# Delete all existing rooms
+session.query(Room).delete()
+session.commit()
+room1 = Room(name='Room 1', number_players=0)
 room2 = Room(name='Room 2', number_players=0)
 session.add(room1)
 session.add(room2)
-session.commit()"""
+session.commit()
 
 # Open the JSON file with explicit encoding and load the questions
 # Explicitly specifying the encoding ensures compatibility across different platforms
@@ -94,7 +101,10 @@ def generate_token():
     return token_with_timestamp
 
 
+"""
+______________API____________________
 
+"""
 # Define a route to handle GET requests and return questions in JSON format
 @app.route('/api/questions', methods=['GET'])
 def obtener_datos():
