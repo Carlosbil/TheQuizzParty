@@ -4,6 +4,7 @@ from sqlalchemy import create_engine, Column, Integer, String, Sequence, Foreign
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
 import os
+from sqlalchemy.dialects.postgresql import ARRAY
 
 Base = declarative_base()
 
@@ -58,6 +59,7 @@ class Questionary(Base):
     functionality = Column(String)
     delete = Column(String)
 
+
 """
 -----------------
 ROOMS TABLE
@@ -69,7 +71,7 @@ class Room(Base):
     name = Column(String(50), unique=True)
     is_occupied = Column(Boolean, default=False)
     number_players = Column(Integer)
- 
+    players = Column(ARRAY(String))
     
 DATABASE_URL = os.getenv("DATABASE_URL")
 

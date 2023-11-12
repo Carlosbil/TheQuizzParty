@@ -52,8 +52,8 @@ if not existing_user:
 # Delete all existing rooms
 session.query(Room).delete()
 session.commit()
-room1 = Room(name='Room 1', number_players=0)
-room2 = Room(name='Room 2', number_players=0)
+room1 = Room(name='Room 1', number_players=0, players=[])
+room2 = Room(name='Room 2', number_players=0, players=[])
 session.add(room1)
 session.add(room2)
 session.commit()
@@ -129,6 +129,7 @@ def create_user():
         data["token"] = generate_token()
         hashed_password = hashpw(data["password"].encode('utf-8'), gensalt())
         data["password"] = hashed_password.decode('utf-8')
+        data["image_path"] = "avatar1"
         user = User(**data)
         session.add(user)
         session.commit()
