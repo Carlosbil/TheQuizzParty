@@ -32,13 +32,13 @@ function MenuBattleRoyale() {
         // Emitir evento al servidor para unirse a la sala
         socket.emit('join_game', data);
 
-        // listen server events
+        // Escuchar eventos de respuesta del servidor
         socket.on('join_game_response', (response) => {
             console.log(response);
             toast.success('Unido a la partida');
             setShowPlayers(true);
             setPlayers(response.players);
-            setRoom_id(response.roo);
+            setRoom_id(response.room_id);
         });
 
         socket.on('error', (error) => {
@@ -47,7 +47,6 @@ function MenuBattleRoyale() {
         });
     };
 
-    // update players list
     useEffect(() => {
         socket.on('join_game_response', (response) => {
             console.log(response);
@@ -57,7 +56,7 @@ function MenuBattleRoyale() {
 
     return (
         <div className='back'>
-           {!showPlayers && <DropdownMenu onClick={handleLogoClick} prop_avatar={getAvatar(avatar)} />}
+            <DropdownMenu onClick={handleLogoClick} prop_avatar={getAvatar(avatar)} /> {/* Agregar el componente Logo aquí */}
             <b className='page'>
                 {!showPlayers &&<div className="container">
                     <div>
