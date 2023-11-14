@@ -86,3 +86,19 @@
     border-radius: 50%; /* Avatares redondos */
     margin-bottom: 10px;
   }
+
+/*dar estilos a h1 y h2 de battle royale*/
+h1{
+    color: #ffffff;
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 2vmin;
+    margin-top: 2vmin;
+}
+h2{
+    color: #ffffff;
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 2vmin;
+    margin-top: 2vmin;
+}

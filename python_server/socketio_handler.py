@@ -74,9 +74,11 @@ def join_game(data):
     players = {}
     for name in room.players:
         players[name] = session.query(User).filter_by(username=name).first().image_path
-    emit('join_game_response', {'username': user.username, 'room': room.name, 'players': players}, room=room.name)
+    emit('join_game_response', {'room': room.name, 'players': players}, room=room.name)
     logging.debug(f"User {user.username} joined room {room.name}")
     session.close()
+    #if len(room.players) == 1:
+    #    socketio.start_background_task(start_clock, {'room': room.name})        
 
 
 @socketio.on('join')
@@ -159,7 +161,33 @@ def leave_game(data):
         room.is_occupied = False
     session.commit()
     leave_room(room.name)
-    emit('leave', {'username': user.username, 'room': room.name}, room=room.name)
+    emit('leave', {'room': room.name}, room=room.name)
     logging.debug(f"User {user.username} left room {room.name}")
     session.close()
 
+timers_state = {}
+
+@socketio.on('start_clock')
+def start_clock(data):
+    room = data['room']
+    timers_state[room] = True  
+    logging.debug(f"Starting game in: {room}")
+
+    for time in range(60, -1, -1):
+        if not timers_state[room]: 
+            break
+        socketio.sleep(1)
+        socketio.emit('timer', {'timeRemaining': time}, room=room)  # Use socketio.emit() instead of emit()
+        logging.debug(f"Time remaining: {time} for room {room}")
+
+    if timers_state[room]:
+        socketio.emit('start_game', {'message': "The game is about to start"}, room=room)  # Use socketio.emit() instead of emit()
+        logging.debug(f"Game started in room {room}")
+    else:
+        logging.debug(f"Timer stopped in room {room}")
+
+@socketio.on('stop_clock')
+def stop_clock(data):
+    room = data['room']
+    timers_state[room] = False
+    logging.debug(f"Timer stopped manually in room {room}")
