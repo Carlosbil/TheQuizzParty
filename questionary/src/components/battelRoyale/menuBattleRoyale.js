@@ -8,6 +8,7 @@ import { getCookieValue } from '../../authSlide';
 import { useNavigate } from 'react-router-dom';
 import { socket } from '../../enpoints';
 import RoomBattleRoyale from './roomBattleRoyale';
+import ClockTimer from '../timer/timer';
 
 /**
  * Component that displays the Battle Royale menu.

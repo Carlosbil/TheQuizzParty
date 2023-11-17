@@ -6,6 +6,11 @@ from app import socketio
 import secrets
 import logging
 from sqlalchemy import update
+from flask import copy_current_request_context
+import time
+from threading import Thread
+
+
 
 logging.basicConfig(filename='./my_app.log', filemode='w', format='%(name)s - %(levelname)s - %(message)s', level=logging.DEBUG)
 logging.debug('Mensaje de debug')
@@ -76,7 +81,17 @@ def join_game(data):
         players[name] = session.query(User).filter_by(username=name).first().image_path
     emit('join_game_response', {'username': user.username, 'room': room.name, 'players': players}, room=room.name)
     logging.debug(f"User {user.username} joined room {room.name}")
+    if room.number_players == 1:
+        # Copiar el contexto de la petición actual
+        @copy_current_request_context
+        def start_timer():
+            countdown_timer(room.name, 4)  # 60 segundos de ejemplo
+
+        # Iniciar el temporizador como una tarea en segundo plano
+        thread = Thread(target=start_timer)
+        thread.start()
     session.close()
+    
 
 
 @socketio.on('join')
@@ -163,3 +178,15 @@ def leave_game(data):
     logging.debug(f"User {user.username} left room {room.name}")
     session.close()
 
+def countdown_timer(room_name, duration):
+    """
+    Countdown timer that emits the remaining time every second.
+    :param room_name: Name of the room.
+    :param duration: Duration of the countdown in seconds.
+    """
+    for remaining_time in range(duration, 0, -1):
+        emit('timer', {'time': remaining_time}, room=room_name)
+        logging.debug(f"Remaining time: {remaining_time} in room {room_name}")
+        time.sleep(1)
+    # Handle what happens when the timer ends
+    emit('timer_end', room=room_name)
