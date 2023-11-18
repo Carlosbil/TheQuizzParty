@@ -1,6 +1,6 @@
 from datetime import datetime
 from dotenv import load_dotenv
-from sqlalchemy import create_engine, Column, Integer, String, Sequence, ForeignKey, Float, Boolean
+from sqlalchemy import create_engine, Column, Integer, String, Sequence, ForeignKey, Float, Boolean, JSON
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
 import os
@@ -72,6 +72,46 @@ class Room(Base):
     is_occupied = Column(Boolean, default=False)
     number_players = Column(Integer)
     players = Column(ARRAY(String))
+
+
+"""
+-----------------
+Results TABLE
+_________________
+"""
+#themes = ['history', 'geography', 'sports', 'entertainment', 'literature', 'science', 'pop_culture']
+
+class Results(Base):
+    __tablename__ = 'results'
+    username = Column(String(50), ForeignKey('usuarios.username'), primary_key=True)
+    history_accerted = Column(Integer, default=0)
+    history_wrong = Column(Integer, default=0)
+    geography_accerted = Column(Integer, default=0)
+    geography_wrong = Column(Integer, default=0)
+    sports_accerted = Column(Integer, default=0)
+    sports_wrong = Column(Integer, default=0)
+    entertainment_accerted = Column(Integer, default=0)
+    entertainment_wrong = Column(Integer, default=0)
+    literature_accerted = Column(Integer, default=0)
+    literature_wrong = Column(Integer, default=0)
+    science_accerted = Column(Integer, default=0)
+    science_wrong = Column(Integer, default=0)
+    pop_culture_accerted = Column(Integer, default=0)
+    pop_culture_wrong = Column(Integer, default=0)
+
+"""
+-----------------
+Results TABLE
+_________________
+"""
+#themes = ['history', 'geography', 'sports', 'entertainment', 'literature', 'science', 'pop_culture']
+
+class Tinkers(Base):
+    __tablename__ = 'tinkers'
+    week = Column(Integer, Sequence('week'), primary_key=True)
+    questions = Column(JSON)
+    date = Column(Integer)
+    
     
 DATABASE_URL = os.getenv("DATABASE_URL")
 
@@ -83,6 +123,7 @@ def init_db():
     Session = sessionmaker(bind=engine)
     session = Session()
     return session
+
 
 
 # Inicializa la base de datos al cargar el módulo

@@ -1,7 +1,7 @@
 #imports
 from flask_socketio import emit, join_room, leave_room
 from flask_cors import CORS
-from dataBase import session, User, Room
+from dataBase import session, User, Room, Results
 from app import socketio
 import secrets
 import logging
@@ -9,7 +9,7 @@ from sqlalchemy import update
 from flask import copy_current_request_context
 import time
 from threading import Thread
-
+from tinkers import generate_questions, get_random_theme
 
 
 logging.basicConfig(filename='./my_app.log', filemode='w', format='%(name)s - %(levelname)s - %(message)s', level=logging.DEBUG)
@@ -72,6 +72,8 @@ def join_game(data):
     room.number_players += 1
     if room.number_players == 10:
         room.is_occupied = True
+    if room.players is None:
+        room.players = []
     room.players.append(user.username)
     session.query(Room).filter_by(name=room.name).update({'players': room.players})
     session.commit()
@@ -82,12 +84,12 @@ def join_game(data):
     emit('join_game_response', {'username': user.username, 'room': room.name, 'players': players}, room=room.name)
     logging.debug(f"User {user.username} joined room {room.name}")
     if room.number_players == 1:
-        # Copiar el contexto de la petición actual
+        # copy the context of the request to the function
         @copy_current_request_context
         def start_timer():
-            countdown_timer(room.name, 4)  # 60 segundos de ejemplo
+            countdown_timer(room.name, 4)  # 4s for testing purposes
 
-        # Iniciar el temporizador como una tarea en segundo plano
+        # Start the temporizer in a new thread
         thread = Thread(target=start_timer)
         thread.start()
     session.close()
@@ -178,7 +180,7 @@ def leave_game(data):
     logging.debug(f"User {user.username} left room {room.name}")
     session.close()
 
-def countdown_timer(room_name, duration):
+def countdown_timer(room_name, duration, round=1):
     """
     Countdown timer that emits the remaining time every second.
     :param room_name: Name of the room.
@@ -186,7 +188,103 @@ def countdown_timer(room_name, duration):
     """
     for remaining_time in range(duration, 0, -1):
         emit('timer', {'time': remaining_time}, room=room_name)
-        logging.debug(f"Remaining time: {remaining_time} in room {room_name}")
         time.sleep(1)
     # Handle what happens when the timer ends
     emit('timer_end', room=room_name)
+    start_game({'room': room_name, "round": round})
+    
+def start_game(data):
+    """
+    this fucntion will receive the votes of the them from all the users and will save them in a dictionary
+    if the user is not found it will emit an error message
+    if the room is not found it will emit an error message
+    :param data: A dictionary containing the user's token and the room's name.
+    :type data: dict
+    :return: None
+    """
+    logging.debug("Start game event received")
+    room_name = data["room"]
+    theme = get_random_theme()
+    room = session.query(Room).filter_by(name=room_name).first()
+    if not room:
+        emit('error', {'message': "The room could not be found"})
+        logging.debug(f"Room not found with name {room_name}")
+        return
+    #avoid others players to join in the middle of the game
+    room.is_occupied = True
+    
+    #get 5 questions
+    questions = generate_questions(theme=theme, number=5)
+    session.commit()
+    emit('first_round', {'questions': questions}, room=room.name)
+    @copy_current_request_context
+    def start_timer_game():
+        countdown_timer(room.name, 40) 
+            # Iniciar el temporizador como una tarea en segundo plano
+    thread = Thread(target=start_timer_game)
+    thread.start()
+    logging.debug(f"Game started in room {room.name}")
+      
+
+@socketio.on('save_results')
+def save_results(data):
+    """
+    this function will save the results of the first round
+    :param data: A dictionary containing the user's token and the room's name.
+    :type data: dict
+    :return: None
+    """
+    try:
+        logging.debug("Save results event received")
+        token = data["token"]
+        room_name = data["room"]
+        results = data["results"]
+        theme = data["theme"]
+        accerted = results.get("accerted")
+        wrong = results.get("wrong")
+        user = session.query(User).filter_by(token=token).first()
+        if not user:
+            emit('error', {'message': "The user could not be found"})
+            logging.debug(f"User not found with token {token}")
+            return
+        room = session.query(Room).filter_by(name=room_name).first()
+        if not room:
+            emit('error', {'message': "The room could not be found"})
+            logging.debug(f"Room not found with name {room_name}")
+            return
+        #update the results
+        tinkers = session.query(Results).filter_by(username=user.username).first()
+        #update the columns that match with the theme
+        if tinkers:
+            if accerted:
+                session.query(Results).filter_by(username=user.username).update({QUESTION_MAP[theme][0]: tinkers.__dict__[QUESTION_MAP[theme][0]] + 1})
+            if wrong:
+                session.query(Results).filter_by(username=user.username).update({QUESTION_MAP[theme][1]: tinkers.__dict__[QUESTION_MAP[theme][1]] + 1})
+        else:
+            if accerted:
+                tinkers = Results(username=user.username, **{QUESTION_MAP[theme][0]: accerted})
+            if wrong:
+                tinkers = Results(username=user.username, **{QUESTION_MAP[theme][1]: wrong})
+            session.add(tinkers)
+        session.commit()
+        logging.debug(f"Results saved in room {room.name} for user {user.username}")
+        session.close()
+    except Exception as e:
+        logging.error(f"Error saving results {e}")
+        emit('error', {'message': "Cannot save results"})
+        return
+    
+    session.commit()
+    emit('second_round', room=room.name)
+    logging.debug(f"Results saved in room {room.name}")
+    session.close()
+    
+QUESTION_MAP = {
+    'history': ['history_accerted', 'history_wrong'],
+    'geography': ['geography_accerted', 'geography_wrong'],
+    'sports': ['sports_accerted', 'sports_wrong'],
+    'entertainment': ['entertainment_accerted', 'entertainment_wrong'],
+    'literature': ['literature_accerted', 'literature_wrong'],
+    'science': ['science_accerted', 'science_wrong'],
+    'pop_culture': ['pop_culture_accerted', 'pop_culture_wrong']
+}

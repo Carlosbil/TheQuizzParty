@@ -1,7 +1,11 @@
 from flask import Flask, jsonify, request
 import json, random
 import os
-from dataBase import session, User
+from dataBase import Tinkers, session
+import datetime as datetime
+import logging
+
+logging.basicConfig(filename='./my_app.log', filemode='w', format='%(name)s - %(levelname)s - %(message)s', level=logging.DEBUG)
 
 # in the future, implement a weekly function that clean questions value... 
 questions = []
@@ -14,7 +18,26 @@ file_path = os.path.join('.', 'data', 'questions.json')
 # Explicitly specifying the encoding ensures compatibility across different platforms
 with open(file_path, 'r', encoding='utf-8') as f:
     questions = json.load(f)
-    
+
+def get_random_theme():
+    return random.choice(themes)
+def get_weekly_questions():
+    week = datetime.date.today().isocalendar()[1]
+    tinkers = session.query(Tinkers).filter_by(week=week).first()
+
+    if not tinkers:
+        logging.debug("Generating weekly questions")
+        questions = generate_questions(10, "random")
+
+        tinkers = Tinkers(week=week, questions=questions, date=datetime.date.today().year)
+        session.add(tinkers)
+        session.commit()
+    else:
+        logging.debug("Questions Found")
+
+    return tinkers.questions if tinkers else None
+
+
 
 def generate_questions(number, theme):
     quests = []

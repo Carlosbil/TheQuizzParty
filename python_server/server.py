@@ -3,21 +3,22 @@ from flask import Flask, jsonify, request
 from flask_socketio import SocketIO, join_room, leave_room, emit
 import json, random
 from flask_cors import CORS
+import logging
 import os
 import base64
 from dataBase import session, User, Score, Questionary, Room
-from tinkers import generate_questions
+from tinkers import generate_questions, get_weekly_questions
 from bcrypt import hashpw, gensalt, checkpw
 from socketio_handler import join_game, leave_game, handle_message, on_join
 from app import socketio
 
 app = Flask(__name__)
 socketio.init_app(app)
-CORS(app)
-
 # Enable Cross-Origin Resource Sharing (CORS) for the specified origins
 # CORS(app, resources={r"*": {"origins": "http://localhost:3000"}})
 CORS(app)
+
+logging.basicConfig(filename='./my_app.log', filemode='w', format='%(name)s - %(levelname)s - %(message)s', level=logging.DEBUG)
 
 # Construct the file path in a platform-independent manner
 file_path = os.path.join('.', 'data', 'questions.json')
@@ -64,8 +65,6 @@ with open(file_path, 'r', encoding='utf-8') as f:
     questions = json.load(f)
 
 themes = ['history', 'geography', 'sports', 'entertainment', 'literature', 'science', 'pop_culture']
-
-weekly_questions = []
 
 
 def is_token_valid(token_with_timestamp):
@@ -225,16 +224,15 @@ def get_user():
 
 #in future, automatice to restart the questions everyweek
 @app.route('/api/tinker', methods=['GET'])
-def get_weekly_questions():
+def get_week_questions():
     try:
     # get the 20 questions if there is none
-        quest = weekly_questions
-        if quest == []:
-            quest = generate_questions(10, "random")
+        logging.debug("Getting questions")
+        quest = get_weekly_questions()
         return jsonify({"questions": quest}), 200
     except Exception as e:
         message = "Error while getting questions"
-        print(f"{message}: {e}")
+        logging.error(f"{message}: {e}")
         return jsonify({'message': str(e), 'error': message}), 500
        
         

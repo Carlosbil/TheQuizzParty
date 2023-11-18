@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import getAvatar from '../../avatars';
 import RoyaleTimer from '../timer/royaleTimer';
 import { playSoundByName } from '../../sounds';
+import RoyaleDisplayer from './questionRoyale';
+import { socket } from '../../enpoints';
+import { getCookieValue } from '../../authSlide';
 function RoomBattleRoyale({ prop_players, prop_room_id }) {
 
   let time = 4
@@ -10,13 +13,27 @@ function RoomBattleRoyale({ prop_players, prop_room_id }) {
   const [remainingTime, setRemainingTime] = useState(time);  // 10 minutes
   const [end, setEnd] = useState(false)
   const [start, setStart] = useState(false)
+  const [questions, setQuestions] = useState([])
+
+  const leaveGame = () => {
+    let token = getCookieValue("token");
+    socket.emit('leave_game', { "room": room_id, "token":token });
+    window.location.href = "/"
+}
 
   function startGame () {
-    setStart(true)
+    console.log("Round start!")
   }
 
   useEffect(() => {
     setPlayers(prop_players);
+
+    socket.on('first_round', (data) => {
+      console.log(data.questions)
+      setQuestions(data.questions);
+      setStart(true)
+    });
+
   }, [prop_players]);
 
 
@@ -38,9 +55,7 @@ function RoomBattleRoyale({ prop_players, prop_room_id }) {
           </div>
         ))}
       </div>}
-      {start && <div className="room_battle_royale">
-        Empezamos!
-        </div>}
+      {start && <RoyaleDisplayer questions_prop={questions} on_leave={leaveGame} />}
     </div>
   );
 }
