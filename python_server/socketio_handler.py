@@ -19,6 +19,9 @@ logging.warning('Mensaje de advertencia')
 logging.error('Mensaje de error')
 logging.critical('Mensaje crítico')
 
+scores= {'Room 1':{}, 'Room 2':{}}
+stop={}
+started={}
 """
 ______________SOCKET IO____________________
 
@@ -47,7 +50,6 @@ def join_game(data):
     logging.debug("Join game event received")
     token = data["token"]
     room_name = data.get("room")
-
     user = session.query(User).filter_by(token=token).first()
     if not user:
         emit('error', {'message': "The user could not be found"})
@@ -67,6 +69,7 @@ def join_game(data):
 
             room = Room(name=room_name, is_occupied=False, number_players=0)
             session.add(room)
+            scores[room_name] = {}
             session.commit()
 
     room.number_players += 1
@@ -83,10 +86,13 @@ def join_game(data):
         players[name] = session.query(User).filter_by(username=name).first().image_path
     emit('join_game_response', {'username': user.username, 'room': room.name, 'players': players}, room=room.name)
     logging.debug(f"User {user.username} joined room {room.name}")
+    stop[room.name] = False
+
     if room.number_players == 1:
         # copy the context of the request to the function
         @copy_current_request_context
         def start_timer():
+            global stop
             countdown_timer(room.name, 4)  # 4s for testing purposes
 
         # Start the temporizer in a new thread
@@ -158,7 +164,7 @@ def leave_game(data):
     :type data: dict
     :return: None
     """
-    logging.debug("Leave game event received")
+    logging.debug(f"Leave game event received {data}")
     token = data["token"]
     room_name = data["room"]
     user = session.query(User).filter_by(token=token).first()
@@ -173,7 +179,10 @@ def leave_game(data):
         return
     room.number_players -= 1
     if room.number_players < 10:
-        room.is_occupied = False
+        if not started.get(room.name):
+            room.is_occupied = False
+    if room.number_players == 0:
+        stop[room_name] = True
     session.commit()
     leave_room(room.name)
     emit('leave', {'username': user.username, 'room': room.name}, room=room.name)
@@ -187,11 +196,14 @@ def countdown_timer(room_name, duration, round=1):
     :param duration: Duration of the countdown in seconds.
     """
     for remaining_time in range(duration, 0, -1):
-        emit('timer', {'time': remaining_time}, room=room_name)
-        time.sleep(1)
+        logging.debug(stop)
+        if not stop.get(room_name):
+            emit('timer', {'time': remaining_time}, room=room_name)
+            time.sleep(1)
     # Handle what happens when the timer ends
     emit('timer_end', room=room_name)
-    start_game({'room': room_name, "round": round})
+    if not stop.get(room_name):
+        start_game({'room': room_name, "round": round})
     
 def start_game(data):
     """
@@ -202,29 +214,32 @@ def start_game(data):
     :type data: dict
     :return: None
     """
-    logging.debug("Start game event received")
-    room_name = data["room"]
-    theme = get_random_theme()
-    room = session.query(Room).filter_by(name=room_name).first()
-    if not room:
-        emit('error', {'message': "The room could not be found"})
-        logging.debug(f"Room not found with name {room_name}")
-        return
-    #avoid others players to join in the middle of the game
-    room.is_occupied = True
-    
-    #get 5 questions
-    questions = generate_questions(theme=theme, number=5)
-    session.commit()
-    emit('first_round', {'questions': questions}, room=room.name)
-    @copy_current_request_context
-    def start_timer_game():
-        countdown_timer(room.name, 40) 
-            # Iniciar el temporizador como una tarea en segundo plano
-    thread = Thread(target=start_timer_game)
-    thread.start()
-    logging.debug(f"Game started in room {room.name}")
-      
+    if not stop.get(data["room"]):
+        started[data["room"]] = True
+        logging.debug("Start game event received")
+        room_name = data["room"]
+        theme = get_random_theme()
+        room = session.query(Room).filter_by(name=room_name).first()
+        if not room:
+            emit('error', {'message': "The room could not be found"})
+            logging.debug(f"Room not found with name {room_name}")
+            return
+        #avoid others players to join in the middle of the game
+        room.is_occupied = True
+        
+        #get 5 questions
+        questions = generate_questions(theme=theme, number=5)
+        session.commit()
+        emit('first_round', {'questions': questions, 'theme': theme}, room=room.name)
+        @copy_current_request_context
+        def start_timer_game():
+            global stop
+            countdown_timer(room.name, 10) 
+                # Iniciar el temporizador como una tarea en segundo plano
+        thread = Thread(target=start_timer_game)
+        thread.start()
+        logging.debug(f"Game started in room {room.name}")
+        
 
 @socketio.on('save_results')
 def save_results(data):
@@ -288,3 +303,4 @@ QUESTION_MAP = {
     'science': ['science_accerted', 'science_wrong'],
     'pop_culture': ['pop_culture_accerted', 'pop_culture_wrong']
 }
+

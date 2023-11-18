@@ -20,9 +20,14 @@ function MenuBattleRoyale() {
     const [showPlayers, setShowPlayers] = useState(false);
     const [players, setPlayers] = useState({}); // {name: avatar, name2: avatar2}, ...
     const [room_id, setRoom_id] = useState("0");
-    const handleLogoClick = () => {
-        navigate("/")
-    };
+    const leaveGame = () => {
+        let data = {
+          "token": getCookieValue("auth_token"),
+          "room": room_id
+        };
+        socket.emit('leave_game', data);
+        window.location.href = "/"
+    }
     
     const startGame = () => {
         toast.info("Buscando partida");
@@ -30,18 +35,18 @@ function MenuBattleRoyale() {
             "token": getCookieValue("auth_token")
         };
 
-        // Emitir evento al servidor para unirse a la sala
+        // Join to a room
         socket.emit('join_game', data);
 
-        // Escuchar eventos de respuesta del servidor
+        // Listen server response
         socket.on('join_game_response', (response) => {
             console.log(response);
             toast.success('Unido a la partida');
             setShowPlayers(true);
             setPlayers(response.players);
-            setRoom_id(response.room_id);
+            setRoom_id(response.room);
         });
-
+        //listen the errors and show them
         socket.on('error', (error) => {
             console.error('Error al unirse a la partida:', error);
             toast.error('Error al unirse a la partida: ' + error);
@@ -57,7 +62,7 @@ function MenuBattleRoyale() {
 
     return (
         <div className='back'>
-            <DropdownMenu onClick={handleLogoClick} prop_avatar={getAvatar(avatar)} /> {/* Agregar el componente Logo aquí */}
+            <DropdownMenu onClick={leaveGame} prop_avatar={getAvatar(avatar)} /> {/* Agregar el componente Logo aquí */}
             <b className='page'>
                 {!showPlayers &&<div className="container">
                     <div>

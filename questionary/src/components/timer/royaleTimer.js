@@ -9,15 +9,16 @@ function RoyaleTimer(props) {
     // Escuchar eventos del temporizador del servidor
     socket.on('timer', (data) => {
       setTimeRemaining(data.time);
-      console.log(data);
+      props.onTimeChange(data.time);
     });
+
 
     socket.on('timer_end', () => {
       console.log('timer_end');
-      props.onTimeEnd();
+      props.onTimeEnd(10);
       // Realizar la acción necesaria cuando el temporizador llega a cero
     });
-  }, [timeRemaining, props.shouldStop]);
+  }, [timeRemaining, props.shouldStop, props.onTimeChange]);
 
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);

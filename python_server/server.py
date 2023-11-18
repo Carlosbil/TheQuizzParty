@@ -11,6 +11,7 @@ from tinkers import generate_questions, get_weekly_questions
 from bcrypt import hashpw, gensalt, checkpw
 from socketio_handler import join_game, leave_game, handle_message, on_join
 from app import socketio
+from dataBase import session, User
 
 app = Flask(__name__)
 socketio.init_app(app)
@@ -23,33 +24,6 @@ logging.basicConfig(filename='./my_app.log', filemode='w', format='%(name)s - %(
 # Construct the file path in a platform-independent manner
 file_path = os.path.join('.', 'data', 'questions.json')
 
-from dataBase import session, User
-
-# Especificar el token que quieres buscar/añadir
-token_to_add = "test_token|2023-01-01 12:00:00"
-
-# Buscar si ya existe un usuario con ese token
-existing_user = session.query(User).filter_by(token=token_to_add).first()
-
-# Si no existe, crear y añadir un nuevo usuario
-if not existing_user:
-    new_user = User(
-        username="nuevo_usuario",
-        email="usuario@example.com",
-        password="password_seguro",
-        name="Nombre Usuario",
-        num_preguntas_acertadas=0,
-        token=token_to_add,
-        image_path="/path/to/image"
-    )
-
-    # Añadir la nueva instancia de User a la sesión
-    session.add(new_user)
-
-    # Hacer commit de la sesión para guardar el nuevo usuario
-    session.commit()
-
-#quiero que se borren y se creen 2 salas cada vez que se inicie el servidor
 # Delete all existing rooms
 session.query(Room).delete()
 session.commit()
