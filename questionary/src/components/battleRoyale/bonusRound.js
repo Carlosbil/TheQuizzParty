@@ -1,0 +1,51 @@
+import React, { useEffect, useState } from 'react';
+import 'react-toastify/dist/ReactToastify.css';
+import 'react-toastify/dist/ReactToastify.css';
+import { playSoundByName } from '../../sounds';
+import RoyaleTimer from '../timer/royaleTimer';
+
+function BonusDisplayer(props) {
+
+    let time = 60
+    const [selectedOption, setSelectedOption] = useState(null);
+    const [options, setOptions] = useState(props.options);
+    const [remainingTime, setRemainingTime] = useState(time);  // 10 minutes
+
+    const handleButtonClick = (option) => {
+        setSelectedOption(option);
+    };
+
+    function handleEndGame() {
+        console.log("Bonus Selected!")
+        console.log(selectedOption)
+        props.onEnd(selectedOption)
+    }
+
+    const handleTimeChange = (time) => {
+        if (time === 8) {
+            playSoundByName("clock_ending");
+        }
+        setRemainingTime(time);
+    };
+
+    return (
+        <div>
+            <div className="question-container">
+                <RoyaleTimer initialTime={60} onTimeChange={handleTimeChange} onTimeEnd={handleEndGame} />
+                <div className="question">
+                    Seleccione el bonus a jugar
+                </div>
+                <div className="options">
+                    {Array.isArray(options) ? options.map((option, index) => (
+                        <button 
+                        className={`option ${selectedOption === option ? 'button-correct' : ''}`}
+                        key={index} 
+                         onClick={() => handleButtonClick(option)}>{option}</button>
+                    )) : null}
+                </div>
+            </div>
+        </div>
+    );
+}
+
+export default BonusDisplayer;

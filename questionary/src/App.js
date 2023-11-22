@@ -8,7 +8,7 @@ import SignUp from './components/signUp/singUp';
 import { Provider } from 'react-redux';
 import Questionary from './components/questionary/questionary';
 import store from './store';
-import MenuBattleRoyale from './components/battelRoyale/menuBattleRoyale';
+import MenuBattleRoyale from './components/battleRoyale/menuBattleRoyale';
 
 function ProtectedRoute({ children }) {
   const allCookies = document.cookie;

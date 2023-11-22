@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './battleRoyale.css'
@@ -17,18 +17,19 @@ import ClockTimer from '../timer/timer';
 function MenuBattleRoyale() {
     const avatar = getCookieValue("avatar")
     const navigate = useNavigate();
+    let num_players = 0;
     const [showPlayers, setShowPlayers] = useState(false);
     const [players, setPlayers] = useState({}); // {name: avatar, name2: avatar2}, ...
     const [room_id, setRoom_id] = useState("0");
     const leaveGame = () => {
         let data = {
-          "token": getCookieValue("auth_token"),
-          "room": room_id
+            "token": getCookieValue("auth_token"),
+            "room": room_id
         };
         socket.emit('leave_game', data);
         window.location.href = "/"
     }
-    
+
     const startGame = () => {
         toast.info("Buscando partida");
         let data = {
@@ -41,30 +42,39 @@ function MenuBattleRoyale() {
         // Listen server response
         socket.on('join_game_response', (response) => {
             console.log(response);
-            toast.success('Unido a la partida');
-            setShowPlayers(true);
-            setPlayers(response.players);
             setRoom_id(response.room);
+            socket.off('join_game_response');
+        });
+        socket.on('update_players', (response) => {
+            console.log(response);
+            setShowPlayers(true);
+            console.log(Object.keys(response.players).length);
+            console.log(num_players);
+            if (Object.keys(response.players).length > num_players) {
+                toast.success('Nuevo jugador en la partida!');
+            }
+            else {
+                toast.error('Un jugador ha abandonado la partida');
+            }
+            setPlayers(response.players);
+            num_players = Object.keys(response.players).length;
+            socket.off('join_game_response');
+
         });
         //listen the errors and show them
         socket.on('error', (error) => {
             console.error('Error al unirse a la partida:', error);
             toast.error('Error al unirse a la partida: ' + error);
+            socket.off('error');
         });
     };
 
-    useEffect(() => {
-        socket.on('join_game_response', (response) => {
-            console.log(response);
-            setPlayers(response.players);
-        });
-    }, []);
 
     return (
         <div className='back'>
             <DropdownMenu onClick={leaveGame} prop_avatar={getAvatar(avatar)} /> {/* Agregar el componente Logo aquí */}
             <b className='page'>
-                {!showPlayers &&<div className="container">
+                {!showPlayers && <div className="container">
                     <div>
                         <button className='fun_royale' onClick={startGame} > Sobrevivirás? </button>
                         <button className='fun_royale' onClick={startGame} > Invitar a un jugador </button>

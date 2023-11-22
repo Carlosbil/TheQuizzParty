@@ -15,10 +15,14 @@ function RoyaleTimer(props) {
 
     socket.on('timer_end', () => {
       console.log('timer_end');
-      props.onTimeEnd(10);
+      props.onTimeEnd();
       // Realizar la acción necesaria cuando el temporizador llega a cero
     });
-  }, [timeRemaining, props.shouldStop, props.onTimeChange]);
+    return () => {
+      socket.off('timer');
+      socket.off('timer_end');
+    };
+  }, [timeRemaining, props.shouldStop, props.onTimeChange, props.onTimeEnd]);
 
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);

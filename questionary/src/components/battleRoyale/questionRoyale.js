@@ -51,14 +51,15 @@ function RoyaleDisplayer(props) {
         setRemainingTime(time);
     };
 
-    const handleUserAnswer = (isCorrect) => {
-        if (isCorrect) {
-            setScore(prevScore => prevScore + 1);
+    //si la respuesta es correcta, se suma 1 al score
+    const handleUserAnswer = (correct) => {
+        if (correct) {
+            let res = score + 1
+            setScore(res)
         }
-    };
+    }
 
     useEffect(() => {
-        // change to position < 10 after tests...
         if (position < 5) {
             setQuestion(props.questions_prop[position].question)
             setOptions(props.questions_prop[position].options)
@@ -92,8 +93,7 @@ function RoyaleDisplayer(props) {
                         {next && <button className='nextQuestion' onClick={() => setPosition(prevPosition => prevPosition + 1)}> Siguiente pregunta</button>}
                     </div>
                 </div>}
-            {end && <button className='button' onClick={() => props.on_leave() }>Volver al inicio</button>}
-            {end && <button className='linked' onClick={() =>{ window.location.href = "/questionary"}}>Me ayudarías respondiendo a unas preguntas? Le llevará 1 minuto</button>}
+            {end && <h1>🙈 Esperando a que finalice la ronda... 🙈</h1>}
 
 
             <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />

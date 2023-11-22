@@ -5,6 +5,7 @@ import { playSoundByName } from '../../sounds';
 import RoyaleDisplayer from './questionRoyale';
 import { socket } from '../../enpoints';
 import { getCookieValue } from '../../authSlide';
+import BonusDisplayer from './bonusRound';
 function RoomBattleRoyale({ prop_players, prop_room_id }) {
 
   let time = 4
@@ -16,6 +17,24 @@ function RoomBattleRoyale({ prop_players, prop_room_id }) {
   const [questions, setQuestions] = useState([])
   const [theme, setTheme] = useState("")
   const [score, setScore] = useState(0);
+  const [round, setRound] = useState(0);
+  const [bonusOptions, setBonusOptions] = useState([])
+  const [bonusAnswer, setBonusAnswer] = useState("")
+  const [isBonus, setIsBonus] = useState(true)
+
+  const handleBonus = () => {
+    setIsBonus(isBonus => !isBonus)
+  }
+  const saveScore = (score) => {
+    setScore(score)
+    let data = {
+      "token": getCookieValue("auth_token"),
+      "room": room_id,
+      "score": score,
+      "theme": theme
+    };
+    socket.emit('save_score', data);
+  }
 
   const leaveGame = () => {
     let data = {
@@ -29,19 +48,36 @@ function RoomBattleRoyale({ prop_players, prop_room_id }) {
   const endRound = (score) => {
     console.log("Round end!")
     console.log(score)
+    saveScore(score)
+  }
+
+  const endBonusRound = (bonus) => {
+    console.log("Bonus Round end!")
+    console.log(bonus)
+    handleBonus()
+    setBonusAnswer(bonus)
   }
 
   useEffect(() => {
     setPlayers(prop_players);
 
-    socket.on('first_round', (data) => {
-      console.log(data.questions)
-      setQuestions(data.questions);
-      setTheme(data.theme);
+    const firstRoundResponse = (response) => {
+      console.log(response);
+      setQuestions(response.questions);
+      setTheme(response.theme);
       setStart(true)
-    });
-
-  }, [prop_players]);
+    }
+    socket.on('first_round', firstRoundResponse);
+    socket.on('bonus', (bonus)=>{
+      console.log(bonus)
+      setBonusOptions(bonus.bonus)
+      handleBonus()
+    })
+    return () => {
+      socket.off('first_round', firstRoundResponse);
+      socket.off('bonus');
+    };
+  }, [prop_players, bonusOptions]);
 
 
   const handleTimeChange = (time) => {
@@ -53,7 +89,7 @@ function RoomBattleRoyale({ prop_players, prop_room_id }) {
   return (
     <div>
       {!start && <RoyaleTimer initialTime={time} onTimeChange={handleTimeChange} onTimeEnd={endRound} />}
-      <h1>Sala {room_id}</h1>
+      {!start && <h1>Sala {room_id}</h1>}
       {!start && <div className="room_battle_royale">
         {Object.entries(players).map(([name, avatar]) => (
           <div key={name} className="player-card">
@@ -62,7 +98,9 @@ function RoomBattleRoyale({ prop_players, prop_room_id }) {
           </div>
         ))}
       </div>}
-      {start && <RoyaleDisplayer questions_prop={questions} on_leave={leaveGame} onEnd={endRound} />}
+      {start && !isBonus && <RoyaleDisplayer score = {setScore}questions_prop={questions} on_leave={leaveGame} onEnd={endRound} />}
+      {start && isBonus && <BonusDisplayer options={bonusOptions} on_leave={leaveGame} onEnd={endBonusRound} />}
+
     </div>
   );
 }

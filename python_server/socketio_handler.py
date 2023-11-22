@@ -5,6 +5,7 @@ from dataBase import session, User, Room, Results
 from app import socketio
 import secrets
 import logging
+import random
 from sqlalchemy import update
 from flask import copy_current_request_context
 import time
@@ -22,6 +23,15 @@ logging.critical('Mensaje crítico')
 scores= {'Room 1':{}, 'Room 2':{}}
 stop={}
 started={}
+"""
+doble = doble its actual score
+health = restore 10 health points
+restore = restore 4 health points for each correct answer in this round
+skip = skip 2 questions and get 2 points
+thief = steal one health point from the rest of the players
+mafia = steal 5 points from one player randomly
+"""
+bonus = ["doble", "health", "restore", "skip", "thief", "mafia"]
 """
 ______________SOCKET IO____________________
 
@@ -85,6 +95,7 @@ def join_game(data):
     for name in room.players:
         players[name] = session.query(User).filter_by(username=name).first().image_path
     emit('join_game_response', {'username': user.username, 'room': room.name, 'players': players}, room=room.name)
+    emit('update_players',  {'players': players}, room=room.name)
     logging.debug(f"User {user.username} joined room {room.name}")
     stop[room.name] = False
 
@@ -93,7 +104,8 @@ def join_game(data):
         @copy_current_request_context
         def start_timer():
             global stop
-            countdown_timer(room.name, 4)  # 4s for testing purposes
+            global bonus
+            countdown_timer(room.name, 40)  # 4s for testing purposes
 
         # Start the temporizer in a new thread
         thread = Thread(target=start_timer)
@@ -183,27 +195,38 @@ def leave_game(data):
             room.is_occupied = False
     if room.number_players == 0:
         stop[room_name] = True
+    
     session.commit()
     leave_room(room.name)
     emit('leave', {'username': user.username, 'room': room.name}, room=room.name)
     logging.debug(f"User {user.username} left room {room.name}")
-    session.close()
+    players = {}
+    for name in room.players:
+        if name != user.username:
+            players[name] = session.query(User).filter_by(username=name).first().image_path
+    emit('update_players',  {'players': players}, room=room.name)
 
-def countdown_timer(room_name, duration, round=1):
+    session.close()
+    
+
+def countdown_timer(room_name, duration, round=1, bonus=False):
     """
     Countdown timer that emits the remaining time every second.
     :param room_name: Name of the room.
     :param duration: Duration of the countdown in seconds.
     """
     for remaining_time in range(duration, 0, -1):
-        logging.debug(stop)
         if not stop.get(room_name):
             emit('timer', {'time': remaining_time}, room=room_name)
             time.sleep(1)
     # Handle what happens when the timer ends
     emit('timer_end', room=room_name)
-    if not stop.get(room_name):
-        start_game({'room': room_name, "round": round})
+    if not stop.get(room_name) and round < 5:
+        if bonus:
+            send_bonus(room_name, round)
+        else:
+            start_game({'room': room_name, "round": round})
+        
     
 def start_game(data):
     """
@@ -234,14 +257,15 @@ def start_game(data):
         @copy_current_request_context
         def start_timer_game():
             global stop
-            countdown_timer(room.name, 10) 
+            global bonus
+            countdown_timer(room.name, 30, bonus=True) 
                 # Iniciar el temporizador como una tarea en segundo plano
         thread = Thread(target=start_timer_game)
         thread.start()
         logging.debug(f"Game started in room {room.name}")
         
 
-@socketio.on('save_results')
+@socketio.on('save_score')
 def save_results(data):
     """
     this function will save the results of the first round
@@ -253,10 +277,12 @@ def save_results(data):
         logging.debug("Save results event received")
         token = data["token"]
         room_name = data["room"]
-        results = data["results"]
+        results = data.get("score")
+        if results is None: 
+            return
         theme = data["theme"]
-        accerted = results.get("accerted")
-        wrong = results.get("wrong")
+        accerted = results
+        wrong = 5-results
         user = session.query(User).filter_by(token=token).first()
         if not user:
             emit('error', {'message': "The user could not be found"})
@@ -293,6 +319,30 @@ def save_results(data):
     emit('second_round', room=room.name)
     logging.debug(f"Results saved in room {room.name}")
     session.close()
+
+#send 3 rndom bonus to the room
+def send_bonus(room_name, round):
+    """
+    this function will send 3 random bonus to the room
+    :param room_name: the name of the room
+    :param round: the round of the game
+    :type data: dict
+    :return: None
+    """
+    bonus_list = []
+    for i in range(3):
+        #get a random bonus
+        bonus_list.append(bonus[random.randint(0,5)])
+    emit('bonus', {'bonus': bonus_list}, room=room_name)
+    @copy_current_request_context
+    def start_timer_bonus():
+        global stop
+        global bonus
+        countdown_timer(room_name, 20, round, False) 
+            # Iniciar el temporizador como una tarea en segundo plano
+    thread = Thread(target=start_timer_bonus)
+    thread.start()
+    logging.debug(f"Bonus sent to room {room_name}")
     
 QUESTION_MAP = {
     'history': ['history_accerted', 'history_wrong'],
