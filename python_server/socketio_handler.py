@@ -27,18 +27,16 @@ started={}
 doble = doble its actual score
 health = restore 10 health points
 restore = restore 4 health points for each correct answer in this round
-skip = skip 2 questions and get 2 points
 thief = steal one health point from the rest of the players
 mafia = steal 5 points from one player randomly
 """
-bonus = ["doble", "health", "restore", "skip", "thief", "mafia"]
+bonus = ["doble", "health", "restore", "thief", "mafia"]
+bonus_to_send = ["thief", "mafia"]
 """
 ______________SOCKET IO____________________
 
 
 """
-
-
 
 @socketio.on('join_game')
 def join_game(data):
@@ -105,7 +103,7 @@ def join_game(data):
         def start_timer():
             global stop
             global bonus
-            countdown_timer(room.name, 40)  # 4s for testing purposes
+            countdown_timer(room.name, 5)  # 4s for testing purposes
 
         # Start the temporizer in a new thread
         thread = Thread(target=start_timer)
@@ -223,8 +221,10 @@ def countdown_timer(room_name, duration, round=1, bonus=False):
     emit('timer_end', room=room_name)
     if not stop.get(room_name) and round < 5:
         if bonus:
+            logging.debug(f"Bonus round {round} in room {room_name}")
             send_bonus(room_name, round)
         else:
+            logging.debug(f"Round {round} in room {room_name}")
             start_game({'room': room_name, "round": round})
         
     
@@ -239,7 +239,6 @@ def start_game(data):
     """
     if not stop.get(data["room"]):
         started[data["room"]] = True
-        logging.debug("Start game event received")
         room_name = data["room"]
         theme = get_random_theme()
         room = session.query(Room).filter_by(name=room_name).first()
@@ -259,7 +258,7 @@ def start_game(data):
             global stop
             global bonus
             countdown_timer(room.name, 30, bonus=True) 
-                # Iniciar el temporizador como una tarea en segundo plano
+
         thread = Thread(target=start_timer_game)
         thread.start()
         logging.debug(f"Game started in room {room.name}")
@@ -343,6 +342,21 @@ def send_bonus(room_name, round):
     thread = Thread(target=start_timer_bonus)
     thread.start()
     logging.debug(f"Bonus sent to room {room_name}")
+
+
+@socketio.on('bonus_selected')
+def handle_message(data):
+    """
+    Handle incoming message from client and emit it to the same room.
+
+    Parameters:
+        data (dict): A dictionary containing the message and the room where it was sent.
+
+    Returns:
+        None
+    """
+    emit('message', data, room=data['room'])
+    logging.debug(f"Message received: {data}")    
     
 QUESTION_MAP = {
     'history': ['history_accerted', 'history_wrong'],
@@ -353,4 +367,3 @@ QUESTION_MAP = {
     'science': ['science_accerted', 'science_wrong'],
     'pop_culture': ['pop_culture_accerted', 'pop_culture_wrong']
 }
-

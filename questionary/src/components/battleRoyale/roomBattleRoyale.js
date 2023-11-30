@@ -20,20 +20,23 @@ function RoomBattleRoyale({ prop_players, prop_room_id }) {
   const [round, setRound] = useState(0);
   const [bonusOptions, setBonusOptions] = useState([])
   const [bonusAnswer, setBonusAnswer] = useState("")
-  const [isBonus, setIsBonus] = useState(true)
+  const [isBonus, setIsBonus] = useState(false)
 
   const handleBonus = () => {
     setIsBonus(isBonus => !isBonus)
   }
   const saveScore = (score) => {
-    setScore(score)
-    let data = {
-      "token": getCookieValue("auth_token"),
-      "room": room_id,
-      "score": score,
-      "theme": theme
-    };
-    socket.emit('save_score', data);
+    if (score != undefined){
+      setScore(score)
+      console.log("el score es", score)
+      let data = {
+        "token": getCookieValue("auth_token"),
+        "room": room_id,
+        "score": score,
+        "theme": theme
+      };
+      socket.emit('save_score', data);
+    }
   }
 
   const leaveGame = () => {
@@ -47,13 +50,12 @@ function RoomBattleRoyale({ prop_players, prop_room_id }) {
 
   const endRound = (score) => {
     console.log("Round end!")
-    console.log(score)
     saveScore(score)
   }
 
   const endBonusRound = (bonus) => {
     console.log("Bonus Round end!")
-    console.log(bonus)
+    console.log("el bonus es", bonus)
     handleBonus()
     setBonusAnswer(bonus)
   }
@@ -62,14 +64,14 @@ function RoomBattleRoyale({ prop_players, prop_room_id }) {
     setPlayers(prop_players);
 
     const firstRoundResponse = (response) => {
-      console.log(response);
+      console.log("la preguntas son" ,response);
       setQuestions(response.questions);
       setTheme(response.theme);
       setStart(true)
     }
     socket.on('first_round', firstRoundResponse);
     socket.on('bonus', (bonus)=>{
-      console.log(bonus)
+      console.log("el bonus es ", bonus)
       setBonusOptions(bonus.bonus)
       handleBonus()
     })
@@ -81,14 +83,14 @@ function RoomBattleRoyale({ prop_players, prop_room_id }) {
 
 
   const handleTimeChange = (time) => {
-    if (time === 8) {
+    if (time === 5) {
       playSoundByName("clock_ending");
     }
     setRemainingTime(time);
   };
   return (
     <div>
-      {!start && <RoyaleTimer initialTime={time} onTimeChange={handleTimeChange} onTimeEnd={endRound} />}
+      {<RoyaleTimer initialTime={time} onTimeChange={handleTimeChange} onTimeEnd={endRound} />}
       {!start && <h1>Sala {room_id}</h1>}
       {!start && <div className="room_battle_royale">
         {Object.entries(players).map(([name, avatar]) => (
