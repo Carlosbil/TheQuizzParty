@@ -289,20 +289,11 @@ def save_results(data):
         # Accerted and wrong answers
         accerted = results
         wrong = 5 - results
-
-        # Search for the user and the room
-        user = session.query(User).filter_by(token=token).first()
-        if not user:
-            emit('error', {'message': "No se pudo encontrar al usuario"})
-            logging.debug(f"Usuario no encontrado con token {token}")
+        
+        user, room = obtain_user_session(token, room_name, session)
+        if not user or not room:
             return
-
-        room = session.query(Room).filter_by(name=room_name).first()
-        if not room:
-            emit('error', {'message': "No se pudo encontrar la sala"})
-            logging.debug(f"Sala no encontrada con nombre {room_name}")
-            return
-
+        
         # Update the results
         results_entry = session.query(Results).filter_by(username=user.username).first()
         if results_entry:
@@ -354,7 +345,65 @@ def send_bonus(room_name, round):
     thread = Thread(target=start_timer_bonus)
     thread.start()
     logging.debug(f"Bonus sent to room {room_name}")
-     
+    
+
+@socketio.on('update_health')
+def update_health(data):
+    """
+    this function will save the results of the first round
+    :param data: A dictionary containing the user's token and the room's name.
+    :type data: dict
+    :return: None
+    """
+    try:
+        logging.debug("Update health event received")
+        token = data["token"]
+        room_name = data["room"]
+        player_health = data.get("player_health", 0)
+        logging.debug("Update health event received")
+        
+        user, room = obtain_user_session(token, room_name, session)
+        if not user or not room:
+            return
+        
+        health[room_name][user.username] = player_health
+        logging.debug(f"Health updated in room {room.name} for the user {user.username}")
+        emit('players_health', {'players_health': health[room_name]}, room=room_name)
+         
+        
+    except Exception as e:
+        if session:
+            session.rollback()
+        logging.error(f"Error al actualizar la saludo: {e}")
+        emit('error', {'message': "No se pueden guardar los resultados"})
+    finally:
+        if session:
+            session.close()
+
+def obtain_user_session(token, room_name, session):
+            # Search for the user and the room
+    try:
+        user = session.query(User).filter_by(token=token).first()
+        if not user:
+            emit('error', {'message': "No se pudo encontrar al usuario"})
+            logging.debug(f"Usuario no encontrado con token {token}")
+            return
+
+        room = session.query(Room).filter_by(name=room_name).first()
+        if not room:
+            emit('error', {'message': "No se pudo encontrar la sala"})
+            logging.debug(f"Sala no encontrada con nombre {room_name}")
+            return
+        return user, room
+    
+    except Exception as e:
+        if session:
+            session.rollback()
+        logging.error(f"User or room couldnt be found: {e}")
+        emit('error', {'message': "No se pudo encontrar al usuario o la sala"})
+    finally:
+        if session:
+            session.close()
     
 QUESTION_MAP = {
     'history': ['history_accerted', 'history_wrong'],

@@ -6,6 +6,16 @@ import RoyaleDisplayer from './questionRoyale';
 import { socket } from '../../enpoints';
 import { getCookieValue } from '../../authSlide';
 import BonusDisplayer from './bonusRound';
+
+/**
+ * Represents a RoomBattleRoyale component.
+ * 
+ * @component
+ * @param {Object} prop_players - The players in the room.
+ * @param {string} prop_room_id - The ID of the room.
+ * @param {number} prop_health - The health of the player.
+ * @returns {JSX.Element} The RoomBattleRoyale component.
+ */
 function RoomBattleRoyale({ prop_players, prop_room_id, prop_health }) {
 
   let time = 4
@@ -17,15 +27,18 @@ function RoomBattleRoyale({ prop_players, prop_room_id, prop_health }) {
   const [questions, setQuestions] = useState([])
   const [theme, setTheme] = useState("")
   const [score, setScore] = useState(0);
-  const [round, setRound] = useState(0);
+  const [players_health, setPlayers_health] = useState({}) // {name: health, name2: health2}, ...
   const [bonusOptions, setBonusOptions] = useState([])
   const [bonusAnswer, setBonusAnswer] = useState("")
   const [isBonus, setIsBonus] = useState(false)
   const [health, setHealth] = useState(prop_health)
 
+  // Function to handle the bonus round
   const handleBonus = () => {
     setIsBonus(isBonus => !isBonus)
   }
+
+  // Function to save the score
   const saveScore = (score) => {
     if (score != undefined){
       setScore(score)
@@ -40,6 +53,7 @@ function RoomBattleRoyale({ prop_players, prop_room_id, prop_health }) {
     }
   }
 
+  // Function to leave the game
   const leaveGame = () => {
     let data = {
       "token": getCookieValue("auth_token"),
@@ -49,11 +63,35 @@ function RoomBattleRoyale({ prop_players, prop_room_id, prop_health }) {
     window.location.href = "/"
   }
 
+  // Function to steal health
+  const steal_health = () => {
+    setHealth(health => health - 6)
+  }
+
+  // Function to obtain health
+  const obtain_health = () => {
+    setHealth(health => health + 1)
+  }
+
+  // Function to end the round
   const endRound = (score) => {
     console.log("Round end!")
     saveScore(score)
+    if (health <= 0) {
+      leaveGame()
+    }else{
+      if(health !== 10){
+        let data = {
+          "token": getCookieValue("auth_token"),
+          "room": room_id,
+          "player_health": health,
+        };
+        socket.emit('update_health', data);
+      }
+    }
   }
 
+  // Function to end the bonus round
   const endBonusRound = (bonus) => {
     console.log("Bonus Round end!")
     if (bonus === null){
@@ -80,9 +118,15 @@ function RoomBattleRoyale({ prop_players, prop_room_id, prop_health }) {
       setBonusOptions(bonus.bonus)
       handleBonus()
     })
+    socket.on('players_health', (response)=>{
+      console.log("Players health: ", response)
+      setPlayers_health(response.players_health)
+      handleBonus()
+    })
     return () => {
       socket.off('first_round', firstRoundResponse);
       socket.off('bonus');
+      socket.off('players_health');
     };
   }, [prop_players, bonusOptions]);
 
@@ -93,6 +137,7 @@ function RoomBattleRoyale({ prop_players, prop_room_id, prop_health }) {
     }
     setRemainingTime(time);
   };
+
   return (
     <div>
       {<RoyaleTimer initialTime={time} onTimeChange={handleTimeChange} onTimeEnd={endRound} />}
@@ -106,11 +151,20 @@ function RoomBattleRoyale({ prop_players, prop_room_id, prop_health }) {
         ))}
       </div>}
       <div className="scoreboard">
-        health: {health} <br />
+        health: {health} Score:{score} <br />
       </div>
-      {start && !isBonus && <RoyaleDisplayer score={setScore} health={setHealth} questions_prop={questions} on_leave={leaveGame} onEnd={endRound} />}
+      {start && !isBonus && <RoyaleDisplayer score={setScore} steal_health={steal_health} obtain_health={obtain_health}
+      questions_prop={questions} on_leave={leaveGame} onEnd={endRound} />}
       {start && isBonus && <BonusDisplayer options={bonusOptions} on_leave={leaveGame} onEnd={endBonusRound} />}
-
+      {start && <div className="room_battle_royale">
+        {Object.entries(players).map(([name, avatar]) => (
+          <div key={name} className="player-card">
+            <img src={getAvatar(avatar)} alt={`${name}'s avatar`} />
+            <p>{name}</p>
+            <p>{players_health[name]}</p>
+          </div>
+        ))}
+      </div>}
     </div>
   );
 }

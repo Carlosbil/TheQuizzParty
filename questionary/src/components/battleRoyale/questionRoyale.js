@@ -8,6 +8,12 @@ import { playSoundByName } from '../../sounds';
 import RoyaleTimer from '../timer/royaleTimer';
 import { socket } from '../../enpoints';
 import { getCookieValue } from '../../authSlide';
+/**
+ * Displays the battle royale question and answer component.
+ * 
+ * @param {Object} props - The component props.
+ * @returns {JSX.Element} The RoyaleDisplayer component.
+ */
 function RoyaleDisplayer(props) {
 
 
@@ -21,7 +27,7 @@ function RoyaleDisplayer(props) {
     const [score, setScore] = useState(0);
     const [remainingTime, setRemainingTime] = useState(time);  // 10 minutes
     const [end, setEnd] = useState(false)
-    const [health, setHealth] = useState(50)
+    
 
 
 
@@ -31,9 +37,10 @@ function RoyaleDisplayer(props) {
             if (option === answer) {
                 playSoundByName("good_sound");
                 handleUserAnswer(true)
+                props.obtain_health()
             } else {
                 playSoundByName("bad_sound");
-                props.health(health - 10)
+                props.steal_health()
             }
             setNext(true)
         }

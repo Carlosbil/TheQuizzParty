@@ -4,6 +4,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import { playSoundByName } from '../../sounds';
 import RoyaleTimer from '../timer/royaleTimer';
 
+/**
+ * Displays the bonus round component.
+ * 
+ * @param {Object} props - The component props.
+ * @param {Array} props.options - The options for the bonus round.
+ * @param {Function} props.onEnd - The function to call when the bonus round ends.
+ * @returns {JSX.Element} The bonus round component.
+ */
 function BonusDisplayer(props) {
 
     let time = 60
