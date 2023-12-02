@@ -21,6 +21,7 @@ function RoyaleDisplayer(props) {
     const [score, setScore] = useState(0);
     const [remainingTime, setRemainingTime] = useState(time);  // 10 minutes
     const [end, setEnd] = useState(false)
+    const [health, setHealth] = useState(50)
 
 
 
@@ -32,13 +33,14 @@ function RoyaleDisplayer(props) {
                 handleUserAnswer(true)
             } else {
                 playSoundByName("bad_sound");
+                props.health(health - 10)
             }
             setNext(true)
         }
     };
 
     function handleEndGame() {
-        
+
         console.log("Round end!")
         props.onEnd(score)
         setEnd(true)
@@ -76,9 +78,6 @@ function RoyaleDisplayer(props) {
             {!end &&
                 <div className="question-container">
                     <RoyaleTimer initialTime={60} onTimeChange={handleTimeChange} onTimeEnd={handleEndGame} />
-                    <div className="scoreboard">
-                        Score: {score}
-                    </div>
                     <div className="question">{question}</div>
                     <div className="options">
                         {Array.isArray(options) ? options.map((option, index) => (

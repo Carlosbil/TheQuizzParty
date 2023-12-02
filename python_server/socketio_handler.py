@@ -20,9 +20,10 @@ logging.warning('Mensaje de advertencia')
 logging.error('Mensaje de error')
 logging.critical('Mensaje crítico')
 
-scores= {'Room 1':{}, 'Room 2':{}}
+health= {'Room 1':{}, 'Room 2':{}}
 stop={}
 started={}
+
 """
 doble = doble its actual score
 health = restore 10 health points
@@ -74,12 +75,13 @@ def join_game(data):
                 room_name = secrets.token_hex(4)
                 if not session.query(Room).filter_by(name=room_name).first():
                     break
-
+                
             room = Room(name=room_name, is_occupied=False, number_players=0)
             session.add(room)
-            scores[room_name] = {}
             session.commit()
-
+    if room_name not in health:
+        health[room_name] = {}
+    health[room_name][user.username] = 10
     room.number_players += 1
     if room.number_players == 10:
         room.is_occupied = True
@@ -92,7 +94,9 @@ def join_game(data):
     players = {}
     for name in room.players:
         players[name] = session.query(User).filter_by(username=name).first().image_path
-    emit('join_game_response', {'username': user.username, 'room': room.name, 'players': players}, room=room.name)
+    emit('join_game_response', {'username': user.username, 'room': room.name, 
+                                'players': players, 'health': health[room_name][user.username]},
+         room=room.name)
     emit('update_players',  {'players': players}, room=room.name)
     logging.debug(f"User {user.username} joined room {room.name}")
     stop[room.name] = False
@@ -103,6 +107,7 @@ def join_game(data):
         def start_timer():
             global stop
             global bonus
+            global health
             countdown_timer(room.name, 5)  # 4s for testing purposes
 
         # Start the temporizer in a new thread
@@ -193,6 +198,7 @@ def leave_game(data):
             room.is_occupied = False
     if room.number_players == 0:
         stop[room_name] = True
+        logging.debug(f"Room {room_name} stopped")
     
     session.commit()
     leave_room(room.name)
@@ -257,6 +263,7 @@ def start_game(data):
         def start_timer_game():
             global stop
             global bonus
+            global health
             countdown_timer(room.name, 30, bonus=True) 
 
         thread = Thread(target=start_timer_game)
@@ -273,51 +280,55 @@ def save_results(data):
     :return: None
     """
     try:
-        logging.debug("Save results event received")
+        logging.debug("Evento de guardar resultados recibido")
         token = data["token"]
         room_name = data["room"]
-        results = data.get("score")
-        if results is None: 
-            return
+        results = data.get("score", 0)
         theme = data["theme"]
+
+        # Accerted and wrong answers
         accerted = results
-        wrong = 5-results
+        wrong = 5 - results
+
+        # Search for the user and the room
         user = session.query(User).filter_by(token=token).first()
         if not user:
-            emit('error', {'message': "The user could not be found"})
-            logging.debug(f"User not found with token {token}")
+            emit('error', {'message': "No se pudo encontrar al usuario"})
+            logging.debug(f"Usuario no encontrado con token {token}")
             return
+
         room = session.query(Room).filter_by(name=room_name).first()
         if not room:
-            emit('error', {'message': "The room could not be found"})
-            logging.debug(f"Room not found with name {room_name}")
+            emit('error', {'message': "No se pudo encontrar la sala"})
+            logging.debug(f"Sala no encontrada con nombre {room_name}")
             return
-        #update the results
-        tinkers = session.query(Results).filter_by(username=user.username).first()
-        #update the columns that match with the theme
-        if tinkers:
-            if accerted:
-                session.query(Results).filter_by(username=user.username).update({QUESTION_MAP[theme][0]: tinkers.__dict__[QUESTION_MAP[theme][0]] + 1})
-            if wrong:
-                session.query(Results).filter_by(username=user.username).update({QUESTION_MAP[theme][1]: tinkers.__dict__[QUESTION_MAP[theme][1]] + 1})
+
+        # Update the results
+        results_entry = session.query(Results).filter_by(username=user.username).first()
+        if results_entry:
+            session.query(Results).filter_by(username=user.username).update({
+                QUESTION_MAP[theme][0]: results_entry.__dict__[QUESTION_MAP[theme][0]] + accerted,
+                QUESTION_MAP[theme][1]: results_entry.__dict__[QUESTION_MAP[theme][1]] + wrong
+            })
         else:
-            if accerted:
-                tinkers = Results(username=user.username, **{QUESTION_MAP[theme][0]: accerted})
-            if wrong:
-                tinkers = Results(username=user.username, **{QUESTION_MAP[theme][1]: wrong})
-            session.add(tinkers)
+            new_results = Results(username=user.username, **{
+                QUESTION_MAP[theme][0]: accerted,
+                QUESTION_MAP[theme][1]: wrong
+            })
+            session.add(new_results)
+
         session.commit()
-        logging.debug(f"Results saved in room {room.name} for user {user.username}")
-        session.close()
+        logging.debug(f"Resultados guardados en sala {room.name} para el usuario {user.username}")
+
     except Exception as e:
-        logging.error(f"Error saving results {e}")
-        emit('error', {'message': "Cannot save results"})
-        return
-    
-    session.commit()
-    emit('second_round', room=room.name)
-    logging.debug(f"Results saved in room {room.name}")
-    session.close()
+        if session:
+            session.rollback()
+        logging.error(f"Error al guardar resultados: {e}")
+        emit('error', {'message': "No se pueden guardar los resultados"})
+    finally:
+        if session:
+            session.close()
+
 
 #send 3 rndom bonus to the room
 def send_bonus(room_name, round):
@@ -331,32 +342,19 @@ def send_bonus(room_name, round):
     bonus_list = []
     for i in range(3):
         #get a random bonus
-        bonus_list.append(bonus[random.randint(0,5)])
+        bonus_list.append(bonus[random.randint(0,4)])
     emit('bonus', {'bonus': bonus_list}, room=room_name)
     @copy_current_request_context
     def start_timer_bonus():
         global stop
         global bonus
+        global health
         countdown_timer(room_name, 20, round, False) 
             # Iniciar el temporizador como una tarea en segundo plano
     thread = Thread(target=start_timer_bonus)
     thread.start()
     logging.debug(f"Bonus sent to room {room_name}")
-
-
-@socketio.on('bonus_selected')
-def handle_message(data):
-    """
-    Handle incoming message from client and emit it to the same room.
-
-    Parameters:
-        data (dict): A dictionary containing the message and the room where it was sent.
-
-    Returns:
-        None
-    """
-    emit('message', data, room=data['room'])
-    logging.debug(f"Message received: {data}")    
+     
     
 QUESTION_MAP = {
     'history': ['history_accerted', 'history_wrong'],

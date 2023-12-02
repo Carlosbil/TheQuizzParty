@@ -21,6 +21,8 @@ function MenuBattleRoyale() {
     const [showPlayers, setShowPlayers] = useState(false);
     const [players, setPlayers] = useState({}); // {name: avatar, name2: avatar2}, ...
     const [room_id, setRoom_id] = useState("0");
+    const [health, setHealth] = useState(100);
+
     const leaveGame = () => {
         let data = {
             "token": getCookieValue("auth_token"),
@@ -43,6 +45,7 @@ function MenuBattleRoyale() {
         socket.on('join_game_response', (response) => {
             console.log(response);
             setRoom_id(response.room);
+            setHealth(response.health);
             socket.off('join_game_response');
         });
         socket.on('update_players', (response) => {
@@ -80,7 +83,7 @@ function MenuBattleRoyale() {
                         <button className='fun_royale' onClick={startGame} > Invitar a un jugador </button>
                     </div>
                 </div>}
-                {showPlayers && <RoomBattleRoyale prop_players={players} prop_room_id={room_id} />}
+                {showPlayers && <RoomBattleRoyale prop_players={players} prop_room_id={room_id} prop_health={health} />}
             </b>
             <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
         </div>

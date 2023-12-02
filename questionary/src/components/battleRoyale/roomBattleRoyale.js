@@ -6,7 +6,7 @@ import RoyaleDisplayer from './questionRoyale';
 import { socket } from '../../enpoints';
 import { getCookieValue } from '../../authSlide';
 import BonusDisplayer from './bonusRound';
-function RoomBattleRoyale({ prop_players, prop_room_id }) {
+function RoomBattleRoyale({ prop_players, prop_room_id, prop_health }) {
 
   let time = 4
   const [players, setPlayers] = useState(prop_players) // {name: avatar, name2: avatar2}, ...
@@ -21,6 +21,7 @@ function RoomBattleRoyale({ prop_players, prop_room_id }) {
   const [bonusOptions, setBonusOptions] = useState([])
   const [bonusAnswer, setBonusAnswer] = useState("")
   const [isBonus, setIsBonus] = useState(false)
+  const [health, setHealth] = useState(prop_health)
 
   const handleBonus = () => {
     setIsBonus(isBonus => !isBonus)
@@ -55,6 +56,10 @@ function RoomBattleRoyale({ prop_players, prop_room_id }) {
 
   const endBonusRound = (bonus) => {
     console.log("Bonus Round end!")
+    if (bonus === null){
+      //select random option
+      bonus = bonusOptions[Math.floor(Math.random() * bonusOptions.length)]
+    }
     console.log("el bonus es", bonus)
     handleBonus()
     setBonusAnswer(bonus)
@@ -71,7 +76,7 @@ function RoomBattleRoyale({ prop_players, prop_room_id }) {
     }
     socket.on('first_round', firstRoundResponse);
     socket.on('bonus', (bonus)=>{
-      console.log("el bonus es ", bonus)
+      console.log("Posibles bonus: ", bonus)
       setBonusOptions(bonus.bonus)
       handleBonus()
     })
@@ -100,7 +105,10 @@ function RoomBattleRoyale({ prop_players, prop_room_id }) {
           </div>
         ))}
       </div>}
-      {start && !isBonus && <RoyaleDisplayer score = {setScore}questions_prop={questions} on_leave={leaveGame} onEnd={endRound} />}
+      <div className="scoreboard">
+        health: {health} <br />
+      </div>
+      {start && !isBonus && <RoyaleDisplayer score={setScore} health={setHealth} questions_prop={questions} on_leave={leaveGame} onEnd={endRound} />}
       {start && isBonus && <BonusDisplayer options={bonusOptions} on_leave={leaveGame} onEnd={endBonusRound} />}
 
     </div>
