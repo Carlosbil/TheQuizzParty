@@ -40,14 +40,15 @@ function RoomBattleRoyale({ prop_players, prop_room_id, prop_health }) {
 
   // Function to save the score
   const saveScore = (score) => {
-    if (score != undefined){
+    if (score != undefined) {
       setScore(score)
       console.log("el score es", score)
       let data = {
         "token": getCookieValue("auth_token"),
         "room": room_id,
         "score": score,
-        "theme": theme
+        "theme": theme,
+        "health": health
       };
       socket.emit('save_score', data);
     }
@@ -79,22 +80,13 @@ function RoomBattleRoyale({ prop_players, prop_room_id, prop_health }) {
     saveScore(score)
     if (health <= 0) {
       leaveGame()
-    }else{
-      if(health !== 10){
-        let data = {
-          "token": getCookieValue("auth_token"),
-          "room": room_id,
-          "player_health": health,
-        };
-        socket.emit('update_health', data);
-      }
     }
   }
 
   // Function to end the bonus round
   const endBonusRound = (bonus) => {
     console.log("Bonus Round end!")
-    if (bonus === null){
+    if (bonus === null) {
       //select random option
       bonus = bonusOptions[Math.floor(Math.random() * bonusOptions.length)]
     }
@@ -107,18 +99,18 @@ function RoomBattleRoyale({ prop_players, prop_room_id, prop_health }) {
     setPlayers(prop_players);
 
     const firstRoundResponse = (response) => {
-      console.log("la preguntas son" ,response);
+      console.log("la preguntas son", response);
       setQuestions(response.questions);
       setTheme(response.theme);
       setStart(true)
     }
     socket.on('first_round', firstRoundResponse);
-    socket.on('bonus', (bonus)=>{
+    socket.on('bonus', (bonus) => {
       console.log("Posibles bonus: ", bonus)
       setBonusOptions(bonus.bonus)
       handleBonus()
     })
-    socket.on('players_health', (response)=>{
+    socket.on('players_health', (response) => {
       console.log("Players health: ", response)
       setPlayers_health(response.players_health)
       handleBonus()
@@ -154,16 +146,19 @@ function RoomBattleRoyale({ prop_players, prop_room_id, prop_health }) {
         health: {health} Score:{score} <br />
       </div>
       {start && !isBonus && <RoyaleDisplayer score={setScore} steal_health={steal_health} obtain_health={obtain_health}
-      questions_prop={questions} on_leave={leaveGame} onEnd={endRound} />}
+        questions_prop={questions} on_leave={leaveGame} onEnd={endRound} />}
       {start && isBonus && <BonusDisplayer options={bonusOptions} on_leave={leaveGame} onEnd={endBonusRound} />}
-      {start && <div className="room_battle_royale">
-        {Object.entries(players).map(([name, avatar]) => (
-          <div key={name} className="player-card">
-            <img src={getAvatar(avatar)} alt={`${name}'s avatar`} />
-            <p>{name}</p>
-            <p>{players_health[name]}</p>
-          </div>
-        ))}
+      {start && <div className='royale_scoreboard'>
+        <div className="room_battle_royale">
+          {Object.entries(players).map(([name, avatar]) => (
+            <div key={name} className="player-card">
+              <img src={getAvatar(avatar)} alt={`${name}'s avatar`} />
+              <p>{name}</p>
+              <p>{players_health[name]}</p>
+            </div>
+
+          ))}
+        </div>
       </div>}
     </div>
   );

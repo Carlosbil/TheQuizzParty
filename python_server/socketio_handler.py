@@ -79,14 +79,19 @@ def join_game(data):
             room = Room(name=room_name, is_occupied=False, number_players=0)
             session.add(room)
             session.commit()
+    # healths of players
     if room_name not in health:
         health[room_name] = {}
     health[room_name][user.username] = 10
     room.number_players += 1
+    
+    # If the room is full, set it as occupied
     if room.number_players == 10:
         room.is_occupied = True
     if room.players is None:
         room.players = []
+    
+    # update players to the users in the room
     room.players.append(user.username)
     session.query(Room).filter_by(name=room.name).update({'players': room.players})
     session.commit()
@@ -280,12 +285,12 @@ def save_results(data):
     :return: None
     """
     try:
-        logging.debug("Evento de guardar resultados recibido")
+        logging.debug("Event for save results and health received")
         token = data["token"]
         room_name = data["room"]
         results = data.get("score", 0)
         theme = data["theme"]
-
+        health_user= data["health"]
         # Accerted and wrong answers
         accerted = results
         wrong = 5 - results
@@ -308,13 +313,15 @@ def save_results(data):
             })
             session.add(new_results)
 
+        # Update the health
+        health[room_name][user.username] = health_user
         session.commit()
-        logging.debug(f"Resultados guardados en sala {room.name} para el usuario {user.username}")
-
+        logging.debug(f"Results saved in {room.name} for the user {user.username} with health {health}")
+        logging.debug(health)
     except Exception as e:
         if session:
             session.rollback()
-        logging.error(f"Error al guardar resultados: {e}")
+        logging.error(f"Error while saving sores and health {e}")
         emit('error', {'message': "No se pueden guardar los resultados"})
     finally:
         if session:
@@ -346,39 +353,6 @@ def send_bonus(room_name, round):
     thread.start()
     logging.debug(f"Bonus sent to room {room_name}")
     
-
-@socketio.on('update_health')
-def update_health(data):
-    """
-    this function will save the results of the first round
-    :param data: A dictionary containing the user's token and the room's name.
-    :type data: dict
-    :return: None
-    """
-    try:
-        logging.debug("Update health event received")
-        token = data["token"]
-        room_name = data["room"]
-        player_health = data.get("player_health", 0)
-        logging.debug("Update health event received")
-        
-        user, room = obtain_user_session(token, room_name, session)
-        if not user or not room:
-            return
-        
-        health[room_name][user.username] = player_health
-        logging.debug(f"Health updated in room {room.name} for the user {user.username}")
-        emit('players_health', {'players_health': health[room_name]}, room=room_name)
-         
-        
-    except Exception as e:
-        if session:
-            session.rollback()
-        logging.error(f"Error al actualizar la saludo: {e}")
-        emit('error', {'message': "No se pueden guardar los resultados"})
-    finally:
-        if session:
-            session.close()
 
 def obtain_user_session(token, room_name, session):
             # Search for the user and the room
