@@ -7,7 +7,7 @@
     border-radius: 5px;
     width: 100%;
     padding: 20px;
-    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.8);
     font-size: 1.2rem;
     cursor: pointer;
     transition: transform 0.2s ease-in-out, color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
@@ -98,7 +98,43 @@ h1 {
 
 .royale_scoreboard {
     position: fixed;
-    top: 70%;
-    right: 20%;
+    top: 65%;
+    right: 13%;
     z-index: 100; 
 }
+
+.playing_battle_royale {
+    display: flex;
+    flex-wrap: nowrap; /* Evita que los elementos se envuelvan */
+    justify-content: center;
+    background-color: rgba(250, 246, 246, 0.3); /* Fondo oscuro para un ambiente de juego */
+    padding: 20px;
+    max-width: 90%;
+    max-height: fit-content;
+    border-radius: 15px;
+    overflow-x: auto; 
+    gap: 10px;
+    align-items: center ;
+}
+
+    .royale-player-card {
+    background-color: #333;
+    color: #fff; /* Texto blanco para contraste */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 3px rgba(5, 5, 5, 0.5); /* Sombra verde para un toque de Battle Royale */
+    text-align: center;
+    width: 10vh;
+    height: 14vh;
+    animation: pulse 2s infinite;
+    gap: 10px;
+    overflow-x: auto; /* Agrega scroll horizontal automáticamente */
+    align-content: center;
+    }
+
+    .royale-player-card img {
+    width: 7vh;
+    height: 7vh;
+    border-radius: 50%; /* Avatares redondos */
+    margin-bottom: -5px;
+    }

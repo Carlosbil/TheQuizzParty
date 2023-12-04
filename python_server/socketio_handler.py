@@ -315,6 +315,7 @@ def save_results(data):
 
         # Update the health
         health[room_name][user.username] = health_user
+        emit('players_health', {'health': health[room_name]}, room=room_name)
         session.commit()
         logging.debug(f"Results saved in {room.name} for the user {user.username} with health {health}")
         logging.debug(health)

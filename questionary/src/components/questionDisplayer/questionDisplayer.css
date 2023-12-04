@@ -38,6 +38,16 @@
   /* Espaciado entre opciones */
 }
 
+.royale-options {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  animation: scale-down-right 0.4s;
+  margin-bottom: 10rem;
+  /* Espaciado entre opciones */
+}
+
 .option {
   background-color: #fff;
   /* Color de fondo de la tarjeta */

@@ -112,8 +112,7 @@ function RoomBattleRoyale({ prop_players, prop_room_id, prop_health }) {
     })
     socket.on('players_health', (response) => {
       console.log("Players health: ", response)
-      setPlayers_health(response.players_health)
-      handleBonus()
+      setPlayers_health(response.health)
     })
     return () => {
       socket.off('first_round', firstRoundResponse);
@@ -149,12 +148,12 @@ function RoomBattleRoyale({ prop_players, prop_room_id, prop_health }) {
         questions_prop={questions} on_leave={leaveGame} onEnd={endRound} />}
       {start && isBonus && <BonusDisplayer options={bonusOptions} on_leave={leaveGame} onEnd={endBonusRound} />}
       {start && <div className='royale_scoreboard'>
-        <div className="room_battle_royale">
+        <div className="playing_battle_royale">
           {Object.entries(players).map(([name, avatar]) => (
-            <div key={name} className="player-card">
+            <div key={name} className="royale-player-card">
               <img src={getAvatar(avatar)} alt={`${name}'s avatar`} />
+              <p>Life: {players_health[name]}</p>
               <p>{name}</p>
-              <p>{players_health[name]}</p>
             </div>
 
           ))}

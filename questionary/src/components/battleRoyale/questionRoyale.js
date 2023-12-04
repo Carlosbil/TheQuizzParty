@@ -86,7 +86,7 @@ function RoyaleDisplayer(props) {
                 <div className="question-container">
                     <RoyaleTimer initialTime={60} onTimeChange={handleTimeChange} onTimeEnd={handleEndGame} />
                     <div className="question">{question}</div>
-                    <div className="options">
+                    <div className="royale-options">
                         {Array.isArray(options) ? options.map((option, index) => (
                             <button
                                 key={index}
