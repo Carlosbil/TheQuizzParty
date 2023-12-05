@@ -7,7 +7,7 @@ import { socket } from '../../enpoints';
 import { getCookieValue } from '../../authSlide';
 import BonusDisplayer from './bonusRound';
 import { toast } from 'react-toastify';
-
+import { stopSoundByName } from '../../sounds';
 /**
  * Represents a RoomBattleRoyale component.
  * 
@@ -68,17 +68,19 @@ function RoomBattleRoyale({ prop_players, prop_room_id, prop_health }) {
 
   // Function to steal health
   const steal_health = () => {
-    setHealth(health => health - 6)
+    console.log("steal health")
   }
 
   // Function to obtain health
   const obtain_health = () => {
-    setHealth(health => health + 1)
+    console.log("obtain health")
   }
 
   // Function to end the round
   const endRound = (score) => {
+    stopSoundByName("clock_ending")
     saveScore(score)
+    console.log("health: ", health)
     if (health <= 0) {
       leaveGame()
     }
@@ -86,6 +88,7 @@ function RoomBattleRoyale({ prop_players, prop_room_id, prop_health }) {
 
   // Function to end the bonus round
   const endBonusRound = (bonus) => {
+    stopSoundByName("clock_ending")
     if (bonus === null) {
       //select random option
       bonus = bonusOptions[Math.floor(Math.random() * bonusOptions.length)]
@@ -155,9 +158,6 @@ function RoomBattleRoyale({ prop_players, prop_room_id, prop_health }) {
           </div>
         ))}
       </div>}
-      <div className="scoreboard">
-        Health: {health} <br />
-      </div>
       {start && !isBonus && <RoyaleDisplayer score={setScore} steal_health={steal_health} obtain_health={obtain_health}
         questions_prop={questions} on_leave={leaveGame} onEnd={endRound} />}
       {start && isBonus && <BonusDisplayer options={bonusOptions} on_leave={leaveGame} onEnd={endBonusRound} />}

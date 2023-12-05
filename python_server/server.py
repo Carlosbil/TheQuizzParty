@@ -42,7 +42,7 @@ def is_token_valid(token_with_timestamp):
         timestamp = datetime.datetime.strptime(timestamp_str, '%Y-%m-%d %H:%M:%S')
 
         # Check if the token has expired (more than 24 hours old)
-        if (datetime.datetime.now() - timestamp).total_seconds() > 3600 :  # 86400 seconds = 24 hours
+        if (datetime.datetime.now() - timestamp).total_seconds() > 7200 :  # 86400 seconds = 24 hours
             return False
         return True
     except:

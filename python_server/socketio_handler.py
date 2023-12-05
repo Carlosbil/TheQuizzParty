@@ -15,7 +15,7 @@ from tinkers import generate_questions, get_random_theme
 
 logging.basicConfig(filename='./my_app.log', filemode='w', format='%(name)s - %(levelname)s - %(message)s', level=logging.DEBUG)
 
-
+restored = {}
 health= {'Room 1':{}, 'Room 2':{}}
 stop={}
 started={}
@@ -27,8 +27,13 @@ restore = restore 4 health points for each correct answer in this round
 thief = steal one health point from the rest of the players
 mafia = steal 5 points from one player randomly
 """
-bonus = ["doble", "health", "restore", "thief", "mafia"]
-bonus_to_send = ["thief", "mafia"]
+bonus = [
+    "doble: doble your health, (max +20)", 
+    "health: get 15 health points", 
+    "restore: get +3 extra life points per correct answer", 
+    "thief: stole 3 health points from each player", 
+    "mafia: stole 8 health points from one player randomly"
+    ]
 """
 ______________SOCKET IO____________________
 
@@ -108,6 +113,7 @@ def join_game(data):
             global stop
             global bonus
             global health
+            global restored
             countdown_timer(room.name, 5)  # 4s for testing purposes
 
         # Start the temporizer in a new thread
@@ -275,11 +281,16 @@ def save_results(data):
         # Accerted and wrong answers
         accerted = results
         wrong = 5 - results
+        health_user -= wrong*6
         
         user, room = obtain_user_session(token, room_name, session)
         if not user or not room:
             return
-        
+        if user.username in restored:
+            health_user += accerted*5
+            restored.pop(user.username)
+        else:
+            health_user += accerted*2
         # Update the results
         results_entry = session.query(Results).filter_by(username=user.username).first()
         if results_entry:
@@ -334,29 +345,32 @@ def receive_bonus(data):
     user, room = obtain_user_session(token, room_name, session)
     if not user or not room:
         return
-   
-    if bonus == "health":
-        health[room_name][user.username] += 20
+    
+    selected_bonus = BONUS_MAP[bonus]
+    if selected_bonus == "health":
+        health[room_name][user.username] += 15
         emit('players_health', {'health': health[room_name]}, room=room_name)
-    elif bonus == "thief":
-        health[room_name][user.username] += 2*len(health[room_name])
+    elif selected_bonus == "thief":
+        health[room_name][user.username] += 3*len(health[room_name]-1)
         for player in health[room_name]:
             if player != user.username:
-                health[room_name][player] -= 2
+                health[room_name][player] -= 3
         emit('players_health', {'health': health[room_name]}, room=room_name)
-    elif bonus == "mafia":
-        health[room_name][user.username] += 6
+    elif selected_bonus == "mafia":
+        health[room_name][user.username] += 8
         #select a random player
         player = random.choice(list(health[room_name].keys()))
         if player != user.username:
-                health[room_name][player] -= 6
+                health[room_name][player] -= 8
         emit('players_health', {'health': health[room_name]}, room=room_name)
-    elif bonus == "doble":
-        if health[room_name][user.username] < 15:
+    elif selected_bonus == "doble":
+        if health[room_name][user.username] < 10:
             health[room_name][user.username] *=2
         else:
-            health[room_name][user.username] += 30
+            health[room_name][user.username] += 20
         emit('players_health', {'health': health[room_name]}, room=room_name)
+    elif selected_bonus == "restore":
+        restored[user.username] = True
                
 def obtain_user_session(token, room_name, session):
             # Search for the user and the room
@@ -391,4 +405,14 @@ QUESTION_MAP = {
     'literature': ['literature_accerted', 'literature_wrong'],
     'science': ['science_accerted', 'science_wrong'],
     'pop_culture': ['pop_culture_accerted', 'pop_culture_wrong']
+}
+
+BONUS_MAP = {
+
+    "doble: doble your health, (max +20)": "doble", 
+    "health: get 15 health points": "health", 
+    "restore: get +3 extra life points per correct answer": "restore", 
+    "thief: stole 3 health points from each player": "thief", 
+    "mafia: stole 8 health points from one player randomly": "mafia"
+
 }

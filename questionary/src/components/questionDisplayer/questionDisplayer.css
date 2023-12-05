@@ -44,7 +44,7 @@
   flex-direction: column;
   gap: 10px;
   animation: scale-down-right 0.4s;
-  margin-bottom: 10rem;
+  margin-bottom: 14rem;
   /* Espaciado entre opciones */
 }
 

@@ -41,7 +41,7 @@ function BonusDisplayer(props) {
                 <div className="question">
                     Seleccione el bonus a jugar
                 </div>
-                <div className="options">
+                <div className="royale-options">
                     {Array.isArray(options) ? options.map((option, index) => (
                         <button 
                         className={`option ${selectedOption === option ? 'button-correct' : ''}`}
