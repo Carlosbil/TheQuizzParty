@@ -14,18 +14,14 @@ from tinkers import generate_questions, get_random_theme
 
 
 logging.basicConfig(filename='./my_app.log', filemode='w', format='%(name)s - %(levelname)s - %(message)s', level=logging.DEBUG)
-logging.debug('Mensaje de debug')
-logging.info('Mensaje de información')
-logging.warning('Mensaje de advertencia')
-logging.error('Mensaje de error')
-logging.critical('Mensaje crítico')
+
 
 health= {'Room 1':{}, 'Room 2':{}}
 stop={}
 started={}
 
 """
-doble = doble its actual score
+doble = doble your health (maximun +20)
 health = restore 10 health points
 restore = restore 4 health points for each correct answer in this round
 thief = steal one health point from the rest of the players
@@ -56,7 +52,6 @@ def join_game(data):
     """
     #quiero ver algo en la consola del servidor
     
-    logging.debug("Join game event received")
     token = data["token"]
     room_name = data.get("room")
     user = session.query(User).filter_by(token=token).first()
@@ -82,7 +77,7 @@ def join_game(data):
     # healths of players
     if room_name not in health:
         health[room_name] = {}
-    health[room_name][user.username] = 10
+    health[room_name][user.username] = 50
     room.number_players += 1
     
     # If the room is full, set it as occupied
@@ -168,7 +163,7 @@ def handle_message(data):
         None
     """
     emit('message', data, room=data['room'])
-    logging.debug(f"Message received: {data}")
+    
 
 
 # This function handles the event of a user joining a game room.
@@ -184,7 +179,6 @@ def leave_game(data):
     :type data: dict
     :return: None
     """
-    logging.debug(f"Leave game event received {data}")
     token = data["token"]
     room_name = data["room"]
     user = session.query(User).filter_by(token=token).first()
@@ -208,7 +202,6 @@ def leave_game(data):
     session.commit()
     leave_room(room.name)
     emit('leave', {'username': user.username, 'room': room.name}, room=room.name)
-    logging.debug(f"User {user.username} left room {room.name}")
     players = {}
     for name in room.players:
         if name != user.username:
@@ -232,10 +225,9 @@ def countdown_timer(room_name, duration, round=1, bonus=False):
     emit('timer_end', room=room_name)
     if not stop.get(room_name) and round < 5:
         if bonus:
-            logging.debug(f"Bonus round {round} in room {room_name}")
             send_bonus(room_name, round)
         else:
-            logging.debug(f"Round {round} in room {room_name}")
+            time.sleep(1)            
             start_game({'room': room_name, "round": round})
         
     
@@ -259,22 +251,12 @@ def start_game(data):
             return
         #avoid others players to join in the middle of the game
         room.is_occupied = True
-        
         #get 5 questions
         questions = generate_questions(theme=theme, number=5)
         session.commit()
         emit('first_round', {'questions': questions, 'theme': theme}, room=room.name)
-        @copy_current_request_context
-        def start_timer_game():
-            global stop
-            global bonus
-            global health
-            countdown_timer(room.name, 30, bonus=True) 
-
-        thread = Thread(target=start_timer_game)
-        thread.start()
-        logging.debug(f"Game started in room {room.name}")
-        
+        countdown_timer(room.name, 30, bonus=True) 
+              
 
 @socketio.on('save_score')
 def save_results(data):
@@ -285,7 +267,6 @@ def save_results(data):
     :return: None
     """
     try:
-        logging.debug("Event for save results and health received")
         token = data["token"]
         room_name = data["room"]
         results = data.get("score", 0)
@@ -318,7 +299,6 @@ def save_results(data):
         emit('players_health', {'health': health[room_name]}, room=room_name)
         session.commit()
         logging.debug(f"Results saved in {room.name} for the user {user.username} with health {health}")
-        logging.debug(health)
     except Exception as e:
         if session:
             session.rollback()
@@ -343,18 +323,41 @@ def send_bonus(room_name, round):
         #get a random bonus
         bonus_list.append(bonus[random.randint(0,4)])
     emit('bonus', {'bonus': bonus_list}, room=room_name)
-    @copy_current_request_context
-    def start_timer_bonus():
-        global stop
-        global bonus
-        global health
-        countdown_timer(room_name, 20, round, False) 
-            # Iniciar el temporizador como una tarea en segundo plano
-    thread = Thread(target=start_timer_bonus)
-    thread.start()
-    logging.debug(f"Bonus sent to room {room_name}")
-    
+    countdown_timer(room_name, 20, round, False) 
 
+@socketio.on('bonus_answer')  
+def receive_bonus(data):
+    token = data.get("token", None)
+    room_name = data.get("room", None)
+    bonus = data.get("bonus", None)
+    logging.debug(f"Bonus received {bonus}")
+    user, room = obtain_user_session(token, room_name, session)
+    if not user or not room:
+        return
+   
+    if bonus == "health":
+        health[room_name][user.username] += 20
+        emit('players_health', {'health': health[room_name]}, room=room_name)
+    elif bonus == "thief":
+        health[room_name][user.username] += 2*len(health[room_name])
+        for player in health[room_name]:
+            if player != user.username:
+                health[room_name][player] -= 2
+        emit('players_health', {'health': health[room_name]}, room=room_name)
+    elif bonus == "mafia":
+        health[room_name][user.username] += 6
+        #select a random player
+        player = random.choice(list(health[room_name].keys()))
+        if player != user.username:
+                health[room_name][player] -= 6
+        emit('players_health', {'health': health[room_name]}, room=room_name)
+    elif bonus == "doble":
+        if health[room_name][user.username] < 15:
+            health[room_name][user.username] *=2
+        else:
+            health[room_name][user.username] += 30
+        emit('players_health', {'health': health[room_name]}, room=room_name)
+               
 def obtain_user_session(token, room_name, session):
             # Search for the user and the room
     try:

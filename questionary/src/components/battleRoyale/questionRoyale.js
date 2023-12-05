@@ -47,8 +47,6 @@ function RoyaleDisplayer(props) {
     };
 
     function handleEndGame() {
-
-        console.log("Round end!")
         props.onEnd(score)
         setEnd(true)
     }

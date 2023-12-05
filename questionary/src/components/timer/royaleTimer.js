@@ -14,7 +14,6 @@ function RoyaleTimer(props) {
 
 
     socket.on('timer_end', () => {
-      console.log('timer_end');
       props.onTimeEnd();
       // Realizar la acción necesaria cuando el temporizador llega a cero
     });

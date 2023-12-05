@@ -26,12 +26,6 @@ file_path = os.path.join('.', 'data', 'questions.json')
 
 # Delete all existing rooms
 session.query(Room).delete()
-session.commit()
-room1 = Room(name='Room 1', number_players=0, players=[])
-room2 = Room(name='Room 2', number_players=0, players=[])
-session.add(room1)
-session.add(room2)
-session.commit()
 
 # Open the JSON file with explicit encoding and load the questions
 # Explicitly specifying the encoding ensures compatibility across different platforms
@@ -109,7 +103,8 @@ def create_user():
         info = {
             'message': 'User signed up properly', 
             "token": data["token"], 
-            "image_path": "avatar1"
+            "image_path": "avatar1",
+            "username":user.username
             }
         return jsonify(info), 200 
     
@@ -150,7 +145,8 @@ def login_user():
         info = {
             'message': 'User logged in properly', 
             "token": token, 
-            "image_path": user.image_path
+            "image_path": user.image_path,
+            "username":user.username
             }
         return jsonify(info), 200 
 

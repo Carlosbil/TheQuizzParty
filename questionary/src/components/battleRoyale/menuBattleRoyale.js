@@ -43,16 +43,12 @@ function MenuBattleRoyale() {
 
         // Listen server response
         socket.on('join_game_response', (response) => {
-            console.log(response);
             setRoom_id(response.room);
             setHealth(response.health);
             socket.off('join_game_response');
         });
         socket.on('update_players', (response) => {
-            console.log(response);
             setShowPlayers(true);
-            console.log(Object.keys(response.players).length);
-            console.log(num_players);
             if (Object.keys(response.players).length > num_players) {
                 toast.success('Nuevo jugador en la partida!');
             }

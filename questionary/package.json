@@ -22,7 +22,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "both": "sudo concurrently \"cd ../python_server && gunicorn --worker-class eventlet -w 1 server:app -b 0.0.0.0:3001 \" \"npm start\"",
+    "both": "sudo concurrently \"cd ../python_server && gunicorn --worker-class eventlet -w 1 --timeout 86400 server:app -b 0.0.0.0:3001 \" \"npm start\"",
     "py": "sudo concurrently \"cd ../python_server && python3 server.py \" \"npm start\"",
     "start": "react-scripts start",
     "build": "react-scripts build",

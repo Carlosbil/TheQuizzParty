@@ -24,8 +24,6 @@ function BonusDisplayer(props) {
     };
 
     function handleEndGame() {
-        console.log("Bonus Selected!")
-        console.log(selectedOption)
         props.onEnd(selectedOption)
     }
 

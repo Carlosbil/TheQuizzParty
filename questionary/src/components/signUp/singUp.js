@@ -32,13 +32,13 @@ function SignUp() {
             .then((response) => {
                 const token = response.data.token;
                 const avatar = response.data.image_path
-                console.log(token)
+                const username = response.data.username
                 // save tokens
-                document.cookie = "isAuthenticated=true; path=/; max-age=3600; samesite=Lax"; // Expira en 1 hora
-                document.cookie = `auth_token=${token}; path=/; max-age=3600; samesite=Lax`;
-                document.cookie = "sound=true; path=/; max-age=3600; samesite=Lax"; 
-                // go to mainmenu
-                document.cookie = `avatar=${avatar}; path=/; max-age=3600; samesite=Lax`;
+                document.cookie = "isAuthenticated=true; path=/; max-age=7200; samesite=Lax";
+                document.cookie = `auth_token=${token}; path=/; max-age=7200; samesite=Lax`;
+                document.cookie = "sound=true; path=/; max-age=7200; samesite=Lax"; 
+                document.cookie = `avatar=${avatar}; path=/; max-age=7200; samesite=Lax`;
+                document.cookie = `username=${username}; path=/; max-age=7200; samesite=Lax`;
                 navigate("/");
             })
             .catch((error) => {

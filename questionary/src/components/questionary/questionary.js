@@ -43,7 +43,6 @@ const Questionary = () => {
             "delete": respuestas[5],
             "token": getCookieValue("auth_token"),
         }
-        console.log('Respuestas del cuestionario:', data);
         axios
         .post(ADD_QUESTIONARY_URL, data)
         .then((_) => {
