@@ -124,7 +124,7 @@ function RoomBattleRoyale({ prop_players, prop_room_id, prop_health }) {
         setHealth(response.health[getCookieValue("username")])
         leaveGame()
       }else{
-        if(response.health[getCookieValue("username")] < health){
+        if(response.health[getCookieValue("username")] < health && isBonus === true){
           toast.error("Someone Stole your health!")
         }
         console.log("username",response.health[getCookieValue("username")])

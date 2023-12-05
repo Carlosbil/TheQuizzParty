@@ -79,10 +79,15 @@ def join_game(data):
             room = Room(name=room_name, is_occupied=False, number_players=0)
             session.add(room)
             session.commit()
+        else:
+            room_name = room.name
     # healths of players
+    logging.debug(f"Room {room_name} has {room.number_players} players")
     if room_name not in health:
         health[room_name] = {}
     health[room_name][user.username] = 50
+    logging.debug(f"Current health {health}")
+
     room.number_players += 1
     
     # If the room is full, set it as occupied
@@ -273,6 +278,7 @@ def save_results(data):
     :return: None
     """
     try:
+        logging.debug(f"Current health {health}")
         token = data["token"]
         room_name = data["room"]
         results = data.get("score", 0)
@@ -306,8 +312,15 @@ def save_results(data):
             session.add(new_results)
 
         # Update the health
-        health[room_name][user.username] = health_user
-        emit('players_health', {'health': health[room_name]}, room=room_name)
+        if room_name in health:
+            if user.username in health[room_name]:
+                health[room_name][user.username] = health_user
+            else:
+                logging.error(f"Username key {user.username} not found in health for room {room_name}")
+        else:
+            logging.error(f"Room key {room_name} not found in health")
+
+        emit('players_health', {'health': health[room.name]}, room=room.name)
         session.commit()
         logging.debug(f"Results saved in {room.name} for the user {user.username} with health {health}")
     except Exception as e:
