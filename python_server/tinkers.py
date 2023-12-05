@@ -11,9 +11,12 @@ logging.basicConfig(filename='./my_app.log', filemode='w', format='%(name)s - %(
 questions = []
 
 themes = ['history', 'geography', 'sports', 'entertainment', 'literature', 'science', 'pop_culture']
-# Construct the file path in a platform-independent manner
-file_path = os.path.join('.', 'data', 'questions.json')
 
+# Obtén la ruta absoluta del directorio del script actual
+dir_path = os.path.dirname(os.path.realpath(__file__))
+
+# Construye la ruta del archivo de una manera independiente de la plataforma
+file_path = os.path.join(dir_path, 'data', 'questions.json')
 # Open the JSON file with explicit encoding and load the questions
 # Explicitly specifying the encoding ensures compatibility across different platforms
 with open(file_path, 'r', encoding='utf-8') as f:
@@ -45,9 +48,20 @@ def generate_questions(number, theme):
         if theme and theme in questions:
             # Select a random question from the specified theme and return it as JSON
             number = random.randint(0, len(questions[theme])-1)
-            quests.append(questions[theme][number])
+            one_question = questions[theme][number]
         elif theme == "random":
             number = random.randint(0, len(themes)-1) 
             question = random.randint(0, len(questions[themes[number]])-1)
-            quests.append(questions[themes[number]][question])
+            one_question = questions[themes[number]][question]
+        while one_question in quests:
+            if theme and theme in questions:
+                # Select a random question from the specified theme and return it as JSON
+                number = random.randint(0, len(questions[theme])-1)
+                one_question = questions[theme][number]
+            elif theme == "random":
+                number = random.randint(0, len(themes)-1) 
+                question = random.randint(0, len(questions[themes[number]])-1)
+                one_question = questions[themes[number]][question]
+        quests.append(one_question)
+        
     return quests

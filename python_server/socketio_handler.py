@@ -28,11 +28,11 @@ thief = steal one health point from the rest of the players
 mafia = steal 5 points from one player randomly
 """
 bonus = [
-    "doble: doble your health, (max +20)", 
-    "health: get 15 health points", 
-    "restore: get +3 extra life points per correct answer", 
-    "thief: stole 3 health points from each player", 
-    "mafia: stole 8 health points from one player randomly"
+    "doble: dolba tu vida, (max +18)", 
+    "health: obten 10 puntos de vida", 
+    "restore: obten 2 puntos de vida más por respuesta correcta", 
+    "thief: roba 2 puntos de vida a cada jugador", 
+    "mafia: roba 8 puntos de vida a un jugador aleatorio"
     ]
 """
 ______________SOCKET IO____________________
@@ -331,8 +331,14 @@ def send_bonus(room_name, round):
     """
     bonus_list = []
     for i in range(3):
-        #get a random bonus
-        bonus_list.append(bonus[random.randint(0,4)])
+        #get a random bonus not repeated
+        bon = bonus[random.randint(0, len(bonus)-1)]
+        while bon in bonus_list:
+            bon = bonus[random.randint(0, len(bonus)-1)]
+            
+        bonus_list.append(bon)
+        
+        
     emit('bonus', {'bonus': bonus_list}, room=room_name)
     countdown_timer(room_name, 20, round, False) 
 
@@ -352,9 +358,10 @@ def receive_bonus(data):
         emit('players_health', {'health': health[room_name]}, room=room_name)
     elif selected_bonus == "thief":
         health[room_name][user.username] += 3*len(health[room_name]-1)
-        for player in health[room_name]:
-            if player != user.username:
-                health[room_name][player] -= 3
+        if len(health[room_name]) > 1:
+            for player in health[room_name]:
+                if player != user.username:
+                    health[room_name][player] -= 3
         emit('players_health', {'health': health[room_name]}, room=room_name)
     elif selected_bonus == "mafia":
         health[room_name][user.username] += 8
@@ -409,10 +416,10 @@ QUESTION_MAP = {
 
 BONUS_MAP = {
 
-    "doble: doble your health, (max +20)": "doble", 
-    "health: get 15 health points": "health", 
-    "restore: get +3 extra life points per correct answer": "restore", 
-    "thief: stole 3 health points from each player": "thief", 
-    "mafia: stole 8 health points from one player randomly": "mafia"
+    bonus[0]: "doble", 
+    bonus[1]: "health", 
+    bonus[2]: "restore", 
+    bonus[3]: "thief", 
+    bonus[4]: "mafia"
 
 }

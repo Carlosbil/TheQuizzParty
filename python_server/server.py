@@ -22,8 +22,8 @@ CORS(app)
 logging.basicConfig(filename='./my_app.log', filemode='w', format='%(name)s - %(levelname)s - %(message)s', level=logging.DEBUG)
 
 # Construct the file path in a platform-independent manner
-file_path = os.path.join('.', 'data', 'questions.json')
-
+dir_path = os.path.dirname(os.path.realpath(__file__))
+file_path = os.path.join(dir_path, 'data', 'questions.json')
 # Delete all existing rooms
 session.query(Room).delete()
 

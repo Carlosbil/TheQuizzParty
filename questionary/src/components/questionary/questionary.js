@@ -55,7 +55,9 @@ const Questionary = () => {
             } else {
                 toast.error('Error al realizar la solicitud:' + error.response.data.error);
             }
-        });    };
+        }); 
+        window.location.href = "/"
+       };
 
     return (
         <a className='back'>
