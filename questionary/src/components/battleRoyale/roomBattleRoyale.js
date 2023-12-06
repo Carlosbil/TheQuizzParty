@@ -31,7 +31,7 @@ function RoomBattleRoyale({ prop_players, prop_room_id, prop_health }) {
   const [players_health, setPlayers_health] = useState({}) // {name: health, name2: health2}, ...
   const [bonusOptions, setBonusOptions] = useState([])
   const [bonusAnswer, setBonusAnswer] = useState("")
-  const [isBonus, setIsBonus] = useState(false)
+  const [isBonus, setIsBonus] = useState(true)
   const [health, setHealth] = useState(prop_health)
   let token = getCookieValue("auth_token")
 
@@ -99,8 +99,8 @@ function RoomBattleRoyale({ prop_players, prop_room_id, prop_health }) {
       "bonus": bonus
     };
     console.log("el bonus es", bonus)
-    socket.emit('bonus_answer', data);
-    handleBonus()
+    //sleep 1s
+    setTimeout(() => {  socket.emit('bonus_answer', data); }, 500);
   }
 
   useEffect(() => {
@@ -110,6 +110,7 @@ function RoomBattleRoyale({ prop_players, prop_room_id, prop_health }) {
       setQuestions(response.questions);
       setTheme(response.theme);
       setStart(true)
+      handleBonus()
     }
     socket.on('first_round', firstRoundResponse);
     socket.on('bonus', (bonus) => {
@@ -129,6 +130,9 @@ function RoomBattleRoyale({ prop_players, prop_room_id, prop_health }) {
         }
         console.log("username",response.health[getCookieValue("username")])
         setHealth(response.health[getCookieValue("username")])
+      }
+      if (isBonus === true){
+        handleBonus()
       }
     })
     return () => {
@@ -158,6 +162,13 @@ function RoomBattleRoyale({ prop_players, prop_room_id, prop_health }) {
           </div>
         ))}
       </div>}
+      {!start && <h2>Acierta las preguntas y ganaras 2 de vida pero...</h2>}
+      {!start && <h2>Si fallas perderas 6 de vida</h2>}
+      {!start && <h2>Si no contestas perderas 2 de vida</h2>}
+      {!start && <h2>Si te quedas sin vida seras eliminado</h2>}
+      {!start && <h2>¡Suerte!; y atento a los bonus...</h2>}
+      {!start && <h2>(Las vidas se actualizan al final de la ronda)</h2>}
+
       {start && !isBonus && <RoyaleDisplayer score={setScore} steal_health={steal_health} obtain_health={obtain_health}
         questions_prop={questions} on_leave={leaveGame} onEnd={endRound} />}
       {start && isBonus && <BonusDisplayer options={bonusOptions} on_leave={leaveGame} onEnd={endBonusRound} />}
