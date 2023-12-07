@@ -131,9 +131,6 @@ function RoomBattleRoyale({ prop_players, prop_room_id, prop_health }) {
         console.log("username",response.health[getCookieValue("username")])
         setHealth(response.health[getCookieValue("username")])
       }
-      if (isBonus === true){
-        handleBonus()
-      }
     })
     return () => {
       socket.off('first_round', firstRoundResponse);

@@ -40,11 +40,14 @@ ______________SOCKET IO____________________
 """
 health_lock = threading.Lock()
 # This function handles health modification career condition avoided 
-def modify_health(health_data, room_name):
+def modify_health(health_data, room_name, delete=False):
     # Adquirir el lock antes de acceder al recurso compartido
     with health_lock:
         # Realizar operaciones con el recurso compartido
-        health[room_name] = health_data
+        if not delete:
+            health[room_name] = health_data
+        else:
+            health.pop(room_name, None)
 
     
 @socketio.on('join_game')
@@ -229,6 +232,7 @@ def leave_game(data):
                 room.is_occupied = False
         if room.number_players == 0:
             stop[room_name] = True
+            modify_health({}, room_name, delete=True)
             # logging.debug(f"Room {room_name} stopped")
         
         session.commit()
@@ -392,42 +396,52 @@ def send_bonus(room_name, round):
 
 @socketio.on('bonus_answer')  
 def receive_bonus(data):
-    token = data.get("token", None)
-    room_name = data.get("room", None)
-    bonus = data.get("bonus", None)
-    logging.debug(f"Bonus received {bonus}")
-    user, room = obtain_user_session(token, room_name, session)
-    if not user or not room:
-        return
-    
-    selected_bonus = BONUS_MAP[bonus]
-    logging.debug(f"Selected bonus {selected_bonus}")
-    room_health_data = copy.deepcopy(health[room_name])
-    if selected_bonus == "health":
-        room_health_data[user.username] += 15
-    elif selected_bonus == "thief":
-        room_health_data[user.username] += len(room_health_data)-1*3
-        if len(room_health_data) > 1:
-            for player in room_health_data:
-                if player != user.username:
-                    room_health_data[player] -= 3
-    elif selected_bonus == "mafia":
-        room_health_data[user.username] += 8
-        #select a random player
-        player = random.choice(list(room_health_data.keys()))
-        if player != user.username:
-                room_health_data[player] -= 8
-    elif selected_bonus == "doble":
-        if room_health_data[user.username] < 10:
-            room_health_data[user.username] *=2
-        else:
-            room_health_data[user.username] += 20
-    elif selected_bonus == "restore":
-        restored[user.username] = True
-        return
-    modify_health(room_health_data, room_name)
-    emit('players_health', {'health': health[room_name]}, room=room_name)
-      
+    session = init_db()
+    try:
+        token = data.get("token", None)
+        room_name = data.get("room", None)
+        bonus = data.get("bonus", None)
+        logging.debug(f"Bonus received {bonus}")
+        user, room = obtain_user_session(token, room_name, session)
+        if not user or not room:
+            return
+        
+        selected_bonus = BONUS_MAP[bonus]
+        logging.debug(f"Selected bonus {selected_bonus}")
+        room_health_data = copy.deepcopy(health[room_name])
+        if selected_bonus == "health":
+            room_health_data[user.username] += 15
+        elif selected_bonus == "thief":
+            room_health_data[user.username] += len(room_health_data)-1*3
+            if len(room_health_data) > 1:
+                for player in room_health_data:
+                    if player != user.username:
+                        room_health_data[player] -= 3
+        elif selected_bonus == "mafia":
+            room_health_data[user.username] += 8
+            #select a random player
+            player = random.choice(list(room_health_data.keys()))
+            if player != user.username:
+                    room_health_data[player] -= 8
+        elif selected_bonus == "doble":
+            if room_health_data[user.username] < 10:
+                room_health_data[user.username] *=2
+            else:
+                room_health_data[user.username] += 20
+        elif selected_bonus == "restore":
+            restored[user.username] = True
+            return
+        modify_health(room_health_data, room_name)
+        emit('players_health', {'health': health[room_name]}, room=room_name)
+    except Exception as e:
+        if session:
+            session.rollback()
+        logging.error(f"Error while receiving bonus: {e}")
+        emit('error', {'message': "No se pudo recibir el bonus"})
+    finally:
+        if session:
+            session.close()
+            
 def obtain_user_session(token, room_name, session):
     # Search for the user and the room
     user = session.query(User).filter_by(token=token).first()
