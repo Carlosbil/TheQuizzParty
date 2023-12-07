@@ -43,7 +43,6 @@ const Questionary = () => {
             "delete": respuestas[5],
             "token": getCookieValue("auth_token"),
         }
-        console.log('Respuestas del cuestionario:', data);
         axios
         .post(ADD_QUESTIONARY_URL, data)
         .then((_) => {
@@ -56,7 +55,9 @@ const Questionary = () => {
             } else {
                 toast.error('Error al realizar la solicitud:' + error.response.data.error);
             }
-        });    };
+        }); 
+        window.location.href = "/"
+       };
 
     return (
         <a className='back'>

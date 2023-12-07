@@ -13,7 +13,6 @@ function AvatarList({ avatarMap, prop_avatar }) {
     const [hasSelected, setHasSelected] = useState(false)
 
     const handleImageClick = (avatar, index) => {
-        console.log(index)
         setSelectedAvatar(avatar);
         setShowAvatars(false);
         setSelectedIndex(index)

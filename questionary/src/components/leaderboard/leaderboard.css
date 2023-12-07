@@ -2,7 +2,8 @@
 
 .leaderboard {
     font-family: 'Arial', sans-serif;
-    max-width: 200vmin;
+    max-width: 50vmin;
+    max-height: 50vmin;
     margin: 2rem auto;
     padding: 1rem;
     border: 1px solid #eee;
@@ -11,6 +12,7 @@
     background-color: #f9f9f9;
     text-align: center;
     min-width: 80vmin;
+    overflow-y: scroll;
   }
   
   .leaderboard h1 {

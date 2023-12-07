@@ -46,8 +46,6 @@ function TinkersDisplayer({ questions_prop }) {
 
   function handleEndGame(score_end, remainingTime) {
     if (end === false) {
-      console.log("Time's up!")
-      console.log(score_end + " " + remainingTime)
       let token = getCookieValue("auth_token")
       let score = score_end * 115 + (remainingTime * 5)
       setScore(score)
@@ -57,7 +55,6 @@ function TinkersDisplayer({ questions_prop }) {
         "time_taken": remainingTime,
         "correct_questions": score_end
       }
-      console.log(formData)
       axios
         .post(TINKERS_SCORE_URL, formData)
         .then((_) => {

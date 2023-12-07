@@ -39,6 +39,9 @@ function Tinkers() {
       {!start &&
         <button className='fun_tinker' onClick={handleButtonClick} >The fastest thinker alive</button>
       }
+      {!start && <h2>Acierta para sumar puntos</h2>}
+      {!start && <h2>Acaba antes de tiempo para ganar aún más</h2>}
+      {!start && <h2>¡Suerte!</h2>}
       {start && <TinkersDisplayer questions_prop={questions} />}
       <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
     </div>

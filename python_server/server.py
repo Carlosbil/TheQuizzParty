@@ -1,20 +1,31 @@
 import datetime
 from flask import Flask, jsonify, request
+from flask_socketio import SocketIO, join_room, leave_room, emit
 import json, random
 from flask_cors import CORS
+import logging
 import os
 import base64
-from dataBase import session, User, Score, Questionary
-from tinkers import generate_questions
-app = Flask(__name__)
+from dataBase import session, User, Score, Questionary, Room
+from tinkers import generate_questions, get_weekly_questions
 from bcrypt import hashpw, gensalt, checkpw
+from socketio_handler import join_game, leave_game, handle_message, on_join
+from app import socketio
+from dataBase import session, User
 
+app = Flask(__name__)
+socketio.init_app(app)
 # Enable Cross-Origin Resource Sharing (CORS) for the specified origins
 # CORS(app, resources={r"*": {"origins": "http://localhost:3000"}})
 CORS(app)
 
+logging.basicConfig(filename='./my_app.log', filemode='w', format='%(name)s - %(levelname)s - %(message)s', level=logging.DEBUG)
+
 # Construct the file path in a platform-independent manner
-file_path = os.path.join('.', 'data', 'questions.json')
+dir_path = os.path.dirname(os.path.realpath(__file__))
+file_path = os.path.join(dir_path, 'data', 'questions.json')
+# Delete all existing rooms
+session.query(Room).delete()
 
 # Open the JSON file with explicit encoding and load the questions
 # Explicitly specifying the encoding ensures compatibility across different platforms
@@ -22,8 +33,6 @@ with open(file_path, 'r', encoding='utf-8') as f:
     questions = json.load(f)
 
 themes = ['history', 'geography', 'sports', 'entertainment', 'literature', 'science', 'pop_culture']
-
-weekly_questions = []
 
 
 def is_token_valid(token_with_timestamp):
@@ -33,7 +42,7 @@ def is_token_valid(token_with_timestamp):
         timestamp = datetime.datetime.strptime(timestamp_str, '%Y-%m-%d %H:%M:%S')
 
         # Check if the token has expired (more than 24 hours old)
-        if (datetime.datetime.now() - timestamp).total_seconds() > 3600 :  # 86400 seconds = 24 hours
+        if (datetime.datetime.now() - timestamp).total_seconds() > 7200 :  # 86400 seconds = 24 hours
             return False
         return True
     except:
@@ -59,7 +68,10 @@ def generate_token():
     return token_with_timestamp
 
 
+"""
+______________API____________________
 
+"""
 # Define a route to handle GET requests and return questions in JSON format
 @app.route('/api/questions', methods=['GET'])
 def obtener_datos():
@@ -84,13 +96,15 @@ def create_user():
         data["token"] = generate_token()
         hashed_password = hashpw(data["password"].encode('utf-8'), gensalt())
         data["password"] = hashed_password.decode('utf-8')
+        data["image_path"] = "avatar1"
         user = User(**data)
         session.add(user)
         session.commit()
         info = {
             'message': 'User signed up properly', 
             "token": data["token"], 
-            "image_path": "avatar1"
+            "image_path": "avatar1",
+            "username":user.username
             }
         return jsonify(info), 200 
     
@@ -131,7 +145,8 @@ def login_user():
         info = {
             'message': 'User logged in properly', 
             "token": token, 
-            "image_path": user.image_path
+            "image_path": user.image_path,
+            "username":user.username
             }
         return jsonify(info), 200 
 
@@ -179,21 +194,28 @@ def get_user():
 
 #in future, automatice to restart the questions everyweek
 @app.route('/api/tinker', methods=['GET'])
-def get_weekly_questions():
+def get_week_questions():
     try:
     # get the 20 questions if there is none
-        quest = weekly_questions
-        if quest == []:
-            quest = generate_questions(10, "random")
+        logging.debug("Getting questions")
+        quest = get_weekly_questions()
         return jsonify({"questions": quest}), 200
     except Exception as e:
         message = "Error while getting questions"
-        print(f"{message}: {e}")
+        logging.error(f"{message}: {e}")
         return jsonify({'message': str(e), 'error': message}), 500
        
         
 @app.route('/api/tinkerScore', methods=['POST'])       
 def save_score():
+    """
+    Save the score of a user in the database.
+
+    Returns:
+    - If the score is saved successfully, returns a JSON object with a 'message' key and a 200 status code.
+    - If the token or score is invalid, returns a JSON object with an 'error' key and a 401 status code.
+    - If there is an error while saving the score, returns a JSON object with a 'message' and an 'error' key and a 500 status code.
+    """
     try:
         data = request.get_json()
         user = session.query(User).filter_by(token=data["token"]).first()
@@ -232,7 +254,7 @@ def save_score():
 
     finally:
         # Close session
-        session.close()         
+        session.close()
         
         
 @app.route('/api/getAllScores', methods=['GET'])
@@ -347,7 +369,11 @@ def add_questionary():
     finally:
         # Close session
         session.close() 
+        
+if __name__ == '__main__':
+    socketio.run(app, host='0.0.0.0', port=3001, debug=True)
+           
 # Run the Flask app with the specified configuration
 # The configuration (host, port, debug) can be adjusted as needed or made configurable
-if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=3001, debug=True)
+# if __name__ == "__main__":
+#     app.run(host='0.0.0.0', port=3001, debug=True)
