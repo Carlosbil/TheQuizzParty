@@ -30,8 +30,8 @@ function WinPage() {
                         Winner Winner chicken dinner!
                     </div>
                     <div>
-                        <button className='fun_royale' onClick={startGame} > Desea volver a ganar? Pulse aqui! </button>
-                        <button className='fun_royale' onClick={leaveGame} > Volver al menu principal? Pulse aqui! </button>
+                        <button className='fun_royale' onClick={startGame} > ¿Desea volver a ganar? ¡Pulse aqui! </button>
+                        <button className='fun_royale' onClick={leaveGame} > ¿Volver al menú principal? ¡Pulse aqui! </button>
                     </div>
                 </div>
             </b>

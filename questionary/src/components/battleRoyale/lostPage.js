@@ -27,11 +27,11 @@ function LostPage() {
             <b className='page'>
                 <div className="container">
                     <div className='looser'>
-                        Has perdido!, te han eliminado de la partida
+                        ¡Has perdido!, te han eliminado de la partida
                     </div>
                     <div>
-                        <button className='fun_royale' onClick={startGame} > Volver a intentar? Pulse aqui! </button>
-                        <button className='fun_royale' onClick={leaveGame} > Volver al menu principal? Pulse aqui! </button>
+                        <button className='fun_royale' onClick={startGame} > ¿Volver a intentar? ¡Pulse aqui! </button>
+                        <button className='fun_royale' onClick={leaveGame} > ¿Volver al menú principal? ¡Pulse aqui! </button>
                     </div>
                 </div>
             </b>
