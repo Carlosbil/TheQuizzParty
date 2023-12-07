@@ -27,11 +27,27 @@ thief = steal one health point from the rest of the players
 mafia = steal 5 points from one player randomly
 """
 bonus = [
-    "doble: dolba tu vida, (max +18)", 
-    "health: obten 10 puntos de vida", 
-    "restore: obten 2 puntos de vida más por respuesta correcta", 
-    "thief: roba 2 puntos de vida a cada jugador", 
-    "mafia: roba 8 puntos de vida a un jugador aleatorio"
+    "doble: dobla tu vida, (max +18) 😊", 
+    "health: obten 10 puntos de vida 😊", 
+    "restore: obten 2 puntos de vida más por respuesta correcta 😊", 
+    "thief: roba 2 puntos de vida a cada jugador 😊", 
+    "mafia: roba 8 puntos de vida a un jugador aleatorio 😊"
+    ]
+
+bonus_lvl_2 = [
+    "doble: dobla tu vida, (max +9) 😡", 
+    "health: obten 9 puntos de vida 😡", 
+    "restore: obten 2 puntos de vida más por respuesta correcta 😡", 
+    "thief: roba 3 puntos de vida a cada jugador 😡", 
+    "mafia: roba 10 puntos de vida a un jugador aleatorio 😡"
+    ]
+
+bonus_lvl_3 = [
+    "doble: dobla tu vida, (max +8) 😈", 
+    "health: obten 6 puntos de vida 😈", 
+    "restore: obten 2 puntos de vida más por respuesta correcta 😈", 
+    "thief: roba 2 puntos de vida a cada jugador 😈", 
+    "mafia: roba 9 puntos de vida a un jugador aleatorio 😈"
     ]
 """
 ______________SOCKET IO____________________
@@ -133,7 +149,7 @@ def join_game(data):
                 global health
                 global restored
                 global health_lock
-                countdown_timer(room.name, 5)  # 4s for testing purposes
+                countdown_timer(room.name, 40)  # 4s for testing purposes
 
             # Start the temporizer in a new thread
             @copy_current_request_context
@@ -269,7 +285,7 @@ def countdown_timer(room_name, duration, round=1, bonus=False):
         if bonus:
             send_bonus(room_name, round)
         else:          
-            start_game({'room': room_name, "round": round})
+            start_game({'room': room_name, "round": round+1})
         
     
 def start_game(data):
@@ -298,7 +314,7 @@ def start_game(data):
             questions = generate_questions(theme=theme, number=5)
             session.commit()
             emit('first_round', {'questions': questions, 'theme': theme}, room=room.name)
-            countdown_timer(room.name, 30, bonus=True) 
+            countdown_timer(room.name, 30, round=data.get("round", 1), bonus=True) 
     except Exception as e:
         if session:
             session.rollback()
@@ -382,11 +398,18 @@ def send_bonus(room_name, round):
     :return: None
     """
     bonus_list = []
+    if round < 4:
+        selected_bon = bonus
+    elif round < 7:
+        selected_bon = bonus_lvl_2
+    else:
+        selected_bon = bonus_lvl_3
     for i in range(3):
         #get a random bonus not repeated
-        bon = bonus[random.randint(0, len(bonus)-1)]
+ 
+        bon = selected_bon[random.randint(0, len(selected_bon)-1)]
         while bon in bonus_list:
-            bon = bonus[random.randint(0, len(bonus)-1)]
+            bon = bonus[random.randint(0, len(selected_bon)-1)]
             
         bonus_list.append(bon)
         
@@ -409,26 +432,72 @@ def receive_bonus(data):
         selected_bonus = BONUS_MAP[bonus]
         logging.debug(f"Selected bonus {selected_bonus}")
         room_health_data = copy.deepcopy(health[room_name])
+        
         if selected_bonus == "health":
-            room_health_data[user.username] += 15
+            room_health_data[user.username] += 10
+        elif selected_bonus == "health_lvl2":
+            room_health_data[user.username] += 9
+        elif selected_bonus == "health_lvl3":
+            room_health_data[user.username] += 6
         elif selected_bonus == "thief":
             room_health_data[user.username] += len(room_health_data)-1*3
             if len(room_health_data) > 1:
                 for player in room_health_data:
                     if player != user.username:
                         room_health_data[player] -= 3
+        elif selected_bonus == "thief_lvl2":
+            room_health_data[user.username] += len(room_health_data)-1*2
+            if len(room_health_data) > 1:
+                for player in room_health_data:
+                    if player != user.username:
+                        room_health_data[player] -= 2
+        elif selected_bonus == "thief_lvl3":
+            room_health_data[user.username] += len(room_health_data)-1*1
+            if len(room_health_data) > 1:
+                for player in room_health_data:
+                    if player != user.username:
+                        room_health_data[player] -= 1
+                        
         elif selected_bonus == "mafia":
             room_health_data[user.username] += 8
             #select a random player
             player = random.choice(list(room_health_data.keys()))
             if player != user.username:
                     room_health_data[player] -= 8
+        elif selected_bonus == "mafia_lvl2":
+            room_health_data[user.username] += 10
+            #select a random player
+            player = random.choice(list(room_health_data.keys()))
+            if player != user.username:
+                    room_health_data[player] -= 10
+        elif selected_bonus == "mafia_lvl3":
+            room_health_data[user.username] += 9
+            #select a random player
+            player = random.choice(list(room_health_data.keys()))
+            if player != user.username:
+                    room_health_data[player] -= 9
+                    
         elif selected_bonus == "doble":
             if room_health_data[user.username] < 10:
                 room_health_data[user.username] *=2
             else:
                 room_health_data[user.username] += 20
+        elif selected_bonus == "doble_lvl2":
+            if room_health_data[user.username] < 5:
+                room_health_data[user.username] *=2
+            else:
+                room_health_data[user.username] += 9
+        elif selected_bonus == "doble_lvl3":
+            if room_health_data[user.username] < 4:
+                room_health_data[user.username] *=2
+            else:
+                room_health_data[user.username] += 8
+                
         elif selected_bonus == "restore":
+            restored[user.username] = True
+        elif selected_bonus == "restore_lvl2":
+            restored[user.username] = True
+        elif selected_bonus == "restore_lvl3":
             restored[user.username] = True
             return
         modify_health(room_health_data, room_name)
@@ -474,6 +543,17 @@ BONUS_MAP = {
     bonus[1]: "health", 
     bonus[2]: "restore", 
     bonus[3]: "thief", 
-    bonus[4]: "mafia"
+    bonus[4]: "mafia",
+    bonus_lvl_2[0]: "doble_lvl2",
+    bonus_lvl_2[1]: "health_lvl2",
+    bonus_lvl_2[2]: "restore_lvl2",
+    bonus_lvl_2[3]: "thief_lvl2",
+    bonus_lvl_2[4]: "mafia_lvl2",
+    bonus_lvl_3[0]: "doble_lvl3",
+    bonus_lvl_3[1]: "health_lvl3",
+    bonus_lvl_3[2]: "restore_lvl3",
+    bonus_lvl_3[3]: "thief_lvl3",
+    bonus_lvl_3[4]: "mafia_lvl3"
+    
 
 }

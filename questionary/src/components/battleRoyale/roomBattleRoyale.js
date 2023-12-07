@@ -31,7 +31,7 @@ function RoomBattleRoyale({ prop_players, prop_room_id, prop_health }) {
   const [players_health, setPlayers_health] = useState({}) // {name: health, name2: health2}, ...
   const [bonusOptions, setBonusOptions] = useState([])
   const [bonusAnswer, setBonusAnswer] = useState("")
-  const [isBonus, setIsBonus] = useState(true)
+  const [isBonus, setIsBonus] = useState(false)
   const [health, setHealth] = useState(prop_health)
   let token = getCookieValue("auth_token")
 
@@ -43,7 +43,6 @@ function RoomBattleRoyale({ prop_players, prop_room_id, prop_health }) {
   // Function to save the score
   const saveScore = (score) => {
     if (score != undefined) {
-      console.log("Saving health: ", health)
       setScore(score)
       let data = {
         "token": token,
@@ -63,24 +62,29 @@ function RoomBattleRoyale({ prop_players, prop_room_id, prop_health }) {
       "room": room_id
     };
     socket.emit('leave_game', data);
-    window.location.href = "/"
+    window.location.href = "/looserRoyale"
+  }
+  const leaveGame_winner = () => {
+    let data = {
+      "token": token,
+      "room": room_id
+    };
+    socket.emit('leave_game', data);
+    window.location.href = "/winnerRoyale"
   }
 
   // Function to steal health
   const steal_health = () => {
-    console.log("steal health")
   }
 
   // Function to obtain health
   const obtain_health = () => {
-    console.log("obtain health")
   }
 
   // Function to end the round
   const endRound = (score) => {
     stopSoundByName("clock_ending")
     saveScore(score)
-    console.log("health: ", health)
     if (health <= 0) {
       leaveGame()
     }
@@ -98,9 +102,8 @@ function RoomBattleRoyale({ prop_players, prop_room_id, prop_health }) {
       "room": room_id,
       "bonus": bonus
     };
-    console.log("el bonus es", bonus)
-    //sleep 1s
     setTimeout(() => {  socket.emit('bonus_answer', data); }, 500);
+    handleBonus()
   }
 
   useEffect(() => {
@@ -110,7 +113,6 @@ function RoomBattleRoyale({ prop_players, prop_room_id, prop_health }) {
       setQuestions(response.questions);
       setTheme(response.theme);
       setStart(true)
-      handleBonus()
     }
     socket.on('first_round', firstRoundResponse);
     socket.on('bonus', (bonus) => {
@@ -118,17 +120,29 @@ function RoomBattleRoyale({ prop_players, prop_room_id, prop_health }) {
       handleBonus()
     })
     socket.on('players_health', (response) => {
-      console.log("Players health: ", response)
+      //calcular cuantos jugadores quedan
+      let players_alive = 0
+      for (const [key, value] of Object.entries(response.health)) {
+        if (value > 0) {
+          players_alive += 1
+        }
+      }
+      if (players_alive === 1) {
+        leaveGame_winner()
+      }
       setPlayers_health(response.health)
       if(response.health[getCookieValue("username")] <= 0){
-        console.log("username",response.health[getCookieValue("username")])
         setHealth(response.health[getCookieValue("username")])
         leaveGame()
       }else{
+        console.log("username: ",response.health[getCookieValue("username")] , "health: ",health)
+        console.log(isBonus) 
         if(response.health[getCookieValue("username")] < health && isBonus === true){
-          toast.error("Someone Stole your health!")
+          toast.error("OH NOOOO, perdiste vida!")
         }
-        console.log("username",response.health[getCookieValue("username")])
+        if(response.health[getCookieValue("username")] > health && isBonus === true){
+          toast.error("SIIIIi Recuperaste vida!")
+        }
         setHealth(response.health[getCookieValue("username")])
       }
     })

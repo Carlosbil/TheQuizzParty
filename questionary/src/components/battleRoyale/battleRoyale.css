@@ -52,6 +52,30 @@
     }
 }
 
+@keyframes pulse_winner {
+    0% {
+        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+    }
+    50% {
+        box-shadow: 4px 20px 40px rgba(255, 223, 0, 1);
+    }
+    100% {
+        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+    }
+}
+
+@keyframes pulse_looser {
+    0% {
+        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+    }
+    50% {
+        box-shadow: 4px 20px 40px rgba(255, 68, 0, 1);
+    }
+    100% {
+        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+    }
+}
+
 /*css for RoomBattleRoyale*/
 
 .room_battle_royale {
@@ -151,3 +175,42 @@ h2 {
     border-radius: 50%; /* Avatares redondos */
     margin-bottom: -5px;
     }
+
+    /*winner royale*/
+.winner {
+    background-color: #333;
+    color: rgba(255, 223, 0, 1); /* Texto blanco para contraste */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 3px rgba(5, 5, 5, 0.5); /* Sombra verde para un toque de Battle Royale */
+    text-align: center;
+    width: 20vh;
+    height: 10vh;
+    animation: pulse_winner 2s infinite;
+    gap: 10px;
+    overflow-x: auto;
+    align-content: center;
+    margin-left: 3vmax;
+    margin-right: 3vmax;
+    margin-top: 3vmax;
+    margin-bottom: 3vmax;
+}
+
+.looser {
+    background-color: #333;
+    color: #fff; /* Texto blanco para contraste */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 3px rgba(5, 5, 5, 0.5); /* Sombra verde para un toque de Battle Royale */
+    text-align: center;
+    width: 20vh;
+    height: 10vh;
+    animation: pulse_looser 2s infinite;
+    gap: 10px;
+    overflow-x: auto;
+    align-content: center;
+    margin-left: 3vmax;
+    margin-right: 3vmax;
+    margin-top: 3vmax;
+    margin-bottom: 3vmax;
+}
