@@ -43,7 +43,7 @@ function FootPage() {
 
   return (
     <div className='foot'>
-      <p>La aplicación está en desarrollo y puede tener fallos. Si detecta uno contacteme al correo <a href="mailto:carlosbilbao2@gmail.com" onClick={handleEmailClick}>carlosbilbao2@gmail.com</a></p>
+      <p>La aplicación está en desarrollo y puede tener fallos. Si detecta uno contácteme al correo <a href="mailto:carlosbilbao2@gmail.com" onClick={handleEmailClick}>carlosbilbao2@gmail.com</a></p>
       <p>Desarrollado por Carlos Bilbao Lara github: <a href="https://github.com/Carlosbil" target="_blank" rel="noopener noreferrer">GitHub</a> </p>
       <p>LinkedIn: <a href="https://www.linkedin.com/in/carlos-bilbao-lara/" target="_blank" rel="noopener noreferrer">LinkedIn</a></p>
     </div>
