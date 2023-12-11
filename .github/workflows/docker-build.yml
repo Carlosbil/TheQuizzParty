@@ -26,7 +26,7 @@ jobs:
         context: ./python_server
         file: ./python_server/Dockerfile
         push: true
-        tags: ghcr.io/${{ github.repository_owner.toLowerCase() }}/python-server:latest
+        tags: ghcr.io/bdp_quizz/python-server:latest
 
     # Build and upload React image
     - name: Build and push React client Docker image
@@ -35,4 +35,4 @@ jobs:
         context: ./questionary
         file: ./questionary/Dockerfile
         push: true
-        tags: ghcr.io/${{ github.repository_owner.toLowerCase() }}/react-client:latest
+        tags: ghcr.io/bdp_quizz/react-client:latest
