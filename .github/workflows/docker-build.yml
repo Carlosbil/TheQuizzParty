@@ -23,8 +23,8 @@ jobs:
     - name: Build and push Python server Docker image
       uses: docker/build-push-action@v2
       with:
-        context: /python_server
-        file: /python_server/Dockerfile
+        context: ./python_server
+        file: ./python_server/Dockerfile
         push: true
         tags: ghcr.io/bdp_quizz/python-server:latest
 
@@ -32,7 +32,7 @@ jobs:
     - name: Build and push React client Docker image
       uses: docker/build-push-action@v2
       with:
-        context: /questionary
-        file: /questionary/Dockerfile
+        context: ./questionary
+        file: ./questionary/Dockerfile
         push: true
         tags: ghcr.io/bdp_quizz/react-client:latest
