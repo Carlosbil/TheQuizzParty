@@ -1,0 +1,38 @@
+name: Build and Push Docker Images
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Log in to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.repository_owner }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    # Build and upload python image
+    - name: Build and push Python server Docker image
+      uses: docker/build-push-action@v2
+      with:
+        context: ./python_server
+        file: ./python_server/Dockerfile
+        push: true
+        tags: ghcr.io/${{ github.repository }}/python-server:latest
+
+    # Build and upload React image
+    - name: Build and push React client Docker image
+      uses: docker/build-push-action@v2
+      with:
+        context: ./questionary
+        file: ./questionary/Dockerfile
+        push: true
+        tags: ghcr.io/${{ github.repository }}/react-client:latest
