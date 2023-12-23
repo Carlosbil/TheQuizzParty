@@ -15,7 +15,7 @@
     justify-content: center;
     border: 3px solid #fff;  /* White border for contrast */
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);  /* Subtle white glow for depth */
-    font-family: 'Arial', sans-serif;  /* A simple, minimalist font */
+    font-family: "Arial", sans-serif;  /* A simple, minimalist font */
     transition: transform 0.3s ease;  /* Smooth transition for hover effect */
 }
 

@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import './logIn.css';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { LOGIN_URL } from '../../enpoints';
+import React, { useState } from "react";
+import "./logIn.css";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { LOGIN_URL } from "../../enpoints";
 
 
 function LogIn() {
     const [formData, setFormData] = useState({
-        username: '',
-        password: '',
+        username: "",
+        password: "",
     });
 
     const navigate = useNavigate()
@@ -45,19 +45,19 @@ function LogIn() {
                 navigate("/");
             })
             .catch((error) => {
-                console.error('Error al realizar la solicitud:', error);
+                console.error("Error al realizar la solicitud:", error);
                 if (error.response === undefined || error.response.data.error === undefined) {
-                    toast.error('Error al realizar la solicitud:' + error.message);
+                    toast.error("Error al realizar la solicitud:" + error.message);
                 } else {
-                    toast.error('Error al realizar la solicitud:' + error.response.data.error);
+                    toast.error("Error al realizar la solicitud:" + error.response.data.error);
                 }
             });
     };
 
 
     return (
-        <a className='back'>
-            <b className='page'>
+        <a className="back">
+            <b className="page">
                 <div className="container">
                     <h2>Por favor introduce tus datos</h2>
                     <form onSubmit={handleSubmit}>
@@ -81,7 +81,7 @@ function LogIn() {
                             Iniciar Sesión
                         </button>
                     </form>
-                    <button className="linked" onClick={() => navigate('/signUp')}>¿No tiene una cuenta? Registrese aquí!</button>
+                    <button className="linked" onClick={() => navigate("/signUp")}>¿No tiene una cuenta? Registrese aquí!</button>
                     <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
                 </div>
             </b>

@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import logo from './logo_provisional.png';
-import menu from '../../assets/images/menu.png';
-import home from '../../assets/images/home.png';
+import React, { useState } from "react";
+import logo from "./logo_provisional.png";
+import menu from "../../assets/images/menu.png";
+import home from "../../assets/images/home.png";
 
-import { Link } from 'react-router-dom';
-import './homebotton.css';
-import { getCookieValue } from '../../authSlide';
-import sound_on from '../../assets/images/audio_on.png';
-import sound_off from '../../assets/images/audio_mute.png';
-import { stopAllSounds } from '../../sounds';
+import { Link } from "react-router-dom";
+import "./homebotton.css";
+import { getCookieValue } from "../../authSlide";
+import sound_on from "../../assets/images/audio_on.png";
+import sound_off from "../../assets/images/audio_mute.png";
+import { stopAllSounds } from "../../sounds";
 
 function DropdownMenu({ onClick, prop_avatar }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,7 +29,7 @@ function DropdownMenu({ onClick, prop_avatar }) {
   }
 
   return (
-    <div className='menu-fixed'>
+    <div className="menu-fixed">
       <button
         className="settings_menu"
         onClick={toggleMenu}
@@ -47,9 +47,9 @@ function DropdownMenu({ onClick, prop_avatar }) {
       )}
       {isOpen && (
         <div>
-          <Link to='profile'>
+          <Link to="profile">
             <button
-              className='profile_container'
+              className="profile_container"
               style={{ backgroundImage: `url(${userAvatar})` }}>
             </button>
           </Link>
@@ -57,7 +57,7 @@ function DropdownMenu({ onClick, prop_avatar }) {
         {isOpen && (
         <div>
             <button
-              className='profile_container'
+              className="profile_container"
               onClick={toggleSound}
               style={{ backgroundImage: `url(${sound ? sound_on : sound_off})` }}> 
             </button>

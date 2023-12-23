@@ -1,9 +1,9 @@
-import { Howl } from 'howler';
-import correct_sound from './assets/sounds/correct_answer.wav'
-import wrong_sound from './assets/sounds/bad_answer.wav'
-import clock_end from './assets/sounds/clock_ending.wav'
-import background_main from './assets/sounds/background_sound.wav'
-import { getCookieValue } from './authSlide';
+import { Howl } from "howler";
+import correct_sound from "./assets/sounds/correct_answer.wav"
+import wrong_sound from "./assets/sounds/bad_answer.wav"
+import clock_end from "./assets/sounds/clock_ending.wav"
+import background_main from "./assets/sounds/background_sound.wav"
+import { getCookieValue } from "./authSlide";
 
 const good_sound = new Howl({
     src: [correct_sound] // NOTA: Es solo para demostración. Asegúrate de reemplazarlo con tu propio sonido o uno con licencia adecuada.
@@ -23,10 +23,10 @@ const background = new Howl({
 
 // Mapeo entre nombres de sonidos y objetos Howl
 const soundsMap = {
-    'good_sound': good_sound,
-    'bad_sound': bad_sound,
-    'clock_ending': clock_ending,
-    'background': background
+    "good_sound": good_sound,
+    "bad_sound": bad_sound,
+    "clock_ending": clock_ending,
+    "background": background
 };
 
 export function playSoundByName(soundName) {

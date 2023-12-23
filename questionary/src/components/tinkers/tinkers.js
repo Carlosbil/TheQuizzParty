@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import './tinkers.css';
-import axios from 'axios';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { TINKERS_URL } from '../../enpoints'
-import TinkersDisplayer from './tinkersDisplayer';
+import React, { useEffect, useState } from "react";
+import "./tinkers.css";
+import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { TINKERS_URL } from "../../enpoints"
+import TinkersDisplayer from "./tinkersDisplayer";
 
 function Tinkers() {
   const [questions, setQuestions] = useState([]);
@@ -25,11 +25,11 @@ function Tinkers() {
         setQuestions(response.data.questions);
       })
       .catch((error) => {
-        console.error('Error al iniciar el juego', error);
+        console.error("Error al iniciar el juego", error);
         if (error.response === undefined || error.response.data.error === undefined) {
-          toast.error('Error al iniciar el juego:' + error.message);
+          toast.error("Error al iniciar el juego:" + error.message);
         } else {
-          toast.error('Error al iniciar el juego:' + error.response.data.error);
+          toast.error("Error al iniciar el juego:" + error.response.data.error);
         }
       });
   }
@@ -37,7 +37,7 @@ function Tinkers() {
   return (
     <div>
       {!start &&
-        <button className='fun_tinker' onClick={handleButtonClick} >The fastest thinker alive</button>
+        <button className="fun_tinker" onClick={handleButtonClick} >The fastest thinker alive</button>
       }
       {!start && <h2>Acierta para sumar puntos</h2>}
       {!start && <h2>Acaba antes de tiempo para ganar aún más</h2>}

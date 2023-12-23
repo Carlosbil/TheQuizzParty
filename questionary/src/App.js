@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import './App.css';
-import LogIn from './components/logIn/logIn';
-import Mainpage from './components/mainPage/mainPage';
-import Profile from './components/profile/profile';
-import SignUp from './components/signUp/singUp';
-import LostPage from './components/battleRoyale/lostPage';
-import WinPage from './components/battleRoyale/winPage';
-import { Provider } from 'react-redux';
-import Questionary from './components/questionary/questionary';
-import store from './store';
-import MenuBattleRoyale from './components/battleRoyale/menuBattleRoyale';
+import React, { useState } from "react";
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
+import "./App.css";
+import LogIn from "./components/logIn/logIn";
+import Mainpage from "./components/mainPage/mainPage";
+import Profile from "./components/profile/profile";
+import SignUp from "./components/signUp/singUp";
+import LostPage from "./components/battleRoyale/lostPage";
+import WinPage from "./components/battleRoyale/winPage";
+import { Provider } from "react-redux";
+import Questionary from "./components/questionary/questionary";
+import store from "./store";
+import MenuBattleRoyale from "./components/battleRoyale/menuBattleRoyale";
+import QuestionsMenu from "./components/questionMode/questionsMenu";
 
 function ProtectedRoute({ children }) {
   const allCookies = document.cookie;
@@ -36,6 +37,7 @@ function App() {
           <Route path="/battleRoyale" element={<ProtectedRoute><MenuBattleRoyale /></ProtectedRoute>} />
           <Route path="/looserRoyale" element={<ProtectedRoute><LostPage /></ProtectedRoute>} />
           <Route path="/winnerRoyale" element={<ProtectedRoute><WinPage /></ProtectedRoute>} />
+          <Route path="/questions" element={<ProtectedRoute><QuestionsMenu /></ProtectedRoute>} />
           <Route path="*" element={<Navigate to="/logIn" />} />
         </Routes>
       </Router>

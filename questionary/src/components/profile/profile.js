@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import './profile.css';
-import axios from 'axios';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import Logo from '../homebotton/homebotton';
-import { useNavigate } from 'react-router-dom';
-import { PROFILE_URL, UPDATE_PROFILE_URL } from '../../enpoints';
-import { getCookieValue } from '../../authSlide';
-import getAvatar, { getAllAvatars } from '../../avatars';
-import AvatarList from './avatar/avatar';
+import React, { useState } from "react";
+import "./profile.css";
+import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Logo from "../homebotton/homebotton";
+import { useNavigate } from "react-router-dom";
+import { PROFILE_URL, UPDATE_PROFILE_URL } from "../../enpoints";
+import { getCookieValue } from "../../authSlide";
+import getAvatar, { getAllAvatars } from "../../avatars";
+import AvatarList from "./avatar/avatar";
 
 function Profile() {
     const [username, setUsername] = useState("");
@@ -20,11 +20,11 @@ function Profile() {
     const avatar = getCookieValue("avatar")
     const [showPassword, setShowPassword] = useState(false);
     const [formData, setFormData] = useState({
-        token: '',
-        name: '',
-        username: '',
-        email: '',
-        password: '',
+        token: "",
+        name: "",
+        username: "",
+        email: "",
+        password: "",
     });
 
     //handle the changes produced in the form
@@ -42,10 +42,10 @@ function Profile() {
 
         let data = {
             "token": getCookieValue("auth_token"),
-            "name": formData.name !== '' ? formData.name : name,
-            "email": formData.email !== '' ? formData.email : email,
-            "username": formData.username !== '' ? formData.username : username,
-            "password": formData.password !== '' ? formData.password : password
+            "name": formData.name !== "" ? formData.name : name,
+            "email": formData.email !== "" ? formData.email : email,
+            "username": formData.username !== "" ? formData.username : username,
+            "password": formData.password !== "" ? formData.password : password
         }
         axios
             .put(UPDATE_PROFILE_URL, data)
@@ -58,11 +58,11 @@ function Profile() {
                 setIsEditing(false)
             })
             .catch((error) => {
-                console.error('Error al realizar la solicitud:', error);
+                console.error("Error al realizar la solicitud:", error);
                 if (error.response === undefined || error.response.data.error === undefined) {
-                    toast.error('Error al realizar la solicitud:' + error.message);
+                    toast.error("Error al realizar la solicitud:" + error.message);
                 } else {
-                    toast.error('Error al realizar la solicitud:' + error.response.data.error);
+                    toast.error("Error al realizar la solicitud:" + error.response.data.error);
                 }
             });
     };
@@ -88,11 +88,11 @@ function Profile() {
                 toast.success("Se ha obtenido su informacion")
             })
             .catch((error) => {
-                console.error('Error al realizar la solicitud:', error);
+                console.error("Error al realizar la solicitud:", error);
                 if (error.response === undefined || error.response.data.error === undefined) {
-                    toast.error('Error al realizar la solicitud:' + error.message);
+                    toast.error("Error al realizar la solicitud:" + error.message);
                 } else {
-                    toast.error('Error al realizar la solicitud:' + error.response.data.error);
+                    toast.error("Error al realizar la solicitud:" + error.response.data.error);
                 }
             });
     }
@@ -120,7 +120,7 @@ function Profile() {
     };
 
     return (
-        <div className='back'>
+        <div className="back">
             <div className="page">
                 <Logo onClick={handleLogoClick} prop_avatar={getAvatar(avatar)} />
                 <AvatarList avatarMap={getAllAvatars()} prop_avatar={getAvatar(avatar)} />

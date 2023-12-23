@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import './timer.css';
+import React, { useState, useEffect } from "react";
+import "./timer.css";
 
 function ClockTimer(props) {
   const [timeRemaining, setTimeRemaining] = useState(props.initialTime || 600);
@@ -20,7 +20,7 @@ function ClockTimer(props) {
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
     const secs = seconds % 60;
-    return `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    return `${minutes.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
   };
 
   return (

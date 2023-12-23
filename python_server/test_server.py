@@ -33,7 +33,7 @@ class TestServer(unittest.TestCase):
             mock_session.query.assert_called_with(Score)
             mock_session.query.return_value.filter_by.assert_called_with(username="test_user")
             mock_session.commit.assert_called()
-            mock_jsonify.assert_called_with({'message': 'Score saved successfully'}), 200
+            mock_jsonify.assert_called_with({"message": "Score saved successfully"}), 200
 
     def test_save_score_invalid_token(self):
         # Prueba cuando el token es inválido
@@ -50,7 +50,7 @@ class TestServer(unittest.TestCase):
             mock_session.query.return_value.filter_by.return_value.first.return_value = None
             save_score()
             mock_session.rollback.assert_called()
-            mock_jsonify.assert_called_with({'error': 'Invalid token or score'}), 401
+            mock_jsonify.assert_called_with({"error": "Invalid token or score"}), 401
 
     def test_save_score_error(self):
         # Prueba cuando ocurre un error al guardar el puntaje
@@ -68,7 +68,7 @@ class TestServer(unittest.TestCase):
             mock_session.commit.side_effect = Exception("Database error")
             save_score()
             mock_session.rollback.assert_called()
-            mock_jsonify.assert_called_with({'message': 'Database error', 'error': 'Error while saving score'}), 500
+            mock_jsonify.assert_called_with({"message": "Database error", "error": "Error while saving score"}), 500
 
     # Agrega más pruebas según sea necesario
 

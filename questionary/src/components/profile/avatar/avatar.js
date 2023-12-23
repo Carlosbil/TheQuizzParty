@@ -1,9 +1,9 @@
-import React, { useRef, useState } from 'react';
-import './avatar.css';
-import { getCookieValue } from '../../../authSlide';
-import { UPDATE_AVATAR_URL } from '../../../enpoints';
-import axios from 'axios';
-import { toast, ToastContainer } from 'react-toastify';
+import React, { useRef, useState } from "react";
+import "./avatar.css";
+import { getCookieValue } from "../../../authSlide";
+import { UPDATE_AVATAR_URL } from "../../../enpoints";
+import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
 
 function AvatarList({ avatarMap, prop_avatar }) {
     const containerRef = useRef(null);
@@ -32,11 +32,11 @@ function AvatarList({ avatarMap, prop_avatar }) {
             setHasSelected(false)
         })            
         .catch((error) => {
-            console.error('Error al realizar la solicitud:', error);
+            console.error("Error al realizar la solicitud:", error);
             if (error.response === undefined || error.response.data.error === undefined) {
-                toast.error('Error al realizar la solicitud:' + error.message);
+                toast.error("Error al realizar la solicitud:" + error.message);
             } else {
-                toast.error('Error al realizar la solicitud:' + error.response.data.error);
+                toast.error("Error al realizar la solicitud:" + error.response.data.error);
             }
         });
     }
@@ -57,7 +57,7 @@ function AvatarList({ avatarMap, prop_avatar }) {
                     onClick={() => handleImageClick(avatar, index)}
                 />
             ))}
-            {hasSelected && !showAvatars && <button className='linked_avatar' onClick={() => saveAvatar(selectedIndex)}>{"Guardar"}</button>}
+            {hasSelected && !showAvatars && <button className="linked_avatar" onClick={() => saveAvatar(selectedIndex)}>{"Guardar"}</button>}
             <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
 
         </div>

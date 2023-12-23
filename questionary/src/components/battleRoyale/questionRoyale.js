@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import ClockTimer from '../timer/timer';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { playSoundByName } from '../../sounds';
-import RoyaleTimer from '../timer/royaleTimer';
-import { socket } from '../../enpoints';
-import { getCookieValue } from '../../authSlide';
+import React, { useEffect, useState } from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import ClockTimer from "../timer/timer";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { playSoundByName } from "../../sounds";
+import RoyaleTimer from "../timer/royaleTimer";
+import { socket } from "../../enpoints";
+import { getCookieValue } from "../../authSlide";
 /**
  * Displays the battle royale question and answer component.
  * 
@@ -88,13 +88,13 @@ function RoyaleDisplayer(props) {
                         {Array.isArray(options) ? options.map((option, index) => (
                             <button
                                 key={index}
-                                className={`option ${selectedOption === option ? (option === answer ? 'button-correct' : 'button-incorrect') : ''}`}
+                                className={`option ${selectedOption === option ? (option === answer ? "button-correct" : "button-incorrect") : ""}`}
                                 onClick={() => handleButtonClick(option)}
                             >
                                 {option}
                             </button>
                         )) : null}
-                        {next && <button className='nextQuestion' onClick={() => setPosition(prevPosition => prevPosition + 1)}> Siguiente pregunta</button>}
+                        {next && <button className="nextQuestion" onClick={() => setPosition(prevPosition => prevPosition + 1)}> Siguiente pregunta</button>}
                     </div>
                 </div>}
             {end && <h1>🙈 Esperando a que finalice la ronda... 🙈</h1>}

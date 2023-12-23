@@ -17,7 +17,7 @@ class TestSocketIOHandler(unittest.TestCase):
         data = {"token": "invalid_token"}
         with patch("socketio_handler.emit") as mock_emit:
             join_game(data)
-            mock_emit.assert_called_with('error', {'message': "The user could not be found"})
+            mock_emit.assert_called_with("error", {"message": "The user could not be found"})
 
     def test_join_game_new_room(self):
         # Prueba cuando se une a una nueva sala
@@ -35,10 +35,10 @@ class TestSocketIOHandler(unittest.TestCase):
             mock_session.commit.assert_called()
             mock_session.add.assert_called()
             mock_room.players.append.assert_called_with("test_user")
-            mock_session.query.return_value.filter_by.return_value.update.assert_called_with({'players': mock_room.players})
+            mock_session.query.return_value.filter_by.return_value.update.assert_called_with({"players": mock_room.players})
             mock_session.commit.assert_called()
-            mock_emit.assert_called_with('join_game_response', {'username': "test_user", 'room': mock_room.name, 'players': {}, 'health': 50}, room=mock_room.name)
-            mock_emit.assert_called_with('update_players', {'players': {}}, room=mock_room.name)
+            mock_emit.assert_called_with("join_game_response", {"username": "test_user", "room": mock_room.name, "players": {}, "health": 50}, room=mock_room.name)
+            mock_emit.assert_called_with("update_players", {"players": {}}, room=mock_room.name)
 
     # Agrega más pruebas según sea necesario
 

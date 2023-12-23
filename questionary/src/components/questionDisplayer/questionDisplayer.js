@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import './questionDisplayer.css';
-import axios from 'axios';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { QUESTIONS_URL } from '../../enpoints'
-
+import React, { useEffect, useState } from "react";
+import "./questionDisplayer.css";
+import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { QUESTIONS_URL, SAVE_QUESTION_URL } from "../../enpoints"
+import { getCookieValue } from "../../authSlide";
 
 function QuestionDisplayer({ question_prop, options_prop, answer_prop }) {
   const [selectedOption, setSelectedOption] = useState(null);
@@ -14,6 +14,25 @@ function QuestionDisplayer({ question_prop, options_prop, answer_prop }) {
   const [next, setNext] = useState(false)
 
   const handleButtonClick = (option) => {
+    //save the result in the database
+    let token = getCookieValue("auth_token")
+    let data = {
+      "token": token,
+      "theme": localStorage.getItem("category"),
+      "accerted": option === answer
+    }
+    axios
+    .post(SAVE_QUESTION_URL, data)
+    .then((_) => {
+    })
+    .catch((error) => {
+        console.error("Error al realizar la solicitud:", error);
+        if (error.response === undefined || error.response.data.error === undefined) {
+            toast.error("Error al realizar la solicitud:" + error.message);
+        } else {
+            toast.error("Error al realizar la solicitud:" + error.response.data.error);
+        }
+    });
     setSelectedOption(option);
     setNext(true)
   };
@@ -32,14 +51,15 @@ function QuestionDisplayer({ question_prop, options_prop, answer_prop }) {
         setOptions(decodeURIComponent(response.data.options).split(","));
       })
       .catch((error) => {
-        console.error('Error al realizar la solicitud:', error);
+        console.error("Error al realizar la solicitud:", error);
         if (error.response === undefined || error.response.data.error === undefined) {
-          toast.error('Error al realizar la solicitud:' + error.message);
+          toast.error("Error al realizar la solicitud:" + error.message);
         } else {
-          toast.error('Error al realizar la solicitud:' + error.response.data.error);
+          toast.error("Error al realizar la solicitud:" + error.response.data.error);
         }
       });
   }
+
   return (
     <div>
       <div className="question-container">
@@ -48,13 +68,13 @@ function QuestionDisplayer({ question_prop, options_prop, answer_prop }) {
           {Array.isArray(options) ? options.map((option, index) => (
             <button
               key={index}
-              className={`option ${selectedOption === option ? (option === answer ? 'button-correct' : 'button-incorrect') : ''}`}
+              className={`option ${selectedOption === option ? (option === answer ? "button-correct" : "button-incorrect") : ""}`}
               onClick={() => handleButtonClick(option)}
             >
               {option}
             </button>
           )) : null}
-          {next && <button className='nextQuestion' onClick={() => nextQuestion()}> Siguiente pregunta</button>}
+          {next && <button className="nextQuestion" onClick={() => nextQuestion()}> Siguiente pregunta</button>}
 
         </div>
       </div>

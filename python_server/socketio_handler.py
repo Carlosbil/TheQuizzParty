@@ -13,10 +13,10 @@ from tinkers import generate_questions, get_random_theme
 import copy
 import threading
 
-logging.basicConfig(filename='./my_app.log', filemode='w', format='%(name)s - %(levelname)s - %(message)s', level=logging.DEBUG)
+logging.basicConfig(filename="./my_app.log", filemode="w", format="%(name)s - %(levelname)s - %(message)s", level=logging.DEBUG)
 
 restored = {}
-health= {'BEING_USED':False}
+health= {"BEING_USED":False}
 stop={}
 started={}
 """
@@ -66,7 +66,7 @@ def modify_health(health_data, room_name, delete=False):
             health.pop(room_name, None)
 
     
-@socketio.on('join_game')
+@socketio.on("join_game")
 def join_game(data):
     """
     This function handles the event of a user joining a game room.
@@ -75,7 +75,7 @@ def join_game(data):
     If no room name is provided, it looks for an unoccupied room and joins the user to it.
     If no unoccupied room is found, it creates a new one and joins the user to it.
     If the room is full, it sets the room as occupied.
-    Finally, it emits a 'join' event to the room with the username and room name.
+    Finally, it emits a "join" event to the room with the username and room name.
 
     :param data: A dictionary containing the token and room name (optional) sent by the client.
     :type data: dict
@@ -88,7 +88,7 @@ def join_game(data):
         room_name = data.get("room")
         user = session.query(User).filter_by(token=token).first()
         if not user:
-            emit('error', {'message': "The user could not be found"})
+            emit("error", {"message": "The user could not be found"})
             # logging.debug(f"User not found with token {token}")
             return
 
@@ -128,16 +128,16 @@ def join_game(data):
         
         # update players to the users in the room
         room.players.append(user.username)
-        session.query(Room).filter_by(name=room.name).update({'players': room.players})
+        session.query(Room).filter_by(name=room.name).update({"players": room.players})
         session.commit()
         join_room(room.name)
         players = {}
         for name in room.players:
             players[name] = session.query(User).filter_by(username=name).first().image_path
-        emit('join_game_response', {'username': user.username, 'room': room.name, 
-                                    'players': players, 'health': health[room_name][user.username]},
+        emit("join_game_response", {"username": user.username, "room": room.name, 
+                                    "players": players, "health": health[room_name][user.username]},
             room=room.name)
-        emit('update_players',  {'players': players}, room=room.name)
+        emit("update_players",  {"players": players}, room=room.name)
         # logging.debug(f"User {user.username} joined room {room.name}")
         stop[room.name] = False
 
@@ -160,13 +160,13 @@ def join_game(data):
         if session:
             session.rollback()
         logging.error(f"Error while joining game: {e}")
-        emit('error', {'message': "No se pudo unir al juego"})
+        emit("error", {"message": "No se pudo unir al juego"})
     finally:
         session.close()
     
 
 
-@socketio.on('join')
+@socketio.on("join")
 def on_join(data):
     """
     Adds a user to a room and emits a status message to the room.
@@ -177,16 +177,16 @@ def on_join(data):
     Returns:
         None
     """
-    username = data['username']
-    room = data['room']
+    username = data["username"]
+    room = data["room"]
     join_room(room)
-    emit('status', {'msg': f'{username} has entered the room.'}, room=room)
-    # logging.debug(f'{username} has entered the room {room}')
+    emit("status", {"msg": f"{username} has entered the room."}, room=room)
+    # logging.debug(f"{username} has entered the room {room}")
     
-@socketio.on('leave')
+@socketio.on("leave")
 def on_leave(data):
     """
-    Function that handles the 'leave' event emitted by the client.
+    Function that handles the "leave" event emitted by the client.
 
     Parameters:
     data (dict): A dictionary containing the username and room of the user leaving.
@@ -194,13 +194,13 @@ def on_leave(data):
     Returns:
     None
     """
-    username = data['username']
-    room = data['room']
+    username = data["username"]
+    room = data["room"]
     leave_room(room)
-    emit('status', {'msg': f'{username} has left the room.'}, room=room)
-    # logging.debug(f'{username} has left the room {room}')
+    emit("status", {"msg": f"{username} has left the room."}, room=room)
+    # logging.debug(f"{username} has left the room {room}")
     
-@socketio.on('message')
+@socketio.on("message")
 def handle_message(data):
     """
     Handle incoming message from client and emit it to the same room.
@@ -211,20 +211,20 @@ def handle_message(data):
     Returns:
         None
     """
-    emit('message', data, room=data['room'])
+    emit("message", data, room=data["room"])
     
 
 
 # This function handles the event of a user joining a game room.
-@socketio.on('leave_game')
+@socketio.on("leave_game")
 def leave_game(data):
     """
     This function handles the event of a user leaving a game room.
-    It receives a dictionary with the user's token and the room's name.
+    It receives a dictionary with the user"s token and the room"s name.
     It updates the number of players in the room and sets the room as unoccupied if there are less than 10 players.
-    It emits a 'leave' event to the room with the username and room name of the user who left.
+    It emits a "leave" event to the room with the username and room name of the user who left.
 
-    :param data: A dictionary containing the user's token and the room's name.
+    :param data: A dictionary containing the user"s token and the room"s name.
     :type data: dict
     :return: None
     """
@@ -234,12 +234,12 @@ def leave_game(data):
         room_name = data["room"]
         user = session.query(User).filter_by(token=token).first()
         if not user:
-            emit('error', {'message': "The user could not be found"})
+            emit("error", {"message": "The user could not be found"})
             # logging.debug(f"User not found with token {token}")
             return
         room = session.query(Room).filter_by(name=room_name).first()
         if not room:
-            emit('error', {'message': "The room could not be found"})
+            emit("error", {"message": "The room could not be found"})
             # logging.debug(f"Room not found with name {room_name}")
             return
         room.number_players -= 1
@@ -253,17 +253,17 @@ def leave_game(data):
         
         session.commit()
         leave_room(room.name)
-        emit('leave', {'username': user.username, 'room': room.name}, room=room.name)
+        emit("leave", {"username": user.username, "room": room.name}, room=room.name)
         players = {}
         for name in room.players:
             if name != user.username:
                 players[name] = session.query(User).filter_by(username=name).first().image_path
-        emit('update_players',  {'players': players}, room=room.name)
+        emit("update_players",  {"players": players}, room=room.name)
     except Exception as e:
         if session:
             session.rollback()
         logging.error(f"Error while leaving game: {e}")
-        emit('error', {'message': "No se pudo salir del juego"})
+        emit("error", {"message": "No se pudo salir del juego"})
     finally:
         session.close()
     
@@ -277,15 +277,15 @@ def countdown_timer(room_name, duration, round=1, bonus=False):
     
     for remaining_time in range(duration, 0, -1):
         if not stop.get(room_name):
-            emit('timer', {'time': remaining_time}, room=room_name)
+            emit("timer", {"time": remaining_time}, room=room_name)
             time.sleep(1)
     # Handle what happens when the timer ends
-    emit('timer_end', room=room_name)
+    emit("timer_end", room=room_name)
     if not stop.get(room_name) and round < 5:
         if bonus:
             send_bonus(room_name, round)
         else:          
-            start_game({'room': room_name, "round": round+1})
+            start_game({"room": room_name, "round": round+1})
         
     
 def start_game(data):
@@ -293,7 +293,7 @@ def start_game(data):
     this fucntion will receive the votes of the them from all the users and will save them in a dictionary
     if the user is not found it will emit an error message
     if the room is not found it will emit an error message
-    :param data: A dictionary containing the user's token and the room's name.
+    :param data: A dictionary containing the user"s token and the room"s name.
     :type data: dict
     :return: None
     """
@@ -305,7 +305,7 @@ def start_game(data):
             theme = get_random_theme()
             room = session.query(Room).filter_by(name=room_name).first()
             if not room:
-                emit('error', {'message': "The room could not be found"})
+                emit("error", {"message": "The room could not be found"})
                 # logging.debug(f"Room not found with name {room_name}")
                 return
             #avoid others players to join in the middle of the game
@@ -313,22 +313,22 @@ def start_game(data):
             #get 5 questions
             questions = generate_questions(theme=theme, number=5)
             session.commit()
-            emit('first_round', {'questions': questions, 'theme': theme}, room=room.name)
+            emit("first_round", {"questions": questions, "theme": theme}, room=room.name)
             countdown_timer(room.name, 30, round=data.get("round", 1), bonus=True) 
     except Exception as e:
         if session:
             session.rollback()
         logging.error(f"Error while starting game: {e}")
-        emit('error', {'message': "No se pudo iniciar el juego"})
+        emit("error", {"message": "No se pudo iniciar el juego"})
     finally:
         session.close()
               
 
-@socketio.on('save_score')
+@socketio.on("save_score")
 def save_results(data):
     """
     this function will save the results of the first round
-    :param data: A dictionary containing the user's token and the room's name.
+    :param data: A dictionary containing the user"s token and the room"s name.
     :type data: dict
     :return: None
     """
@@ -375,14 +375,14 @@ def save_results(data):
                 logging.error(f"Username key {user.username} not found in health for room {room_name}")
         else:
             logging.error(f"Room key {room_name} not found in health")
-        emit('players_health', {'health': health[room.name]}, room=room.name)
+        emit("players_health", {"health": health[room.name]}, room=room.name)
         session.commit()
         logging.debug(f"Results saved in {room.name} for the user {user.username} with health {health}")
     except Exception as e:
         if session:
             session.rollback()
         logging.error(f"Error while saving sores and health {e}")
-        emit('error', {'message': "No se pueden guardar los resultados"})
+        emit("error", {"message": "No se pueden guardar los resultados"})
     finally:
         if session:
             session.close()
@@ -414,10 +414,10 @@ def send_bonus(room_name, round):
         bonus_list.append(bon)
         
         
-    emit('bonus', {'bonus': bonus_list}, room=room_name)
+    emit("bonus", {"bonus": bonus_list}, room=room_name)
     countdown_timer(room_name, 20, round, False) 
 
-@socketio.on('bonus_answer')  
+@socketio.on("bonus_answer")  
 def receive_bonus(data):
     session = init_db()
     try:
@@ -501,12 +501,12 @@ def receive_bonus(data):
             restored[user.username] = True
             return
         modify_health(room_health_data, room_name)
-        emit('players_health', {'health': health[room_name]}, room=room_name)
+        emit("players_health", {"health": health[room_name]}, room=room_name)
     except Exception as e:
         if session:
             session.rollback()
         logging.error(f"Error while receiving bonus: {e}")
-        emit('error', {'message': "No se pudo recibir el bonus"})
+        emit("error", {"message": "No se pudo recibir el bonus"})
     finally:
         if session:
             session.close()
@@ -515,26 +515,26 @@ def obtain_user_session(token, room_name, session):
     # Search for the user and the room
     user = session.query(User).filter_by(token=token).first()
     if not user:
-        emit('error', {'message': "No se pudo encontrar al usuario"})
+        emit("error", {"message": "No se pudo encontrar al usuario"})
         logging.debug(f"Usuario no encontrado con token {token}")
         return
 
     room = session.query(Room).filter_by(name=room_name).first()
     if not room:
-        emit('error', {'message': "No se pudo encontrar la sala"})
+        emit("error", {"message": "No se pudo encontrar la sala"})
         logging.debug(f"Sala no encontrada con nombre {room_name}")
         return
     return user, room
 
     
 QUESTION_MAP = {
-    'history': ['history_accerted', 'history_wrong'],
-    'geography': ['geography_accerted', 'geography_wrong'],
-    'sports': ['sports_accerted', 'sports_wrong'],
-    'entertainment': ['entertainment_accerted', 'entertainment_wrong'],
-    'literature': ['literature_accerted', 'literature_wrong'],
-    'science': ['science_accerted', 'science_wrong'],
-    'pop_culture': ['pop_culture_accerted', 'pop_culture_wrong']
+    "history": ["history_accerted", "history_wrong"],
+    "geography": ["geography_accerted", "geography_wrong"],
+    "sports": ["sports_accerted", "sports_wrong"],
+    "entertainment": ["entertainment_accerted", "entertainment_wrong"],
+    "literature": ["literature_accerted", "literature_wrong"],
+    "science": ["science_accerted", "science_wrong"],
+    "pop_culture": ["pop_culture_accerted", "pop_culture_wrong"]
 }
 
 BONUS_MAP = {

@@ -5,21 +5,21 @@ from dataBase import Tinkers, session
 import datetime as datetime
 import logging
 
-logging.basicConfig(filename='./my_app.log', filemode='w', format='%(name)s - %(levelname)s - %(message)s', level=logging.DEBUG)
+logging.basicConfig(filename="./my_app.log", filemode="w", format="%(name)s - %(levelname)s - %(message)s", level=logging.DEBUG)
 
 # in the future, implement a weekly function that clean questions value... 
 questions = []
 
-themes = ['history', 'geography', 'sports', 'entertainment', 'literature', 'science', 'pop_culture']
+themes = ["history", "geography", "sports", "entertainment", "literature", "science", "pop_culture"]
 
 # Obtén la ruta absoluta del directorio del script actual
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
 # Construye la ruta del archivo de una manera independiente de la plataforma
-file_path = os.path.join(dir_path, 'data', 'questions.json')
+file_path = os.path.join(dir_path, "data", "questions.json")
 # Open the JSON file with explicit encoding and load the questions
 # Explicitly specifying the encoding ensures compatibility across different platforms
-with open(file_path, 'r', encoding='utf-8') as f:
+with open(file_path, "r", encoding="utf-8") as f:
     questions = json.load(f)
 
 def get_random_theme():

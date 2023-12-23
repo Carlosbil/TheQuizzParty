@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
-import './signUp.css';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { SIGNUP_URL } from '../../enpoints';
+import React, { useState } from "react";
+import "./signUp.css";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { SIGNUP_URL } from "../../enpoints";
 
 function SignUp() {
     const [formData, setFormData] = useState({
-        name: '',
-        username: '',
-        email: '',
-        password: '',
-        image_path: ''
+        name: "",
+        username: "",
+        email: "",
+        password: "",
+        image_path: ""
     });
 
     const navigate = useNavigate()
@@ -42,18 +42,18 @@ function SignUp() {
                 navigate("/");
             })
             .catch((error) => {
-                console.error('Error al realizar la solicitud:', error);
+                console.error("Error al realizar la solicitud:", error);
                 if (error.response === undefined || error.response.data.error === undefined) {
-                    toast.error('Error al realizar la solicitud:' + error.message);
+                    toast.error("Error al realizar la solicitud:" + error.message);
                 } else {
-                    toast.error('Error al realizar la solicitud:' + error.response.data.error);
+                    toast.error("Error al realizar la solicitud:" + error.response.data.error);
                 }
             });
     };
 
     return (
-        <a className='back'>
-            <b className='page'>
+        <a className="back">
+            <b className="page">
                 <div className="container">
                     <h2>Por favor introduce tus datos</h2>
                     <form onSubmit={handleSubmit}>
@@ -94,7 +94,7 @@ function SignUp() {
                             Register
                         </button>
                     </form>
-                    <button className="linked" onClick={() => navigate('/logIn')}>¿Tiene una cuenta? Inicie Sesión!</button>
+                    <button className="linked" onClick={() => navigate("/logIn")}>¿Tiene una cuenta? Inicie Sesión!</button>
                     <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
                 </div>
             </b>

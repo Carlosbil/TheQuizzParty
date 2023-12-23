@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 export function getCookieValue(name) {
   let value = "; " + document.cookie;
@@ -11,7 +11,7 @@ export function getCookieValue(name) {
 
 
 const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState: {
     token: null,
     isAuthenticated: false,

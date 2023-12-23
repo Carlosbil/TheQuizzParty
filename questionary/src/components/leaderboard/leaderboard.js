@@ -1,7 +1,7 @@
 // Leaderboard.js
 
-import React from 'react';
-import './leaderboard.css';
+import React from "react";
+import "./leaderboard.css";
 
 const Leaderboard = ({ players }) => {
   return (

@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import ClockTimer from '../timer/timer';
-import './tinkers.css'
-import Leaderboard from '../leaderboard/leaderboard';
-import { GET_TINKERS_SCORE_URL, TINKERS_SCORE_URL } from '../../enpoints';
-import { getCookieValue } from '../../authSlide';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import axios from 'axios';
-import { playSoundByName } from '../../sounds';
+import React, { useEffect, useState } from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import ClockTimer from "../timer/timer";
+import "./tinkers.css"
+import Leaderboard from "../leaderboard/leaderboard";
+import { GET_TINKERS_SCORE_URL, TINKERS_SCORE_URL } from "../../enpoints";
+import { getCookieValue } from "../../authSlide";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
+import { playSoundByName } from "../../sounds";
 
 function TinkersDisplayer({ questions_prop }) {
 
@@ -69,11 +69,11 @@ function TinkersDisplayer({ questions_prop }) {
             });
         })
         .catch((error) => {
-          console.error('Error al finalizar el juego:', error);
+          console.error("Error al finalizar el juego:", error);
           if (error.response === undefined || error.response.data.error === undefined) {
-            toast.error('Error al finalizar el juego:' + error.message);
+            toast.error("Error al finalizar el juego:" + error.message);
           } else {
-            toast.error('Error al finalizar el juego:' + error.response.data.error);
+            toast.error("Error al finalizar el juego:" + error.response.data.error);
           }
         });
       setEnd(true)
@@ -124,18 +124,18 @@ function TinkersDisplayer({ questions_prop }) {
             {Array.isArray(options) ? options.map((option, index) => (
               <button
                 key={index}
-                className={`option ${selectedOption === option ? (option === answer ? 'button-correct' : 'button-incorrect') : ''}`}
+                className={`option ${selectedOption === option ? (option === answer ? "button-correct" : "button-incorrect") : ""}`}
                 onClick={() => handleButtonClick(option)}
               >
                 {option}
               </button>
             )) : null}
-            {next && <button className='nextQuestion' onClick={() => setPosition(prevPosition => prevPosition + 1)}> Siguiente pregunta</button>}
+            {next && <button className="nextQuestion" onClick={() => setPosition(prevPosition => prevPosition + 1)}> Siguiente pregunta</button>}
           </div>
         </div>}
       {end && <Leaderboard players={leaderboard} />}
-      {end && <button className='button' onClick={() => window.location.href = "/"}>Volver al inicio</button>}
-      {end && <button className='linked' onClick={() => window.location.href = "/questionary"}>Me ayudarías respondiendo a unas preguntas? Le llevará 1 minuto</button>}
+      {end && <button className="button" onClick={() => window.location.href = "/"}>Volver al inicio</button>}
+      {end && <button className="linked" onClick={() => window.location.href = "/questionary"}>Me ayudarías respondiendo a unas preguntas? Le llevará 1 minuto</button>}
 
 
       <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />

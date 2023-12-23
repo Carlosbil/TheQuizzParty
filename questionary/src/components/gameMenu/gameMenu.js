@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import './gameMenu.css';
-import QuestionDisplayer from '../questionDisplayer/questionDisplayer';
-import Tinkers from '../tinkers/tinkers';
-import { stopSoundByName } from '../../sounds';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import "./gameMenu.css";
+import QuestionDisplayer from "../questionDisplayer/questionDisplayer";
+import Tinkers from "../tinkers/tinkers";
+import { stopSoundByName } from "../../sounds";
+import { useNavigate } from "react-router-dom";
 
 function FunButtons() {
   const [showQuestionDisplayer, setShowQuestionDisplayer] = useState(false);
@@ -13,7 +13,13 @@ function FunButtons() {
   const handleButtonClick_menu = (category) => {
     stopSoundByName("background")
     setShowQuestionDisplayer(true);
-    localStorage.setItem('category', category);
+  };
+
+  const handleButtonClick_questionsGame = () => {
+    stopSoundByName("background")
+    navigate("/questions")
+    localStorage.setItem("category", "History");
+
   };
 
   const handleButtonClick_tinkers = () => {
@@ -22,10 +28,10 @@ function FunButtons() {
   };
   const handleButtonClick_battleRoyale = () => {
     stopSoundByName("background")
-    navigate('/battleRoyale')
+    navigate("/battleRoyale")
   };
   return (
-    <div className='Page'>
+    <div className="Page">
       {!showQuestionDisplayer && !showTinkers && (
         <div className="container">
           <button className="fun_royale" key="battle_royale_button" onClick={() => handleButtonClick_battleRoyale()}>
@@ -34,6 +40,9 @@ function FunButtons() {
           <button className="fun_royale" key="thinkers_button" onClick={() => handleButtonClick_tinkers()}>
             {/*cambiar el nombre de tinkers*/}
             ⚠️ Tinkers ⚠️
+          </button>
+          <button className="fun_royale" key="questionsGame_button" onClick={() => handleButtonClick_questionsGame()}>
+            🎮 Questions Game 🎮
           </button>
         </div>
       )}

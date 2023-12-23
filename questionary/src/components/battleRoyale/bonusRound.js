@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import 'react-toastify/dist/ReactToastify.css';
-import 'react-toastify/dist/ReactToastify.css';
-import { playSoundByName } from '../../sounds';
-import RoyaleTimer from '../timer/royaleTimer';
+import React, { useEffect, useState } from "react";
+import "react-toastify/dist/ReactToastify.css";
+import "react-toastify/dist/ReactToastify.css";
+import { playSoundByName } from "../../sounds";
+import RoyaleTimer from "../timer/royaleTimer";
 
 /**
  * Displays the bonus round component.
@@ -44,7 +44,7 @@ function BonusDisplayer(props) {
                 <div className="royale-options">
                     {Array.isArray(options) ? options.map((option, index) => (
                         <button 
-                        className={`option ${selectedOption === option ? 'button-correct' : ''}`}
+                        className={`option ${selectedOption === option ? "button-correct" : ""}`}
                         key={index} 
                          onClick={() => handleButtonClick(option)}>{option}</button>
                     )) : null}

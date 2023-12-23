@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import getAvatar from '../../avatars';
-import RoyaleTimer from '../timer/royaleTimer';
-import { playSoundByName } from '../../sounds';
-import RoyaleDisplayer from './questionRoyale';
-import { socket } from '../../enpoints';
-import { getCookieValue } from '../../authSlide';
-import BonusDisplayer from './bonusRound';
-import { toast } from 'react-toastify';
-import { stopSoundByName } from '../../sounds';
+import React, { useEffect, useState } from "react";
+import getAvatar from "../../avatars";
+import RoyaleTimer from "../timer/royaleTimer";
+import { playSoundByName } from "../../sounds";
+import RoyaleDisplayer from "./questionRoyale";
+import { socket } from "../../enpoints";
+import { getCookieValue } from "../../authSlide";
+import BonusDisplayer from "./bonusRound";
+import { toast } from "react-toastify";
+import { stopSoundByName } from "../../sounds";
 /**
  * Represents a RoomBattleRoyale component.
  * 
@@ -51,7 +51,7 @@ function RoomBattleRoyale({ prop_players, prop_room_id, prop_health }) {
         "theme": theme,
         "health": health
       };
-      socket.emit('save_score', data);
+      socket.emit("save_score", data);
     }
   }
 
@@ -61,7 +61,7 @@ function RoomBattleRoyale({ prop_players, prop_room_id, prop_health }) {
       "token": token,
       "room": room_id
     };
-    socket.emit('leave_game', data);
+    socket.emit("leave_game", data);
     window.location.href = "/looserRoyale"
   }
   const leaveGame_winner = () => {
@@ -69,7 +69,7 @@ function RoomBattleRoyale({ prop_players, prop_room_id, prop_health }) {
       "token": token,
       "room": room_id
     };
-    socket.emit('leave_game', data);
+    socket.emit("leave_game", data);
     window.location.href = "/winnerRoyale"
   }
 
@@ -102,7 +102,7 @@ function RoomBattleRoyale({ prop_players, prop_room_id, prop_health }) {
       "room": room_id,
       "bonus": bonus
     };
-    setTimeout(() => {  socket.emit('bonus_answer', data); }, 500);
+    setTimeout(() => {  socket.emit("bonus_answer", data); }, 500);
     handleBonus()
   }
 
@@ -114,12 +114,12 @@ function RoomBattleRoyale({ prop_players, prop_room_id, prop_health }) {
       setTheme(response.theme);
       setStart(true)
     }
-    socket.on('first_round', firstRoundResponse);
-    socket.on('bonus', (bonus) => {
+    socket.on("first_round", firstRoundResponse);
+    socket.on("bonus", (bonus) => {
       setBonusOptions(bonus.bonus)
       handleBonus()
     })
-    socket.on('players_health', (response) => {
+    socket.on("players_health", (response) => {
       //calcular cuantos jugadores quedan
       let players_alive = 0
       for (const [key, value] of Object.entries(response.health)) {
@@ -147,9 +147,9 @@ function RoomBattleRoyale({ prop_players, prop_room_id, prop_health }) {
       }
     })
     return () => {
-      socket.off('first_round', firstRoundResponse);
-      socket.off('bonus');
-      socket.off('players_health');
+      socket.off("first_round", firstRoundResponse);
+      socket.off("bonus");
+      socket.off("players_health");
     };
   }, [prop_players, bonusOptions]);
 
@@ -168,7 +168,7 @@ function RoomBattleRoyale({ prop_players, prop_room_id, prop_health }) {
       {!start && <div className="room_battle_royale">
         {Object.entries(players).map(([name, avatar]) => (
           <div key={name} className="player-card">
-            <img src={getAvatar(avatar)} alt={`${name}'s avatar`} />
+            <img src={getAvatar(avatar)} alt={`${name}"s avatar`} />
             <p>{name}</p>
           </div>
         ))}
@@ -183,11 +183,11 @@ function RoomBattleRoyale({ prop_players, prop_room_id, prop_health }) {
       {start && !isBonus && <RoyaleDisplayer score={setScore} steal_health={steal_health} obtain_health={obtain_health}
         questions_prop={questions} on_leave={leaveGame} onEnd={endRound} />}
       {start && isBonus && <BonusDisplayer options={bonusOptions} on_leave={leaveGame} onEnd={endBonusRound} />}
-      {start && <div className='royale_scoreboard'>
+      {start && <div className="royale_scoreboard">
         <div className="playing_battle_royale">
           {Object.entries(players).map(([name, avatar]) => (
             <div key={name} className="royale-player-card">
-              <img src={getAvatar(avatar)} alt={`${name}'s avatar`} />
+              <img src={getAvatar(avatar)} alt={`${name}"s avatar`} />
               <p>Life: {players_health[name]}</p>
               <p>{name}</p>
             </div>
