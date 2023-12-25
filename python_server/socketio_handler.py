@@ -82,87 +82,87 @@ def join_game(data):
     :return: None
     """
     #quiero ver algo en la consola del servidor
-    session = init_db()
     try:
+        session = init_db()
         token = data["token"]
         room_name = data.get("room")
         user = session.query(User).filter_by(token=token).first()
         if not user:
             emit("error", {"message": "The user could not be found"})
             # logging.debug(f"User not found with token {token}")
-            return
-
-        room = None
-        if not room_name:
-            # If no room name is provided, look for an unoccupied room wich has more players than the others
-            room = session.query(Room).filter_by(is_occupied=False).order_by(Room.number_players.desc()).first()
-            if not room:
-
-                while True:
-                    room_name = secrets.token_hex(4)
-                    if not session.query(Room).filter_by(name=room_name).first():
-                        break
-                    
-                room = Room(name=room_name, is_occupied=False, number_players=0)
-                session.add(room)
-                session.commit()
-            else:
-                room_name = room.name
-        # healths of players
-        # logging.debug(f"Room {room_name} has {room.number_players} players")
-        if room_name not in health:
-            health[room_name] = {}
             
-        room_health_data = copy.deepcopy(health[room_name])
-        room_health_data[user.username] = 50
-        modify_health(room_health_data, room_name)
-        # logging.debug(f"Current health {health}")
+        else:
+            room = None
+            if not room_name:
+                # If no room name is provided, look for an unoccupied room wich has more players than the others
+                room = session.query(Room).filter_by(is_occupied=False).order_by(Room.number_players.desc()).first()
+                if not room:
+                    while True:
+                        room_name = secrets.token_hex(4)
+                        if not session.query(Room).filter_by(name=room_name).first():
+                            break
+                        
+                    room = Room(name=room_name, is_occupied=False, number_players=0)
+                    session.add(room)
+                    session.commit()
+                else:
+                    room_name = room.name
+            # healths of players
+            # logging.debug(f"Room {room_name} has {room.number_players} players")
+            if room_name not in health:
+                health[room_name] = {}
+                
+            room_health_data = copy.deepcopy(health[room_name])
+            room_health_data[user.username] = 50
+            modify_health(room_health_data, room_name)
+            # logging.debug(f"Current health {health}")
 
-        room.number_players += 1
-        
-        # If the room is full, set it as occupied
-        if room.number_players == 10:
-            room.is_occupied = True
-        if room.players is None:
-            room.players = []
-        
-        # update players to the users in the room
-        room.players.append(user.username)
-        session.query(Room).filter_by(name=room.name).update({"players": room.players})
-        session.commit()
-        join_room(room.name)
-        players = {}
-        for name in room.players:
-            players[name] = session.query(User).filter_by(username=name).first().image_path
-        emit("join_game_response", {"username": user.username, "room": room.name, 
-                                    "players": players, "health": health[room_name][user.username]},
-            room=room.name)
-        emit("update_players",  {"players": players}, room=room.name)
-        # logging.debug(f"User {user.username} joined room {room.name}")
-        stop[room.name] = False
+            room.number_players += 1
+            
+            # If the room is full, set it as occupied
+            if room.number_players == 10:
+                room.is_occupied = True
+            if room.players is None:
+                room.players = []
+            
+            # update players to the users in the room
+            room.players.append(user.username)
+            session.query(Room).filter_by(name=room.name).update({"players": room.players})
+            session.commit()
+            join_room(room.name)
+            players = {}
+            for name in room.players:
+                players[name] = session.query(User).filter_by(username=name).first().image_path
+            emit("join_game_response", {"username": user.username, "room": room.name, 
+                                        "players": players, "health": health[room_name][user.username]},
+                room=room.name)
+            emit("update_players",  {"players": players}, room=room.name)
+            # logging.debug(f"User {user.username} joined room {room.name}")
+            stop[room.name] = False
 
-        if room.number_players == 1:
-            # Function that starts the temporizer
-            def start_timer():
-                global stop
-                global bonus
-                global health
-                global restored
-                global health_lock
-                countdown_timer(room.name, 40)  # 4s for testing purposes
+            if room.number_players == 1:
+                # Function that starts the temporizer
+                def start_timer():
+                    global stop
+                    global bonus
+                    global health
+                    global restored
+                    global health_lock
+                    countdown_timer(room.name, 40)  # 4s for testing purposes
 
-            # Start the temporizer in a new thread
-            @copy_current_request_context
-            def start_timer_eventlet():
-                start_timer()
-            eventlet.spawn(start_timer_eventlet)
+                # Start the temporizer in a new thread
+                @copy_current_request_context
+                def start_timer_eventlet():
+                    start_timer()
+                eventlet.spawn(start_timer_eventlet)
     except Exception as e:
         if session:
             session.rollback()
         logging.error(f"Error while joining game: {e}")
         emit("error", {"message": "No se pudo unir al juego"})
     finally:
-        session.close()
+        if session:
+            session.close()
     
 
 
@@ -228,44 +228,45 @@ def leave_game(data):
     :type data: dict
     :return: None
     """
-    session = init_db()
     try:
+        session = init_db()
         token = data["token"]
         room_name = data["room"]
         user = session.query(User).filter_by(token=token).first()
         if not user:
             emit("error", {"message": "The user could not be found"})
             # logging.debug(f"User not found with token {token}")
-            return
-        room = session.query(Room).filter_by(name=room_name).first()
-        if not room:
-            emit("error", {"message": "The room could not be found"})
-            # logging.debug(f"Room not found with name {room_name}")
-            return
-        room.number_players -= 1
-        if room.number_players < 10:
-            if not started.get(room.name):
-                room.is_occupied = False
-        if room.number_players == 0:
-            stop[room_name] = True
-            modify_health({}, room_name, delete=True)
-            # logging.debug(f"Room {room_name} stopped")
-        
-        session.commit()
-        leave_room(room.name)
-        emit("leave", {"username": user.username, "room": room.name}, room=room.name)
-        players = {}
-        for name in room.players:
-            if name != user.username:
-                players[name] = session.query(User).filter_by(username=name).first().image_path
-        emit("update_players",  {"players": players}, room=room.name)
+        else:
+            room = session.query(Room).filter_by(name=room_name).first()
+            if not room:
+                emit("error", {"message": "The room could not be found"})
+                # logging.debug(f"Room not found with name {room_name}")
+            else:
+                room.number_players -= 1
+                if room.number_players < 10:
+                    if not started.get(room.name):
+                        room.is_occupied = False
+                if room.number_players == 0:
+                    stop[room_name] = True
+                    modify_health({}, room_name, delete=True)
+                    # logging.debug(f"Room {room_name} stopped")
+            
+            session.commit()
+            leave_room(room.name)
+            emit("leave", {"username": user.username, "room": room.name}, room=room.name)
+            players = {}
+            for name in room.players:
+                if name != user.username:
+                    players[name] = session.query(User).filter_by(username=name).first().image_path
+            emit("update_players",  {"players": players}, room=room.name)
     except Exception as e:
         if session:
             session.rollback()
         logging.error(f"Error while leaving game: {e}")
         emit("error", {"message": "No se pudo salir del juego"})
     finally:
-        session.close()
+        if session:
+            session.close()
     
 
 def countdown_timer(room_name, duration, round=1, bonus=False):
@@ -297,8 +298,8 @@ def start_game(data):
     :type data: dict
     :return: None
     """
-    session = init_db()
     try:
+        session = init_db()
         if not stop.get(data["room"]):
             started[data["room"]] = True
             room_name = data["room"]
@@ -307,7 +308,7 @@ def start_game(data):
             if not room:
                 emit("error", {"message": "The room could not be found"})
                 # logging.debug(f"Room not found with name {room_name}")
-                return
+            else:
             #avoid others players to join in the middle of the game
             room.is_occupied = True
             #get 5 questions
@@ -321,7 +322,8 @@ def start_game(data):
         logging.error(f"Error while starting game: {e}")
         emit("error", {"message": "No se pudo iniciar el juego"})
     finally:
-        session.close()
+        if session:
+            session.close()
               
 
 @socketio.on("save_score")
@@ -332,8 +334,8 @@ def save_results(data):
     :type data: dict
     :return: None
     """
-    session = init_db()
     try:
+        session = init_db()
         token = data["token"]
         room_name = data["room"]
         results = data.get("score", 0)
@@ -346,38 +348,40 @@ def save_results(data):
 
         user, room = obtain_user_session(token, room_name, session)
         if not user or not room:
-            return
-        if user.username in restored:
-            health_user += accerted*5
-            restored.pop(user.username)
+            logging.error(f"Error while saving sores and health: user or room no found")
+            emit("error", {"message": "No se pueden guardar los resultados"})
         else:
-            health_user += accerted*2
-        # Update the results
-        results_entry = session.query(Results).filter_by(username=user.username).first()
-        if results_entry:
-            session.query(Results).filter_by(username=user.username).update({
-                QUESTION_MAP[theme][0]: results_entry.__dict__[QUESTION_MAP[theme][0]] + accerted,
-                QUESTION_MAP[theme][1]: results_entry.__dict__[QUESTION_MAP[theme][1]] + wrong
-            })
-        else:
-            new_results = Results(username=user.username, **{
-                QUESTION_MAP[theme][0]: accerted,
-                QUESTION_MAP[theme][1]: wrong
-            })
-            session.add(new_results)
-        # Update the health
-        if room_name in health:
-            if user.username in health[room_name]:
-                room_health_data = health[room_name]
-                room_health_data[user.username] = health_user
-                modify_health(room_health_data, room_name)
+            if user.username in restored:
+                health_user += accerted*5
+                restored.pop(user.username)
             else:
-                logging.error(f"Username key {user.username} not found in health for room {room_name}")
-        else:
-            logging.error(f"Room key {room_name} not found in health")
-        emit("players_health", {"health": health[room.name]}, room=room.name)
-        session.commit()
-        logging.debug(f"Results saved in {room.name} for the user {user.username} with health {health}")
+                health_user += accerted*2
+            # Update the results
+            results_entry = session.query(Results).filter_by(username=user.username).first()
+            if results_entry:
+                session.query(Results).filter_by(username=user.username).update({
+                    QUESTION_MAP[theme][0]: results_entry.__dict__[QUESTION_MAP[theme][0]] + accerted,
+                    QUESTION_MAP[theme][1]: results_entry.__dict__[QUESTION_MAP[theme][1]] + wrong
+                })
+            else:
+                new_results = Results(username=user.username, **{
+                    QUESTION_MAP[theme][0]: accerted,
+                    QUESTION_MAP[theme][1]: wrong
+                })
+                session.add(new_results)
+            # Update the health
+            if room_name in health:
+                if user.username in health[room_name]:
+                    room_health_data = health[room_name]
+                    room_health_data[user.username] = health_user
+                    modify_health(room_health_data, room_name)
+                else:
+                    logging.error(f"Username key {user.username} not found in health for room {room_name}")
+            else:
+                logging.error(f"Room key {room_name} not found in health")
+            emit("players_health", {"health": health[room.name]}, room=room.name)
+            session.commit()
+            logging.debug(f"Results saved in {room.name} for the user {user.username} with health {health}")
     except Exception as e:
         if session:
             session.rollback()
@@ -419,89 +423,90 @@ def send_bonus(room_name, round):
 
 @socketio.on("bonus_answer")  
 def receive_bonus(data):
-    session = init_db()
     try:
+        session = init_db()
         token = data.get("token", None)
         room_name = data.get("room", None)
         bonus = data.get("bonus", None)
         logging.debug(f"Bonus received {bonus}")
         user, room = obtain_user_session(token, room_name, session)
-        if not user or not room:
-            return
-        
-        selected_bonus = BONUS_MAP[bonus]
-        logging.debug(f"Selected bonus {selected_bonus}")
-        room_health_data = copy.deepcopy(health[room_name])
-        
-        if selected_bonus == "health":
-            room_health_data[user.username] += 10
-        elif selected_bonus == "health_lvl2":
-            room_health_data[user.username] += 9
-        elif selected_bonus == "health_lvl3":
-            room_health_data[user.username] += 6
-        elif selected_bonus == "thief":
-            room_health_data[user.username] += len(room_health_data)-1*3
-            if len(room_health_data) > 1:
-                for player in room_health_data:
-                    if player != user.username:
-                        room_health_data[player] -= 3
-        elif selected_bonus == "thief_lvl2":
-            room_health_data[user.username] += len(room_health_data)-1*2
-            if len(room_health_data) > 1:
-                for player in room_health_data:
-                    if player != user.username:
-                        room_health_data[player] -= 2
-        elif selected_bonus == "thief_lvl3":
-            room_health_data[user.username] += len(room_health_data)-1*1
-            if len(room_health_data) > 1:
-                for player in room_health_data:
-                    if player != user.username:
-                        room_health_data[player] -= 1
-                        
-        elif selected_bonus == "mafia":
-            room_health_data[user.username] += 8
-            #select a random player
-            player = random.choice(list(room_health_data.keys()))
-            if player != user.username:
-                    room_health_data[player] -= 8
-        elif selected_bonus == "mafia_lvl2":
-            room_health_data[user.username] += 10
-            #select a random player
-            player = random.choice(list(room_health_data.keys()))
-            if player != user.username:
-                    room_health_data[player] -= 10
-        elif selected_bonus == "mafia_lvl3":
-            room_health_data[user.username] += 9
-            #select a random player
-            player = random.choice(list(room_health_data.keys()))
-            if player != user.username:
-                    room_health_data[player] -= 9
-                    
-        elif selected_bonus == "doble":
-            if room_health_data[user.username] < 10:
-                room_health_data[user.username] *=2
-            else:
-                room_health_data[user.username] += 20
-        elif selected_bonus == "doble_lvl2":
-            if room_health_data[user.username] < 5:
-                room_health_data[user.username] *=2
-            else:
+        if user and room:
+            logging.error(f"Error while receiving bonus: user or room no found")
+            emit("error", {"message": "No se pudo recibir el bonus, usuario o sala no encontrados   "})
+        else:
+            selected_bonus = BONUS_MAP[bonus]
+            logging.debug(f"Selected bonus {selected_bonus}")
+            room_health_data = copy.deepcopy(health[room_name])
+            
+            if selected_bonus == "health":
+                room_health_data[user.username] += 10
+            elif selected_bonus == "health_lvl2":
                 room_health_data[user.username] += 9
-        elif selected_bonus == "doble_lvl3":
-            if room_health_data[user.username] < 4:
-                room_health_data[user.username] *=2
-            else:
+            elif selected_bonus == "health_lvl3":
+                room_health_data[user.username] += 6
+            elif selected_bonus == "thief":
+                room_health_data[user.username] += len(room_health_data)-1*3
+                if len(room_health_data) > 1:
+                    for player in room_health_data:
+                        if player != user.username:
+                            room_health_data[player] -= 3
+            elif selected_bonus == "thief_lvl2":
+                room_health_data[user.username] += len(room_health_data)-1*2
+                if len(room_health_data) > 1:
+                    for player in room_health_data:
+                        if player != user.username:
+                            room_health_data[player] -= 2
+            elif selected_bonus == "thief_lvl3":
+                room_health_data[user.username] += len(room_health_data)-1*1
+                if len(room_health_data) > 1:
+                    for player in room_health_data:
+                        if player != user.username:
+                            room_health_data[player] -= 1
+                            
+            elif selected_bonus == "mafia":
                 room_health_data[user.username] += 8
+                #select a random player
+                player = random.choice(list(room_health_data.keys()))
+                if player != user.username:
+                        room_health_data[player] -= 8
+            elif selected_bonus == "mafia_lvl2":
+                room_health_data[user.username] += 10
+                #select a random player
+                player = random.choice(list(room_health_data.keys()))
+                if player != user.username:
+                        room_health_data[player] -= 10
+            elif selected_bonus == "mafia_lvl3":
+                room_health_data[user.username] += 9
+                #select a random player
+                player = random.choice(list(room_health_data.keys()))
+                if player != user.username:
+                        room_health_data[player] -= 9
+                        
+            elif selected_bonus == "doble":
+                if room_health_data[user.username] < 10:
+                    room_health_data[user.username] *=2
+                else:
+                    room_health_data[user.username] += 20
+            elif selected_bonus == "doble_lvl2":
+                if room_health_data[user.username] < 5:
+                    room_health_data[user.username] *=2
+                else:
+                    room_health_data[user.username] += 9
+            elif selected_bonus == "doble_lvl3":
+                if room_health_data[user.username] < 4:
+                    room_health_data[user.username] *=2
+                else:
+                    room_health_data[user.username] += 8
+                    
+            elif selected_bonus == "restore":
+                restored[user.username] = True
+            elif selected_bonus == "restore_lvl2":
+                restored[user.username] = True
+            elif selected_bonus == "restore_lvl3":
+                restored[user.username] = True
                 
-        elif selected_bonus == "restore":
-            restored[user.username] = True
-        elif selected_bonus == "restore_lvl2":
-            restored[user.username] = True
-        elif selected_bonus == "restore_lvl3":
-            restored[user.username] = True
-            return
-        modify_health(room_health_data, room_name)
-        emit("players_health", {"health": health[room_name]}, room=room_name)
+            modify_health(room_health_data, room_name)
+            emit("players_health", {"health": health[room_name]}, room=room_name)
     except Exception as e:
         if session:
             session.rollback()
@@ -513,18 +518,20 @@ def receive_bonus(data):
             
 def obtain_user_session(token, room_name, session):
     # Search for the user and the room
-    user = session.query(User).filter_by(token=token).first()
-    if not user:
-        emit("error", {"message": "No se pudo encontrar al usuario"})
-        logging.debug(f"Usuario no encontrado con token {token}")
-        return
+    if session:
+        user = session.query(User).filter_by(token=token).first()
+        if not user:
+            emit("error", {"message": "No se pudo encontrar al usuario"})
+            logging.debug(f"Usuario no encontrado con token {token}")
+            return None, None
 
-    room = session.query(Room).filter_by(name=room_name).first()
-    if not room:
-        emit("error", {"message": "No se pudo encontrar la sala"})
-        logging.debug(f"Sala no encontrada con nombre {room_name}")
-        return
-    return user, room
+        room = session.query(Room).filter_by(name=room_name).first()
+        if not room:
+            emit("error", {"message": "No se pudo encontrar la sala"})
+            logging.debug(f"Sala no encontrada con nombre {room_name}")
+            return None, None
+        return user, room
+    return None, None
 
     
 QUESTION_MAP = {
