@@ -85,7 +85,8 @@
         background-color: rgba(250, 246, 246, 0.3); /* Fondo oscuro para un ambiente de juego */
         padding: 20px;
         width: 90%;
-        max-width: 90%;
+        max-width: 80%;
+        margin-left: 3%;
         border-radius: 15px;
         overflow-x: auto;
         overflow: hidden; /* Agrega scroll horizontal automáticamente */

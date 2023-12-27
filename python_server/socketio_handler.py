@@ -309,13 +309,13 @@ def start_game(data):
                 emit("error", {"message": "The room could not be found"})
                 # logging.debug(f"Room not found with name {room_name}")
             else:
-            #avoid others players to join in the middle of the game
-            room.is_occupied = True
-            #get 5 questions
-            questions = generate_questions(theme=theme, number=5)
-            session.commit()
-            emit("first_round", {"questions": questions, "theme": theme}, room=room.name)
-            countdown_timer(room.name, 30, round=data.get("round", 1), bonus=True) 
+                #avoid others players to join in the middle of the game
+                room.is_occupied = True
+                #get 5 questions
+                questions = generate_questions(theme=theme, number=5)
+                session.commit()
+                emit("first_round", {"questions": questions, "theme": theme}, room=room.name)
+                countdown_timer(room.name, 30, round=data.get("round", 1), bonus=True) 
     except Exception as e:
         if session:
             session.rollback()
@@ -430,8 +430,8 @@ def receive_bonus(data):
         bonus = data.get("bonus", None)
         logging.debug(f"Bonus received {bonus}")
         user, room = obtain_user_session(token, room_name, session)
-        if user and room:
-            logging.error(f"Error while receiving bonus: user or room no found")
+        if not user or not room:
+            logging.error(f"Error while receiving bonus: user or room no found User: {user} Room: {room}")
             emit("error", {"message": "No se pudo recibir el bonus, usuario o sala no encontrados   "})
         else:
             selected_bonus = BONUS_MAP[bonus]
@@ -510,7 +510,7 @@ def receive_bonus(data):
     except Exception as e:
         if session:
             session.rollback()
-        logging.error(f"Error while receiving bonus: {e}")
+        logging.error(f"Error while receiving bonus: the error is:{e}")
         emit("error", {"message": "No se pudo recibir el bonus"})
     finally:
         if session:

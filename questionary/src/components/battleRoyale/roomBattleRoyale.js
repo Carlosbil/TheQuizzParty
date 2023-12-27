@@ -102,7 +102,7 @@ function RoomBattleRoyale({ prop_players, prop_room_id, prop_health }) {
       "room": room_id,
       "bonus": bonus
     };
-    setTimeout(() => {  socket.emit("bonus_answer", data); }, 500);
+    setTimeout(() => { socket.emit("bonus_answer", data); }, 500);
     handleBonus()
   }
 
@@ -131,17 +131,17 @@ function RoomBattleRoyale({ prop_players, prop_room_id, prop_health }) {
         leaveGame_winner()
       }
       setPlayers_health(response.health)
-      if(response.health[getCookieValue("username")] <= 0){
+      if (response.health[getCookieValue("username")] <= 0) {
         setHealth(response.health[getCookieValue("username")])
         leaveGame()
-      }else{
-        console.log("username: ",response.health[getCookieValue("username")] , "health: ",health)
-        console.log(isBonus) 
-        if(response.health[getCookieValue("username")] < health && isBonus === true){
+      } else {
+        console.log("username: ", response.health[getCookieValue("username")], "health: ", health)
+        console.log(isBonus)
+        if (response.health[getCookieValue("username")] < health && isBonus === true) {
           toast.error("OH NOOOO, perdiste vida!")
         }
-        if(response.health[getCookieValue("username")] > health && isBonus === true){
-          toast.error("SIIIIi Recuperaste vida!")
+        if (response.health[getCookieValue("username")] > health && isBonus === true) {
+          toast.done("SIIIIi Recuperaste vida!")
         }
         setHealth(response.health[getCookieValue("username")])
       }
