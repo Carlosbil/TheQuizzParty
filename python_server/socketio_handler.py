@@ -533,6 +533,7 @@ def obtain_user_session(token, room_name, session):
         return user, room
     return None, None
 
+
     
 QUESTION_MAP = {
     "history": ["history_accerted", "history_wrong"],

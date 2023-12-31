@@ -19,7 +19,7 @@ function QuestionDisplayer({ question_prop, options_prop, answer_prop }) {
     let data = {
       "token": token,
       "theme": localStorage.getItem("category"),
-      "accerted": option === answer
+      "accerted": option === answer? 1 : 0
     }
     axios
     .post(SAVE_QUESTION_URL, data)

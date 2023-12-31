@@ -1,0 +1,49 @@
+{
+    "zeus":[
+        {
+            "name": "Test",
+            "description": "Test",
+            "image": "/path/Test",
+            "rank": "Test"
+        },
+        {
+            "name": "Maestro del conocimiento",
+            "description": "Realiza 100 preguntas correctamente entre todos los tipos de preguntas",
+            "image": "/path/Test",
+            "rank": "basic"
+        }
+    ],
+    "athena":[
+
+    ],
+    "dionysus":[
+
+    ],
+    "ares":[
+
+    ],
+    "hermes":[
+        {
+            "name": "Test",
+            "description": "Test",
+            "image": "/path/Test",
+            "rank": "Test"
+        },
+        {
+            "name": "Bien hecho",
+            "description": "Acierta una pregunta",
+            "image": "/path/Test",
+            "rank": "basic"
+        },
+        {
+            "name": "Mal hecho",
+            "description": "Acierta una pregunta",
+            "image": "/path/Test",
+            "rank": "basic"
+        }
+
+    ],
+    "god of gods":[
+
+    ]
+}
