@@ -1,5 +1,6 @@
 #imports
 from flask_socketio import emit, join_room, leave_room
+from flask_cors import CORS
 from dataBase import init_db, User, Room, Results
 from app import socketio
 import secrets
@@ -163,6 +164,56 @@ def join_game(data):
     finally:
         if session:
             session.close()
+    
+
+
+@socketio.on("join")
+def on_join(data):
+    """
+    Adds a user to a room and emits a status message to the room.
+
+    Parameters:
+        data (dict): A dictionary containing the username and room.
+
+    Returns:
+        None
+    """
+    username = data["username"]
+    room = data["room"]
+    join_room(room)
+    emit("status", {"msg": f"{username} has entered the room."}, room=room)
+    # logging.debug(f"{username} has entered the room {room}")
+    
+@socketio.on("leave")
+def on_leave(data):
+    """
+    Function that handles the "leave" event emitted by the client.
+
+    Parameters:
+    data (dict): A dictionary containing the username and room of the user leaving.
+
+    Returns:
+    None
+    """
+    username = data["username"]
+    room = data["room"]
+    leave_room(room)
+    emit("status", {"msg": f"{username} has left the room."}, room=room)
+    # logging.debug(f"{username} has left the room {room}")
+    
+@socketio.on("message")
+def handle_message(data):
+    """
+    Handle incoming message from client and emit it to the same room.
+
+    Parameters:
+        data (dict): A dictionary containing the message and the room where it was sent.
+
+    Returns:
+        None
+    """
+    emit("message", data, room=data["room"])
+    
 
 
 # This function handles the event of a user joining a game room.
@@ -297,7 +348,7 @@ def save_results(data):
         wrong = 5 - results
         health_user -= wrong*6
 
-        user, room = obtain_user_session(token, room_name)
+        user, room = obtain_user_session(token, room_name, session)
         if not user or not room:
             logging.error(f"Error while saving sores and health: user or room no found")
             emit("error", {"message": "No se pueden guardar los resultados"})
@@ -359,13 +410,16 @@ def send_bonus(room_name, round):
         selected_bon = bonus_lvl_2
     else:
         selected_bon = bonus_lvl_3
-    for _ in range(3):
-        # Get a random bonus not repeated
+    for i in range(3):
+        #get a random bonus not repeated
+ 
         bon = selected_bon[random.randint(0, len(selected_bon)-1)]
         while bon in bonus_list:
-            bon = selected_bon[random.randint(0, len(selected_bon)-1)]
+            bon = bonus[random.randint(0, len(selected_bon)-1)]
+            
         bonus_list.append(bon)
-
+        
+        
     emit("bonus", {"bonus": bonus_list}, room=room_name)
     countdown_timer(room_name, 20, round, False) 
 
@@ -377,7 +431,7 @@ def receive_bonus(data):
         room_name = data.get("room", None)
         bonus = data.get("bonus", None)
         logging.debug(f"Bonus received {bonus}")
-        user, room = obtain_user_session(token, room_name)
+        user, room = obtain_user_session(token, room_name, session)
         if not user or not room:
             logging.error(f"Error while receiving bonus: user or room no found User: {user} Room: {room}")
             emit("error", {"message": "No se pudo recibir el bonus, usuario o sala no encontrados   "})
@@ -456,6 +510,7 @@ def receive_bonus(data):
             if room_health_data[user.username] > 50:
                 room_health_data[user.username] = 50
                 
+
             modify_health(room_health_data, room_name)
             emit("players_health", {"health": health[room_name]}, room=room_name)
     except Exception as e:
@@ -467,12 +522,13 @@ def receive_bonus(data):
         if session:
             session.close()
             
-def obtain_user_session(token, room_name, session = None):
+def obtain_user_session(token, room_name, session):
     # Search for the user and the room
     if not session:
         logging.warning("No session found, creating new one")
         session = init_db()
     try: 
+
         user = session.query(User).filter_by(token=token).first()
         if not user:
             emit("error", {"message": "No se pudo encontrar al usuario"})
@@ -485,15 +541,7 @@ def obtain_user_session(token, room_name, session = None):
             logging.debug(f"Sala no encontrada con nombre {room_name}")
             return None, None
         return user, room
-    except Exception as e:
-        if session:
-            session.rollback()
-        logging.error(f"Error while obtaining user and room: {e}")
-        emit("error", {"message": "No se pudo obtener el usuario y la sala"})
-        return None, None
-    finally:
-        if session:
-            session.close()
+    return None, None
 
 
     
@@ -525,4 +573,5 @@ BONUS_MAP = {
     bonus_lvl_3[3]: "thief_lvl3",
     bonus_lvl_3[4]: "mafia_lvl3"
     
+
 }
