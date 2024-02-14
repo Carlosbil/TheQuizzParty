@@ -7,13 +7,79 @@
             "rank": "Test"
         },
         {
-            "name": "Maestro del conocimiento",
+            "name": "Rey del conocimiento",
             "description": "Realiza 100 preguntas correctamente entre todos los tipos de preguntas",
-            "image": "/path/Test",
+            "image": "./assets/images/ZeusCober.png",
             "rank": "basic"
+        },
+        {
+            "name": "Maestro del conocimiento",
+            "description": "Realiza 500 preguntas correctamente entre todos los tipos de preguntas",
+            "image": "./assets/images/ZeusSilver.png",
+            "rank": "inter"
+        },
+        {
+            "name": "Sabelotodo",
+            "description": "Realiza 1000 preguntas correctamente entre todos los tipos de preguntas",
+            "image": "./assets/images/ZeusGold.png",
+            "rank": "pro"
         }
     ],
     "athena":[
+        {
+            "name": "Esto va de deportes",
+            "description": "Realiza 10 preguntas correctamente de deportes",
+            "image": "./assets/images/AtheneaBronce.png",
+            "rank": "basic"
+        },
+        {
+            "name": "Rey de los deportes",
+            "description": "Realiza 100 preguntas correctamente de deportes",
+            "image": "./assets/images/AtheneaSilver.png",
+            "rank": "inter"
+        },
+        {
+            "name": "Maestro de los deportes",
+            "description": "Realiza 500 preguntas correctamente de deportes",
+            "image": "./assets/images/AtheneaGold.png",
+            "rank": "pro"
+        },
+        {
+            "name": "Abrimos la historia",
+            "description": "Realiza 10 preguntas correctamente de deportes",
+            "image": "./assets/images/AtheneaBronce.png",
+            "rank": "basic"
+        },
+        {
+            "name": "Estas estudiando la evau?",
+            "description": "Realiza 100 preguntas correctamente de deportes",
+            "image": "./assets/images/AtheneaSilver.png",
+            "rank": "inter"
+        },
+        {
+            "name": "Profesor de Historia",
+            "description": "Realiza 500 preguntas correctamente de deportes",
+            "image": "./assets/images/AtheneaGold.png",
+            "rank": "pro"
+        },
+        {
+            "name": "Mapa de los ríos",
+            "description": "Realiza 10 preguntas correctamente de deportes",
+            "image": "./assets/images/AtheneaBronce.png",
+            "rank": "basic"
+        },
+        {
+            "name": "Mapa de Europa",
+            "description": "Realiza 100 preguntas correctamente de deportes",
+            "image": "./assets/images/AtheneaSilver.png",
+            "rank": "inter"
+        },
+        {
+            "name": "Mapamundi",
+            "description": "Realiza 500 preguntas correctamente de deportes",
+            "image": "./assets/images/AtheneaGold.png",
+            "rank": "pro"
+        }
 
     ],
     "dionysus":[

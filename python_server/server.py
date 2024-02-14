@@ -24,6 +24,8 @@ logging.basicConfig(filename="./my_app.log", filemode="w", format="%(name)s - %(
 # Construct the file path in a platform-independent manner
 dir_path = os.path.dirname(os.path.realpath(__file__))
 file_path = os.path.join(dir_path, "data", "questions.json")
+unlock_path = os.path.join(dir_path, "data", "to_unlock.json")
+
 # Delete all existing rooms
 session.query(Room).delete()
 
@@ -32,6 +34,9 @@ session.query(Room).delete()
 with open(file_path, "r", encoding="utf-8") as f:
     questions = json.load(f)
 
+with open(unlock_path,"r", encoding="utf-8") as f:
+    unlockable = json.load(f)
+    
 themes = ["history", "geography", "sports", "entertainment", "literature", "science", "pop_culture"]
 
 
@@ -414,7 +419,12 @@ def save_answers():
     finally:
         # Close session
         session.close() 
-        
+
+@app.route("/api/getUnlocks", methods=["GET"])
+def get_all_unlocks():
+    return jsonify(unlockable), 200
+
+
 if __name__ == "__main__":
     socketio.run(app, host="0.0.0.0", port=3001, debug=True)
            

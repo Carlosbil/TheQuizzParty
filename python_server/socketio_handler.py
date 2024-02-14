@@ -415,7 +415,7 @@ def send_bonus(room_name, round):
  
         bon = selected_bon[random.randint(0, len(selected_bon)-1)]
         while bon in bonus_list:
-            bon = bonus[random.randint(0, len(selected_bon)-1)]
+            bon = selected_bon[random.randint(0, len(selected_bon)-1)]
             
         bonus_list.append(bon)
         
@@ -528,7 +528,6 @@ def obtain_user_session(token, room_name, session):
         logging.warning("No session found, creating new one")
         session = init_db()
     try: 
-
         user = session.query(User).filter_by(token=token).first()
         if not user:
             emit("error", {"message": "No se pudo encontrar al usuario"})
@@ -541,7 +540,15 @@ def obtain_user_session(token, room_name, session):
             logging.debug(f"Sala no encontrada con nombre {room_name}")
             return None, None
         return user, room
-    return None, None
+    except Exception as e:
+        if session:
+            session.rollback()
+        logging.error(f"Error while receiving bonus: the error is:{e}")
+        emit("error", {"message": "No se pudo recibir el bonus"})
+        return None, None
+    finally:
+        if session:
+            session.close()
 
 
     
