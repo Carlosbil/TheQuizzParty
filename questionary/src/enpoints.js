@@ -1,7 +1,7 @@
 
 import io from "socket.io-client";
 
-const BASE_URL = "http://192.168.1.61:3001";
+const BASE_URL = "http://192.168.1.62:3001";
 
 
 export const socket = io(`${BASE_URL}`);

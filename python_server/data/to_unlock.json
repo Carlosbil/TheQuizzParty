@@ -1,5 +1,5 @@
 {
-    "zeus":[
+    "zeus": [
         {
             "name": "Test",
             "description": "Test",
@@ -25,7 +25,7 @@
             "rank": "pro"
         }
     ],
-    "athena":[
+    "athena": [
         {
             "name": "Esto va de deportes",
             "description": "Realiza 10 preguntas correctamente de deportes",
@@ -46,70 +46,101 @@
         },
         {
             "name": "Abrimos la historia",
-            "description": "Realiza 10 preguntas correctamente de deportes",
+            "description": "Realiza 10 preguntas correctamente de historia",
             "image": "./assets/images/AtheneaBronce.png",
             "rank": "basic"
         },
         {
             "name": "Estas estudiando la evau?",
-            "description": "Realiza 100 preguntas correctamente de deportes",
+            "description": "Realiza 100 preguntas correctamente de historia",
             "image": "./assets/images/AtheneaSilver.png",
             "rank": "inter"
         },
         {
             "name": "Profesor de Historia",
-            "description": "Realiza 500 preguntas correctamente de deportes",
+            "description": "Realiza 500 preguntas correctamente de historia",
             "image": "./assets/images/AtheneaGold.png",
             "rank": "pro"
         },
         {
             "name": "Mapa de los ríos",
-            "description": "Realiza 10 preguntas correctamente de deportes",
+            "description": "Realiza 10 preguntas correctamente de geografía",
             "image": "./assets/images/AtheneaBronce.png",
             "rank": "basic"
         },
         {
             "name": "Mapa de Europa",
-            "description": "Realiza 100 preguntas correctamente de deportes",
+            "description": "Realiza 100 preguntas correctamente de geografía",
             "image": "./assets/images/AtheneaSilver.png",
             "rank": "inter"
         },
         {
             "name": "Mapamundi",
-            "description": "Realiza 500 preguntas correctamente de deportes",
+            "description": "Realiza 500 preguntas correctamente de geografía",
             "image": "./assets/images/AtheneaGold.png",
             "rank": "pro"
         }
-
     ],
-    "dionysus":[
-
-    ],
-    "ares":[
-
-    ],
-    "hermes":[
+    "dionysus": [
         {
-            "name": "Test",
-            "description": "Test",
-            "image": "/path/Test",
-            "rank": "Test"
-        },
+            "name": "Esta noche se sale",
+            "description": "Gana un thinkers de evento especial",
+            "image": "./assets/images/AtheneaGold.png",
+            "rank": "basic"
+        }
+    ],
+    "ares": [
+        {
+            "name": "Dioses a mi",
+            "description": "Gana a tu archienemigo",
+            "image": "./assets/images/AtheneaGold.png",
+            "rank": "basic"
+        }
+    ],
+    "hermes": [
         {
             "name": "Bien hecho",
             "description": "Acierta una pregunta",
-            "image": "/path/Test",
+            "image": "./assets/images/AtheneaGold.png",
             "rank": "basic"
         },
         {
             "name": "Mal hecho",
-            "description": "Acierta una pregunta",
-            "image": "/path/Test",
+            "description": "Falla una pregunta",
+            "image": "./assets/images/AtheneaGold.png",
+            "rank": "basic"
+        },
+        {
+            "name": "¿Qué he hecho qué?",
+            "description": "Gana una vez el thinkers",
+            "image": "./assets/images/AtheneaGold.png",
+            "rank": "basic"
+        },
+        {
+            "name": "¿Pero quién ha sido?",
+            "description": "Gana una vez el thinkers",
+            "image": "./assets/images/AtheneaGold.png",
             "rank": "basic"
         }
-
     ],
-    "god of gods":[
-
+    "god of gods": [
+        {
+            "name": "Subdito del Thinkers",
+            "description": "Gana 3 veces en el modo de juego thinker",
+            "image": "./assets/images/AtheneaGold.png",
+            "rank": "basic"
+        },
+        {
+            "name": "Profeta del Thinkers",
+            "description": "Gana 10 veces en el modo de juego thinker",
+            "image": "./assets/images/AtheneaBronze.png",
+            "rank": "inter"
+        },
+        {
+            "name": "Dios del Thinkers",
+            "description": "Gana 100 veces en el modo de juego thinker",
+            "image": "./assets/images/AtheneaBronze.png",
+            "rank": "inter"
+        }
     ]
 }
