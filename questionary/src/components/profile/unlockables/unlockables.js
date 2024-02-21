@@ -30,9 +30,9 @@ function Unlockables() {
           <h2>{categoryName}</h2>
           {subcategories.length > 0 && (
             <div>
-              <h3>{subcategories[0].name}</h3>
-              <p>{subcategories[0].description}</p>
-              <img src={subcategories[0].image} alt={subcategories[0].name} />
+              <h3>{subcategories.name}</h3>
+              <p>{subcategories.description}</p>
+              <img src={subcategories.image} alt={subcategories.name} />
             </div>
           )}
         </div>

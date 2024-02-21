@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+  python_server:
+    build:
+      context: ./python_server
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    environment:
+      - DATABASE_URL=postgresql://root_bdp:valorant23*@postgres_db/bdp_proyect
+    depends_on:
+      - postgres_db
+
+  questionary:
+    build:
+      context: ./questionary
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+
+  postgres_db:
+    image: postgres
+    environment:
+      POSTGRES_DB: bdp_proyect
+      POSTGRES_USER: root_bdp
+      POSTGRES_PASSWORD: valorant23*
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  postgres_data:

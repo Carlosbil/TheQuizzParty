@@ -1,20 +1,22 @@
-# Establecer la imagen base
+FROM ubuntu:latest
+
+# Install vim
+RUN apt-get update && apt-get install -y vim
+
 FROM node:18.15.0
 
-# Establecer el directorio de trabajo
 WORKDIR /app
 
-# Copiar el archivo package.json y package-lock.json
+# Copy dependencies
 COPY package*.json ./
 
-# Instalar las dependencias de npm
+# Install them
 RUN npm install
 
-# Copiar el resto de los archivos del proyecto
+# Copy code
 COPY . .
 
-# Exponer el puerto 3000 (o el puerto que uses para el servidor de desarrollo de React)
+# Expose 3000
 EXPOSE 3000
 
-# Comando para iniciar la aplicación de React
 CMD ["npm", "start"]

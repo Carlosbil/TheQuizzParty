@@ -1,22 +1,31 @@
 # Dockerfile
+FROM ubuntu:latest
 
-# Utiliza una imagen base de Python
+# Install VI
+RUN apt-get update && apt-get install -y vim
+
+# Use python 3.9
 FROM python:3.9
 
-# Establece el directorio de trabajo en /app
 WORKDIR /app
 
-# Copia los archivos de requerimientos al directorio de trabajo
+# Copy requirements
 COPY requirements.txt .
 
-# Instala las dependencias del proyecto
+# Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copia el código fuente al directorio de trabajo
-COPY . .
+# Copy the code
+COPY app.py .
+COPY dataBase.py .
+COPY requirements.txt .
+COPY servery.py .
+COPY socketio_handler.py .
+COPY tinkers.py .
+COPY data .
 
-# Expone el puerto en el que se ejecutará el servidor
+# Expose the port
 EXPOSE 3001
 
-# Comando para ejecutar el servidor
-CMD ["python", "server.py"]
+# Execution the server
+CMD ["gunicorn", "--worker-class", "eventlet", "-w", "1", "--timeout", "86400", "server:app", "-b", "0.0.0.0:3001"]
