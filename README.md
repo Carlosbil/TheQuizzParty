@@ -74,6 +74,21 @@ brew install minikube
 minikube start
 ```
 
+### Windows
+First of all be sure that you have installed and available a k8s enviroment, and be sure that Docker is running
+```bash
+winget install Kubernetes.minikube
+winget install Kubernetes.kubectl
+exit
+```
+Open CMD or Powershell again:
+```bash
+minikube start
+```
+
+### Both
+After You have installed both of them, lets use our application:
+
 Be sure that you have instaled postgresql, if not, use:
 
 ```bash

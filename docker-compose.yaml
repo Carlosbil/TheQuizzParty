@@ -6,8 +6,9 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3001:3001"
+    # Hay que cambiar esta información en producción!!!!!!!!!!!
     environment:
-      - DATABASE_URL=postgresql://root_bdp:valorant23*@postgres_db/bdp_proyect
+      - DATABASE_URL=postgresql://root_bdp:temporal23*@postgres_db/bdp_proyect
     depends_on:
       - postgres_db
 
@@ -17,13 +18,13 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
-
+  # Cambiar toda la información relacionada con la base de datos en producción : ) :) :) ;)
   postgres_db:
     image: postgres
     environment:
       POSTGRES_DB: bdp_proyect
       POSTGRES_USER: root_bdp
-      POSTGRES_PASSWORD: valorant23*
+      POSTGRES_PASSWORD: temporal23*
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
