@@ -1,16 +1,17 @@
-.container {
+.container_game_menu {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center; /* Alinea los elementos hijos en el centro */
-  width: 50%; /* Ajustado para no exceder el 100% */
-  min-width: 50%;
+  min-height: 40vmin;
+  max-height: 70vmin;
   margin: auto; /* Centra horizontalmente */
-  padding: 20px;
+  padding: 30px;
+  width: 60vmin;
   gap: 10px;
-  background-color: #f2f0f0;
+  background-color: rgba(252, 243, 243, 0.3);
   border-radius: 5px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
   position: absolute; /* Para centrar verticalmente */
   top: 50%; /* Para centrar verticalmente */
   left: 50%; /* Para centrar horizontalmente */

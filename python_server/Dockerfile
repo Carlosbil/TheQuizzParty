@@ -16,14 +16,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the code
-COPY app.py .
-COPY dataBase.py .
-COPY requirements.txt .
-COPY servery.py .
-COPY socketio_handler.py .
-COPY tinkers.py .
-COPY data .
-
+COPY . .
 # Expose the port
 EXPOSE 3001
 

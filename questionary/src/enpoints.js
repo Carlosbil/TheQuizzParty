@@ -2,10 +2,10 @@
 import io from "socket.io-client";
 
 // local tests
-//const BASE_URL = "http://192.168.1.62:3001";
+const BASE_URL = "http://192.168.1.62:3001";
 
 // dockers
-const BASE_URL = "http://python_server:3001";
+//const BASE_URL = "python_server:3001";
 
 
 export const socket = io(`${BASE_URL}`);

@@ -36,7 +36,8 @@ class Score(Base):
     __tablename__ = 'scores'
     
     score_id = Column(Integer, Sequence('score_id_seq'), primary_key=True)
-    username = Column(String(50), ForeignKey('usuarios.username'))
+    username = Column(String(50), ForeignKey('usuarios.username', onupdate="CASCADE"))
+
     score = Column(Float)
     time_taken = Column(Integer)
     correct_questions = Column(Integer)
@@ -83,7 +84,7 @@ _________________
 
 class Results(Base):
     __tablename__ = 'results'
-    username = Column(String(50), ForeignKey('usuarios.username'), primary_key=True)
+    username = Column(String(50), ForeignKey('usuarios.username', onupdate="CASCADE"), primary_key=True)
     history_accerted = Column(Integer, default=0)
     history_wrong = Column(Integer, default=0)
     geography_accerted = Column(Integer, default=0)

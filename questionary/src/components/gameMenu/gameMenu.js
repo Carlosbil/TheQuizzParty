@@ -33,7 +33,7 @@ function FunButtons() {
   return (
     <div className="Page">
       {!showQuestionDisplayer && !showTinkers && (
-        <div className="container">
+        <div className="container_game_menu">
           <button className="fun_royale" key="battle_royale_button" onClick={() => handleButtonClick_battleRoyale()}>
             👑 Battle Royale 👑
           </button>

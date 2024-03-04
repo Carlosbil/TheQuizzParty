@@ -8,9 +8,11 @@ services:
       - "3001:3001"
     # Hay que cambiar esta información en producción!!!!!!!!!!!
     environment:
-      - DATABASE_URL=postgresql://root_bdp:temporal23*@postgres_db/bdp_proyect
+      - DATABASE_URL=postgresql://root_bdp:valorant23*@postgres_db/bdp_proyect
     depends_on:
       - postgres_db
+    networks:
+      - thequizz-net
 
   questionary:
     build:
@@ -18,17 +20,25 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
+    networks:
+      - thequizz-net
   # Cambiar toda la información relacionada con la base de datos en producción : ) :) :) ;)
   postgres_db:
     image: postgres
     environment:
       POSTGRES_DB: bdp_proyect
       POSTGRES_USER: root_bdp
-      POSTGRES_PASSWORD: temporal23*
+      POSTGRES_PASSWORD: valorant23*
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    networks:
+      - thequizz-net
 
+networks:
+  thequizz-net:
+    driver: bridge
+    
 volumes:
   postgres_data:

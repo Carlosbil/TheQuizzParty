@@ -77,11 +77,20 @@ def generate_token():
 ______________API____________________
 
 """
+# to be deleted
+@app.route("/", methods=["GET"])
+def test_end():
+    user_data = {
+                "name": "HOLA"
+            }
+    logging.info(f"User getted {user_data}")
+    return jsonify(user_data), 200 
 # Define a route to handle GET requests and return questions in JSON format
 @app.route("/api/questions", methods=["GET"])
 def obtener_datos():
     try:
         # Retrieve the requested theme from query parameters
+        logging.info("solicitan las preguntas")
         quest = request.args.get("data")
         # Check if the requested theme exists in the loaded questions
         if quest not in themes and quest != "random":   
@@ -97,6 +106,7 @@ def obtener_datos():
 def create_user():
     try:
     # Add new user
+        logging.info("Creating User")
         data = request.get_json()
         data["token"] = generate_token()
         hashed_password = hashpw(data["password"].encode("utf-8"), gensalt())
@@ -111,6 +121,7 @@ def create_user():
             "image_path": "avatar1",
             "username":user.username
             }
+        logging.info(f"User created {info}")
         return jsonify(info), 200 
     
     except Exception as e:
@@ -126,6 +137,7 @@ def create_user():
 @app.route("/api/logIn", methods=["POST"])
 def login_user():
     try:
+        logging.info(f"User logging")
         data = request.get_json()
         
         # Search user
@@ -153,6 +165,7 @@ def login_user():
             "image_path": user.image_path,
             "username":user.username
             }
+        logging.info(f"User Logged {info}")
         return jsonify(info), 200 
 
     except Exception as e:
@@ -169,6 +182,7 @@ def login_user():
 @app.route("/api/profile", methods=["GET"])
 def get_user():
     try:
+        logging.info(f"Getting Profile")
         data = request.args.get("data")
 
         # Search user
@@ -181,8 +195,10 @@ def get_user():
                 "password": user.password,
                 "image_path": user.image_path
             }
+            logging.info(f"User getted {user_data}")
             return jsonify(user_data), 200 
         else:
+            logging.warning(f"User Not found")
             return jsonify({"error": " user not found"}), 404
         
     except Exception as e:
@@ -288,10 +304,13 @@ def get_all_scores():
 @app.route("/api/updateProfile", methods=["PUT"])
 def update_profile():
     try:
+        logging.info(f"Updating profile")
         data = request.get_json()
         user = session.query(User).filter_by(token=data["token"]).first()
-        hashed_password = hashpw(data["password"].encode("utf-8"), gensalt())
-        data["password"] = hashed_password.decode("utf-8")
+        if not checkpw(data["password"].encode("utf-8"), user.password.encode("utf-8")):
+            logging.warning("Changing password...")
+            hashed_password = hashpw(data["password"].encode("utf-8"), gensalt())
+            data["password"] = hashed_password.decode("utf-8")
         print(data)
         if user:
             user.username = data["username"]
@@ -299,6 +318,7 @@ def update_profile():
             user.email = data["email"]
             user.password = data["password"]
             session.commit()
+            logging.info(f"User updated {data}")
             return jsonify(data), 200
         else:
             return jsonify({"message": "not existing profile", "error": "the user could not be found"}), 500
