@@ -1,6 +1,6 @@
 from datetime import datetime
 from dotenv import load_dotenv
-from sqlalchemy import create_engine, Column, Integer, String, Sequence, ForeignKey, Float, Boolean, JSON
+from sqlalchemy import create_engine, Column, Integer, String, Sequence, ForeignKey, Float, Boolean, JSON, ARRAY
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
 import os
@@ -36,14 +36,11 @@ class Score(Base):
     __tablename__ = 'scores'
     
     score_id = Column(Integer, Sequence('score_id_seq'), primary_key=True)
-    username = Column(String(50), ForeignKey('usuarios.username', onupdate="CASCADE"))
+    username = Column(String(50), ForeignKey('usuarios.username', onupdate="CASCADE", ondelete="CASCADE"))
 
     score = Column(Float)
     time_taken = Column(Integer)
     correct_questions = Column(Integer)
-
-    # Relación con la tabla usuarios
-    user = relationship("User", back_populates="scores")
 
 """
 -----------------
@@ -84,7 +81,7 @@ _________________
 
 class Results(Base):
     __tablename__ = 'results'
-    username = Column(String(50), ForeignKey('usuarios.username', onupdate="CASCADE"), primary_key=True)
+    username = Column(String(50), ForeignKey('usuarios.username', onupdate="CASCADE", ondelete="CASCADE"), primary_key=True)
     history_accerted = Column(Integer, default=0)
     history_wrong = Column(Integer, default=0)
     geography_accerted = Column(Integer, default=0)
@@ -99,7 +96,7 @@ class Results(Base):
     science_wrong = Column(Integer, default=0)
     pop_culture_accerted = Column(Integer, default=0)
     pop_culture_wrong = Column(Integer, default=0)
-
+        # Relación con la tabla usuarios
 """
 -----------------
 Results TABLE
@@ -112,11 +109,21 @@ class Tinkers(Base):
     week = Column(Integer, Sequence('week'), primary_key=True)
     questions = Column(JSON)
     date = Column(Integer)
-    
+
+"""
+-----------------
+Trophy TABLE
+_________________
+"""
+#themes = ['history', 'geography', 'sports', 'entertainment', 'literature', 'science', 'pop_culture']
+
+class Trophy(Base):
+    __tablename__ = 'trophy'
+    username = Column(String(50), ForeignKey('usuarios.username', onupdate="CASCADE", ondelete="CASCADE"), primary_key=True)
+    unlocked = Column(ARRAY(Integer))
+
     
 DATABASE_URL = os.getenv("DATABASE_URL")
-
-User.scores = relationship("Score", order_by=Score.score_id, back_populates="user")
 
 def init_db():
     engine = create_engine(DATABASE_URL)
@@ -126,6 +133,7 @@ def init_db():
     return session
 
 
-
+def get_session():
+    return init_db()
 # Inicializa la base de datos al cargar el módulo
 session = init_db()

@@ -29,7 +29,7 @@ body {
     border-radius: 50%;
     position: absolute;
     opacity: 0.8;
-    animation: twinkle 2s infinite ease-in-out;
+    animation: twinkle 3s infinite ease-in-out;
   }
   
   @keyframes twinkle {
@@ -37,7 +37,7 @@ body {
       opacity: 0.8;
     }
     50% {
-      opacity: 0.2;
+      opacity: 0.0;
     }
   }
   

@@ -2,7 +2,7 @@
 import io from "socket.io-client";
 
 // local tests
-const BASE_URL = "http://192.168.1.62:3001";
+const BASE_URL = "http://192.168.1.61:3001";
 
 // dockers
 //const BASE_URL = "python_server:3001";
@@ -23,3 +23,4 @@ export const ADD_QUESTIONARY_URL = `${BASE_URL}/api/addQuestionary`;
 export const JOIN_ROOM_URL = `${BASE_URL}/api/addRoyale`
 export const SAVE_QUESTION_URL = `${BASE_URL}/api/saveQuestions`
 export const GET_UNLOCKS = `${BASE_URL}/api/getUnlocks`
+export const UNLOCK_TROPHY = `${BASE_URL}/api/unlockTrophy`

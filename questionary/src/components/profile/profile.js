@@ -28,7 +28,6 @@ function Profile() {
         password: "",
     });
     const stars = Array.from({ length: 100 }, (_, index) => index);
-
     //handle the changes produced in the form
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -79,15 +78,17 @@ function Profile() {
     };
 
     const getUser = () => {
+        let formData = {
+            "token": getCookieValue("auth_token"),
+        }
         axios
-            .get(PROFILE_URL, { params: { data: getCookieValue("auth_token") } })
-            .then((response) => {
+        .post(PROFILE_URL, formData)
+        .then((response) => {
                 setUsername(decodeURIComponent(response.data.username));
                 setEmail(decodeURIComponent(response.data.email));
                 setName(decodeURIComponent(response.data.name));
                 setPassword(decodeURIComponent(response.data.password));
                 setShowProfile(true);
-                toast.success("Se ha obtenido su informacion")
             })
             .catch((error) => {
                 console.error("Error al realizar la solicitud:", error);
@@ -97,6 +98,9 @@ function Profile() {
                     toast.error("Error al realizar la solicitud:" + error.response.data.error);
                 }
             });
+
+            toast.success("Se ha obtenido su informacion")
+
     }
 
     function maskPassword() {

@@ -11,7 +11,8 @@ from tinkers import generate_questions, get_weekly_questions
 from bcrypt import hashpw, gensalt, checkpw
 from socketio_handler import QUESTION_MAP
 from app import socketio
-from dataBase import session, User
+from dataBase import session, User, get_session
+from to_unlock import unlock_ares_trophies,unlock_athenea_trophies,unlock_dionysus_trophies,unlock_godofgods_trophies,unlock_hermes_trophies,unlock_zeus_trophies
 
 app = Flask(__name__)
 socketio.init_app(app)
@@ -179,11 +180,12 @@ def login_user():
         # Close Session
         session.close()
 
-@app.route("/api/profile", methods=["GET"])
+@app.route("/api/profile", methods=["POST"])
 def get_user():
     try:
         logging.info(f"Getting Profile")
-        data = request.args.get("data")
+        data = request.get_json()
+        user = session.query(User).filter_by(token=data["token"]).first()
 
         # Search user
         user = session.query(User).filter_by(token=data).first()
@@ -440,11 +442,57 @@ def save_answers():
         # Close session
         session.close() 
 
+
 @app.route("/api/getUnlocks", methods=["GET"])
 def get_all_unlocks():
     return jsonify(unlockable), 200
 
+@app.route("/api/unlockTrophy", methods=["POST"])
+def get_all_unlocked():
+    try:
+        logging.info(f"Unlocking trophies")
+        data = request.get_json()
+        """session_unlock = get_session()
+       
+        # Search user
+        user = session_unlock.query(User).filter_by(token=data).first()
+        logging.info(data)
+        unlocked = []
+        # if dont return eror 
+        if not user or not is_token_valid(user.token):
+            return jsonify({"message": "Invalid token, reload the page"}), 401
+        
+        # unlock gods
+        for god in unlockable:
+            if TO_UNLOCK_MAP.get(god):
+                unlocked+= TO_UNLOCK_MAP[god](user)"""
 
+
+        info = {
+            "unlocks":[]
+            }
+        logging.info(f"User Logged {info}")
+        return jsonify(info), 200 
+
+    except Exception as e:
+        # roll back if error
+        session_unlock.rollback()
+        message = "Error while unlocking trophies in"
+        print(f"{message}: {e}")
+        return jsonify({"message": message, "error": str(e)}), 500
+
+    finally:
+        # Close Session
+        session_unlock.close()
+
+TO_UNLOCK_MAP = {
+    "Zeus": unlock_zeus_trophies,
+    "Athena": unlock_athenea_trophies,
+    "Dionysus": unlock_dionysus_trophies,
+    "Ares": unlock_ares_trophies,
+    "Hermes": unlock_hermes_trophies,
+    "God of Gods": unlock_godofgods_trophies,
+}
 if __name__ == "__main__":
     socketio.run(app, host="0.0.0.0", port=3001, debug=True)
            
