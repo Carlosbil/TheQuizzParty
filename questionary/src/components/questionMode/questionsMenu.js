@@ -34,7 +34,7 @@ function QuestionsMenu() {
                     <div>
                         <button className="fun_royale" onClick={() => startGame("history")} > Historia </button>
                         <button className="fun_royale" onClick={() => startGame("geography")} > Geografia </button>
-                        <button className="fun_royale" onClick={() => startGame("science")} > Ciencuas </button>
+                        <button className="fun_royale" onClick={() => startGame("science")} > Ciencias </button>
                         <button className="fun_royale" onClick={() => startGame("entertainment")} > Entretenimiento </button>
                     </div>
                 </div>}

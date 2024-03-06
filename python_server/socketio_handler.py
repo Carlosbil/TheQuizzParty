@@ -83,6 +83,7 @@ def join_game(data):
     """
     #quiero ver algo en la consola del servidor
     try:
+        logging.info("Adding a new plyer to the game")
         session = init_db()
         token = data["token"]
         room_name = data.get("room")
@@ -229,6 +230,7 @@ def leave_game(data):
     :return: None
     """
     try:
+        logging.info("Removing a player from the game")
         session = init_db()
         token = data["token"]
         room_name = data["room"]
@@ -275,7 +277,7 @@ def countdown_timer(room_name, duration, round=1, bonus=False):
     :param room_name: Name of the room.
     :param duration: Duration of the countdown in seconds.
     """
-    
+    logging.info(f"Starting countdown timer for room {room_name} with duration {duration}")
     for remaining_time in range(duration, 0, -1):
         if not stop.get(room_name):
             emit("timer", {"time": remaining_time}, room=room_name)
@@ -413,7 +415,7 @@ def send_bonus(room_name, round):
  
         bon = selected_bon[random.randint(0, len(selected_bon)-1)]
         while bon in bonus_list:
-            bon = bonus[random.randint(0, len(selected_bon)-1)]
+            bon = selected_bon[random.randint(0, len(selected_bon)-1)]
             
         bonus_list.append(bon)
         
@@ -505,6 +507,10 @@ def receive_bonus(data):
             elif selected_bonus == "restore_lvl3":
                 restored[user.username] = True
                 
+            if room_health_data[user.username] > 50:
+                room_health_data[user.username] = 50
+                
+
             modify_health(room_health_data, room_name)
             emit("players_health", {"health": health[room_name]}, room=room_name)
     except Exception as e:
@@ -518,7 +524,10 @@ def receive_bonus(data):
             
 def obtain_user_session(token, room_name, session):
     # Search for the user and the room
-    if session:
+    if not session:
+        logging.warning("No session found, creating new one")
+        session = init_db()
+    try: 
         user = session.query(User).filter_by(token=token).first()
         if not user:
             emit("error", {"message": "No se pudo encontrar al usuario"})
@@ -531,7 +540,16 @@ def obtain_user_session(token, room_name, session):
             logging.debug(f"Sala no encontrada con nombre {room_name}")
             return None, None
         return user, room
-    return None, None
+    except Exception as e:
+        if session:
+            session.rollback()
+        logging.error(f"Error while receiving bonus: the error is:{e}")
+        emit("error", {"message": "No se pudo recibir el bonus"})
+        return None, None
+    finally:
+        if session:
+            session.close()
+
 
     
 QUESTION_MAP = {

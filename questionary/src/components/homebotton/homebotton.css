@@ -5,24 +5,25 @@
     background-repeat: no-repeat;
     border: none;
     cursor: pointer;
-    width: 10vmin;
-    height: 10vmin;
+    width: 50px;
+    height: 50px;
     border-radius: 10%;
 }
+
 
 .menu-fixed {
     animation: tracking-in-expand-forward-top 0.3s linear both;
     position: fixed;
-    top: 1vmin;
+    top: 8px;
     left: 0;
-    margin: 1vmin;
-    margin-left: 2vmin;
+    margin: 2px;
+    margin-left: 10px;
     background-color: rgb(255, 255, 255, 0.4);
     border-radius: 10px;
     z-index: 1000;
     display: flex;
     flex-direction: row;
-    align-items: start;
+    align-items: flex-start;
     justify-items: center;
 }
 
@@ -31,9 +32,9 @@
     background-repeat: no-repeat;
     border: none;
     cursor: pointer;
-    margin: 1.2vmin;
-    width: 10vmin;
-    height: 10vmin;
+    margin: 5px;
+    width: 50px;
+    height: 50px;
 }
 
 .menu-fixed button:first-child {
@@ -74,3 +75,45 @@
         opacity: 1
     }
 }
+
+.hamburger {
+    cursor: pointer;
+  }
+  
+  .hamburger input {
+    display: none;
+  }
+  
+  .hamburger svg {
+    /* The size of the SVG defines the overall size */
+    margin-top: 1vmin;
+    height: 50px;
+    width: 50px;
+    /* Define the transition for transforming the SVG */
+    transition: transform 600ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .line {
+    fill: none;
+    stroke: white;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 3;
+    /* Define the transition for transforming the Stroke */
+    transition: stroke-dasharray 600ms cubic-bezier(0.4, 0, 0.2, 1),
+                stroke-dashoffset 600ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .line-top-bottom {
+    stroke-dasharray: 12 63;
+  }
+  
+  .hamburger input:checked + svg {
+    transform: rotate(-45deg);
+  }
+  
+  .hamburger input:checked + svg .line-top-bottom {
+    stroke-dasharray: 20 300;
+    stroke-dashoffset: -32.42;
+  }
+  

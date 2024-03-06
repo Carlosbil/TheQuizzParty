@@ -9,6 +9,7 @@ import { PROFILE_URL, UPDATE_PROFILE_URL } from "../../enpoints";
 import { getCookieValue } from "../../authSlide";
 import getAvatar, { getAllAvatars } from "../../avatars";
 import AvatarList from "./avatar/avatar";
+import Unlockables from "./unlockables/unlockables";
 
 function Profile() {
     const [username, setUsername] = useState("");
@@ -26,7 +27,7 @@ function Profile() {
         email: "",
         password: "",
     });
-
+    const stars = Array.from({ length: 100 }, (_, index) => index);
     //handle the changes produced in the form
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -77,15 +78,17 @@ function Profile() {
     };
 
     const getUser = () => {
+        let formData = {
+            "token": getCookieValue("auth_token"),
+        }
         axios
-            .get(PROFILE_URL, { params: { data: getCookieValue("auth_token") } })
-            .then((response) => {
+        .post(PROFILE_URL, formData)
+        .then((response) => {
                 setUsername(decodeURIComponent(response.data.username));
                 setEmail(decodeURIComponent(response.data.email));
                 setName(decodeURIComponent(response.data.name));
                 setPassword(decodeURIComponent(response.data.password));
                 setShowProfile(true);
-                toast.success("Se ha obtenido su informacion")
             })
             .catch((error) => {
                 console.error("Error al realizar la solicitud:", error);
@@ -95,6 +98,9 @@ function Profile() {
                     toast.error("Error al realizar la solicitud:" + error.response.data.error);
                 }
             });
+
+            toast.success("Se ha obtenido su informacion")
+
     }
 
     function maskPassword() {
@@ -120,74 +126,90 @@ function Profile() {
     };
 
     return (
-        <div className="back">
-            <div className="page">
-                <Logo onClick={handleLogoClick} prop_avatar={getAvatar(avatar)} />
-                <AvatarList avatarMap={getAllAvatars()} prop_avatar={getAvatar(avatar)} />
-                <div className="display_div">
-                    {isEditing ? (
-                        <div className="container">
-                            <h2>Por favor introduzca sus datos</h2>
-                            <form onSubmit={handleFormSubmit}>
-                                <input
-                                    type="text"
-                                    name="name"
-                                    placeholder={name}
-                                    value={formData.name}
-                                    onChange={handleChange}
-                                    className="input"
-                                />
-                                <input
-                                    type="text"
-                                    name="username"
-                                    placeholder={username}
-                                    value={formData.username}
-                                    onChange={handleChange}
-                                    className="input"
-                                />
-                                <input
-                                    type="email"
-                                    name="email"
-                                    placeholder={email}
-                                    value={formData.email}
-                                    onChange={handleChange}
-                                    className="input"
-                                />
-                                <input
-                                    type={showPassword ? "text" : "password"}
-                                    name="password"
-                                    placeholder={password}
-                                    value={formData.password}
-                                    onChange={handleChange}
-                                    className="input"
-                                />
+        <div>
+            <div className="star-background">
+                {stars.map((_, index) => (
+                    <div
+                        key={index}
+                        className="star"
+                        style={{
+                            top: `${Math.random() * 100}%`,
+                            left: `${Math.random() * 100}%`,
+                            animationDuration: `${Math.random() * 3 + 1}s`,
+                            animationDelay: `${Math.random() * 2}s`
+                        }}
+                    />
+                ))}
 
-                                <button type="button" className="nextQuestion" onClick={() => setShowPassword(!showPassword)}>
-                                    {showPassword ? "Ocultar" : "Mostrar"}
-                                </button>
+                <div className="page">
+                    <Logo onClick={handleLogoClick} prop_avatar={getAvatar(avatar)} />
+                    <AvatarList avatarMap={getAllAvatars()} prop_avatar={getAvatar(avatar)} />
+                    <div className="display_div">
+                        {isEditing ? (
+                            <div className="container">
+                                <h2>Por favor introduzca sus datos</h2>
+                                <form onSubmit={handleFormSubmit}>
+                                    <input
+                                        type="text"
+                                        name="name"
+                                        placeholder={name}
+                                        value={formData.name}
+                                        onChange={handleChange}
+                                        className="input"
+                                    />
+                                    <input
+                                        type="text"
+                                        name="username"
+                                        placeholder={username}
+                                        value={formData.username}
+                                        onChange={handleChange}
+                                        className="input"
+                                    />
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        placeholder={email}
+                                        value={formData.email}
+                                        onChange={handleChange}
+                                        className="input"
+                                    />
+                                    <input
+                                        type={showPassword ? "text" : "password"}
+                                        name="password"
+                                        placeholder={password}
+                                        value={formData.password}
+                                        onChange={handleChange}
+                                        className="input"
+                                    />
 
-                                <button type="submit" className="button_profile">
-                                    Guardar
-                                </button>
-                                <button className="button_profile" onClick={toggleEdit}>
-                                    Cancelar
-                                </button>
-                            </form>
-                            <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
-                        </div>
-                    ) : (
-                        <>
-                            <div className="log">Su perfil</div>
-                            <div className="profile-group"><div className="tittle_profile">Nombre:</div>{showProfile && <div>{name}</div>}</div>
-                            <div className="profile-group"><div className="tittle_profile">Username:</div>{showProfile && <div>{username}</div>}</div>
-                            <div className="profile-group"><div className="tittle_profile">Email:</div>{showProfile && <div>{email}</div>}</div>
-                            <div className="profile-group"><div className="tittle_profile">Contraseña:</div>{showProfile && <div>{maskPassword()}</div>}</div>
-                            <button className="button_profile" onClick={toggleEdit}>Editar</button>
-                        </>
-                    )}
+                                    <button type="button" className="nextQuestion" onClick={() => setShowPassword(!showPassword)}>
+                                        {showPassword ? "Ocultar" : "Mostrar"}
+                                    </button>
+
+                                    <button type="submit" className="button_profile">
+                                        Guardar
+                                    </button>
+                                    <button className="button_profile" onClick={toggleEdit}>
+                                        Cancelar
+                                    </button>
+                                </form>
+                                <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
+                            </div>
+                        ) : (
+                            <>
+                                <div className="log">Su perfil</div>
+                                <div className="profile-group"><div className="tittle_profile">Nombre:</div>{showProfile && <div>{name}</div>}</div>
+                                <div className="profile-group"><div className="tittle_profile">Username:</div>{showProfile && <div>{username}</div>}</div>
+                                <div className="profile-group"><div className="tittle_profile">Email:</div>{showProfile && <div>{email}</div>}</div>
+                                <div className="profile-group"><div className="tittle_profile">Contraseña:</div>{showProfile && <div>{maskPassword()}</div>}</div>
+                                <button className="button_profile" onClick={toggleEdit}>Editar</button>
+                            </>
+                        )}
+                    </div>
+                    <Unlockables />
                 </div>
+                <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
             </div>
-            <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
         </div>
     );
 }

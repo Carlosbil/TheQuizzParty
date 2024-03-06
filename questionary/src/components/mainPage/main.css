@@ -6,8 +6,10 @@
     justify-content: center;
     align-items: center;
 }
+
 .page {
-    background-color: rgba(0, 0, 0, 0.4); /* Capa de blanco con 60% de opacidad */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Capa de blanco con 60% de opacidad */
     min-width: 100%;
     min-height: 100vh;
     display: flex;
@@ -24,7 +26,7 @@
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    transition: background-color 0.3s ease;  
+    transition: background-color 0.3s ease;
     position: fixed;
     top: 0;
     left: 12%;
@@ -42,21 +44,28 @@
 
 .fun {
     text-align: center;
-    background-color: #fff; /* Color de fondo de la tarjeta */
+    background-color: #fff;
+    /* Color de fondo de la tarjeta */
     border: none;
-    border-radius: 10px; /* Bordes redondeados */
+    border-radius: 10px;
+    /* Bordes redondeados */
     width: 80%;
     padding: 20px;
-    box-shadow: 3px 3px 4px silver; /* Sombra de la tarjeta */
+    box-shadow: 3px 3px 4px silver;
+    /* Sombra de la tarjeta */
     font-size: 2rem;
-    color: #212529; /* Color de texto inicial */
+    color: #212529;
+    /* Color de texto inicial */
     cursor: pointer;
-    transition: transform 0.2s ease-in-out, color 0.3s ease-in-out; /* Añadido color a la transición */
+    transition: transform 0.2s ease-in-out, color 0.3s ease-in-out;
+    /* Añadido color a la transición */
 }
 
 .fun:hover {
-    transform: scale(1.1); /* Aumenta el tamaño */
-    color: #FF4500; /* Cambia el color del texto a naranja oscuro */
+    transform: scale(1.1);
+    /* Aumenta el tamaño */
+    color: #FF4500;
+    /* Cambia el color del texto a naranja oscuro */
 }
 
 
@@ -78,7 +87,7 @@
     top: 0;
     left: 12vmin;
     margin: 1%;
-    margin-left:3%;
+    margin-left: 3%;
     border-radius: 10%;
     max-width: 0.5vmin;
     min-width: 0.5vmin;
@@ -95,3 +104,170 @@
     padding: 1vmin;
     font-size: 1.5vmin;
 }
+
+/*
+*
+*   SOCIAL MEDIA
+*
+*/
+
+.socialparent {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.socialchild {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform-style: preserve-3d;
+    transition: all 0.5s ease-in-out;
+    border-radius: 50%;
+    margin: 0 5px;
+}
+
+.socialchild:hover {
+    background-color: rgb(195, 195, 195);
+    background-position: -100px 100px, -100px 100px;
+    transform: rotate3d(0.5, 1, 0, 30deg);
+    transform: perspective(180px) rotateX(60deg) translateY(2px);
+    box-shadow: 0px 10px 10px rgb(1, 49, 182);
+}
+
+.socialbutton {
+    border: none;
+    background-color: transparent;
+    font-size: 20px;
+}
+
+.socialbutton:hover {
+    width: inherit;
+    height: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translate3d(0px, 0px, 15px) perspective(180px) rotateX(-35deg) translateY(2px);
+    border-radius: 50%;
+}
+
+.fun_bot,
+.fun_bot::after {
+    text-align: center;
+    background-color: #fff;
+    /* Color de fondo de la tarjeta */
+    border: none;
+    border-radius: 10px;
+    /* Bordes redondeados */
+    width: 80%;
+    padding: 20px;
+    box-shadow: 3px 3px 4px silver;
+    /* Sombra de la tarjeta */
+    font-size: 2rem;
+    color: #212529;
+    /* Color de texto inicial */
+    cursor: pointer;
+    padding: 20px 50px;
+    font-size: 20px;
+    border: none;
+    border-radius: 5px;
+    position: relative;
+}
+
+.fun_bot::after {
+    --move1: inset(50% 50% 50% 50%);
+    --move2: inset(31% 0 40% 0);
+    --move3: inset(39% 0 15% 0);
+    --move4: inset(45% 0 40% 0);
+    --move5: inset(45% 0 6% 0);
+    --move6: inset(14% 0 61% 0);
+    clip-path: var(--move1);
+    content: 'BDP_ESP';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: block;
+}
+
+.fun_bot:hover::after {
+    animation: glitch_4011 1s;
+    text-shadow: 10 10px 10px black;
+    animation-timing-function: steps(2, end);
+    text-shadow: -3px -3px 0px #1df2f0, 3px 3px 0px #E94BE8;
+    background-color: transparent;
+    border: 3px solid rgb(0, 255, 213);
+}
+
+.fun_bot:hover {
+    text-shadow: -1px -1px 0px #1df2f0, 1px 1px 0px #E94BE8;
+}
+
+.fun_bot:hover {
+    background-color: #ffffff55;
+    border: 1px solid rgb(0, 255, 213);
+    box-shadow: 3px 3px 4px rgb(0, 255, 213);
+}
+
+@keyframes glitch_4011 {
+    0% {
+        clip-path: var(--move1);
+        transform: translate(0px, -10px);
+    }
+
+    10% {
+        clip-path: var(--move2);
+        transform: translate(-10px, 10px);
+    }
+
+    20% {
+        clip-path: var(--move3);
+        transform: translate(10px, 0px);
+    }
+
+    30% {
+        clip-path: var(--move4);
+        transform: translate(-10px, 10px);
+    }
+
+    40% {
+        clip-path: var(--move5);
+        transform: translate(10px, -10px);
+    }
+
+    50% {
+        clip-path: var(--move6);
+        transform: translate(-10px, 10px);
+    }
+
+    60% {
+        clip-path: var(--move1);
+        transform: translate(10px, -10px);
+    }
+
+    70% {
+        clip-path: var(--move3);
+        transform: translate(-10px, 10px);
+    }
+
+    80% {
+        clip-path: var(--move2);
+        transform: translate(10px, -10px);
+    }
+
+    90% {
+        clip-path: var(--move4);
+        transform: translate(-10px, 10px);
+    }
+
+    100% {
+        clip-path: var(--move1);
+        transform: translate(0);
+    }
+}
+

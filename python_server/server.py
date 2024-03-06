@@ -11,7 +11,8 @@ from tinkers import generate_questions, get_weekly_questions
 from bcrypt import hashpw, gensalt, checkpw
 from socketio_handler import QUESTION_MAP
 from app import socketio
-from dataBase import session, User
+from dataBase import session, User, get_session
+from to_unlock import unlock_ares_trophies,unlock_athenea_trophies,unlock_dionysus_trophies,unlock_godofgods_trophies,unlock_hermes_trophies,unlock_zeus_trophies
 
 app = Flask(__name__)
 socketio.init_app(app)
@@ -24,6 +25,8 @@ logging.basicConfig(filename="./my_app.log", filemode="w", format="%(name)s - %(
 # Construct the file path in a platform-independent manner
 dir_path = os.path.dirname(os.path.realpath(__file__))
 file_path = os.path.join(dir_path, "data", "questions.json")
+unlock_path = os.path.join(dir_path, "data", "to_unlock.json")
+
 # Delete all existing rooms
 session.query(Room).delete()
 
@@ -32,6 +35,9 @@ session.query(Room).delete()
 with open(file_path, "r", encoding="utf-8") as f:
     questions = json.load(f)
 
+with open(unlock_path,"r", encoding="utf-8") as f:
+    unlockable = json.load(f)
+    
 themes = ["history", "geography", "sports", "entertainment", "literature", "science", "pop_culture"]
 
 
@@ -72,11 +78,20 @@ def generate_token():
 ______________API____________________
 
 """
+# to be deleted
+@app.route("/", methods=["GET"])
+def test_end():
+    user_data = {
+                "name": "HOLA"
+            }
+    logging.info(f"User getted {user_data}")
+    return jsonify(user_data), 200 
 # Define a route to handle GET requests and return questions in JSON format
 @app.route("/api/questions", methods=["GET"])
 def obtener_datos():
     try:
         # Retrieve the requested theme from query parameters
+        logging.info("solicitan las preguntas")
         quest = request.args.get("data")
         # Check if the requested theme exists in the loaded questions
         if quest not in themes and quest != "random":   
@@ -92,6 +107,7 @@ def obtener_datos():
 def create_user():
     try:
     # Add new user
+        logging.info("Creating User")
         data = request.get_json()
         data["token"] = generate_token()
         hashed_password = hashpw(data["password"].encode("utf-8"), gensalt())
@@ -106,6 +122,7 @@ def create_user():
             "image_path": "avatar1",
             "username":user.username
             }
+        logging.info(f"User created {info}")
         return jsonify(info), 200 
     
     except Exception as e:
@@ -121,6 +138,7 @@ def create_user():
 @app.route("/api/logIn", methods=["POST"])
 def login_user():
     try:
+        logging.info(f"User logging")
         data = request.get_json()
         
         # Search user
@@ -148,6 +166,7 @@ def login_user():
             "image_path": user.image_path,
             "username":user.username
             }
+        logging.info(f"User Logged {info}")
         return jsonify(info), 200 
 
     except Exception as e:
@@ -161,10 +180,12 @@ def login_user():
         # Close Session
         session.close()
 
-@app.route("/api/profile", methods=["GET"])
+@app.route("/api/profile", methods=["POST"])
 def get_user():
     try:
-        data = request.args.get("data")
+        logging.info(f"Getting Profile")
+        data = request.get_json()
+        user = session.query(User).filter_by(token=data["token"]).first()
 
         # Search user
         user = session.query(User).filter_by(token=data).first()
@@ -176,8 +197,10 @@ def get_user():
                 "password": user.password,
                 "image_path": user.image_path
             }
+            logging.info(f"User getted {user_data}")
             return jsonify(user_data), 200 
         else:
+            logging.warning(f"User Not found")
             return jsonify({"error": " user not found"}), 404
         
     except Exception as e:
@@ -283,10 +306,13 @@ def get_all_scores():
 @app.route("/api/updateProfile", methods=["PUT"])
 def update_profile():
     try:
+        logging.info(f"Updating profile")
         data = request.get_json()
         user = session.query(User).filter_by(token=data["token"]).first()
-        hashed_password = hashpw(data["password"].encode("utf-8"), gensalt())
-        data["password"] = hashed_password.decode("utf-8")
+        if not checkpw(data["password"].encode("utf-8"), user.password.encode("utf-8")):
+            logging.warning("Changing password...")
+            hashed_password = hashpw(data["password"].encode("utf-8"), gensalt())
+            data["password"] = hashed_password.decode("utf-8")
         print(data)
         if user:
             user.username = data["username"]
@@ -294,6 +320,7 @@ def update_profile():
             user.email = data["email"]
             user.password = data["password"]
             session.commit()
+            logging.info(f"User updated {data}")
             return jsonify(data), 200
         else:
             return jsonify({"message": "not existing profile", "error": "the user could not be found"}), 500
@@ -414,7 +441,58 @@ def save_answers():
     finally:
         # Close session
         session.close() 
+
+
+@app.route("/api/getUnlocks", methods=["GET"])
+def get_all_unlocks():
+    return jsonify(unlockable), 200
+
+@app.route("/api/unlockTrophy", methods=["POST"])
+def get_all_unlocked():
+    try:
+        logging.info(f"Unlocking trophies")
+        data = request.get_json()
+        """session_unlock = get_session()
+       
+        # Search user
+        user = session_unlock.query(User).filter_by(token=data).first()
+        logging.info(data)
+        unlocked = []
+        # if dont return eror 
+        if not user or not is_token_valid(user.token):
+            return jsonify({"message": "Invalid token, reload the page"}), 401
         
+        # unlock gods
+        for god in unlockable:
+            if TO_UNLOCK_MAP.get(god):
+                unlocked+= TO_UNLOCK_MAP[god](user)"""
+
+
+        info = {
+            "unlocks":[]
+            }
+        logging.info(f"User Logged {info}")
+        return jsonify(info), 200 
+
+    except Exception as e:
+        # roll back if error
+        session_unlock.rollback()
+        message = "Error while unlocking trophies in"
+        print(f"{message}: {e}")
+        return jsonify({"message": message, "error": str(e)}), 500
+
+    finally:
+        # Close Session
+        session_unlock.close()
+
+TO_UNLOCK_MAP = {
+    "Zeus": unlock_zeus_trophies,
+    "Athena": unlock_athenea_trophies,
+    "Dionysus": unlock_dionysus_trophies,
+    "Ares": unlock_ares_trophies,
+    "Hermes": unlock_hermes_trophies,
+    "God of Gods": unlock_godofgods_trophies,
+}
 if __name__ == "__main__":
     socketio.run(app, host="0.0.0.0", port=3001, debug=True)
            
@@ -422,3 +500,4 @@ if __name__ == "__main__":
 # The configuration (host, port, debug) can be adjusted as needed or made configurable
 # if __name__ == "__main__":
 #     app.run(host="0.0.0.0", port=3001, debug=True)
+
