@@ -18,6 +18,7 @@ function Profile() {
     const [password, setPassword] = useState("");
     const [showProfile, setShowProfile] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
+    const [changePass, setChangePass] = useState(false);
     const avatar = getCookieValue("avatar")
     const [showPassword, setShowPassword] = useState(false);
     const [formData, setFormData] = useState({
@@ -31,6 +32,9 @@ function Profile() {
     //handle the changes produced in the form
     const handleChange = (e) => {
         const { name, value } = e.target;
+        if (name === "password") {
+            setChangePass(true)
+        }
         setFormData({
             ...formData,
             [name]: value,
@@ -40,34 +44,48 @@ function Profile() {
     //save user information
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (changePass) {
+            let data = {
+                "token": getCookieValue("auth_token"),
+                "name": formData.name !== "" ? formData.name : name,
+                "email": formData.email !== "" ? formData.email : email,
+                "username": formData.username !== "" ? formData.username : username,
+                "password": formData.password !== "" ? formData.password : password
+            }
+            callUpdate(data)
 
-        let data = {
-            "token": getCookieValue("auth_token"),
-            "name": formData.name !== "" ? formData.name : name,
-            "email": formData.email !== "" ? formData.email : email,
-            "username": formData.username !== "" ? formData.username : username,
-            "password": formData.password !== "" ? formData.password : password
+        } else {
+            let data = {
+                "token": getCookieValue("auth_token"),
+                "name": formData.name !== "" ? formData.name : name,
+                "email": formData.email !== "" ? formData.email : email,
+                "username": formData.username !== "" ? formData.username : username,
+            }
+            callUpdate(data)
         }
-        axios
-            .put(UPDATE_PROFILE_URL, data)
-            .then((response) => {
-                setUsername(decodeURIComponent(response.data.username));
-                setEmail(decodeURIComponent(response.data.email));
-                setName(decodeURIComponent(response.data.name));
-                setPassword(decodeURIComponent(response.data.password));
-                setShowProfile(true);
-                setIsEditing(false)
-            })
-            .catch((error) => {
-                console.error("Error al realizar la solicitud:", error);
-                if (error.response === undefined || error.response.data.error === undefined) {
-                    toast.error("Error al realizar la solicitud:" + error.message);
-                } else {
-                    toast.error("Error al realizar la solicitud:" + error.response.data.error);
-                }
-            });
     };
 
+    function callUpdate(data){
+        console.log(data)
+        axios
+        .put(UPDATE_PROFILE_URL, data)
+        .then((response) => {
+            setUsername(decodeURIComponent(response.data.username));
+            setEmail(decodeURIComponent(response.data.email));
+            setName(decodeURIComponent(response.data.name));
+            setPassword(decodeURIComponent(response.data.password));
+            setShowProfile(true);
+            setIsEditing(false)
+        })
+        .catch((error) => {
+            console.error("Error al realizar la solicitud:", error);
+            if (error.response === undefined || error.response.data.error === undefined) {
+                toast.error("Error al realizar la solicitud:" + error.message);
+            } else {
+                toast.error("Error al realizar la solicitud:" + error.response.data.error);
+            }
+        });
+    }
     const handleEditClick = () => {
         setIsEditing(!isEditing);
     };
@@ -80,26 +98,26 @@ function Profile() {
     const postUser = () => {
         let token = getCookieValue("auth_token")
         let formData = {
-          "token": token,
+            "token": token,
         }
         axios
-          .post(POST_PROFILE_URL, formData)
-          .then((response) => {
-            setUsername(decodeURIComponent(response.data.username));
-            setEmail(decodeURIComponent(response.data.email));
-            setName(decodeURIComponent(response.data.name));
-            setPassword(decodeURIComponent(response.data.password));
-            setShowProfile(true);
-            toast.success("Se ha obtenido su informacion")
-        })
-        .catch((error) => {
-            console.error("Error al realizar la solicitud:", error);
-            if (error.response === undefined || error.response.data.error === undefined) {
-                toast.error("Error al realizar la solicitud:" + error.message);
-            } else {
-                toast.error("Error al realizar la solicitud:" + error.response.data.error);
-            }
-        });
+            .post(POST_PROFILE_URL, formData)
+            .then((response) => {
+                setUsername(decodeURIComponent(response.data.username));
+                setEmail(decodeURIComponent(response.data.email));
+                setName(decodeURIComponent(response.data.name));
+                setPassword(decodeURIComponent(response.data.password));
+                setShowProfile(true);
+                toast.success("Se ha obtenido su informacion")
+            })
+            .catch((error) => {
+                console.error("Error al realizar la solicitud:", error);
+                if (error.response === undefined || error.response.data.error === undefined) {
+                    toast.error("Error al realizar la solicitud:" + error.message);
+                } else {
+                    toast.error("Error al realizar la solicitud:" + error.response.data.error);
+                }
+            });
     }
 
     function maskPassword() {
@@ -175,7 +193,7 @@ function Profile() {
                                     <input
                                         type={showPassword ? "text" : "password"}
                                         name="password"
-                                        placeholder={password}
+                                        placeholder={"*******"}
                                         value={formData.password}
                                         onChange={handleChange}
                                         className="input"

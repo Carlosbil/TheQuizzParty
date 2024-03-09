@@ -1,7 +1,7 @@
 #imports
 from flask_socketio import emit, join_room, leave_room
 from flask_cors import CORS
-from dataBase import init_db, User, Room, Results
+from dataBase import init_db, User, Room, Results, get_session
 from app import socketio
 import secrets
 import logging
@@ -84,7 +84,7 @@ def join_game(data):
     #quiero ver algo en la consola del servidor
     try:
         logging.info("Adding a new plyer to the game")
-        session = init_db()
+        session = get_session()
         token = data["token"]
         room_name = data.get("room")
         user = session.query(User).filter_by(token=token).first()
@@ -231,7 +231,7 @@ def leave_game(data):
     """
     try:
         logging.info("Removing a player from the game")
-        session = init_db()
+        session = get_session()
         token = data["token"]
         room_name = data["room"]
         user = session.query(User).filter_by(token=token).first()
@@ -301,7 +301,7 @@ def start_game(data):
     :return: None
     """
     try:
-        session = init_db()
+        session = get_session()
         if not stop.get(data["room"]):
             started[data["room"]] = True
             room_name = data["room"]
@@ -337,7 +337,7 @@ def save_results(data):
     :return: None
     """
     try:
-        session = init_db()
+        session = get_session()
         token = data["token"]
         room_name = data["room"]
         results = data.get("score", 0)
@@ -426,7 +426,7 @@ def send_bonus(room_name, round):
 @socketio.on("bonus_answer")  
 def receive_bonus(data):
     try:
-        session = init_db()
+        session = get_session()
         token = data.get("token", None)
         room_name = data.get("room", None)
         bonus = data.get("bonus", None)

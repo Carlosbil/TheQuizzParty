@@ -88,10 +88,12 @@ def obtener_datos():
         # Check if the requested theme exists in the loaded questions
         if quest not in themes and quest != "random":   
             # Return an error response if the specified theme does not exist
+            logging.debug({"error": f"the category {quest} didn't exist in the server"})
             return jsonify({"error": f"the category {quest} didn't exist in the server"}), 404
         question = generate_questions(1,quest)[0]
         return jsonify(question), 200
     except Exception as e:
+        logging.error({"error": f"server error {e} "})
         return jsonify({"message": "Error en el servidor", "error": str(e)}), 500
 
 
@@ -122,7 +124,7 @@ def create_user():
         # roll back if error
         session.rollback()
         message = "Error while creating the user"
-        print(f"{message}: {e}")
+        logging.error(f"{message}: {e}")
         return jsonify({"message": message, "error": str(e)}), 500
     finally:
         # Close session
@@ -167,7 +169,7 @@ def login_user():
         # roll back if error
         session.rollback()
         message = "Error while logging in"
-        print(f"{message}: {e}")
+        logging.error(f"{message}: {e}")
         return jsonify({"message": message, "error": str(e)}), 500
 
     finally:
@@ -235,7 +237,7 @@ def save_score():
         # roll back if error
         session.rollback()
         message = "Error while saving score"
-        print(f"{message}: {e}")
+        logging.error(f"{message}: {e}")
         return jsonify({"message": str(e), "error": message}), 500
 
     finally:
@@ -261,7 +263,7 @@ def get_all_scores():
         # roll back if error
         session.rollback()
         message = "Error while saving score"
-        print(f"{message}: {e}")
+        logging.error(f"{message}: {e}")
         return jsonify({"message": str(e), "error": message}), 500
     
     finally:
@@ -275,7 +277,7 @@ def update_profile():
         logging.info(f"Updating profile")
         data = request.get_json()
         user = session.query(User).filter_by(token=data["token"]).first()
-        if not checkpw(data["password"].encode("utf-8"), user.password.encode("utf-8")):
+        if data.get("password"):
             logging.warning("Changing password...")
             hashed_password = hashpw(data["password"].encode("utf-8"), gensalt())
             data["password"] = hashed_password.decode("utf-8")
@@ -284,7 +286,8 @@ def update_profile():
             user.username = data["username"]
             user.name = data["name"]
             user.email = data["email"]
-            user.password = data["password"]
+            if data.get("password"):
+                user.password = data["password"]
             session.commit()
             logging.info(f"User updated {data}")
             return jsonify(data), 200
@@ -295,7 +298,7 @@ def update_profile():
         # roll back if error
         session.rollback()
         message = "Error while saving the information"
-        print(f"{message}: {e}")
+        logging.error(f"{message}: {e}")
         return jsonify({"message": message, "error": message}), 500
     
     finally:
@@ -322,7 +325,7 @@ def update_avatar():
         # roll back if error
         session.rollback()
         message = "Error while saving the information"
-        print(f"{message}: {e}")
+        logging.error(f"{message}: {e}")
         return jsonify({"message": message, "error": message}), 500
     
     finally:
@@ -360,7 +363,7 @@ def add_questionary():
         # roll back if error
         session.rollback()
         message = "Error while saving the information"
-        print(f"{message}: {e}")
+        logging.error(f"{message}: {e}")
         return jsonify({"message": message, "error": message}), 500
     
     finally:
@@ -407,7 +410,7 @@ def save_answers():
         # Roll back if error
         session.rollback()
         message = "Error while saving the information"
-        logging.debug(f"{message}: {e}")
+        logging.error(f"{message}: {e}")
         return jsonify({"message": message, "error": message}), 500
     
     finally:
@@ -456,7 +459,7 @@ def post_Profile():
         # roll back if error
         session.rollback()
         message = "Error while saving score"
-        print(f"{message}: {e}")
+        logging.error(f"{message}: {e}")
         return jsonify({"message": str(e), "error": message}), 500
 
     finally:
