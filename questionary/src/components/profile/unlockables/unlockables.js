@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { GET_UNLOCKS, UNLOCK_TROPHY } from '../../../enpoints';
+import React, { useState } from 'react';
+import { GET_UNLOCKS, UNLOCK_ACHIEVEMENTS } from '../../../enpoints';
 import axios from "axios";
 import getArchi from '../../../achiv';
 import "./unlockables.css";
@@ -18,9 +18,17 @@ function Unlockables() {
   const [dataLoaded, setDataLoaded] = useState(false);
 
   const getUnlocks = () => {
+    let token = getCookieValue("auth_token")
+    let formData = {
+        "token": token,
+    }
     axios
       .get(GET_UNLOCKS)
-      .then((response) => {      
+      .then((response) => {  
+        axios.post(UNLOCK_ACHIEVEMENTS,formData)
+        .then((response_unlock) => {
+          console.log(response_unlock)
+        })
         setData(response.data);
         console.log(response.data)
       });

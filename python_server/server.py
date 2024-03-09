@@ -6,13 +6,13 @@ from flask_cors import CORS
 import logging
 import os
 import base64
-from dataBase import session, User, Score, Questionary, Room, Results
-from tinkers import generate_questions, get_weekly_questions
-from bcrypt import hashpw, gensalt, checkpw
-from socketio_handler import QUESTION_MAP
-from app import socketio
-from dataBase import session, User, get_session
-from to_unlock import unlock_ares_trophies,unlock_athenea_trophies,unlock_dionysus_trophies,unlock_godofgods_trophies,unlock_hermes_trophies,unlock_zeus_trophies
+from  dataBase import session, User, Score, Questionary, Room, Results
+from  tinkers import generate_questions, get_weekly_questions
+from  bcrypt import hashpw, gensalt, checkpw
+from  socketio_handler import QUESTION_MAP
+from  app import socketio
+from  dataBase import session, User, get_session
+from  to_unlock import unlock_ares_trophies,unlock_athenea_trophies,unlock_dionysus_trophies,unlock_godofgods_trophies,unlock_hermes_trophies,unlock_zeus_trophies
 
 app = Flask(__name__)
 socketio.init_app(app)
@@ -465,7 +465,51 @@ def post_Profile():
     finally:
         # Close session
         session.close()
-        
+
+
+@app.route("/api/unlockAchievements", methods=["POST"])       
+def post_unlock_achievements():
+    """
+    Unlock trophies, and return an array with all the id of trophies that has been unlocked
+
+    Returns:
+    - If the score is saved successfully, returns a JSON object with a "message" key and a 200 status code.
+    - If the token or score is invalid, returns a JSON object with an "error" key and a 401 status code.
+    - If there is an error while saving the score, returns a JSON object with a "message" and an "error" key and a 500 status code.
+    """
+    try:
+        session = get_session()
+        logging.info("getting profile")
+        data = request.get_json()
+        user = session.query(User).filter_by(token=data["token"]).first()
+        logging.debug(user)
+        if user:
+            unlocked = []
+            for god in TO_UNLOCK_MAP:
+                unlocked.append(TO_UNLOCK_MAP[god](user))
+            
+            user_data = {
+                "unlocked": unlocked
+            }
+            logging.debug(f"unlocked {unlocked}")
+            return jsonify(user_data), 200 
+                # if dont return eror 
+        else:
+            logging.warning(f"User Not found")
+            return jsonify({"error": " user not found"}), 404
+
+
+    except Exception as e:
+        # roll back if error
+        session.rollback()
+        message = "Error while saving score"
+        logging.error(f"{message}: {e}")
+        return jsonify({"message": str(e), "error": message}), 500
+
+    finally:
+        # Close session
+        session.close()
+          
 
 TO_UNLOCK_MAP = {
     "Zeus": unlock_zeus_trophies,
