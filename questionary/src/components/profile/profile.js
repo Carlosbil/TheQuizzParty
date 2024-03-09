@@ -5,7 +5,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Logo from "../homebotton/homebotton";
 import { useNavigate } from "react-router-dom";
-import { PROFILE_URL, UPDATE_PROFILE_URL } from "../../enpoints";
+import { POST_PROFILE_URL, UPDATE_PROFILE_URL } from "../../enpoints";
 import { getCookieValue } from "../../authSlide";
 import getAvatar, { getAllAvatars } from "../../avatars";
 import AvatarList from "./avatar/avatar";
@@ -77,30 +77,29 @@ function Profile() {
         navigate("/");
     };
 
-    const getUser = () => {
+    const postUser = () => {
+        let token = getCookieValue("auth_token")
         let formData = {
-            "token": getCookieValue("auth_token"),
+          "token": token,
         }
         axios
-        .post(PROFILE_URL, formData)
-        .then((response) => {
-                setUsername(decodeURIComponent(response.data.username));
-                setEmail(decodeURIComponent(response.data.email));
-                setName(decodeURIComponent(response.data.name));
-                setPassword(decodeURIComponent(response.data.password));
-                setShowProfile(true);
-            })
-            .catch((error) => {
-                console.error("Error al realizar la solicitud:", error);
-                if (error.response === undefined || error.response.data.error === undefined) {
-                    toast.error("Error al realizar la solicitud:" + error.message);
-                } else {
-                    toast.error("Error al realizar la solicitud:" + error.response.data.error);
-                }
-            });
-
+          .post(POST_PROFILE_URL, formData)
+          .then((response) => {
+            setUsername(decodeURIComponent(response.data.username));
+            setEmail(decodeURIComponent(response.data.email));
+            setName(decodeURIComponent(response.data.name));
+            setPassword(decodeURIComponent(response.data.password));
+            setShowProfile(true);
             toast.success("Se ha obtenido su informacion")
-
+        })
+        .catch((error) => {
+            console.error("Error al realizar la solicitud:", error);
+            if (error.response === undefined || error.response.data.error === undefined) {
+                toast.error("Error al realizar la solicitud:" + error.message);
+            } else {
+                toast.error("Error al realizar la solicitud:" + error.response.data.error);
+            }
+        });
     }
 
     function maskPassword() {
@@ -112,7 +111,7 @@ function Profile() {
     const [dataLoaded, setDataLoaded] = useState(false);
 
     if (!dataLoaded) {
-        getUser();
+        postUser();
         setDataLoaded(true);
     }
 

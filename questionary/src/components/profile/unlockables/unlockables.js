@@ -20,16 +20,7 @@ function Unlockables() {
   const getUnlocks = () => {
     axios
       .get(GET_UNLOCKS)
-      .then((response) => {
-        let token = getCookieValue("auth_token")
-        let data = {
-          "token": token,
-        }
-        axios
-            .post(UNLOCK_TROPHY, data)
-            .then((response) => {
-                console.log(response.data.unlocks)
-            })
+      .then((response) => {      
         setData(response.data);
         console.log(response.data)
       });

@@ -78,20 +78,12 @@ def generate_token():
 ______________API____________________
 
 """
-# to be deleted
-@app.route("/", methods=["GET"])
-def test_end():
-    user_data = {
-                "name": "HOLA"
-            }
-    logging.info(f"User getted {user_data}")
-    return jsonify(user_data), 200 
 # Define a route to handle GET requests and return questions in JSON format
 @app.route("/api/questions", methods=["GET"])
 def obtener_datos():
     try:
         # Retrieve the requested theme from query parameters
-        logging.info("solicitan las preguntas")
+        logging.info("Getting questions")
         quest = request.args.get("data")
         # Check if the requested theme exists in the loaded questions
         if quest not in themes and quest != "random":   
@@ -107,6 +99,7 @@ def obtener_datos():
 def create_user():
     try:
     # Add new user
+        session = get_session()
         logging.info("Creating User")
         data = request.get_json()
         data["token"] = generate_token()
@@ -138,6 +131,7 @@ def create_user():
 @app.route("/api/logIn", methods=["POST"])
 def login_user():
     try:
+        session = get_session()
         logging.info(f"User logging")
         data = request.get_json()
         
@@ -180,40 +174,6 @@ def login_user():
         # Close Session
         session.close()
 
-@app.route("/api/profile", methods=["POST"])
-def get_user():
-    try:
-        logging.info(f"Getting Profile")
-        data = request.get_json()
-        user = session.query(User).filter_by(token=data["token"]).first()
-
-        # Search user
-        user = session.query(User).filter_by(token=data).first()
-        if user:
-            user_data = {
-                "name": user.name,
-                "username": user.username,
-                "email": user.email,
-                "password": user.password,
-                "image_path": user.image_path
-            }
-            logging.info(f"User getted {user_data}")
-            return jsonify(user_data), 200 
-        else:
-            logging.warning(f"User Not found")
-            return jsonify({"error": " user not found"}), 404
-        
-    except Exception as e:
-        # roll back if error
-        session.rollback()
-        message = "Error while getting the user information"
-        print(f"{message}: {e}")
-        return jsonify({"message": str(e), "error": message}), 500
-
-    finally:
-        # Close session
-        session.close()
-
 
 #in future, automatice to restart the questions everyweek
 @app.route("/api/tinker", methods=["GET"])
@@ -240,6 +200,8 @@ def save_score():
     - If there is an error while saving the score, returns a JSON object with a "message" and an "error" key and a 500 status code.
     """
     try:
+        logging.info("Saving Tinkers Score")
+        session = get_session()
         data = request.get_json()
         user = session.query(User).filter_by(token=data["token"]).first()
         if user:
@@ -259,8 +221,9 @@ def save_score():
                 new_score = Score(**score_data)
                 session.add(new_score)
             
-            session.commit()      
-            
+            session.commit() 
+                 
+        logging.info("Saved Tinkers Score")
         # if dont return eror 
         if not user:
             session.rollback()
@@ -283,6 +246,8 @@ def save_score():
 @app.route("/api/getAllScores", methods=["GET"])
 def get_all_scores():
     try:
+        logging.info("Getting all Tinkers Score")
+        session = get_session()
         scores = session.query(Score).order_by(
                     Score.score.desc(),
                     Score.correct_questions.desc(),
@@ -306,6 +271,7 @@ def get_all_scores():
 @app.route("/api/updateProfile", methods=["PUT"])
 def update_profile():
     try:
+        session = get_session()
         logging.info(f"Updating profile")
         data = request.get_json()
         user = session.query(User).filter_by(token=data["token"]).first()
@@ -340,6 +306,8 @@ def update_profile():
 @app.route("/api/updateAvatar", methods=["PUT"])
 def update_avatar():
     try:
+        logging.info("Updating Avatar")
+        session = get_session()
         data = request.get_json()
         user = session.query(User).filter_by(token=data["token"]).first()
         print(data)
@@ -364,6 +332,8 @@ def update_avatar():
 @app.route("/api/addQuestionary", methods=["POST"])
 def add_questionary():
     try:
+        logging.info("Add questionary response")
+        session = get_session()
         data = request.get_json()
         user = session.query(User).filter_by(token=data["token"]).first()
         print(data)
@@ -401,6 +371,8 @@ def add_questionary():
 @app.route("/api/saveQuestions", methods=["POST"])
 def save_answers():
     try:
+        logging.info("Saving questions response")
+        session = get_session()
         # extract the data from the request
         data = request.get_json()
         user = session.query(User).filter_by(token=data["token"]).first()
@@ -445,45 +417,52 @@ def save_answers():
 
 @app.route("/api/getUnlocks", methods=["GET"])
 def get_all_unlocks():
+    logging.info("Getting achivements")
     return jsonify(unlockable), 200
 
-@app.route("/api/unlockTrophy", methods=["POST"])
-def get_all_unlocked():
+@app.route("/api/postProfile", methods=["POST"])       
+def post_Profile():
+    """
+    Get profile information
+
+    Returns:
+    - If the score is saved successfully, returns a JSON object with a "message" key and a 200 status code.
+    - If the token or score is invalid, returns a JSON object with an "error" key and a 401 status code.
+    - If there is an error while saving the score, returns a JSON object with a "message" and an "error" key and a 500 status code.
+    """
     try:
-        logging.info(f"Unlocking trophies")
+        session = get_session()
+        logging.info("getting profile")
         data = request.get_json()
-        """session_unlock = get_session()
-       
-        # Search user
-        user = session_unlock.query(User).filter_by(token=data).first()
-        logging.info(data)
-        unlocked = []
-        # if dont return eror 
-        if not user or not is_token_valid(user.token):
-            return jsonify({"message": "Invalid token, reload the page"}), 401
-        
-        # unlock gods
-        for god in unlockable:
-            if TO_UNLOCK_MAP.get(god):
-                unlocked+= TO_UNLOCK_MAP[god](user)"""
-
-
-        info = {
-            "unlocks":[]
+        user = session.query(User).filter_by(token=data["token"]).first()
+        logging.debug(user)
+        if user:
+            user_data = {
+                "name": user.name,
+                "username": user.username,
+                "email": user.email,
+                "password": user.password,
+                "image_path": user.image_path
             }
-        logging.info(f"User Logged {info}")
-        return jsonify(info), 200 
+            logging.info(f"User getted {user_data}")
+            return jsonify(user_data), 200 
+                # if dont return eror 
+        else:
+            logging.warning(f"User Not found")
+            return jsonify({"error": " user not found"}), 404
+
 
     except Exception as e:
         # roll back if error
-        session_unlock.rollback()
-        message = "Error while unlocking trophies in"
+        session.rollback()
+        message = "Error while saving score"
         print(f"{message}: {e}")
-        return jsonify({"message": message, "error": str(e)}), 500
+        return jsonify({"message": str(e), "error": message}), 500
 
     finally:
-        # Close Session
-        session_unlock.close()
+        # Close session
+        session.close()
+        
 
 TO_UNLOCK_MAP = {
     "Zeus": unlock_zeus_trophies,
