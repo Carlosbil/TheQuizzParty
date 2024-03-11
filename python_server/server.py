@@ -486,7 +486,7 @@ def post_unlock_achievements():
         if user:
             unlocked = []
             for god in TO_UNLOCK_MAP:
-                unlocked.append(TO_UNLOCK_MAP[god](user))
+                unlocked.append(TO_UNLOCK_MAP[god](user.username))
             
             user_data = {
                 "unlocked": unlocked
