@@ -135,5 +135,3 @@ def init_db():
 
 def get_session():
     return init_db()
-# Inicializa la base de datos al cargar el módulo
-session = init_db()

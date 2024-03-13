@@ -6,13 +6,13 @@ from flask_cors import CORS
 import logging
 import os
 import base64
-from  dataBase import session, User, Score, Questionary, Room, Results
+from  dataBase import User, Score, Questionary, Room, Results
 from  tinkers import generate_questions, get_weekly_questions
 from  bcrypt import hashpw, gensalt, checkpw
 from  socketio_handler import QUESTION_MAP
 from  app import socketio
-from  dataBase import session, User, get_session
-from  to_unlock import unlock_ares_trophies,unlock_athenea_trophies,unlock_dionysus_trophies,unlock_godofgods_trophies,unlock_hermes_trophies,unlock_zeus_trophies
+from  dataBase import User, get_session
+from  to_unlock import achiv_user
 
 app = Flask(__name__)
 socketio.init_app(app)
@@ -28,8 +28,9 @@ file_path = os.path.join(dir_path, "data", "questions.json")
 unlock_path = os.path.join(dir_path, "data", "to_unlock.json")
 
 # Delete all existing rooms
+session = get_session()
 session.query(Room).delete()
-
+session.close()
 # Open the JSON file with explicit encoding and load the questions
 # Explicitly specifying the encoding ensures compatibility across different platforms
 with open(file_path, "r", encoding="utf-8") as f:
@@ -485,11 +486,11 @@ def post_unlock_achievements():
         logging.debug(user)
         if user:
             unlocked = []
-            for god in TO_UNLOCK_MAP:
-                unlocked.append(TO_UNLOCK_MAP[god](user.username))
+            unlock_achiv = achiv_user(user)
+            unlock_achiv.unlock_all()
             
             user_data = {
-                "unlocked": unlocked
+                "unlocked": unlock_achiv.unlocked
             }
             logging.debug(f"unlocked {unlocked}")
             return jsonify(user_data), 200 
@@ -510,15 +511,6 @@ def post_unlock_achievements():
         # Close session
         session.close()
           
-
-TO_UNLOCK_MAP = {
-    "Zeus": unlock_zeus_trophies,
-    "Athena": unlock_athenea_trophies,
-    "Dionysus": unlock_dionysus_trophies,
-    "Ares": unlock_ares_trophies,
-    "Hermes": unlock_hermes_trophies,
-    "God of Gods": unlock_godofgods_trophies,
-}
 if __name__ == "__main__":
     socketio.run(app, host="0.0.0.0", port=3001, debug=True)
            

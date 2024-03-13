@@ -5,57 +5,90 @@ from dataBase import Results
 from collections import defaultdict
 
 logging.basicConfig(filename="./my_app.log", filemode="w", format="%(name)s - %(levelname)s - %(message)s", level=logging.DEBUG)
-aciertos_por_usuario = defaultdict(int)
 
 
-def accerted_by_category(categoria_accerted):
-    session = get_session()
-    return session.query(
-        Results.username,
-        func.sum(categoria_accerted).label('suma_accerted')
-    ).group_by(Results.username).all()
-
-def sumar_aciertos(lista_aciertos):
-    for username, suma_accerted in lista_aciertos:
-        aciertos_por_usuario[username] += suma_accerted
-
-def unlock_zeus_trophies(user):
-    logging.warning(user)
-    unlocked = []
+class achiv_user():
     
-    history_accerted = accerted_by_category(Results.history_accerted)
-    geography_accerted = accerted_by_category(Results.geography_accerted)
-    sports_accerted = accerted_by_category(Results.sports_accerted)
-    entertainment_accerted = accerted_by_category(Results.entertainment_accerted)
-    literature_accerted = accerted_by_category(Results.literature_accerted)
-    science_accerted = accerted_by_category(Results.science_accerted)
-    pop_culture_accerted = accerted_by_category(Results.pop_culture_accerted)
-    
-    for achiv in ZEUS_MAP:
-        unlocked.append({achiv:ZEUS_MAP[achiv](user)})
-    return unlocked
+    def __init__(self, user):
+        self.user = user
+        self.history_accerted = self.get_col_val("history_accerted")
+        self.geography_accerted = self.get_col_val("geography_accerted")
+        self.sports_accerted = self.get_col_val("sports_accerted")
+        self.entertainment_accerted = self.get_col_val("entertainment_accerted")
+        self.literature_accerted = self.get_col_val("literature_accerted")
+        self.science_accerted = self.get_col_val("science_accerted")
+        self.pop_culture_accerted = self.get_col_val("pop_culture_accerted")
+        self.total_right = 0
+        self.accerted_list = [self.history_accerted, self.geography_accerted, 
+                              self.sports_accerted, self.entertainment_accerted, 
+                              self.literature_accerted, self.science_accerted, 
+                              self.pop_culture_accerted]
+        self.TO_UNLOCK_MAP = {
+            "Zeus": self.unlock_zeus_trophies,
+            "Athena": self.unlock_athenea_trophies,
+            "Dionysus": self.unlock_dionysus_trophies,
+            "Ares": self.unlock_ares_trophies,
+            "Hermes": self.unlock_hermes_trophies,
+            "God of Gods": self.unlock_godofgods_trophies,
+        }
+        self.unlocked = []
+        
+    def get_col_val(self, column_name):
+        try:
+            session = get_session()
+            column = getattr(Results, column_name, None)
+            result = session.query(column).filter(Results.username == self.user.username).first()
+            if result:
+                return result[0]
+            else:
+                return None 
+        except Exception as e:
+            # roll back if error
+            session.rollback()
+            message = "Error while saving the information"
+            logging.error(f"{message}: {e}")
+            return -1
+        
+        finally:
+            session.close()
+        
 
-def unlock_athenea_trophies(user):
-    return [2]
+    def sumar_aciertos(self):
+        for add_right in self.accerted_list:
+            self.total_right += add_right
 
-def unlock_hermes_trophies(user):
-    return [3]
+    def unlock_all(self):
+        for troph in self.TO_UNLOCK_MAP:
+            self.unlocked.append(self.TO_UNLOCK_MAP[troph]())
 
-def unlock_dionysus_trophies(user):
-    return [4]
+    def unlock_zeus_trophies(self):
+        logging.warning(self.user)
+        unlocked = [1]
+        self.sumar_aciertos()
+        logging.debug(self.total_right)
+        
+        return unlocked
 
-def unlock_ares_trophies(user):
-    return[5]
+    def unlock_athenea_trophies(self):
+        return [2]
 
-def unlock_godofgods_trophies(user):
-    return [6]
+    def unlock_hermes_trophies(self):
+        return [3]
 
-def unlock_hermes_trophies(username):
-    return [7]
+    def unlock_dionysus_trophies(self):
+        return [4]
+
+    def unlock_ares_trophies(self):
+        return[5]
+
+    def unlock_godofgods_trophies(self):
+        return [6]
+
+    def unlock_hermes_trophies(username):
+        return [7]
+
 
 
 ZEUS_MAP = {
     "100": zeus_100,
-    "101": zeus_101,
-    "102": zeus_102,
 }
