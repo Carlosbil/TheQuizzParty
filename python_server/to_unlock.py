@@ -58,14 +58,19 @@ class achiv_user():
             self.total_right += add_right
 
     def unlock_all(self):
+        logging.debug(f"Unlocking trophies for user{self.user.username}")
         for troph in self.TO_UNLOCK_MAP:
-            self.unlocked.append(self.TO_UNLOCK_MAP[troph]())
+            self.unlocked += self.TO_UNLOCK_MAP[troph]()
 
     def unlock_zeus_trophies(self):
-        logging.warning(self.user)
-        unlocked = [1]
+        unlocked = []
         self.sumar_aciertos()
-        logging.debug(self.total_right)
+        if self.total_right > 10:
+            unlocked = [100,101,102]
+        elif self.total_right > 5:
+            unlocked.append = [100,101]
+        elif self.total_right > 1:
+            unlocked.append = [100]
         
         return unlocked
 
@@ -79,12 +84,12 @@ class achiv_user():
         return [4]
 
     def unlock_ares_trophies(self):
-        return[5]
+        return [5]
 
     def unlock_godofgods_trophies(self):
         return [6]
 
-    def unlock_hermes_trophies(username):
+    def unlock_hermes_trophies(self):
         return [7]
 
 

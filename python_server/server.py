@@ -485,15 +485,19 @@ def post_unlock_achievements():
         user = session.query(User).filter_by(token=data["token"]).first()
         logging.debug(user)
         if user:
-            unlocked = []
             unlock_achiv = achiv_user(user)
             unlock_achiv.unlock_all()
-            
-            user_data = {
-                "unlocked": unlock_achiv.unlocked
-            }
-            logging.debug(f"unlocked {unlocked}")
-            return jsonify(user_data), 200 
+            pos = 0
+            for god in unlockable:
+                pos = 0
+                for achiv in unlockable[god]:
+                    if achiv["id"] in unlock_achiv.unlocked:
+                        unlockable[god][pos]["unlocked"]=True
+                    else:
+                        unlockable[god][pos]["unlocked"]=False
+                    pos +=1
+            logging.debug(f"unlocked {unlockable}")
+            return jsonify(unlockable), 200 
                 # if dont return eror 
         else:
             logging.warning(f"User Not found")
@@ -503,7 +507,7 @@ def post_unlock_achievements():
     except Exception as e:
         # roll back if error
         session.rollback()
-        message = "Error while saving score"
+        message = "Error while unlocking trophies"
         logging.error(f"{message}: {e}")
         return jsonify({"message": str(e), "error": message}), 500
 
@@ -512,7 +516,7 @@ def post_unlock_achievements():
         session.close()
           
 if __name__ == "__main__":
-    socketio.run(app, host="0.0.0.0", port=3001, debug=True)
+    socketio.run(app, host="0.0.0.0", port=3002, debug=True)
            
 # Run the Flask app with the specified configuration
 # The configuration (host, port, debug) can be adjusted as needed or made configurable
