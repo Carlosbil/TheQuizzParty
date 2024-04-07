@@ -7,9 +7,6 @@ import ZEBRON from "./assets/images/achi/ZeusCober.png"
 import HERBRO from "./assets/images/achi/HermesBronze.png"
 import HERSIL from "./assets/images/achi/HermesSilver.png"
 import HERGOL from "./assets/images/achi/HermesGold.png"
-import ARGOLD from "./assets/images/achi/AresGold.png"
-import ARSILV from "./assets/images/achi/AresSilver.png"
-import ARBRON from "./assets/images/achi/AresBronze.png"
 
 const achivMap = {
     "atgold": ATGOLD,
@@ -20,10 +17,7 @@ const achivMap = {
     "zeusgold": ZEGOLD,
     "hermesgold": HERGOL,
     "hermessilv": HERSIL,
-    "hermesbron": HERBRO,
-    "aresgold": ARGOLD,
-    "aressilv": ARSILV,
-    "aresbron": ARBRON
+    "hermesbron": HERBRO
 }
 
 export default function getArchi(name){

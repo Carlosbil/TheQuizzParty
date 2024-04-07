@@ -5,4 +5,3 @@ python_server/.env
 *.pyc
 .vscode/settings.json
 python_server/my_app.log
-*.log

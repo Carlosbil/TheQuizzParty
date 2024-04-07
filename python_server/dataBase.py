@@ -34,8 +34,10 @@ _________________
 """
 class Score(Base):
     __tablename__ = 'scores'
+    
     score_id = Column(Integer, Sequence('score_id_seq'), primary_key=True)
     username = Column(String(50), ForeignKey('usuarios.username', onupdate="CASCADE", ondelete="CASCADE"))
+
     score = Column(Float)
     time_taken = Column(Integer)
     correct_questions = Column(Integer)
@@ -94,7 +96,6 @@ class Results(Base):
     science_wrong = Column(Integer, default=0)
     pop_culture_accerted = Column(Integer, default=0)
     pop_culture_wrong = Column(Integer, default=0)
-    tinkers_win = Column(Integer, default=0)
         # Relación con la tabla usuarios
 """
 -----------------
