@@ -18,6 +18,7 @@ class achiv_user():
         self.literature_accerted = self.get_col_val("literature_accerted")
         self.science_accerted = self.get_col_val("science_accerted")
         self.pop_culture_accerted = self.get_col_val("pop_culture_accerted")
+        self.tinkers_win = self.get_col_val("tinkers_win")
         self.total_right = 0
         self.accerted_list = [self.history_accerted, self.geography_accerted, 
                               self.sports_accerted, self.entertainment_accerted, 
@@ -75,7 +76,20 @@ class achiv_user():
         return unlocked
 
     def unlock_athenea_trophies(self):
-        return [2]
+        unlocked = []
+        categories = {
+            'sports_accerted': {10: 200, 100: 201, 500: 202},
+            'history_accerted': {10: 203, 100: 204, 500: 205},
+            'geography_accerted': {10: 206, 100: 207, 500: 208},
+        }
+        
+        
+        for category, thresholds in categories.items():
+            accerted = getattr(self, category, 0)
+            for threshold, trophy in sorted(thresholds.items()):
+                if accerted > threshold:
+                    unlocked.append(trophy)
+        return unlocked
 
     def unlock_hermes_trophies(self):
         return [3]
