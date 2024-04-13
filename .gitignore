@@ -6,3 +6,4 @@ python_server/.env
 .vscode/settings.json
 python_server/my_app.log
 *.log
+python_server/*.log
