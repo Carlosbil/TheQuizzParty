@@ -5,7 +5,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { QUESTIONS_URL, SAVE_QUESTION_URL } from "../../enpoints"
 import { getCookieValue } from "../../authSlide";
-
+import { playSoundByName } from "../../sounds";
 function QuestionDisplayer({ question_prop, options_prop, answer_prop }) {
   const [selectedOption, setSelectedOption] = useState(null);
   const [question, setQuestion] = useState(question_prop);
@@ -21,6 +21,12 @@ function QuestionDisplayer({ question_prop, options_prop, answer_prop }) {
       "theme": localStorage.getItem("category"),
       "accerted": option === answer? 1 : 0
     }
+    if (option === answer) {
+      playSoundByName("good_sound");
+    } else {
+      playSoundByName("bad_sound");
+    }
+    setNext(true)
     axios
     .post(SAVE_QUESTION_URL, data)
     .then((_) => {

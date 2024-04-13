@@ -5,7 +5,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Logo from "../homebotton/homebotton";
 import { useNavigate } from "react-router-dom";
-import { PROFILE_URL, UPDATE_PROFILE_URL } from "../../enpoints";
+import { POST_PROFILE_URL, UPDATE_PROFILE_URL } from "../../enpoints";
 import { getCookieValue } from "../../authSlide";
 import getAvatar, { getAllAvatars } from "../../avatars";
 import AvatarList from "./avatar/avatar";
@@ -18,6 +18,7 @@ function Profile() {
     const [password, setPassword] = useState("");
     const [showProfile, setShowProfile] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
+    const [changePass, setChangePass] = useState(false);
     const avatar = getCookieValue("avatar")
     const [showPassword, setShowPassword] = useState(false);
     const [formData, setFormData] = useState({
@@ -31,6 +32,9 @@ function Profile() {
     //handle the changes produced in the form
     const handleChange = (e) => {
         const { name, value } = e.target;
+        if (name === "password") {
+            setChangePass(true)
+        }
         setFormData({
             ...formData,
             [name]: value,
@@ -40,34 +44,48 @@ function Profile() {
     //save user information
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (changePass) {
+            let data = {
+                "token": getCookieValue("auth_token"),
+                "name": formData.name !== "" ? formData.name : name,
+                "email": formData.email !== "" ? formData.email : email,
+                "username": formData.username !== "" ? formData.username : username,
+                "password": formData.password !== "" ? formData.password : password
+            }
+            callUpdate(data)
 
-        let data = {
-            "token": getCookieValue("auth_token"),
-            "name": formData.name !== "" ? formData.name : name,
-            "email": formData.email !== "" ? formData.email : email,
-            "username": formData.username !== "" ? formData.username : username,
-            "password": formData.password !== "" ? formData.password : password
+        } else {
+            let data = {
+                "token": getCookieValue("auth_token"),
+                "name": formData.name !== "" ? formData.name : name,
+                "email": formData.email !== "" ? formData.email : email,
+                "username": formData.username !== "" ? formData.username : username,
+            }
+            callUpdate(data)
         }
-        axios
-            .put(UPDATE_PROFILE_URL, data)
-            .then((response) => {
-                setUsername(decodeURIComponent(response.data.username));
-                setEmail(decodeURIComponent(response.data.email));
-                setName(decodeURIComponent(response.data.name));
-                setPassword(decodeURIComponent(response.data.password));
-                setShowProfile(true);
-                setIsEditing(false)
-            })
-            .catch((error) => {
-                console.error("Error al realizar la solicitud:", error);
-                if (error.response === undefined || error.response.data.error === undefined) {
-                    toast.error("Error al realizar la solicitud:" + error.message);
-                } else {
-                    toast.error("Error al realizar la solicitud:" + error.response.data.error);
-                }
-            });
     };
 
+    function callUpdate(data){
+        console.log(data)
+        axios
+        .put(UPDATE_PROFILE_URL, data)
+        .then((response) => {
+            setUsername(decodeURIComponent(response.data.username));
+            setEmail(decodeURIComponent(response.data.email));
+            setName(decodeURIComponent(response.data.name));
+            setPassword(decodeURIComponent(response.data.password));
+            setShowProfile(true);
+            setIsEditing(false)
+        })
+        .catch((error) => {
+            console.error("Error al realizar la solicitud:", error);
+            if (error.response === undefined || error.response.data.error === undefined) {
+                toast.error("Error al realizar la solicitud:" + error.message);
+            } else {
+                toast.error("Error al realizar la solicitud:" + error.response.data.error);
+            }
+        });
+    }
     const handleEditClick = () => {
         setIsEditing(!isEditing);
     };
@@ -77,18 +95,20 @@ function Profile() {
         navigate("/");
     };
 
-    const getUser = () => {
+    const postUser = () => {
+        let token = getCookieValue("auth_token")
         let formData = {
-            "token": getCookieValue("auth_token"),
+            "token": token,
         }
         axios
-        .post(PROFILE_URL, formData)
-        .then((response) => {
+            .post(POST_PROFILE_URL, formData)
+            .then((response) => {
                 setUsername(decodeURIComponent(response.data.username));
                 setEmail(decodeURIComponent(response.data.email));
                 setName(decodeURIComponent(response.data.name));
                 setPassword(decodeURIComponent(response.data.password));
                 setShowProfile(true);
+                toast.success("Se ha obtenido su informacion")
             })
             .catch((error) => {
                 console.error("Error al realizar la solicitud:", error);
@@ -98,9 +118,6 @@ function Profile() {
                     toast.error("Error al realizar la solicitud:" + error.response.data.error);
                 }
             });
-
-            toast.success("Se ha obtenido su informacion")
-
     }
 
     function maskPassword() {
@@ -112,7 +129,7 @@ function Profile() {
     const [dataLoaded, setDataLoaded] = useState(false);
 
     if (!dataLoaded) {
-        getUser();
+        postUser();
         setDataLoaded(true);
     }
 
@@ -176,7 +193,7 @@ function Profile() {
                                     <input
                                         type={showPassword ? "text" : "password"}
                                         name="password"
-                                        placeholder={password}
+                                        placeholder={"*******"}
                                         value={formData.password}
                                         onChange={handleChange}
                                         className="input"

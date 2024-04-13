@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request
 import json, random
 import os
-from dataBase import Tinkers, session
+from dataBase import Tinkers, get_session
 import datetime as datetime
 import logging
 
@@ -26,6 +26,7 @@ def get_random_theme():
     return random.choice(themes)
 def get_weekly_questions():
     week = datetime.date.today().isocalendar()[1]
+    session = get_session()
     tinkers = session.query(Tinkers).filter_by(week=week).first()
 
     if not tinkers:
@@ -38,6 +39,7 @@ def get_weekly_questions():
     else:
         logging.debug("Questions Found")
 
+    session.close()
     return tinkers.questions if tinkers else None
 
 

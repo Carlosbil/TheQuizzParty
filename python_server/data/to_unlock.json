@@ -100,7 +100,7 @@
         {
             "name": "Dioses a mi",
             "description": "Gana a tu archienemigo",
-            "image": "atgold",
+            "image": "aresgold",
             "rank": "Básico",
             "id": 400
         }
@@ -109,29 +109,29 @@
         {
             "name": "Bien hecho",
             "description": "Acierta una pregunta",
-            "image": "atgold",
+            "image": "hermesbron",
             "rank": "Básico",
             "id": 500
         },
         {
             "name": "Mal hecho",
             "description": "Falla una pregunta",
-            "image": "atgold",
+            "image": "hermesbron",
             "rank": "Básico",
             "id": 501
         },
         {
             "name": "¿Qué he hecho qué?",
             "description": "Gana una vez el thinkers",
-            "image": "atgold",
-            "rank": "Básico",
+            "image": "hermesgold",
+            "rank": "Profesional",
             "id": 502
         },
         {
             "name": "¿Pero quién ha sido?",
             "description": "Gana una vez el thinkers",
-            "image": "atgold",
-            "rank": "Básico",
+            "image": "hermessilv",
+            "rank": "Medio",
             "id": 503
         }
     ],
