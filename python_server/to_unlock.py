@@ -32,7 +32,7 @@ class achiv_user():
             "Hermes": self.unlock_hermes_trophies,
             "God of Gods": self.unlock_godofgods_trophies,
         }
-        self.unlocked = []
+        self.unlocked = list()
         
     def get_col_val(self, column_name):
         try:
@@ -46,7 +46,7 @@ class achiv_user():
         except Exception as e:
             # roll back if error
             session.rollback()
-            message = "Error while saving the information"
+            message = "Error while saving the information at get_col_val"
             logging.error(f"{message}: {e}")
             return -1
         
@@ -56,27 +56,36 @@ class achiv_user():
 
     def sumar_aciertos(self):
         for add_right in self.accerted_list:
-            self.total_right += add_right
+            if add_right:
+                # Asegúrate de que add_right es un entero antes de sumarlo.
+                # Si add_right es una lista y quieres sumar todos sus elementos:
+                if isinstance(add_right, list):
+                    self.total_right += sum(add_right)
+                else:
+                    self.total_right += add_right
 
     def unlock_all(self):
         logging.debug(f"Unlocking trophies for user{self.user.username}")
+        self.unlocked = [] if not self.unlocked else self.unlocked
         for troph in self.TO_UNLOCK_MAP:
-            self.unlocked += self.TO_UNLOCK_MAP[troph]()
+            value = self.TO_UNLOCK_MAP[troph]()
+            if value:
+                self.unlocked.extend(self.TO_UNLOCK_MAP[troph]())
 
     def unlock_zeus_trophies(self):
-        unlocked = []
+        unlocked = list()
         self.sumar_aciertos()
         if self.total_right > 10:
             unlocked = [100,101,102]
         elif self.total_right > 5:
-            unlocked.append = [100,101]
+            unlocked = [100,101]
         elif self.total_right > 1:
-            unlocked.append = [100]
+            unlocked = [100]
         
         return unlocked
 
     def unlock_athenea_trophies(self):
-        unlocked = []
+        unlocked = list()
         categories = {
             'sports_accerted': {10: 200, 100: 201, 500: 202},
             'history_accerted': {10: 203, 100: 204, 500: 205},
