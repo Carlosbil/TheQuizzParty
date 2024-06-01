@@ -483,7 +483,6 @@ def post_unlock_achievements():
         logging.info("getting profile")
         data = request.get_json()
         user = session.query(User).filter_by(token=data["token"]).first()
-        logging.debug(user)
         if user:
             unlock_achiv = achiv_user(user)
             unlock_achiv.unlock_all()
@@ -496,8 +495,46 @@ def post_unlock_achievements():
                     else:
                         unlockable[god][pos]["unlocked"]=False
                     pos +=1
-            logging.debug(f"unlocked {unlockable}")
+            logging.debug(f"unlocked {unlockable} for user {user}")
             return jsonify(unlockable), 200 
+                # if dont return eror 
+        else:
+            logging.warning(f"User Not found")
+            return jsonify({"error": " user not found"}), 404
+
+
+    except Exception as e:
+        # roll back if error
+        session.rollback()
+        message = "Error while unlocking trophies"
+        logging.error(f"{message}: {e}")
+        return jsonify({"message": str(e), "error": message}), 500
+
+    finally:
+        # Close session
+        session.close()
+        
+
+@app.route("/api/userStats", methods=["POST"])       
+def post_user_stats():
+    """
+    Get user stats
+
+    Returns:
+    - If the score is saved successfully, returns a JSON object with a "message" key and a 200 status code.
+    - If the token or score is invalid, returns a JSON object with an "error" key and a 401 status code.
+    - If there is an error while saving the score, returns a JSON object with a "message" and an "error" key and a 500 status code.
+    """
+    try:
+        session = get_session()
+        logging.info("getting profile")
+        data = request.get_json()
+        user = session.query(User).filter_by(token=data["token"]).first()
+        if user:
+            unlock_achiv = achiv_user(user)
+            unlock_achiv.unlock_all()
+            logging.debug(f"Get stats for user {user} and stats {unlock_achiv.accerted_list}")
+            return jsonify(unlock_achiv.accerted_list), 200 
                 # if dont return eror 
         else:
             logging.warning(f"User Not found")

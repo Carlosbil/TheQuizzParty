@@ -12,6 +12,7 @@ import Questionary from "./components/questionary/questionary";
 import store from "./store";
 import MenuBattleRoyale from "./components/battleRoyale/menuBattleRoyale";
 import QuestionsMenu from "./components/questionMode/questionsMenu";
+import Stats from "./components/stats/showStats";
 
 function ProtectedRoute({ children }) {
   const allCookies = document.cookie;
@@ -38,6 +39,7 @@ function App() {
           <Route path="/looserRoyale" element={<ProtectedRoute><LostPage /></ProtectedRoute>} />
           <Route path="/winnerRoyale" element={<ProtectedRoute><WinPage /></ProtectedRoute>} />
           <Route path="/questions" element={<ProtectedRoute><QuestionsMenu /></ProtectedRoute>} />
+          <Route path="/stats" element={<ProtectedRoute><Stats /></ProtectedRoute>} />
           <Route path="*" element={<Navigate to="/logIn" />} />
         </Routes>
       </Router>

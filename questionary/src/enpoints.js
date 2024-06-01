@@ -24,3 +24,4 @@ export const SAVE_QUESTION_URL = `${BASE_URL}/api/saveQuestions`
 export const GET_UNLOCKS = `${BASE_URL}/api/getUnlocks`
 export const UNLOCK_ACHIEVEMENTS = `${BASE_URL}/api/unlockAchievements`
 export const POST_PROFILE_URL = `${BASE_URL}/api/postProfile`;
+export const POST_STATS_URL = `${BASE_URL}/api/userStats`
