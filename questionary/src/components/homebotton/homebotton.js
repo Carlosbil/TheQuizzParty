@@ -1,13 +1,11 @@
 import React, { useState } from "react";
-import logo from "./logo_provisional.png";
-import menu from "../../assets/images/menu.png";
 import home from "../../assets/images/home.png";
 
-import { Link } from "react-router-dom";
 import "./homebotton.css";
 import { getCookieValue } from "../../authSlide";
 import sound_on from "../../assets/images/audio_on.png";
 import sound_off from "../../assets/images/audio_mute.png";
+import stats from "../../assets/images/stats.png"
 import { stopAllSounds } from "../../sounds";
 
 function DropdownMenu({ onClick, prop_avatar }) {
@@ -19,6 +17,13 @@ function DropdownMenu({ onClick, prop_avatar }) {
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+
+  const handleStats = () => {
+    window.location.href = "/stats"
+  }
+  const handleProfile = () => {
+    window.location.href = "/profile"
+  }
 
   // set if play or not sounds 
   const toggleSound = () => {
@@ -49,12 +54,11 @@ function DropdownMenu({ onClick, prop_avatar }) {
         )}
         {isOpen && (
           <div>
-            <Link to="profile">
               <button
                 className="profile_container"
-                style={{ backgroundImage: `url(${userAvatar})` }}>
+                style={{ backgroundImage: `url(${userAvatar})` }}
+                onClick={handleProfile}>
               </button>
-            </Link>
           </div>)}
         {isOpen && (
           <div>
@@ -62,6 +66,14 @@ function DropdownMenu({ onClick, prop_avatar }) {
               className="profile_container"
               onClick={toggleSound}
               style={{ backgroundImage: `url(${sound ? sound_on : sound_off})` }}>
+            </button>
+          </div>)}
+          {isOpen && (
+          <div>
+            <button
+              className="profile_container"
+              onClick={handleStats}
+              style={{ backgroundImage: `url(${stats})` }}>
             </button>
           </div>)}
       </div >

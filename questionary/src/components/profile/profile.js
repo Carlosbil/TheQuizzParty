@@ -65,26 +65,26 @@ function Profile() {
         }
     };
 
-    function callUpdate(data){
+    function callUpdate(data) {
         console.log(data)
         axios
-        .put(UPDATE_PROFILE_URL, data)
-        .then((response) => {
-            setUsername(decodeURIComponent(response.data.username));
-            setEmail(decodeURIComponent(response.data.email));
-            setName(decodeURIComponent(response.data.name));
-            setPassword(decodeURIComponent(response.data.password));
-            setShowProfile(true);
-            setIsEditing(false)
-        })
-        .catch((error) => {
-            console.error("Error al realizar la solicitud:", error);
-            if (error.response === undefined || error.response.data.error === undefined) {
-                toast.error("Error al realizar la solicitud:" + error.message);
-            } else {
-                toast.error("Error al realizar la solicitud:" + error.response.data.error);
-            }
-        });
+            .put(UPDATE_PROFILE_URL, data)
+            .then((response) => {
+                setUsername(decodeURIComponent(response.data.username));
+                setEmail(decodeURIComponent(response.data.email));
+                setName(decodeURIComponent(response.data.name));
+                setPassword(decodeURIComponent(response.data.password));
+                setShowProfile(true);
+                setIsEditing(false)
+            })
+            .catch((error) => {
+                console.error("Error al realizar la solicitud:", error);
+                if (error.response === undefined || error.response.data.error === undefined) {
+                    toast.error("Error al realizar la solicitud:" + error.message);
+                } else {
+                    toast.error("Error al realizar la solicitud:" + error.response.data.error);
+                }
+            });
     }
     const handleEditClick = () => {
         setIsEditing(!isEditing);
@@ -166,38 +166,50 @@ function Profile() {
                             <div className="container">
                                 <h2>Por favor introduzca sus datos</h2>
                                 <form onSubmit={handleFormSubmit}>
-                                    <input
-                                        type="text"
-                                        name="name"
-                                        placeholder={name}
-                                        value={formData.name}
-                                        onChange={handleChange}
-                                        className="input"
-                                    />
-                                    <input
-                                        type="text"
-                                        name="username"
-                                        placeholder={username}
-                                        value={formData.username}
-                                        onChange={handleChange}
-                                        className="input"
-                                    />
-                                    <input
-                                        type="email"
-                                        name="email"
-                                        placeholder={email}
-                                        value={formData.email}
-                                        onChange={handleChange}
-                                        className="input"
-                                    />
-                                    <input
-                                        type={showPassword ? "text" : "password"}
-                                        name="password"
-                                        placeholder={"*******"}
-                                        value={formData.password}
-                                        onChange={handleChange}
-                                        className="input"
-                                    />
+                                    <div>
+                                        <label>Name:</label>
+                                        <input
+                                            type="text"
+                                            name="name"
+                                            placeholder={name}
+                                            value={formData.name}
+                                            onChange={handleChange}
+                                            className="input"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label>Username</label>
+                                        <input
+                                            type="text"
+                                            name="username"
+                                            placeholder={username}
+                                            value={formData.username}
+                                            onChange={handleChange}
+                                            className="input"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label>Email</label>
+                                        <input
+                                            type="email"
+                                            name="email"
+                                            placeholder={email}
+                                            value={formData.email}
+                                            onChange={handleChange}
+                                            className="input"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label>Password:</label>
+                                        <input
+                                            type={showPassword ? "text" : "password"}
+                                            name="password"
+                                            placeholder={"*******"}
+                                            value={formData.password}
+                                            onChange={handleChange}
+                                            className="input"
+                                        />
+                                    </div>
 
                                     <button type="button" className="nextQuestion" onClick={() => setShowPassword(!showPassword)}>
                                         {showPassword ? "Ocultar" : "Mostrar"}
