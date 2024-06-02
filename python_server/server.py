@@ -533,8 +533,8 @@ def post_user_stats():
         if user:
             unlock_achiv = achiv_user(user)
             unlock_achiv.unlock_all()
-            logging.debug(f"Get stats for user {user} and stats {unlock_achiv.accerted_list}")
-            return jsonify(unlock_achiv.accerted_list), 200 
+            logging.debug(f"Get stats for user {user} and stats {unlock_achiv.proportion_list}")
+            return jsonify(unlock_achiv.proportion_list), 200 
                 # if dont return eror 
         else:
             logging.warning(f"User Not found")

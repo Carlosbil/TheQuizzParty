@@ -25,6 +25,13 @@ const options = {
         line: {
             borderWidth: 3
         }
+    },
+    plugins: {
+        legend: {
+            labels: {
+                color: 'white' // Color de los labels en la leyenda
+            }
+        }
     }
 };
 
@@ -34,7 +41,7 @@ const RadarChart = ({ accerted_list }) => {
         labels: ['Historia', 'Geografía', 'Deportes', 'Entretenimiento', 'Literatura', 'Ciencia', 'Cultura Pop'],
         datasets: [
             {
-                label: 'Cantidad Acertada',
+                label: 'Porcentaje de aciertos en cada categoría',
                 data: accerted_list,
                 backgroundColor: 'rgba(255, 99, 132, 0.5)', // Color de fondo
                 borderColor: 'rgb(255, 99, 132)',          // Color del borde

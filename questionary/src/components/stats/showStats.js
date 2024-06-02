@@ -24,6 +24,8 @@ const Stats = () => {
             .post(POST_STATS_URL, formData)
             .then((response) => {
                 toast.success("Se ha obtenido su informacion")
+                console.log(response)
+                setAccertedList(response.data)
             })
             .catch((error) => {
                 console.error("Error al realizar la solicitud:", error);
@@ -38,7 +40,6 @@ const Stats = () => {
     useEffect(() => {
         // Aquí podrías cargar los datos o recibirlos de alguna API
         postStats()
-        setAccertedList([5, 3, 2, 10, 4, 7, 1]); // ejemplo de datos
     }, []);
 
     return (

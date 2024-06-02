@@ -19,11 +19,27 @@ class achiv_user():
         self.science_accerted = self.get_col_val("science_accerted")
         self.pop_culture_accerted = self.get_col_val("pop_culture_accerted")
         self.tinkers_win = self.get_col_val("tinkers_win")
+        self.history_wrong = self.get_col_val("history_wrong")
+        self.geography_wrong = self.get_col_val("geography_wrong")
+        self.sports_wrong = self.get_col_val("sports_wrong")
+        self.entertainment_wrong = self.get_col_val("entertainment_wrong")
+        self.literature_wrong = self.get_col_val("literature_wrong")
+        self.science_wrong = self.get_col_val("science_wrong")
+        self.pop_culture_wrong = self.get_col_val("pop_culture_wrong")
         self.total_right = 0
         self.accerted_list = [self.history_accerted, self.geography_accerted, 
                               self.sports_accerted, self.entertainment_accerted, 
                               self.literature_accerted, self.science_accerted, 
                               self.pop_culture_accerted]
+        self.wrong_list = [self.history_wrong, self.geography_wrong, 
+                              self.sports_wrong, self.entertainment_wrong, 
+                              self.literature_wrong, self.science_wrong, 
+                              self.pop_culture_wrong]
+        self.proportion_list = self.proportion_list = [(self.accerted_list[i] / (self.wrong_list[i] + self.accerted_list[i]) * 100)
+                                                        if (self.wrong_list[i] + self.accerted_list[i]) != 0
+                                                        else 0
+                                                        for i in range(len(self.accerted_list))]
+
         self.TO_UNLOCK_MAP = {
             "Zeus": self.unlock_zeus_trophies,
             "Athena": self.unlock_athenea_trophies,

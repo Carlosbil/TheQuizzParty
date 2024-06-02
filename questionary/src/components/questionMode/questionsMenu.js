@@ -36,6 +36,9 @@ function QuestionsMenu() {
                         <button className="fun_royale" onClick={() => startGame("geography")} > Geografia </button>
                         <button className="fun_royale" onClick={() => startGame("science")} > Ciencias </button>
                         <button className="fun_royale" onClick={() => startGame("entertainment")} > Entretenimiento </button>
+                        <button className="fun_royale" onClick={() => startGame("sports")} > Deporte </button>
+                        <button className="fun_royale" onClick={() => startGame("literature")} > Entretenimiento </button>
+                        <button className="fun_royale" onClick={() => startGame("pop_culture")} > Cultura POP </button>
                     </div>
                 </div>}
                 {showQuestionDisplayer && <QuestionDisplayer />}
