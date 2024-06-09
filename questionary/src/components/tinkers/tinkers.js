@@ -5,10 +5,21 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { TINKERS_URL } from "../../enpoints"
 import TinkersDisplayer from "./tinkersDisplayer";
+import DropdownMenu from "../homebotton/homebotton";
+import getAvatar from "../../avatars";
+import { getCookieValue } from "../../authSlide";
+import QuestionDisplayer from "../questionDisplayer/questionDisplayer";
+import { stopSoundByName } from "../../sounds";
 
-function Tinkers() {
+export function Tinkers() {
   const [questions, setQuestions] = useState([]);
   const [start, setStart] = useState(false);
+  const avatar = getCookieValue("avatar")
+
+  const leaveGame = () => {
+    window.location.href = "/"
+  }
+
 
   const handleButtonClick = () => {
     setStart(true);
@@ -35,14 +46,17 @@ function Tinkers() {
   }
 
   return (
-    <div>
-      {!start &&
-        <button className="fun_tinker" onClick={handleButtonClick} >The fastest thinker alive</button>
-      }
-      {!start && <h2>Acierta para sumar puntos</h2>}
-      {!start && <h2>Acaba antes de tiempo para ganar aún más</h2>}
-      {!start && <h2>¡Suerte!</h2>}
-      {start && <TinkersDisplayer questions_prop={questions} />}
+    <div className="back">
+      <DropdownMenu onClick={leaveGame} prop_avatar={getAvatar(avatar)} /> {/* Agregar el componente Logo aquí */}
+      <b className="page">
+        {!start &&
+          <button className="fun_tinker" onClick={handleButtonClick} >The fastest thinker alive</button>
+        }
+        {!start && <h2>Acierta para sumar puntos</h2>}
+        {!start && <h2>Acaba antes de tiempo para ganar aún más</h2>}
+        {!start && <h2>¡Suerte!</h2>}
+        {start && <TinkersDisplayer questions_prop={questions} />}
+      </b>
       <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
     </div>
   );

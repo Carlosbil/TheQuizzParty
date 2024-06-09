@@ -7,6 +7,15 @@
     align-items: center;
 }
 
+.back2 {
+    background: linear-gradient(45deg, #02002a 60%, #0d0d54 70%, rgb(8, 0, 255) 90%);
+    min-width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .page {
     background-color: rgba(0, 0, 0, 0.4);
     /* Capa de blanco con 60% de opacidad */
@@ -158,7 +167,7 @@
 .fun_bot,
 .fun_bot::after {
     text-align: center;
-    background-color: #fff;
+    background-color: rgba(245, 241, 241, 0.4);
     /* Color de fondo de la tarjeta */
     border: none;
     border-radius: 10px;

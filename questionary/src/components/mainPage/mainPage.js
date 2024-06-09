@@ -5,6 +5,7 @@ import { playSoundInLoopByName } from "../../sounds";
 import DropdownMenu from "../homebotton/homebotton";
 import getAvatar, { avatar1 } from "../../avatars";
 import { getCookieValue } from "../../authSlide";
+import BackgroundBeams from "./BackGroundBeam";
 
 
 
@@ -25,10 +26,23 @@ function MainPage() {
   };
 
   return (
-    <div className="back">
+    <div className="back2">
+      <BackgroundBeams></BackgroundBeams>
       <div className="page">
+        {showButton && <h1 className="relative z-10 text-7xl  bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-600  text-center font-sans font-bold">
+          The Quizz BDP
+        </h1>}
+        {showButton && <p className="text-neutral-500 max-w-lg mx-auto my-2 text-sm text-center relative z-10">
+          Bienvenidos a The Quizz BDP un lugar para jugar, competir, aprender y sobre todo divertirse
+          junto a tus amigos y contra tus compañeros de clase
+        </p>}
         <DropdownMenu onClick={handleLogoClick} prop_avatar={getAvatar(avatar)} /> {/* Agregar el componente Logo aquí */}
-        {showButton && <button className="fun_bot" onClick={handleButtonClick_menu}>The quizz</button>}
+        {showButton && 
+        <button onClick={handleButtonClick_menu} className="px-4 py-2 backdrop-blur-sm border bg-blue-300/10 border-blue-500/20 text-white mx-auto text-center rounded-full relative mt-4">
+          <span>Empieza ahora →</span>
+          <div className="absolute inset-x-0  h-px -bottom-px bg-gradient-to-r w-3/4 mx-auto from-transparent via-blue-500 to-transparent" />
+        </button>
+        }
         {showSecondComponent && <FunButtons />}
         <FootPage />
       </div>
