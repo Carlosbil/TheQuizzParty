@@ -9,9 +9,9 @@
   padding: 30px;
   width: 60vmin;
   gap: 10px;
-  background-color: rgba(252, 243, 243, 0.3);
+  background-color: rgba(252, 243, 243, 0);
   border-radius: 5px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);
+  /*box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);*/
   position: absolute; /* Para centrar verticalmente */
   top: 50%; /* Para centrar verticalmente */
   left: 50%; /* Para centrar horizontalmente */
