@@ -8,8 +8,8 @@ import { LOGIN_URL } from "../../enpoints";
 import { motion } from "framer-motion";
 import AuroraBackground from "../describe/aurora";
 
-import { Label } from "./label";
-import { Input } from "./input";
+import  Label  from "./label";
+import  Input  from "./input";
 import TextGenerateEffect from "../describe/generateText";
 
 function LogIn() {
