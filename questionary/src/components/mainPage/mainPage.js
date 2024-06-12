@@ -45,7 +45,7 @@ function MainPage() {
         {showButton &&
           <button
             onClick={() => handleButtonClick_menu()}
-            className="bg-black rounded-full mx-auto hover:text-black px-4 py-2 text-center transform transition-all duration-300 hover:bg-blue-500 text-white hover:scale-105 active:scale-95 shadow-lg hover:shadow-2xl pulse-thinker"
+            className="bg-black rounded-lg mx-auto hover:text-black px-4 py-2 text-center transform transition-all duration-300 hover:bg-blue-500 text-white hover:scale-105 active:scale-95 shadow-lg hover:shadow-2xl pulse-thinker"
           >
             Pulse aquí para jugar!
           </button>

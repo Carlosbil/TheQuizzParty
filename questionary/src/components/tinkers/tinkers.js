@@ -65,7 +65,7 @@ export function Tinkers() {
             <div className="flex justify-center">
               <button
                 onClick={() => handleButtonClick()}
-                className="bg-white rounded-full mx-auto text-black px-4 py-2 text-center transform transition-all duration-300 hover:bg-emerald-500 hover:text-white hover:scale-105 active:scale-95 shadow-lg hover:shadow-2xl pulse-thinker"
+                className="bg-white rounded-lg mx-auto text-black px-4 py-2 text-center transform transition-all duration-300 hover:bg-emerald-500 hover:text-white hover:scale-105 active:scale-95 shadow-lg hover:shadow-2xl pulse-thinker"
               >
                 Pulse aquí para jugar!
               </button>

@@ -42,8 +42,25 @@ function QuestionsMenu() {
                     </div>
                 </div>}
                 {showQuestionDisplayer && <QuestionDisplayer />}
-                {showQuestionDisplayer && <button className="leave" onClick={() => leaveGame()}> Volver al menú principal </button>}
-                {showQuestionDisplayer && <button className="leave" onClick={() => changeTheme()}> Seleccionar otro tema </button>}
+
+                {showQuestionDisplayer &&
+                    <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-[90%] flex justify-center space-x-4 mb-10">
+                        <button
+                            onClick={() => leaveGame()}
+                            className="bg-white rounded-lg text-black px-4 py-2 text-center transform transition-all duration-300 hover:bg-emerald-500 hover:text-white hover:scale-105 active:scale-95 shadow-lg hover:shadow-2xl pulse-thinker flex-grow mx-2"
+                        >
+                            Menu Principal
+                        </button>
+                        <button
+                            onClick={() => changeTheme()}
+                            className="bg-white rounded-lg text-black px-4 py-2 text-center transform transition-all duration-300 hover:bg-emerald-500 hover:text-white hover:scale-105 active:scale-95 shadow-lg hover:shadow-2xl pulse-thinker flex-grow mx-2"
+                        >
+                            Cambiar Tema
+                        </button>
+                    </div>}
+
+
+
 
             </b>
             <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
