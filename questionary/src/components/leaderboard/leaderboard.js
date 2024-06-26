@@ -6,7 +6,7 @@ import BackgroundBeams from "../mainPage/BackGroundBeam";
 
 const Leaderboard = ({ players }) => {
   return (
-    <div className="leaderboard relative bg-gradient-to-r from-indigo-500 via-white-500 to-blue-500 p-8 rounded-lg shadow-lg text-white">
+    <div className="leaderboard relative h-[80vh] bg-gradient-to-r from-indigo-500 via-white-500 to-blue-500 p-8 rounded-lg shadow-lg text-white">
       <BackgroundBeams />
       <h1 className="text-3xl font-bold text-center mb-6">Leaderboard</h1>
       <ul>

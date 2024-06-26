@@ -10,7 +10,7 @@ import getAvatar from "../../avatars";
 import { getCookieValue } from "../../authSlide";
 import QuestionDisplayer from "../questionDisplayer/questionDisplayer";
 import { stopSoundByName } from "../../sounds";
-import TextGenerateEffect from "../describe/generateText";
+import TextGenerateEffect, { TextGenerateEffectWhite } from "../describe/generateText";
 
 export function Tinkers() {
   const [questions, setQuestions] = useState([]);
@@ -61,7 +61,7 @@ export function Tinkers() {
             <div className="text-3xl md:text-7xl font-bold text-white text-center">
               Thinkers
             </div>
-            <TextGenerateEffect words={words2} className="font-extralight text-base md:text-4xl text-neutral-200 py-4" />
+            <TextGenerateEffectWhite words={words2} className="font-extralight text-base md:text-4xl text-neutral-200 py-4" />
             <div className="flex justify-center">
               <button
                 onClick={() => handleButtonClick()}

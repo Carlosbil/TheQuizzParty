@@ -142,7 +142,7 @@ function TinkersDisplayer({ questions_prop }) {
           Menu Principal
         </button>
       }
-      {end && <button className="linked" onClick={() => window.location.href = "/questionary"}>Me ayudarías respondiendo a unas preguntas? Le llevará 1 minuto</button>}
+      {end && <button className="linked" onClick={() => window.location.href = "/questionary"}>Me ayudaría respondiendo a unas preguntas? Le llevará 1 minuto</button>}
 
 
       <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />

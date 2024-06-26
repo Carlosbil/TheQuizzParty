@@ -103,6 +103,14 @@ docker-compose up -d
 
 To use k8s use:
 
+## USE CERTIFICATES
+To use HTTPS you should use a nginx server or apache server, and use some libraries like certbot here is an example
+
+```bash
+sudo apt install certbot python3-certbot-nginx
+sudo certbot --nginx
+```
+
 **This section are going to be completed...** 
 
 
