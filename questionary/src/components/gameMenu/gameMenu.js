@@ -19,12 +19,11 @@ function FunButtons() {
     stopSoundByName("background")
     navigate("/questions")
     localStorage.setItem("category", "History");
-
   };
 
   const handleButtonClick_tinkers = () => {
     stopSoundByName("background")
-    setShowTinkers(true);
+    navigate("/tinkers")
   };
   const handleButtonClick_battleRoyale = () => {
     stopSoundByName("background")

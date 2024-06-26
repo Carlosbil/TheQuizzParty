@@ -10,6 +10,8 @@ import { getCookieValue } from "../../authSlide";
 import getAvatar, { getAllAvatars } from "../../avatars";
 import AvatarList from "./avatar/avatar";
 import Unlockables from "./unlockables/unlockables";
+import Label from "../logIn/label";
+import Input from "../logIn/input";
 
 function Profile() {
     const [username, setUsername] = useState("");
@@ -41,6 +43,11 @@ function Profile() {
         });
     };
 
+    const handleDisconect = () => {
+        document.cookie = "isAuthenticated=true; path=/; max-age=7200; samesite=Lax";
+        document.cookie = `auth_token=1; path=/; max-age=7200; samesite=Lax`;
+        navigate("/login");
+    }
     //save user information
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -76,6 +83,7 @@ function Profile() {
                 setPassword(decodeURIComponent(response.data.password));
                 setShowProfile(true);
                 setIsEditing(false)
+                toast.done("Información Guardada")
             })
             .catch((error) => {
                 console.error("Error al realizar la solicitud:", error);
@@ -144,6 +152,7 @@ function Profile() {
 
     return (
         <div>
+            <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
             <div className="star-background">
                 {stars.map((_, index) => (
                     <div
@@ -158,45 +167,47 @@ function Profile() {
                     />
                 ))}
 
-                <div className="page">
+                <div className="mt-20 w-[80%] mx-auto rounded-2xl p-4 md:p-8 shadow-input bg-none dark:bg-none flex flex-col items-center justify-center">
                     <Logo onClick={handleLogoClick} prop_avatar={getAvatar(avatar)} />
                     <AvatarList avatarMap={getAllAvatars()} prop_avatar={getAvatar(avatar)} />
-                    <div className="display_div">
+                    <div className="w-[100%]">
                         {isEditing ? (
-                            <div className="container">
-                                <h2>Por favor introduzca sus datos</h2>
-                                <form onSubmit={handleFormSubmit}>
-                                    <div>
-                                        <label>Name:</label>
-                                        <input
-                                            type="text"
+                            <div className="w-[100%] mx-auto rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
+                                <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200 mb-2 text-center">
+                                    Cambie los datos de su perfil
+                                </h2>
+                                <form className="my-4" onSubmit={handleSubmit}>
+                                    <div className="mb-2">
+                                        <Label htmlFor="name">Name</Label>
+                                        <Input
+                                            id="name"
                                             name="name"
                                             placeholder={name}
+                                            type="text"
                                             value={formData.name}
                                             onChange={handleChange}
-                                            className="input"
                                         />
                                     </div>
-                                    <div>
-                                        <label>Username</label>
-                                        <input
-                                            type="text"
+                                    <div className="mb-2">
+                                        <Label htmlFor="username">Username</Label>
+                                        <Input
+                                            id="username"
                                             name="username"
                                             placeholder={username}
+                                            type="text"
                                             value={formData.username}
                                             onChange={handleChange}
-                                            className="input"
                                         />
                                     </div>
-                                    <div>
-                                        <label>Email</label>
-                                        <input
-                                            type="email"
+                                    <div className="mb-2">
+                                        <Label htmlFor="email">Email</Label>
+                                        <Input
+                                            id="email"
                                             name="email"
                                             placeholder={email}
+                                            type="email"
                                             value={formData.email}
                                             onChange={handleChange}
-                                            className="input"
                                         />
                                     </div>
                                     <div>
@@ -215,29 +226,78 @@ function Profile() {
                                         {showPassword ? "Ocultar" : "Mostrar"}
                                     </button>
 
-                                    <button type="submit" className="button_profile">
-                                        Guardar
-                                    </button>
-                                    <button className="button_profile" onClick={toggleEdit}>
-                                        Cancelar
-                                    </button>
+                                    <div className="relative top-5 left-1/2 transform -translate-x-1/2 w-full max-w-[90%] flex justify-center space-x-4 mb-10">
+                                        <button
+                                            className="relative inline-flex h-12 overflow-hidden rounded-lg p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 dark:focus:ring-offset-slate-800 transition-all duration-300 hover:bg-slate-950 dark:hover:bg-slate-100"
+                                            type="submit"
+                                        >
+                                            <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
+                                            <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-950 px-6 py-2 text-sm font-medium text-black dark:text-white backdrop-blur-3xl transition-all duration-300 hover:bg-slate-950 hover:text-white dark:hover:bg-slate-100 dark:hover:text-black">
+                                                Guardar &uarr;
+                                            </span>
+                                        </button>
+                                        <button
+                                            className="relative inline-flex h-12 overflow-hidden rounded-lg p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 dark:focus:ring-offset-slate-800 transition-all duration-300 hover:bg-slate-950 dark:hover:bg-slate-100"
+                                            onClick={toggleEdit}
+                                        >
+                                            <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
+                                            <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-950 px-6 py-2 text-sm font-medium text-black dark:text-white backdrop-blur-3xl transition-all duration-300 hover:bg-slate-950 hover:text-white dark:hover:bg-slate-100 dark:hover:text-black">
+                                                Cancelar
+                                            </span>
+                                        </button>
+                                    </div>
                                 </form>
                                 <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
                             </div>
                         ) : (
-                            <>
-                                <div className="log">Su perfil</div>
-                                <div className="profile-group"><div className="tittle_profile">Nombre:</div>{showProfile && <div>{name}</div>}</div>
-                                <div className="profile-group"><div className="tittle_profile">Username:</div>{showProfile && <div>{username}</div>}</div>
-                                <div className="profile-group"><div className="tittle_profile">Email:</div>{showProfile && <div>{email}</div>}</div>
-                                <div className="profile-group"><div className="tittle_profile">Contraseña:</div>{showProfile && <div>{maskPassword()}</div>}</div>
-                                <button className="button_profile" onClick={toggleEdit}>Editar</button>
-                            </>
+                            <div className="w-[100%] mx-auto">
+                                <div className="mb-4 flex flex-col">
+                                    <div className="text-lg text-white font-semibold">Nombre:</div>
+                                    {showProfile && <div className="text-base text-gray-200">{name}</div>}
+                                </div>
+                                <div className="bg-gradient-to-r from-transparent via-blue-300 dark:via-blue-700 to-transparent my-4 h-[1px] w-full" />
+
+                                <div className="mb-4 flex flex-col">
+                                    <div className="text-lg text-white font-semibold">Username:</div>
+                                    {showProfile && <div className="text-base text-gray-200">{username}</div>}
+                                </div>
+                                <div className="bg-gradient-to-r from-transparent via-blue-300 dark:via-blue-700 to-transparent my-4 h-[1px] w-full" />
+                                <div className="mb-4 flex flex-col">
+                                    <div className="text-lg text-white font-semibold">Email:</div>
+                                    {showProfile && <div className="text-base text-gray-200">{email}</div>}
+                                </div>
+                                <div className="bg-gradient-to-r from-transparent via-blue-300 dark:via-blue-700 to-transparent my-4 h-[1px] w-full" />
+                                <div className="mb-4 flex flex-col">
+                                    <div className="text-lg text-white font-semibold">Contraseña:</div>
+                                    {showProfile && <div className="text-base text-gray-200">{maskPassword()}</div>}
+                                </div>
+                                <div className="bg-gradient-to-r from-transparent via-blue-300 dark:via-blue-700 to-transparent my-4 h-[1px] w-full" />
+                                <div className="relative top-5 left-1/2 transform -translate-x-1/2 w-full max-w-[90%] flex justify-center space-x-4 mb-10">
+                                    <button
+                                        className="relative inline-flex h-12 overflow-hidden rounded-lg p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 dark:focus:ring-offset-slate-800 transition-all duration-300 hover:bg-slate-950 dark:hover:bg-slate-100"
+                                        onClick={handleEditClick}
+                                    >
+                                        <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
+                                        <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-950 px-6 py-2 text-sm font-medium text-black dark:text-white backdrop-blur-3xl transition-all duration-300 hover:bg-slate-950 hover:text-white dark:hover:bg-slate-100 dark:hover:text-black">
+                                            Editar Perfil &rarr;
+                                        </span>
+                                    </button>
+                                    <button
+                                        className="relative inline-flex h-12 overflow-hidden rounded-lg p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 dark:focus:ring-offset-slate-800 transition-all duration-300 hover:bg-slate-950 dark:hover:bg-slate-100"
+                                        onClick={handleDisconect}
+                                    >
+                                        <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
+                                        <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-950 px-6 py-2 text-sm font-medium text-black dark:text-white backdrop-blur-3xl transition-all duration-300 hover:bg-slate-950 hover:text-white dark:hover:bg-slate-100 dark:hover:text-black">
+                                            Desconectarse &larr;
+                                        </span>
+                                    </button>
+                                </div>
+                                <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
+                            </div>
                         )}
                     </div>
                     <Unlockables />
                 </div>
-                <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
             </div>
         </div>
     );

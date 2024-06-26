@@ -9,14 +9,11 @@ function AvatarList({ avatarMap, prop_avatar }) {
     const containerRef = useRef(null);
     const [showAvatars, setShowAvatars] = useState(false);
     const [selectedAvatar, setSelectedAvatar] = useState(prop_avatar);
-    const [selectedIndex, setSelectedIndex] = useState(0)
-    const [hasSelected, setHasSelected] = useState(false)
 
     const handleImageClick = (avatar, index) => {
         setSelectedAvatar(avatar);
         setShowAvatars(false);
-        setSelectedIndex(index)
-        setHasSelected(true)
+        saveAvatar(index)
     };
 
     const saveAvatar = (index) => {
@@ -29,7 +26,6 @@ function AvatarList({ avatarMap, prop_avatar }) {
         .put(UPDATE_AVATAR_URL, data)
         .then(() => {
             toast.success("Se ha guardado su informacion")
-            setHasSelected(false)
         })            
         .catch((error) => {
             console.error("Error al realizar la solicitud:", error);
@@ -57,7 +53,6 @@ function AvatarList({ avatarMap, prop_avatar }) {
                     onClick={() => handleImageClick(avatar, index)}
                 />
             ))}
-            {hasSelected && !showAvatars && <button className="linked_avatar" onClick={() => saveAvatar(selectedIndex)}>{"Guardar"}</button>}
             <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
 
         </div>

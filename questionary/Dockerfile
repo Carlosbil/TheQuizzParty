@@ -1,22 +1,23 @@
-FROM ubuntu:latest
-
-# Install vim
-RUN apt-get update && apt-get install -y vim
-
+# Usar la imagen base de Node.js
 FROM node:18.15.0
 
+# Establecer el directorio de trabajo dentro del contenedor
 WORKDIR /app
 
-# Copy dependencies
+# Copiar los archivos de configuración de dependencias
 COPY package*.json ./
 
-# Install them
+# Instalar las dependencias del proyecto
 RUN npm install
 
-# Copy code
+# Copiar el código de la aplicación al contenedor
 COPY . .
 
-# Expose 3000
+# Ejecutar TailwindCSS para generar el CSS
+RUN npx tailwindcss -i ./src/index.css -o ./src/tailwind-output.css --minify
+
+# Exponer el puerto 3000
 EXPOSE 3000
 
+# Comando para ejecutar la aplicación
 CMD ["npm", "start"]

@@ -13,13 +13,15 @@ import store from "./store";
 import MenuBattleRoyale from "./components/battleRoyale/menuBattleRoyale";
 import QuestionsMenu from "./components/questionMode/questionsMenu";
 import Stats from "./components/stats/showStats";
+import Tinkers from "./components/tinkers/tinkers";
+import Describe from "./components/describe/describe";
 
 function ProtectedRoute({ children }) {
   const allCookies = document.cookie;
 
   const isAuthenticated = allCookies.includes("isAuthenticated=true");
   if (!isAuthenticated) {
-    return <Navigate to="/logIn" replace />;
+    return <Navigate to="/describe" replace />;
   }
 
   return children;
@@ -37,9 +39,11 @@ function App() {
           <Route path="/questionary" element={<ProtectedRoute><Questionary /></ProtectedRoute>} />
           <Route path="/battleRoyale" element={<ProtectedRoute><MenuBattleRoyale /></ProtectedRoute>} />
           <Route path="/looserRoyale" element={<ProtectedRoute><LostPage /></ProtectedRoute>} />
+          <Route path="/tinkers" element={<ProtectedRoute><Tinkers /></ProtectedRoute>} />
           <Route path="/winnerRoyale" element={<ProtectedRoute><WinPage /></ProtectedRoute>} />
           <Route path="/questions" element={<ProtectedRoute><QuestionsMenu /></ProtectedRoute>} />
           <Route path="/stats" element={<ProtectedRoute><Stats /></ProtectedRoute>} />
+          <Route path="/describe" element={<Describe />} />
           <Route path="*" element={<Navigate to="/logIn" />} />
         </Routes>
       </Router>

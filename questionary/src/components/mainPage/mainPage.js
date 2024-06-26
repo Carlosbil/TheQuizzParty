@@ -5,6 +5,8 @@ import { playSoundInLoopByName } from "../../sounds";
 import DropdownMenu from "../homebotton/homebotton";
 import getAvatar, { avatar1 } from "../../avatars";
 import { getCookieValue } from "../../authSlide";
+import BackgroundBeams from "./BackGroundBeam";
+import FlipWords from "./flipWords";
 
 
 
@@ -12,6 +14,7 @@ function MainPage() {
   const [showSecondComponent, setShowSecondComponent] = useState(false);
   const [showButton, setShowButton] = useState(true);
   const avatar = getCookieValue("avatar")
+  const words = ["jugar", "competir", "aprender", "divertirse"];
 
   const handleButtonClick_menu = () => {
     //playSoundInLoopByName("background")
@@ -25,10 +28,29 @@ function MainPage() {
   };
 
   return (
-    <div className="back">
+    <div className="back2">
+      <BackgroundBeams></BackgroundBeams>
       <div className="page">
+        {showButton && <h1 className="relative z-10 text-7xl  bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-600  text-center font-sans font-bold">
+          The Quizz BDP
+        </h1>}
+        {showButton &&
+          <p className="text-neutral-500 max-w-lg mx-8 my-2 text-sm text-center relative z-10 text-justify">
+            Bienvenidos a The Quizz BDP un lugar para
+            <FlipWords words={words} /> <br />
+            jugar, competir, aprender y sobre todo divertirse
+            junto a tus amigos y tus compañeros
+          </p>}
         <DropdownMenu onClick={handleLogoClick} prop_avatar={getAvatar(avatar)} /> {/* Agregar el componente Logo aquí */}
-        {showButton && <button className="fun_bot" onClick={handleButtonClick_menu}>The quizz</button>}
+        {showButton &&
+          <button
+            onClick={() => handleButtonClick_menu()}
+            className="bg-black rounded-lg mx-auto hover:text-black px-4 py-2 text-center transform transition-all duration-300 hover:bg-blue-500 text-white hover:scale-105 active:scale-95 shadow-lg hover:shadow-2xl pulse-thinker"
+          >
+            Pulse aquí para jugar!
+          </button>
+
+        }
         {showSecondComponent && <FunButtons />}
         <FootPage />
       </div>
