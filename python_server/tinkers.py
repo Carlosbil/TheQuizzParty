@@ -67,3 +67,13 @@ def generate_questions(number, theme):
         quests.append(one_question)
         
     return quests
+
+QUESTION_MAP = {
+    "history": ["history_accerted", "history_wrong"],
+    "geography": ["geography_accerted", "geography_wrong"],
+    "sports": ["sports_accerted", "sports_wrong"],
+    "entertainment": ["entertainment_accerted", "entertainment_wrong"],
+    "literature": ["literature_accerted", "literature_wrong"],
+    "science": ["science_accerted", "science_wrong"],
+    "pop_culture": ["pop_culture_accerted", "pop_culture_wrong"]
+}

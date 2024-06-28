@@ -6,16 +6,15 @@ from flask_cors import CORS
 import logging
 import os
 import base64
-from  dataBase import User, Score, Questionary, Room, Results
-from  tinkers import generate_questions, get_weekly_questions
+from  dataBase import User, Score, Questionary, Room, Results, Academy
+from  tinkers import generate_questions, get_weekly_questions, QUESTION_MAP
 from  bcrypt import hashpw, gensalt, checkpw
-from  socketio_handler import QUESTION_MAP
-from  app import socketio
+#from  app import socketio
 from  dataBase import User, get_session
 from  to_unlock import achiv_user
 
 app = Flask(__name__)
-socketio.init_app(app)
+#socketio.init_app(app)
 # Enable Cross-Origin Resource Sharing (CORS) for the specified origins
 # CORS(app, resources={r"*": {"origins": "http://localhost:3000"}})
 CORS(app)
@@ -27,10 +26,10 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 file_path = os.path.join(dir_path, "data", "questions.json")
 unlock_path = os.path.join(dir_path, "data", "to_unlock.json")
 
-# Delete all existing rooms
-session = get_session()
-session.query(Room).delete()
-session.close()
+acpass = os.getenv("ACADEMY_PASS")
+acusername= os.getenv("ACADEMY_USERNAME")
+
+
 # Open the JSON file with explicit encoding and load the questions
 # Explicitly specifying the encoding ensures compatibility across different platforms
 with open(file_path, "r", encoding="utf-8") as f:
@@ -40,7 +39,39 @@ with open(unlock_path,"r", encoding="utf-8") as f:
     unlockable = json.load(f)
     
 themes = ["history", "geography", "sports", "entertainment", "literature", "science", "pop_culture"]
+hashed_password = hashpw(acpass.encode("utf-8"), gensalt())
+acpass = hashed_password.decode("utf-8")
+new_user = Academy(
+    username=acusername,
+    email=f"{acusername}@example.com",  # Puedes ajustar esto según tus necesidades
+    password=acpass,
+    questions=questions
+)
 
+# Delete all existing rooms
+session = get_session()
+# Agregar el nuevo usuario a la sesión y confirmar la transacción
+existing_user = session.query(Academy).filter_by(username=acusername).first()
+
+if existing_user:
+    print("El usuario ya existe en la base de datos.")
+else:
+    # Crear un nuevo usuario
+    new_user = Academy(
+        username=acusername,
+        email=f"{acusername}@example.com",  # Puedes ajustar esto según tus necesidades
+        password=acpass,
+        questions=questions
+    )
+
+    # Agregar el nuevo usuario a la sesión y confirmar la transacción
+    session.add(new_user)
+    session.commit()
+    print("Usuario creado con éxito.")
+    
+session.query(Room).delete()
+session
+session.close()
 
 def is_token_valid(token_with_timestamp):
     try:
@@ -552,8 +583,8 @@ def post_user_stats():
         # Close session
         session.close()
           
-if __name__ == "__main__":
-    socketio.run(app, host="0.0.0.0", port=3002, debug=True)
+#if __name__ == "__main__":
+    #socketio.run(app, host="0.0.0.0", port=3002, debug=True)
            
 # Run the Flask app with the specified configuration
 # The configuration (host, port, debug) can be adjusted as needed or made configurable

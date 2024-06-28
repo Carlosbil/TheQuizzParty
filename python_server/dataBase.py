@@ -24,7 +24,7 @@ class User(Base):
     num_preguntas_acertadas = Column(Integer)
     token = Column(String)
     image_path = Column(String(100))  # Path to user's image
-
+    academy = Column(String(50), default="TheQuizzBDP")
     
 load_dotenv()
 """
@@ -121,6 +121,18 @@ class Trophy(Base):
     username = Column(String(50), ForeignKey('usuarios.username', onupdate="CASCADE", ondelete="CASCADE"), primary_key=True)
     unlocked = Column(ARRAY(Integer))
 
+"""
+-----------------
+AdminAcademy TABLE
+_________________
+"""
+class Academy(Base):
+    __tablename__ = 'academy'
+    id = Column(Integer, Sequence('usuario_id_seq'), primary_key=True)
+    username = Column(String(50), unique=True)
+    email = Column(String(100))
+    password = Column(String(255))
+    questions = Column(JSON)
     
 DATABASE_URL = os.getenv("DATABASE_URL")
 

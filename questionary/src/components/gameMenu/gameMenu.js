@@ -1,19 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import "./gameMenu.css";
-import QuestionDisplayer from "../questionDisplayer/questionDisplayer";
-import Tinkers from "../tinkers/tinkers";
 import { stopSoundByName } from "../../sounds";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function FunButtons() {
-  const [showQuestionDisplayer, setShowQuestionDisplayer] = useState(false);
-  const [showTinkers, setShowTinkers] = useState(false)
   const navigate = useNavigate()
-
-  const handleButtonClick_menu = (category) => {
-    stopSoundByName("background")
-    setShowQuestionDisplayer(true);
-  };
 
   const handleButtonClick_questionsGame = () => {
     stopSoundByName("background")
@@ -27,11 +19,10 @@ function FunButtons() {
   };
   const handleButtonClick_battleRoyale = () => {
     stopSoundByName("background")
-    navigate("/battleRoyale")
+    toast.warning(" Sigo trabajando en esto, vuelve pronto ❤️")
   };
   return (
     <div className="Page">
-      {!showQuestionDisplayer && !showTinkers && (
         <div className="container_game_menu">
           <button className="fun_royale" key="battle_royale_button" onClick={() => handleButtonClick_battleRoyale()}>
             👑 Battle Royale 👑
@@ -41,12 +32,9 @@ function FunButtons() {
             ⚠️ Tinkers ⚠️
           </button>
           <button className="fun_royale" key="questionsGame_button" onClick={() => handleButtonClick_questionsGame()}>
-            🎮 Questions Game 🎮
+            🎮 Practica aquí 🎮
           </button>
         </div>
-      )}
-      {showQuestionDisplayer && <QuestionDisplayer />}
-      {showTinkers && <Tinkers></Tinkers>}
     </div>
   );
 }

@@ -18,6 +18,24 @@
   transform: translate(-50%, -50%); /* Ajusta la posición para centrar exactamente */
 }
 
+.container_questions_menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; /* Alinea los elementos hijos en el centro */
+  min-height: 40vmin;
+  max-height: 70vmin;
+  margin: auto; /* Centra horizontalmente */
+  padding: 30px;
+  width: 60vmin;
+  gap: 10px;
+  background-color: rgba(252, 243, 243, 0);
+  border-radius: 5px;
+  /*box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5);*/
+  position: relative; /* Para centrar verticalmente */
+  top: 50%; /* Para centrar verticalmente */
+  left: 0%; /* Para centrar horizontalmente */
+}
 
 .fun-buttons-container {
   display: flex;
@@ -45,4 +63,232 @@
   transform: translateY(-5px) scale(1.05); /* Elevación y ligero aumento de tamaño */
   background-color: #28A745; /* Color verde al pasar el ratón */
   box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada al pasar el ratón */
+}
+
+.fun_royale {
+    position: relative;
+    text-align: center;
+    background-color: #1a1e24;
+    color: #c5c6c7;
+    border: none;
+    border-radius: 5px;
+    max-width: 400px;
+    width: 110%;
+    padding: 20px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.8);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    margin-bottom: 2vmin;
+    background-image: linear-gradient(160deg, #0a0b0d 0%, #161b22 100%);
+    overflow: hidden;
+    animation: pulse 2s infinite;
+}
+
+.fun_royale::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(160deg, rgba(234, 2, 237, 0.6), rgba(22, 22, 124, 0.6), rgba(0, 212, 255, 0.6));
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    border-radius: 5px;
+}
+
+.fun_royale:hover::before {
+    opacity: 1;
+}
+
+.fun_royale:hover {
+    transform: scale(1.05);
+    color: #ffffff;
+    box-shadow: 0px 8px 30px rgba(0, 255, 255, 0.5);
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+    }
+    50% {
+        box-shadow: 0px 8px 20px rgba(0, 255, 255, 0.6);
+    }
+    100% {
+        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+    }
+}
+
+@keyframes pulse_winner {
+    0% {
+        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+    }
+    50% {
+        box-shadow: 4px 20px 40px rgba(255, 223, 0, 1);
+    }
+    100% {
+        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+    }
+}
+
+@keyframes pulse_looser {
+    0% {
+        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+    }
+    50% {
+        box-shadow: 4px 20px 40px rgba(255, 68, 0, 1);
+    }
+    100% {
+        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+    }
+}
+
+/*css for RoomBattleRoyale*/
+
+.room_battle_royale {
+        display: flex;
+        flex-wrap: nowrap; /* Evita que los elementos se envuelvan */
+        justify-content: center;
+        background-color: rgba(250, 246, 246, 0.3); /* Fondo oscuro para un ambiente de juego */
+        padding: 20px;
+        width: 90%;
+        max-width: 80%;
+        margin-left: 3%;
+        border-radius: 15px;
+        overflow-x: auto;
+        overflow: hidden; /* Agrega scroll horizontal automáticamente */
+    }
+  
+  .player-card {
+    background-color: #333;
+    color: #fff; /* Texto blanco para contraste */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 3px rgba(5, 5, 5, 0.5); /* Sombra verde para un toque de Battle Royale */
+    text-align: center;
+    width: 14vmin;
+    height: 20vmin;
+    animation: pulse 2s infinite;
+    margin-left: 3vmin;
+    overflow-x: auto; /* Agrega scroll horizontal automáticamente */
+
+  }
+  
+  .player-card img {
+    width: 13vmin;
+    height: 13vmin;
+    border-radius: 50%; /* Avatares redondos */
+    margin-bottom: 10px;
+  }
+
+h1 {
+    color: #fff;
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 2vmin;
+    margin-top: 2vmin;
+    text-shadow: 0px 0px 10px rgba(0, 255, 255, 0.5);
+}
+
+h2 {
+    color: #fff;
+    text-align: left;
+    font-size: 1.0rem;
+    margin-bottom: 2vmin;
+    margin-top: 2vmin;
+    margin-left: 2vmin;
+    margin-right: 2vmin;
+    text-shadow: 0px 0px 10px rgba(0, 255, 255, 0.5);
+}
+
+.royale_scoreboard {
+    position: fixed;
+    align-self: center;
+    top: 65%;
+    margin-left: 4%;
+    z-index: 100; 
+    max-width: 110%;
+    min-width: 110%;
+    overflow: hidden;
+    overflow-x: auto;
+}
+
+.playing_battle_royale {
+    display: flex;
+    flex-wrap: nowrap; /* Evita que los elementos se envuelvan */
+    justify-content: center;
+    background-color: rgba(250, 246, 246, 0.3); /* Fondo oscuro para un ambiente de juego */
+    padding: 20px;
+    max-width: 70%;
+    max-height: fit-content;
+    border-radius: 15px;
+    overflow: hidden;
+    overflow-x: auto; 
+    gap: 10px;
+    align-items: center;
+    margin-left: 3vmax;
+}
+
+    .royale-player-card {
+    background-color: #333;
+    color: #fff; /* Texto blanco para contraste */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 3px rgba(5, 5, 5, 0.5); /* Sombra verde para un toque de Battle Royale */
+    text-align: center;
+    max-width: 8vh;
+    max-width: 12vh;
+    min-width: 8vh;
+    min-width: 12vh;
+    animation: pulse 2s infinite;
+    gap: 10px;
+    overflow-x: auto; /* Agrega scroll horizontal automáticamente */
+    align-content: center;
+    }
+
+    .royale-player-card img {
+    width: 7vh;
+    height: 7vh;
+    border-radius: 50%; /* Avatares redondos */
+    margin-bottom: -5px;
+    }
+
+    /*winner royale*/
+.winner {
+    background-color: #333;
+    color: rgba(255, 223, 0, 1); /* Texto blanco para contraste */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 3px rgba(5, 5, 5, 0.5); /* Sombra verde para un toque de Battle Royale */
+    text-align: center;
+    width: 20vh;
+    height: 10vh;
+    animation: pulse_winner 2s infinite;
+    gap: 10px;
+    overflow-x: auto;
+    align-content: center;
+    margin-left: 3vmax;
+    margin-right: 3vmax;
+    margin-top: 3vmax;
+    margin-bottom: 3vmax;
+}
+
+.looser {
+    background-color: #333;
+    color: #fff; /* Texto blanco para contraste */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 3px rgba(5, 5, 5, 0.5); /* Sombra verde para un toque de Battle Royale */
+    text-align: center;
+    width: 20vh;
+    height: 10vh;
+    animation: pulse_looser 2s infinite;
+    gap: 10px;
+    overflow-x: auto;
+    align-content: center;
+    margin-left: 3vmax;
+    margin-right: 3vmax;
+    margin-top: 3vmax;
+    margin-bottom: 3vmax;
 }
