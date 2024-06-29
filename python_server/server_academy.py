@@ -9,103 +9,25 @@ import base64
 from  dataBase import User, Score, Questionary, Room, Results, Academy
 from  tinkers import generate_questions, get_weekly_questions, QUESTION_MAP
 from  bcrypt import hashpw, gensalt, checkpw
-from  app import app, logging
+#from  app import socketio
 from  dataBase import User, get_session
 from  to_unlock import achiv_user
+from flask import Blueprint
+from utils import generate_token, token_exists, is_token_valid
 
-CORS(app)
+second_app = Blueprint('second_app', __name__)
 
-# Construct the file path in a platform-independent manner
-dir_path = os.path.dirname(os.path.realpath(__file__))
-file_path = os.path.join(dir_path, "data", "questions.json")
-unlock_path = os.path.join(dir_path, "data", "to_unlock.json")
+@second_app.route('/second')
+def second():
+    return "Hola desde la segunda app!"
 
-acpass = os.getenv("ACADEMY_PASS")
-acusername= os.getenv("ACADEMY_USERNAME")
-
-
-# Open the JSON file with explicit encoding and load the questions
-# Explicitly specifying the encoding ensures compatibility across different platforms
-with open(file_path, "r", encoding="utf-8") as f:
-    questions = json.load(f)
-
-with open(unlock_path,"r", encoding="utf-8") as f:
-    unlockable = json.load(f)
-    
-themes = ["history", "geography", "sports", "entertainment", "literature", "science", "pop_culture"]
-hashed_password = hashpw(acpass.encode("utf-8"), gensalt())
-acpass = hashed_password.decode("utf-8")
-new_user = Academy(
-    username=acusername,
-    email=f"{acusername}@example.com",  # Puedes ajustar esto según tus necesidades
-    password=acpass,
-    questions=questions
-)
-
-# Delete all existing rooms
-session = get_session()
-# Agregar el nuevo usuario a la sesión y confirmar la transacción
-existing_user = session.query(Academy).filter_by(username=acusername).first()
-
-if existing_user:
-    print("El usuario ya existe en la base de datos.")
-else:
-    # Crear un nuevo usuario
-    new_user = Academy(
-        username=acusername,
-        email=f"{acusername}@example.com",  # Puedes ajustar esto según tus necesidades
-        password=acpass,
-        questions=questions
-    )
-
-    # Agregar el nuevo usuario a la sesión y confirmar la transacción
-    session.add(new_user)
-    session.commit()
-    print("Usuario creado con éxito.")
-    
-session.query(Room).delete()
-session
-session.close()
-
-def is_token_valid(token_with_timestamp):
-    try:
-        # Split the token and timestamp
-        token, timestamp_str = token_with_timestamp.split("|")
-        timestamp = datetime.datetime.strptime(timestamp_str, "%Y-%m-%d %H:%M:%S")
-
-        # Check if the token has expired (more than 24 hours old)
-        if (datetime.datetime.now() - timestamp).total_seconds() > 7200 :  # 86400 seconds = 24 hours
-            return False
-        return True
-    except:
-        return False
-
-
-# take a look to the DB for search if the token already exists in another user
-def token_exists(token):
-    user_with_token = session.query(User).filter_by(token=token).first()
-    
-    if user_with_token:
-        return True
-    return False
-
-
-def generate_token():
-    token = base64.urlsafe_b64encode(os.urandom(24)).decode("utf-8")
-    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    token_with_timestamp = f"{token}|{timestamp}"
-    while token_exists(token_with_timestamp):
-        token = base64.urlsafe_b64encode(os.urandom(24)).decode("utf-8")
-        token_with_timestamp = f"{token}|{timestamp}"
-    return token_with_timestamp
-
-
+logging.basicConfig(filename="./my_app.log", filemode="w", format="%(name)s - %(levelname)s - %(message)s", level=logging.DEBUG)
 """
 ______________API____________________
 
 """
 # Define a route to handle GET requests and return questions in JSON format
-@app.route("/api/questions", methods=["GET"])
+@second_app.route("/academy/questions", methods=["GET"])
 def obtener_datos():
     try:
         # Retrieve the requested theme from query parameters
@@ -123,7 +45,7 @@ def obtener_datos():
         return jsonify({"message": "Error en el servidor", "error": str(e)}), 500
 
 
-@app.route("/api/createUser", methods=["POST"])
+@second_app.route("/academy/createUser", methods=["POST"])
 def create_user():
     try:
     # Add new user
@@ -156,7 +78,7 @@ def create_user():
         # Close session
         session.close()
     
-@app.route("/api/logIn", methods=["POST"])
+@second_app.route("/academy/logIn", methods=["POST"])
 def login_user():
     try:
         session = get_session()
@@ -204,7 +126,7 @@ def login_user():
 
 
 #in future, automatice to restart the questions everyweek
-@app.route("/api/tinker", methods=["GET"])
+@second_app.route("/academy/tinker", methods=["GET"])
 def get_week_questions():
     try:
     # get the 20 questions if there is none
@@ -217,7 +139,7 @@ def get_week_questions():
         return jsonify({"message": str(e), "error": message}), 500
        
         
-@app.route("/api/tinkerScore", methods=["POST"])       
+@second_app.route("/academy/tinkerScore", methods=["POST"])       
 def save_score():
     """
     Save the score of a user in the database.
@@ -271,7 +193,7 @@ def save_score():
         session.close()
         
         
-@app.route("/api/getAllScores", methods=["GET"])
+@second_app.route("/academy/getAllScores", methods=["GET"])
 def get_all_scores():
     try:
         logging.info("Getting all Tinkers Score")
@@ -296,7 +218,7 @@ def get_all_scores():
         # Close session
         session.close()         
         
-@app.route("/api/updateProfile", methods=["PUT"])
+@second_app.route("/academy/updateProfile", methods=["PUT"])
 def update_profile():
     try:
         session = get_session()
@@ -332,7 +254,7 @@ def update_profile():
         session.close() 
         
         
-@app.route("/api/updateAvatar", methods=["PUT"])
+@second_app.route("/academy/updateAvatar", methods=["PUT"])
 def update_avatar():
     try:
         logging.info("Updating Avatar")
@@ -358,7 +280,7 @@ def update_avatar():
         # Close session
         session.close() 
         
-@app.route("/api/addQuestionary", methods=["POST"])
+@second_app.route("/academy/addQuestionary", methods=["POST"])
 def add_questionary():
     try:
         logging.info("Add questionary response")
@@ -397,7 +319,7 @@ def add_questionary():
         session.close() 
         
         
-@app.route("/api/saveQuestions", methods=["POST"])
+@second_app.route("/academy/saveQuestions", methods=["POST"])
 def save_answers():
     try:
         logging.info("Saving questions response")
@@ -444,12 +366,12 @@ def save_answers():
         session.close() 
 
 
-@app.route("/api/getUnlocks", methods=["GET"])
+@second_app.route("/academy/getUnlocks", methods=["GET"])
 def get_all_unlocks():
     logging.info("Getting achivements")
     return jsonify(unlockable), 200
 
-@app.route("/api/postProfile", methods=["POST"])       
+@second_app.route("/academy/postProfile", methods=["POST"])       
 def post_Profile():
     """
     Get profile information
@@ -493,7 +415,7 @@ def post_Profile():
         session.close()
 
 
-@app.route("/api/unlockAchievements", methods=["POST"])       
+@second_app.route("/academy/unlockAchievements", methods=["POST"])       
 def post_unlock_achievements():
     """
     Unlock trophies, and return an array with all the id of trophies that has been unlocked
@@ -540,7 +462,7 @@ def post_unlock_achievements():
         session.close()
         
 
-@app.route("/api/userStats", methods=["POST"])       
+@second_app.route("/academy/userStats", methods=["POST"])       
 def post_user_stats():
     """
     Get user stats
@@ -569,9 +491,9 @@ def post_user_stats():
     except Exception as e:
         # roll back if error
         session.rollback()
-        message = "Juega para tener estadísticas"
+        message = "Error while unlocking trophies"
         logging.error(f"{message}: {e}")
-        return jsonify({"message": str(e), "error": message}), 200
+        return jsonify({"message": str(e), "error": message}), 500
 
     finally:
         # Close session

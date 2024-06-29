@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import "./App.css";
 import LogIn from "./components/logIn/logIn";
@@ -12,6 +12,7 @@ import QuestionsMenu from "./components/questionMode/questionsMenu";
 import Stats from "./components/stats/showStats";
 import Tinkers from "./components/tinkers/tinkers";
 import Describe from "./components/describe/describe";
+import ChatComponent from "./components/battleRoyale/chat";
 
 function ProtectedRoute({ children }) {
   const allCookies = document.cookie;
@@ -38,6 +39,7 @@ function App() {
           <Route path="/questions" element={<ProtectedRoute><QuestionsMenu /></ProtectedRoute>} />
           <Route path="/stats" element={<ProtectedRoute><Stats /></ProtectedRoute>} />
           <Route path="/describe" element={<Describe />} />
+          <Route path="/chat" element={<ProtectedRoute><ChatComponent /></ProtectedRoute>} />
           <Route path="*" element={<Navigate to="/logIn" />} />
         </Routes>
       </Router>

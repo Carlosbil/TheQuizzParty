@@ -2,7 +2,9 @@
 import io from "socket.io-client";
 
 // local tests
-const BASE_URL = "http://192.168.1.96:3001";
+const LOCAL = "http://192.168.1.96"
+const PORT_LOCAL = "3001"
+const BASE_URL = `${LOCAL}:${PORT_LOCAL}`;
 
 // dockers
 //const BASE_URL = "http://python_server:3001";

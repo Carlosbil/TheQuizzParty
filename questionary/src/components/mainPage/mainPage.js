@@ -38,7 +38,6 @@ function MainPage() {
           <p className="text-neutral-500 max-w-lg mx-8 my-2 text-sm text-center relative z-10 text-justify">
             Bienvenidos a The Quizz BDP un lugar para
             <FlipWords words={words} /> <br />
-            jugar, competir, aprender y sobre todo divertirse
             junto a tus amigos y tus compañeros
           </p>}
         <DropdownMenu onClick={handleLogoClick} prop_avatar={getAvatar(avatar)} /> {/* Agregar el componente Logo aquí */}

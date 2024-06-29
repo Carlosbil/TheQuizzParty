@@ -23,7 +23,10 @@ const Stats = () => {
         axios
             .post(POST_STATS_URL, formData)
             .then((response) => {
-                toast.success("Se ha obtenido su informacion")
+                if (response.data.error !== undefined) {
+                    toast.success(response.data.error)
+                }else{
+                }
                 console.log(response)
                 setAccertedList(response.data)
             })
