@@ -1,0 +1,39 @@
+.fun_royale2 {
+    position: relative;
+    text-align: center;
+    background-color: #1a1e24;
+    color: #c5c6c7;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    padding: 20px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    margin-bottom: 2vmin;
+    background-image: linear-gradient(160deg, #0a0b0d 0%, #161b22 100%);
+    overflow: hidden;
+}
+
+.fun_royale2::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(160deg, rgba(234, 2, 237, 0.6), rgba(22, 22, 124, 0.6), rgba(0, 212, 255, 0.6));
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    border-radius: 5px;
+}
+
+.fun_royale2:hover::before {
+    opacity: 1;
+}
+
+.fun_royale2:hover {
+    transform: scale(1.05);
+    color: #ffffff;
+    box-shadow: 0px 8px 30px rgba(0, 255, 255, 0.5);
+}

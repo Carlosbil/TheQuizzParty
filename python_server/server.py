@@ -12,6 +12,7 @@ from  bcrypt import hashpw, gensalt, checkpw
 from  app import app, logging
 from  dataBase import User, get_session
 from  to_unlock import achiv_user
+from server_socket import handle_message
 
 CORS(app)
 
@@ -576,12 +577,3 @@ def post_user_stats():
     finally:
         # Close session
         session.close()
-          
-#if __name__ == "__main__":
-    #socketio.run(app, host="0.0.0.0", port=3002, debug=True)
-           
-# Run the Flask app with the specified configuration
-# The configuration (host, port, debug) can be adjusted as needed or made configurable
-# if __name__ == "__main__":
-#     app.run(host="0.0.0.0", port=3001, debug=True)
-

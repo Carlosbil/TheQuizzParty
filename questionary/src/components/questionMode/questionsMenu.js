@@ -6,7 +6,7 @@ import getAvatar from "../../avatars";
 import { getCookieValue } from "../../authSlide";
 import QuestionDisplayer from "../questionDisplayer/questionDisplayer";
 import { stopSoundByName } from "../../sounds";
-
+import './questionsMenu.css'
 /**
  * Component that displays the Battle Royale menu.
  * @returns {JSX.Element} JSX element containing the Battle Royale menu.
@@ -34,43 +34,43 @@ function QuestionsMenu() {
                     {!showQuestionDisplayer && (
                         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-16 justify-items-center">
                             <div className="card w-48 h-48 p-4 bg-blue-200 rounded-lg flex flex-col items-center justify-center text-center">
-                                <button className="fun_royale" onClick={() => startGame("history")}>
+                                <button className="fun_royale2" onClick={() => startGame("history")}>
                                     Historia
                                 </button>
                                 <p className="text-xs">Preguntas sobre eventos históricos.</p>
                             </div>
                             <div className="card w-48 h-48 p-4 bg-green-200 rounded-lg flex flex-col items-center justify-center text-center">
-                                <button className="fun_royale" onClick={() => startGame("geography")}>
+                                <button className="fun_royale2" onClick={() => startGame("geography")}>
                                     Geografía
                                 </button>
                                 <p className="text-xs">Explora el mundo y sus maravillas.</p>
                             </div>
                             <div className="card w-48 h-48 p-4 bg-red-200 rounded-lg flex flex-col items-center justify-center text-center">
-                                <button className="fun_royale" onClick={() => startGame("science")}>
+                                <button className="fun_royale2" onClick={() => startGame("science")}>
                                     Ciencias
                                 </button>
                                 <p className="text-xs">Descubre los secretos de la ciencia.</p>
                             </div>
                             <div className="card w-48 h-48 p-4 bg-yellow-200 rounded-lg flex flex-col items-center justify-center text-center">
-                                <button className="fun_royale" onClick={() => startGame("entertainment")}>
+                                <button className="fun_royale2" onClick={() => startGame("entertainment")}>
                                     Entretenimiento
                                 </button>
                                 <p className="text-xs">Mundo del cine, música y más.</p>
                             </div>
                             <div className="card w-48 h-48 p-4 bg-purple-200 rounded-lg flex flex-col items-center justify-center text-center">
-                                <button className="fun_royale" onClick={() => startGame("sports")}>
+                                <button className="fun_royale2" onClick={() => startGame("sports")}>
                                     Deporte
                                 </button>
                                 <p className="text-xs">Todo sobre deportes y atletas.</p>
                             </div>
                             <div className="card w-48 h-48 p-4 bg-pink-200 rounded-lg flex flex-col items-center justify-center text-center">
-                                <button className="fun_royale" onClick={() => startGame("literature")}>
+                                <button className="fun_royale2" onClick={() => startGame("literature")}>
                                     Literatura
                                 </button>
                                 <p className="text-xs">Mundos y obras literarias.</p>
                             </div>
                             <div className="card w-48 h-48 p-4 bg-teal-200 rounded-lg flex flex-col items-center justify-center text-center">
-                                <button className="fun_royale" onClick={() => startGame("pop_culture")}>
+                                <button className="fun_royale2" onClick={() => startGame("pop_culture")}>
                                     Cultura POP
                                 </button>
                                 <p className="text-xs">Fenómenos de la cultura popular.</p>

@@ -24,7 +24,7 @@ function FunButtons() {
   return (
     <div className="Page">
         <div className="container_game_menu">
-          <button className="fun_royale" key="battle_royale_button" onClick={() => handleButtonClick_battleRoyale()}>
+          <button className="fun_royale" key="battle_royale_button" onClick={() =>toast.warning(" Sigo trabajando en esto, vuelve pronto ❤️")}>
             👑 Battle Royale 👑
           </button>
           <button className="fun_royale" key="thinkers_button" onClick={() => handleButtonClick_tinkers()}>
